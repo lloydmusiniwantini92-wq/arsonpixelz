@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-arson-beige {
+  background-color: #EBE9DF;
+}
+
+.bg-arson-red {
+  background-color: #D16D6A;
+}
+
+.text-arson-red {
+  color: #D16D6A;
+}
+
+.text-arson-black {
+  color: #1A1A1A;
+}
+
+.font-stretch-extra {
+    transform: scaleY(0.9);
+}
+
+@layer utilities {
+  .text-outline {
+    -webkit-text-stroke: 1px #1A1A1A;
+    color: transparent;
+  }
+  
+  .text-outline-red {
+     -webkit-text-stroke: 1px #D16D6A;
+     color: transparent;
+  }
+}
+
+/* Smooth Reveal Animation Classes */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
