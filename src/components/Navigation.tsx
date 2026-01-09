@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { XMarkIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, ArrowRightIcon, ShoppingBagIcon, SignalIcon } from "@heroicons/react/24/outline";
+import { useCart } from "../context/CartContext";
 
 // --- ASSETS ---
-// Ensure these paths match your project structure
 import FullLogo from './assets/full.svg';
 import PLogo from './assets/p.png';
+import MenuBackground from './assets/menu_background.png';
 
 // --- THEME CONFIGURATION ---
-const LIGHT_BACKGROUND_ROUTES = ['/marketing', '/branding'];
+const LIGHT_BACKGROUND_ROUTES = ['/', '/marketing', '/branding', '/contact', '/about', '/work', '/legal'];
 
 // --- ICONS (Memoized) ---
 const MarketingIcon = memo(({ className }: { className?: string }) => (
@@ -35,7 +36,7 @@ BrandingIcon.displayName = 'BrandingIcon';
 
 const GamingIcon = memo(({ className }: { className?: string }) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden="true">
-        <path d="M10 3H14V9H20V13H14V19H10V13H4V9H10V13H4V9H10V3Z" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+        <path d="M10 3H14V9H20V13H14V19H10V13H4V9H10V13H4V9H10V13H4V9H10V3Z" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         <circle cx="12" cy="11" r="1" className="opacity-40" fill="currentColor" stroke="none" />
     </svg>
 ));
@@ -51,6 +52,40 @@ const DevAiIcon = memo(({ className }: { className?: string }) => (
     </svg>
 ));
 DevAiIcon.displayName = 'DevAiIcon';
+
+const ShopIcon = memo(({ className }: { className?: string }) => (
+    <ShoppingBagIcon className={className} strokeWidth={1.5} />
+));
+ShopIcon.displayName = 'ShopIcon';
+
+const TransmissionsIcon = memo(({ className }: { className?: string }) => (
+    <SignalIcon className={className} strokeWidth={1.5} />
+));
+TransmissionsIcon.displayName = 'TransmissionsIcon';
+
+// --- CART TRIGGER COMPONENT ---
+const CartTrigger = ({ onLightBackground }: { onLightBackground: boolean }) => {
+    const { setIsCartOpen, cartCount } = useCart();
+
+    return (
+        <button
+            onClick={() => setIsCartOpen(true)}
+            className={`
+                relative group p-2 rounded-full transition-colors duration-300
+                ${onLightBackground ? 'hover:bg-black/5 text-[#0F0F0F]' : 'hover:bg-white/5 text-white'}
+            `}
+            aria-label="Open Cart"
+        >
+            <ShoppingBagIcon className="w-6 h-6" strokeWidth={1.5} />
+
+            {cartCount > 0 && (
+                <span className="absolute top-0 right-0 w-4 h-4 bg-[#D16D6A] text-white text-[10px] font-bold flex items-center justify-center rounded-full animate-bounce">
+                    {cartCount}
+                </span>
+            )}
+        </button>
+    );
+};
 
 // --- SCRAMBLE TEXT COMPONENT ---
 const ScrambleText = memo(({ text, active, className }: { text: string; active: boolean; className?: string }) => {
@@ -134,7 +169,7 @@ const TopNavLink = memo(({ label, href, icon: Icon, isActive, onLightBackground 
 });
 TopNavLink.displayName = 'TopNavLink';
 
-// --- QUANTUM LOGO (TYPE 7 PHYSICS - NO SHIMMER) ---
+// --- QUANTUM LOGO ---
 const QuantumLogo = memo(({
     scrolled,
     onLightBackground
@@ -142,15 +177,11 @@ const QuantumLogo = memo(({
     scrolled: boolean;
     onLightBackground: boolean;
 }) => {
-    // Define primary color based on background for both Ring and Text
     const primaryColor = onLightBackground ? '#0a0a0a' : '#EBE9DF';
 
     return (
         <div className="group relative flex items-start gap-1 select-none pr-1">
-
-            {/* 1. THE MAIN LOGO (Solid, No Shimmer) */}
             <div className="relative overflow-visible">
-                {/* The Main Matter Logo */}
                 <img
                     src={FullLogo}
                     alt="Arson Pixels"
@@ -163,11 +194,9 @@ const QuantumLogo = memo(({
                 />
             </div>
 
-            {/* 2. THE "R" SINGULARITY (Right Side) */}
             <div className={`relative flex items-center justify-center transition-all duration-500 ease-out -translate-y-[10px] -translate-x-[5px]
                 ${scrolled ? '-mt-1 scale-[0.36]' : '-mt-2 scale-[0.48]'}`}>
 
-                {/* Single, Prominent Solid Ring */}
                 <div
                     className={`absolute inset-0 rounded-full opacity-80 transition-opacity duration-500`}
                     style={{
@@ -179,7 +208,6 @@ const QuantumLogo = memo(({
                     }}
                 />
 
-                {/* The Core Text */}
                 <svg
                     width="24" height="24" viewBox="0 0 20 20"
                     className="relative z-10"
@@ -197,7 +225,6 @@ const QuantumLogo = memo(({
                     </text>
                 </svg>
 
-                {/* Quantum Heartbeat (Pulse on Hover) */}
                 <div
                     className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[4px] h-[4px] rounded-full bg-[#D16D6A] opacity-0 group-hover:opacity-100 blur-[2px]"
                     style={{ animation: 'core-pulse 3s ease-in-out infinite' }}
@@ -218,32 +245,33 @@ const MenuLink = memo(({ link, href, index, onClick }: {
     <Link
         to={href}
         onClick={onClick}
-        className="relative group block overflow-hidden py-1 md:py-2"
+        className="relative group block py-2 md:py-4 px-4"
         style={{ animationDelay: `${index * 50}ms` }}
     >
-        <span className="block text-3xl md:text-6xl lg:text-7xl font-black font-syne tracking-tighter uppercase text-black/10 group-hover:text-black transition-all duration-500 ease-out group-hover:-translate-y-2 group-hover:skew-x-[-10deg]">
-            <span className="text-black/30 group-hover:text-black transition-colors duration-500">&lt;</span>
-            {link}
-            <span className="text-black/30 group-hover:text-black transition-colors duration-500">&gt;</span>
+        <span className="block text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black font-syne tracking-tighter uppercase text-black group-hover:text-white transition-all duration-500 ease-out group-hover:-translate-y-2 group-hover:skew-x-[-10deg] relative z-20 leading-none">
+            <span className="text-black/40 group-hover:text-white transition-colors duration-500 inline-block origin-center">&lt;</span>
+            <span className="mx-2">{link}</span>
+            <span className="text-black/40 group-hover:text-white transition-colors duration-500 inline-block origin-center">&gt;</span>
         </span>
-        <div className="absolute top-1/2 left-0 w-full h-[3px] bg-black translate-x-[-105%] group-hover:translate-x-0 transition-transform duration-500 ease-expo" />
+        <div className="absolute bottom-0 left-0 w-full h-[3px] bg-white transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-expo z-10" />
     </Link>
 ));
 MenuLink.displayName = 'MenuLink';
 
+
 // --- MAIN COMPONENT ---
 export const Navigation: React.FC = () => {
+    // ... (existing hooks)
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
 
-    // Determine if current page has a light background
+    // ... (existing useEffects)
     const onLightBackground = useMemo(() =>
         LIGHT_BACKGROUND_ROUTES.includes(location.pathname),
         [location.pathname]
     );
 
-    // Optimized scroll handler
     useEffect(() => {
         let ticking = false;
         const handleScroll = () => {
@@ -263,7 +291,6 @@ export const Navigation: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [scrolled]);
 
-    // Lock body scroll
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -273,7 +300,6 @@ export const Navigation: React.FC = () => {
         return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
-    // Close on route change
     useEffect(() => { setIsOpen(false); }, [location.pathname]);
 
     const navItems = useMemo(() => [
@@ -281,15 +307,20 @@ export const Navigation: React.FC = () => {
         { label: "Branding", href: "/branding", icon: BrandingIcon },
         { label: "Gaming", href: "/gaming", icon: GamingIcon },
         { label: "Dev / AI", href: "/dev-ai", icon: DevAiIcon },
+        { label: "Shop", href: "/shop", icon: ShopIcon },
+        { label: "Transmissions", href: "/transmissions", icon: TransmissionsIcon },
     ], []);
 
     const menuLinks = useMemo(() => [
-        { label: "About Construct", href: "/" },
-        { label: "Product Tiers", href: "/tier-list" },
-        { label: "Market Acceleration", href: "/marketing" },
-        { label: "Brand Ignition", href: "/branding" },
-        { label: "Gaming Experiences", href: "/gaming" },
+        { label: "The Construct", href: "/about" },
+        { label: "Selected Works", href: "/work" },
         { label: "Digital Architecture", href: "/dev-ai" },
+        { label: "Brand Ignition", href: "/branding" },
+        { label: "Market Acceleration", href: "/marketing" },
+        { label: "Gaming Experiences", href: "/gaming" },
+        { label: "The Armory", href: "/shop" },
+        { label: "Transmissions", href: "/transmissions" },
+        { label: "Initiate Protocol", href: "/contact" },
     ], []);
 
     const socialLinks = useMemo(() => [
@@ -307,7 +338,7 @@ export const Navigation: React.FC = () => {
 
     return (
         <>
-            {/* HEADER */}
+            {/* ... (Header remains unchanged) ... */}
             <header
                 className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${scrolled
                     ? onLightBackground
@@ -316,62 +347,19 @@ export const Navigation: React.FC = () => {
                     : "bg-transparent py-6 md:py-8"
                     }`}
             >
-                {/* --- TYPE 7 PHYSICS ENGINE (GLOBAL STYLES - NO CHROMATIC SHIFT) --- */}
+                {/* ... (Header content unchanged) ... */}
                 <style>{`
-                    /* -- Logo Singularity Physics -- */
-                    @keyframes singularity-spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                    
-                    @keyframes core-pulse {
-                        0%, 100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.45; }
-                        50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.6; }
-                    }
-
-                    /* -- Header Border Physics -- */
-                    @keyframes quantum-sweep {
-                        0% { transform: translateX(-120%) scaleX(0.4) scaleY(0.8); opacity: 0; }
-                        25% { transform: translateX(-10%) scaleX(1) scaleY(1); opacity: 1; }
-                        100% { transform: translateX(220%) scaleX(0.3) scaleY(0.8); opacity: 0; }
-                    }
-                    
-                    @keyframes interference {
-                        0% { transform: translateX(-130%) scaleX(1.2); opacity: 0; }
-                        50% { transform: translateX(40%) scaleX(1.05); opacity: 1; }
-                        100% { transform: translateX(230%) scaleX(0.6); opacity: 0; }
-                    }
-                    
-                    @keyframes energy-decay {
-                        0% { transform: translateX(-140%); opacity: 0; }
-                        40% { transform: translateX(0%); opacity: 1; }
-                        100% { transform: translateX(200%); opacity: 0; }
-                    }
-                    
-                    @keyframes particle-burst {
-                        0% { transform: translateX(-110%) scale(0.5); opacity: 0; }
-                        20% { opacity: 1; }
-                        100% { transform: translateX(210%) scale(0.4); opacity: 0; }
-                    }
-                    
-                    @keyframes dimensional-ripple {
-                        0% { transform: translateX(-100%) scaleX(0.3) scaleY(0.5); opacity: 0; }
-                        50% { transform: translateX(50%) scaleX(1.3) scaleY(1); opacity: 0.8; }
-                        100% { transform: translateX(200%) scaleX(0.2) scaleY(0.4); opacity: 0; }
-                    }
-                    
-                    @keyframes substrate {
-                        0% { opacity: 0.3; }
-                        100% { opacity: 0.7; }
-                    }
+                    @keyframes singularity-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+                    @keyframes core-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.45; } 50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.6; } }
+                    @keyframes quantum-sweep { 0% { transform: translateX(-120%) scaleX(0.4) scaleY(0.8); opacity: 0; } 25% { transform: translateX(-10%) scaleX(1) scaleY(1); opacity: 1; } 100% { transform: translateX(220%) scaleX(0.3) scaleY(0.8); opacity: 0; } }
+                    @keyframes interference { 0% { transform: translateX(-130%) scaleX(1.2); opacity: 0; } 50% { transform: translateX(40%) scaleX(1.05); opacity: 1; } 100% { transform: translateX(230%) scaleX(0.6); opacity: 0; } }
+                    @keyframes substrate { 0% { opacity: 0.3; } 100% { opacity: 0.7; } }
                 `}</style>
-
-                {/* Header Border Energy Field (Only visible when scrolled) */}
+                {/* ... (Omitting header internals for brevity, will target replace logic below) ... */}
                 {scrolled && (
                     <div className="absolute bottom-0 left-0 w-full h-[4px] overflow-visible pointer-events-none">
                         <div className={`absolute inset-0 ${onLightBackground ? 'bg-gradient-to-r from-black/5 via-black/10 to-black/5' : 'bg-gradient-to-r from-white/5 via-white/10 to-white/5'}`}
                             style={{ animation: 'substrate 8s ease-in-out infinite alternate' }} />
-
                         <div className="absolute inset-0 h-[4px]"
                             style={{
                                 background: 'linear-gradient(90deg, transparent 0%, transparent 20%, rgba(209,109,106,0.3) 35%, rgba(209,109,106,1) 50%, rgba(209,109,106,0.3) 65%, transparent 80%, transparent 100%)',
@@ -379,152 +367,95 @@ export const Navigation: React.FC = () => {
                                 filter: 'drop-shadow(0 0 4px rgba(209,109,106,0.8))',
                             }}
                         />
-                        <div className="absolute inset-0 h-[3px] -top-[1px]"
-                            style={{
-                                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.4) 40%, rgba(209,109,106,0.6) 50%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.1) 75%, transparent 100%)',
-                                animation: 'interference 7.3s cubic-bezier(0.34, 0.12, 0.56, 1) infinite',
-                                mixBlendMode: 'screen',
-                            }}
-                        />
                     </div>
                 )}
 
-                {/* Noise Texture */}
                 <div className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-[0.15]' : 'opacity-0'}`} aria-hidden="true">
                     <div className="w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat mix-blend-overlay" />
                 </div>
 
                 <div className="max-w-[1920px] mx-auto px-6 md:px-12 flex items-center justify-between relative z-10">
 
-                    {/* LOGO - Now using Quantum Implementation (No Shimmer) */}
-                    <Link
-                        to="/"
-                        onClick={handleLogoClick}
-                        className={`cursor-pointer focus:outline-none rounded relative`}
-                        aria-label="Arson Pixels - Go to homepage"
-                    >
+                    <Link to="/" onClick={handleLogoClick} className="cursor-pointer focus:outline-none rounded relative" aria-label="Arson Pixels">
                         <QuantumLogo scrolled={scrolled} onLightBackground={onLightBackground} />
                     </Link>
 
-                    {/* NAVIGATION */}
-                    <nav className="hidden md:flex items-center gap-4 lg:gap-8 absolute left-1/2 -translate-x-1/2" aria-label="Main navigation">
+                    <nav className="hidden md:flex items-center gap-2 lg:gap-5 absolute left-[44%] -translate-x-1/2" aria-label="Main navigation">
                         {navItems.map((item) => (
-                            <TopNavLink
-                                key={item.label}
-                                {...item}
-                                isActive={location.pathname === item.href}
-                                onLightBackground={onLightBackground}
-                            />
+                            <TopNavLink key={item.label} {...item} isActive={location.pathname === item.href} onLightBackground={onLightBackground} />
                         ))}
                     </nav>
 
-                    {/* ACTIONS */}
-                    <div className="flex items-center gap-4 md:gap-8">
-                        <Link
-                            to="/tier-list"
-                            className={`hidden md:flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-[#D16D6A] focus:ring-offset-2 ${onLightBackground ? 'focus:ring-offset-[#EBE9DF]' : 'focus:ring-offset-[#0F0F0F]'
-                                } rounded px-2 py-1`}
-                        >
-                            <span className={`font-syne font-bold text-sm ${onLightBackground ? 'text-[#0F0F0F]' : 'text-white'
-                                } group-hover:text-[#D16D6A] transition-colors`}>
-                                START PROJECT
-                            </span>
-                            <ArrowRightIcon className="w-4 h-4 text-[#D16D6A] -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
+                    <div className="flex items-center gap-3 md:gap-5">
+                        <CartTrigger onLightBackground={onLightBackground} />
+
+                        <div className={`hidden md:block w-[1px] h-6 ${onLightBackground ? 'bg-black/20' : 'bg-white/20'} transition-opacity ${scrolled ? 'opacity-100' : 'opacity-50'}`} aria-hidden="true" />
+
+                        <Link to="/contact" className={`hidden md:flex items-center gap-4 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D16D6A] focus-visible:ring-offset-2 ${onLightBackground ? 'focus-visible:ring-offset-[#EBE9DF]' : 'focus-visible:ring-offset-[#0F0F0F]'} rounded px-5 py-2.5`}>
+                            <span className={`font-syne font-bold text-2xl ${onLightBackground ? 'text-[#0F0F0F]' : 'text-white'} group-hover:text-[#D16D6A] transition-colors`}>START PROJECT</span>
+                            <ArrowRightIcon className="w-8 h-8 text-[#D16D6A] -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
                         </Link>
 
-                        <div className={`hidden md:block w-[1px] h-6 ${onLightBackground ? 'bg-black/20' : 'bg-white/20'
-                            } transition-opacity ${scrolled ? 'opacity-100' : 'opacity-50'}`} aria-hidden="true" />
+                        <div className={`hidden md:block w-[1px] h-6 ${onLightBackground ? 'bg-black/20' : 'bg-white/20'} transition-opacity ${scrolled ? 'opacity-100' : 'opacity-50'}`} aria-hidden="true" />
 
-                        <button
-                            onClick={toggleMenu}
-                            className={`relative group flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#D16D6A] focus:ring-offset-2 ${onLightBackground ? 'focus:ring-offset-[#EBE9DF]' : 'focus:ring-offset-[#0F0F0F]'
-                                } rounded-full`}
-                            aria-label={isOpen ? "Close menu" : "Open menu"}
-                            aria-expanded={isOpen}
-                        >
-                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full ${onLightBackground
-                                ? 'bg-black/10 hover:bg-[#D16D6A] border border-black/5'
-                                : 'bg-white/10 hover:bg-[#D16D6A] border border-white/5'
-                                } transition-colors duration-500 overflow-hidden backdrop-blur-sm`}>
-                                <img
-                                    src={PLogo}
-                                    alt=""
-                                    className={`w-5 h-5 md:w-6 md:h-6 object-contain ${onLightBackground ? '' : 'filter brightness-0 invert'
-                                        } group-hover:rotate-90 transition-transform duration-500`}
-                                    aria-hidden="true"
-                                />
+                        <button onClick={toggleMenu} className={`relative group flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#D16D6A] focus:ring-offset-2 ${onLightBackground ? 'focus:ring-offset-[#EBE9DF]' : 'focus:ring-offset-[#0F0F0F]'} rounded-full`} aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen}>
+                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full ${onLightBackground ? 'bg-black/10 hover:bg-[#D16D6A] border border-black/5' : 'bg-white/10 hover:bg-[#D16D6A] border border-white/5'} transition-colors duration-500 overflow-hidden backdrop-blur-sm`}>
+                                <img src={PLogo} alt="" className={`w-5 h-5 md:w-6 md:h-6 object-contain ${onLightBackground ? '' : 'filter brightness-0 invert'} group-hover:rotate-90 transition-transform duration-500`} aria-hidden="true" />
                             </div>
                         </button>
                     </div>
                 </div>
             </header>
 
-            {/* MENU OVERLAY */}
-            <div
-                id="main-menu"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Main menu"
-                className="fixed inset-0 z-[60] flex flex-col justify-between bg-[#D16D6A] text-[#0a0a0a] transition-all duration-700 ease-[cubic-bezier(0.645,0.045,0.355,1.000)]"
-                style={{
-                    clipPath: isOpen ? "circle(150% at 90% 5%)" : "circle(0% at 90% 5%)",
-                    pointerEvents: isOpen ? "auto" : "none"
-                }}
-            >
-                {/* Noise Texture */}
-                <div className="absolute inset-0 pointer-events-none opacity-30 mix-blend-multiply" aria-hidden="true">
+
+
+            <div id="main-menu" role="dialog" aria-modal="true" aria-label="Main menu" className="fixed inset-0 z-[60] flex flex-col justify-between bg-[#D16D6A] text-[#0a0a0a] transition-all duration-700 ease-[cubic-bezier(0.645,0.045,0.355,1.000)]" style={{ clipPath: isOpen ? "circle(150% at 90% 5%)" : "circle(0% at 90% 5%)", pointerEvents: isOpen ? "auto" : "none" }}>
+
+                {/* Background Image Layer - Enforce lower z-index */}
+                <div className="absolute inset-0 pointer-events-none opacity-40 mix-blend-multiply z-0" aria-hidden="true">
+                    <img src={MenuBackground} alt="" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Noise Layer */}
+                <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay z-0" aria-hidden="true">
                     <div className="w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
                 </div>
 
-                {/* Menu Header */}
-                <div className="relative w-full px-6 py-6 md:px-12 md:py-8 flex justify-between items-center z-20">
+                <div className="relative w-full px-6 py-6 md:px-12 md:py-8 flex justify-between items-center z-50 text-[#0a0a0a]">
                     <div className="flex flex-col">
-                        <span className="font-mono text-xs font-bold tracking-[0.3em] uppercase opacity-50">
-                            System Override
-                        </span>
-                        <span className="font-syne font-bold text-2xl md:text-3xl mt-1">
-                            MENU_OS v7.1
-                        </span>
+                        <span className="font-mono text-xs font-bold tracking-[0.3em] uppercase opacity-50">System Override</span>
+                        <span className="font-syne font-bold text-2xl md:text-3xl mt-1">MENU_OS v7.1</span>
                     </div>
-                    <button
-                        onClick={toggleMenu}
-                        className="group relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#D16D6A]"
-                        aria-label="Close menu"
-                    >
+                    <button onClick={toggleMenu} className="group relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#D16D6A]" aria-label="Close menu">
                         <XMarkIcon className="w-6 h-6 transition-transform duration-500 group-hover:rotate-180" />
                     </button>
                 </div>
 
-                {/* Menu Links */}
-                <nav className="relative flex-1 flex flex-col justify-center items-center z-10 space-y-0 md:space-y-2">
+                <nav className="relative flex-1 flex flex-col justify-start items-center z-50 space-y-4 md:space-y-8 overflow-y-auto max-h-[80vh] w-full mt-4 md:mt-8 scrollbar-hide">
                     {menuLinks.map((item, idx) => (
-                        <MenuLink
-                            key={item.label}
-                            link={item.label}
-                            href={item.href}
-                            index={idx}
-                            onClick={closeMenu}
-                        />
+                        <MenuLink key={item.label} link={item.label} href={item.href} index={idx} onClick={closeMenu} />
                     ))}
+                    {/* Spacer for scroll */}
+                    <div className="h-12 w-full flex-shrink-0" />
                 </nav>
 
-                {/* Menu Footer */}
-                <div className="relative w-full px-6 py-8 md:px-12 md:py-10 flex flex-col md:flex-row justify-between items-end md:items-center border-t border-black/10 z-20">
-                    <div className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-60 max-w-xs leading-relaxed">
-                        Arson Pixels ® <br />
-                        Type 7 Civilization Interface <br />
-                        Est. 2024 / Sector 01
+                <div className="relative w-full px-6 py-8 md:px-12 md:py-10 flex flex-col md:flex-row justify-between items-center md:items-center border-t border-black/10 z-50">
+                    <div className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#0F0F0F]/60 max-w-xs leading-relaxed text-center md:text-left mb-6 md:mb-0">
+                        Arson Pixels ® <br /> Type 7 Civilization Interface <br /> Est. 2024 / Sector 01 <br />
+                        <Link to="/legal" className="hover:text-black underline decoration-1 underline-offset-2 mt-2 inline-block transition-colors" onClick={closeMenu}>Legal Protocols</Link>
                     </div>
 
-                    <div className="hidden md:flex space-x-8 mt-4 md:mt-0">
+                    {/* Brand Scroll Indicator - Centered in Footer, visible on all screens */}
+                    <div className="relative md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 pointer-events-none flex flex-col items-center gap-2 mb-6 md:mb-0">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white/80">Scroll to Explore</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="animate-pulse">
+                            <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </div>
+
+                    <div className="flex space-x-8">
                         {socialLinks.map((social) => (
-                            <a
-                                key={social.name}
-                                href={social.url}
-                                className="font-mono text-xs font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 focus:outline-none focus:ring-2 focus:ring-black rounded px-1"
-                            >
-                                {social.name}
-                            </a>
+                            <a key={social.name} href={social.url} className="text-[#0F0F0F] font-mono text-xs font-bold uppercase tracking-widest hover:underline decoration-2 underline-offset-4 focus:outline-none focus:ring-2 focus:ring-black rounded px-1">{social.name}</a>
                         ))}
                     </div>
                 </div>
@@ -532,5 +463,6 @@ export const Navigation: React.FC = () => {
         </>
     );
 };
+
 
 export default Navigation;

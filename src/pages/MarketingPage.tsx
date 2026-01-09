@@ -34,9 +34,52 @@ const MarketingPage: React.FC = () => {
 
     return (
         <section className="relative min-h-screen w-full px-6 md:px-12 pt-32 md:pt-40 pb-24 overflow-hidden bg-[#EBE9DF]">
+            {/* Additional Code Layers for Full Coverage (Very Subtle) */}
+            <div className="absolute inset-0 overflow-hidden opacity-[0.08] pointer-events-none">
+                <div className="grid grid-cols-3 gap-6 w-full h-full p-6">
+                    {/* Left Column */}
+                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                        {`const leftEngine = {
+  campaign: true,
+  optimize: 'always'
+};
 
-            {/* Grid Background */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none"></div>
+async function processAds() {
+  return await amplify();
+}
+
+export default leftEngine;`.repeat(50)}
+                    </pre>
+
+                    {/* Center Column */}
+                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                        {`const centerCore = {
+  status: 'active',
+  reach: 'maximum'
+};
+
+async function processGrowth() {
+  return await accelerate();
+}
+
+export default centerCore;`.repeat(50)}
+                    </pre>
+
+                    {/* Right Column */}
+                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                        {`const rightSystem = {
+  convert: true,
+  scale: 'infinite'
+};
+
+async function processROI() {
+  return await maximize();
+}
+
+export default rightSystem;`.repeat(50)}
+                    </pre>
+                </div>
+            </div>
 
             {/* Angle Bracket Decoration - Right */}
             <div
@@ -85,7 +128,7 @@ const MarketingPage: React.FC = () => {
                             `}
                             style={{ fontFamily: "Syne, sans-serif" }}
                         >
-                            3. MARKET ACCELERATION
+                            MARKET ACCELERATION
                         </h1>
                     </div>
 
@@ -125,9 +168,7 @@ const MarketingPage: React.FC = () => {
                         <div
                             key={idx}
                             className={`
-                                group relative p-8 bg-white/50 backdrop-blur-sm rounded-lg
-                                border-2 border-[#0a0a0a]/10 hover:border-[#D16D6A]
-                                transition-all duration-700
+                                card-standard-light group
                                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}
                             `}
                             style={{ transitionDelay: `${600 + idx * 100}ms` }}
@@ -158,7 +199,7 @@ const MarketingPage: React.FC = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 

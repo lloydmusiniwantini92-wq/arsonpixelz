@@ -36,33 +36,7 @@ const BrandingPage: React.FC = () => {
     return (
         <section className="relative min-h-screen w-full px-6 md:px-12 pt-32 md:pt-40 pb-24 overflow-hidden bg-[#EBE9DF]">
 
-            {/* Background Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none"></div>
 
-            {/* Decorative Frame */}
-            <div
-                className={`
-                    absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2
-                    w-[200px] h-[200px] md:w-[400px] md:h-[400px]
-                    border-4 border-[#D16D6A]/20
-                    transition-all duration-[2000ms] ease-out
-                    ${loaded ? "opacity-100 rotate-12" : "opacity-0 rotate-0"}
-                `}
-            >
-                <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-[#D16D6A]" />
-                <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-[#D16D6A]" />
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-[#D16D6A]" />
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-[#D16D6A]" />
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <span
-                        className="text-8xl md:text-[12rem] font-black text-[#0a0a0a]/5 select-none"
-                        style={{ fontFamily: "Syne, sans-serif" }}
-                    >
-                        BRAND
-                    </span>
-                </div>
-            </div>
 
             <div className="relative z-10">
 
@@ -97,7 +71,7 @@ const BrandingPage: React.FC = () => {
                             `}
                             style={{ fontFamily: "Syne, sans-serif" }}
                         >
-                            4. BRAND IGNITION
+                            BRAND IGNITION
                         </h1>
                     </div>
 
@@ -135,9 +109,7 @@ const BrandingPage: React.FC = () => {
                         <div
                             key={idx}
                             className={`
-                                group relative p-8 bg-white/50 backdrop-blur-sm rounded-lg
-                                border-2 border-[#0a0a0a]/10 hover:border-[#D16D6A]
-                                transition-all duration-700
+                                card-standard-light group
                                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}
                             `}
                             style={{ transitionDelay: `${600 + idx * 120}ms` }}
@@ -188,6 +160,61 @@ const BrandingPage: React.FC = () => {
                         ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}
                     `}
                 >
+                    {/* Additional Code Layers for Full Coverage (Very Subtle) */}
+                    <div className="absolute inset-0 overflow-hidden opacity-[0.08] pointer-events-none">
+                        <div className="grid grid-cols-3 gap-6 w-full h-full p-6">
+                            {/* Left Column */}
+                            <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                                {`const leftEngine = {
+  identity: true,
+  craft: 'always'
+};
+
+async function designLogo() {
+  return await forge();
+}
+
+export default leftEngine;`.repeat(50)}
+                            </pre>
+
+                            {/* Center Column */}
+                            <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                                {`const centerCore = {
+  status: 'active',
+  brand: 'ignited'
+};
+
+async function buildIdentity() {
+  return await create();
+}
+
+export default centerCore;`.repeat(50)}
+                            </pre>
+
+                            {/* Right Column */}
+                            <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                                {`const rightSystem = {
+  voice: true,
+  impact: 'infinite'
+};
+
+async function amplifyBrand() {
+  return await launch();
+}
+
+export default rightSystem;`.repeat(50)}
+                            </pre>
+                        </div>
+                    </div>
+
+                    {/* Decorative Frame */}
+                    <div
+                        className={`
+                            absolute inset-0 border-4 border-[#D16D6A]/20 rounded-2xl
+                            transition-all duration-1000 delay-[1100ms]
+                            ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-90"}
+                        `}
+                    />
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
 
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -224,7 +251,7 @@ const BrandingPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 

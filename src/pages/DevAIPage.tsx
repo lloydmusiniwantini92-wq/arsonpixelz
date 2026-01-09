@@ -300,7 +300,7 @@ export default rightSystem;`.repeat(50)}
                             `}
                             style={{ fontFamily: "Syne, sans-serif" }}
                         >
-                            2. DIGITAL ARCHITECTURE
+                            DIGITAL ARCHITECTURE
                         </h1>
                     </div>
 
@@ -336,15 +336,13 @@ export default rightSystem;`.repeat(50)}
                 </div>
 
                 {/* Services Grid */}
-                <div className="grid md:grid-cols-2 gap-12 mb-24">
+                <div className="grid md:grid-cols-2 gap-12">
                     {services.map((service, idx) => (
                         <div
                             key={idx}
                             className={`
-                                group relative p-8 bg-[#0F0F0F] rounded-lg
-                                border-2 border-white/10 hover:border-[#D16D6A]
-                                transition-all duration-700
-                                ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}
+                                card-standard-dark group
+                                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
                             `}
                             style={{ transitionDelay: `${600 + idx * 100}ms` }}
                         >

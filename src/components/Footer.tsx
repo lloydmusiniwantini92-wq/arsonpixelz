@@ -25,10 +25,10 @@ const Marquee: React.FC<{ text: string; reverse?: boolean }> = ({ text, reverse 
     return (
         <div className="overflow-hidden py-4 bg-arson-base border-t-2 border-b-2 border-arson-dark select-none pointer-events-none">
             <style>{`
-        .stroke-text {
-          -webkit-text-stroke: 2px #1A1A1A;
-        }
-      `}</style>
+                .stroke-text {
+                    -webkit-text-stroke: 2px #1A1A1A;
+                }
+            `}</style>
             <div className="flex w-max">
                 {content}
                 {content}
@@ -68,10 +68,10 @@ export const Footer: React.FC = () => {
     };
 
     const navLinks = [
-        { title: 'Studio', href: '#' },
-        { title: 'Capabilities', href: '#' },
-        { title: 'Intelligence', href: '#' },
-        { title: 'Careers', href: '#' },
+        { title: 'Studio', href: '/' },
+        { title: 'The Armory', href: '/shop' },
+        { title: 'Intelligence', href: '/dev-ai' },
+        { title: 'Protocol', href: '/tier-list' },
     ];
 
     const socialLinks = [
@@ -91,7 +91,6 @@ export const Footer: React.FC = () => {
 
                 {/* Left Col: Brand & Statement */}
                 <div className="lg:col-span-7 flex flex-col justify-between p-6 md:p-12 border-r-2 border-arson-dark relative overflow-hidden group">
-                    {/* Subtle Grid Background for this section */}
                     <div className="absolute inset-0 opacity-[0.1] bg-[linear-gradient(#1A1A1A_1px,transparent_1px),linear-gradient(90deg,#1A1A1A_1px,transparent_1px)] bg-[size:2rem_2rem] pointer-events-none"></div>
 
                     <div className="relative z-10">
@@ -142,8 +141,10 @@ export const Footer: React.FC = () => {
                                 type="submit"
                                 disabled={status !== 'IDLE'}
                                 className={`absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center border border-arson-dark transition-all duration-300
-                    ${status === 'SUCCESS' ? 'bg-green-500 text-white border-green-600' : 'bg-arson-dark text-arson-base hover:bg-arson-accent hover:border-arson-accent'}
-                   `}
+${status === 'SUCCESS'
+                                        ? 'bg-green-500 text-white border-green-600'
+                                        : 'bg-arson-dark text-arson-base hover:bg-arson-accent hover:border-arson-accent'}
+`}
                             >
                                 {status === 'PROCESSING' ? (
                                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
@@ -154,15 +155,18 @@ export const Footer: React.FC = () => {
                                 )}
                             </button>
                         </form>
+
                         <p className="mt-4 font-mono text-[9px] text-arson-dark/40 uppercase tracking-widest">
                             By connecting, you agree to the data retention protocols.
                         </p>
                     </div>
 
-                    {/* Navigation Grid - Nested Grid */}
+                    {/* Navigation Grid */}
                     <div className="grid grid-cols-2 h-full">
                         <div className="border-r-2 border-arson-dark p-8">
-                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-arson-accent block mb-6">Directory</span>
+                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-arson-accent block mb-6">
+                                Directory
+                            </span>
                             <ul className="space-y-4">
                                 {navLinks.map((link) => (
                                     <li key={link.title}>
@@ -174,8 +178,11 @@ export const Footer: React.FC = () => {
                                 ))}
                             </ul>
                         </div>
+
                         <div className="p-8">
-                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-arson-accent block mb-6">Network</span>
+                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-arson-accent block mb-6">
+                                Network
+                            </span>
                             <ul className="space-y-4">
                                 {socialLinks.map((link) => (
                                     <li key={link.title}>
@@ -212,7 +219,7 @@ export const Footer: React.FC = () => {
                 </div>
 
                 <div className="text-arson-base/40">
-                    © 2025 Arson Pixels. All Rights Secured.
+                    © 2025 Arson Pixelz. All Rights Secured.
                 </div>
 
             </div>

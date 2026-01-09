@@ -305,9 +305,7 @@ export default rightAsset;`.repeat(50)}
                         <div
                             key={idx}
                             className={`
-                                group relative p-8 bg-white/5 backdrop-blur-sm rounded-lg
-                                border-2 border-white/10 hover:border-[#D16D6A]
-                                transition-all duration-700 overflow-hidden
+                                card-standard-dark group
                                 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
                             `}
                             style={{ transitionDelay: `${600 + idx * 100}ms` }}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 // Import the image based on your folder structure
-import HeroBg from './assets/Hero.jpg';
+import HeroBg from './assets/hero-light-bg.png';
+import DomeRedGlass from './assets/dome-red-glass.png';
 
 // --- COMPONENT: EMBERS (ATMOSPHERE) ---
 const Embers = () => {
@@ -39,95 +40,50 @@ const Embers = () => {
     );
 };
 
-// --- COMPONENT: REALISTIC STEAM PARTICLES ---
-interface SteamParticle {
-    id: number;
-    x: number;
-    y: number;
-    scale: number;
-    opacity: number;
-    duration: number;
-    delay: number;
-    blur: number;
-    rotation: number;
-}
-
-const RealisticSteam = ({ isActive, intensity = 1 }: { isActive: boolean; intensity?: number }) => {
-    const [particles, setParticles] = useState<SteamParticle[]>([]);
-    const animationFrame = useRef<number>();
-    const lastSpawn = useRef(0);
-
-    useEffect(() => {
-        if (!isActive) {
-            setParticles([]);
-            if (animationFrame.current) {
-                cancelAnimationFrame(animationFrame.current);
-            }
-            return;
-        }
-
-        let particleId = 0;
-        const spawnRate = 100 / intensity;
-
-        const animate = (timestamp: number) => {
-            if (timestamp - lastSpawn.current > spawnRate) {
-                const newParticle: SteamParticle = {
-                    id: particleId++,
-                    x: 30 + Math.random() * 40,
-                    y: 0,
-                    scale: 0.3 + Math.random() * 0.4,
-                    opacity: 0.4 + Math.random() * 0.4,
-                    duration: 2 + Math.random() * 2,
-                    delay: 0,
-                    blur: 15 + Math.random() * 25,
-                    rotation: -20 + Math.random() * 40,
-                };
-
-                setParticles(prev => {
-                    const filtered = prev.filter(p =>
-                        Date.now() - (p.delay || 0) < p.duration * 1000
-                    );
-                    return [...filtered, newParticle].slice(-30);
-                });
-
-                lastSpawn.current = timestamp;
-            }
-
-            animationFrame.current = requestAnimationFrame(animate);
-        };
-
-        animationFrame.current = requestAnimationFrame(animate);
-
-        return () => {
-            if (animationFrame.current) {
-                cancelAnimationFrame(animationFrame.current);
-            }
-        };
-    }, [isActive, intensity]);
+// --- COMPONENT: REALISTIC STEAM PARTICLES (OPTIMIZED) ---
+const RealisticSteam = React.memo(({ isActive }: { isActive: boolean }) => {
+    // Generate static particles once
+    const particles = React.useMemo(() => {
+        return Array.from({ length: 15 }).map((_, i) => ({
+            id: i,
+            left: 20 + Math.random() * 60, // Concentrated in middle
+            width: 30 + Math.random() * 40,
+            duration: 3 + Math.random() * 4,
+            delay: Math.random() * -5, // Start at different times
+            opacity: 0.3 + Math.random() * 0.3,
+        }));
+    }, []);
 
     if (!isActive) return null;
 
     return (
-        <div className="absolute bottom-16 left-0 w-full h-full pointer-events-none overflow-visible">
-            {particles.map((particle) => (
+        <div className="absolute top-[-100px] left-0 w-full h-[400px] pointer-events-none overflow-visible z-0 mix-blend-screen">
+            {particles.map((p) => (
                 <div
-                    key={particle.id}
-                    className="absolute bottom-0 bg-gradient-to-t from-white via-white/60 to-transparent rounded-full animate-steam-rise"
+                    key={p.id}
+                    className="absolute bg-gradient-to-t from-gray-300 via-gray-300/40 to-transparent rounded-full blur-[20px]"
                     style={{
-                        left: `${particle.x}%`,
-                        width: `${20 + particle.scale * 40}px`,
-                        height: `${60 + particle.scale * 80}px`,
-                        opacity: particle.opacity,
-                        filter: `blur(${particle.blur}px)`,
-                        animation: `steamRise ${particle.duration}s ease-out forwards`,
-                        transform: `rotate(${particle.rotation}deg)`,
-                        '--steam-x': `${(Math.random() - 0.5) * 40}px`,
-                    } as React.CSSProperties}
+                        left: `${p.left}%`,
+                        bottom: '0%',
+                        width: `${p.width}px`,
+                        height: `${p.width * 2}px`,
+                        opacity: 0, // Start hidden, animate in
+                        animation: `steamFloat ${p.duration}s linear infinite`,
+                        animationDelay: `${p.delay}s`,
+                    }}
                 />
             ))}
+            <style>{`
+                @keyframes steamFloat {
+                    0% { transform: translateY(50px) scale(0.5) rotate(0deg); opacity: 0; }
+                    20% { opacity: ${0.4}; }
+                    80% { opacity: 0; }
+                    100% { transform: translateY(-200px) scale(2) rotate(45deg); opacity: 0; }
+                }
+            `}</style>
         </div>
     );
-};
+});
 
 // --- COMPONENT: HEAT DISTORTION EFFECT ---
 const HeatDistortion = ({ isActive }: { isActive: boolean }) => {
@@ -138,7 +94,7 @@ const HeatDistortion = ({ isActive }: { isActive: boolean }) => {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px]">
                 <div className="w-full h-full animate-heat-wave"
                     style={{
-                        background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+                        background: 'radial-gradient(circle, rgba(0,0,0,0.05) 0%, transparent 70%)',
                         filter: 'blur(20px)',
                     }}
                 />
@@ -169,7 +125,7 @@ const VaporWisps = ({ isActive }: { isActive: boolean }) => {
                     }}
                 >
                     <div
-                        className="w-8 h-24 bg-gradient-to-t from-white/30 via-white/10 to-transparent rounded-full blur-xl"
+                        className="w-8 h-24 bg-gradient-to-t from-gray-400/30 via-gray-400/10 to-transparent rounded-full blur-xl"
                         style={{ opacity: wisp.opacity }}
                     />
                 </div>
@@ -183,14 +139,14 @@ const CookingIntensity = ({ level }: { level: number }) => {
     const bars = Array.from({ length: 5 }).map((_, i) => i < level);
 
     return (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-            <span className="text-[8px] font-mono text-white/60 uppercase tracking-wider mr-1">Heat</span>
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-white/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-black/10">
+            <span className="text-[8px] font-mono text-black/60 uppercase tracking-wider mr-1">Heat</span>
             {bars.map((active, i) => (
                 <div
                     key={i}
                     className={`w-1 h-3 rounded-full transition-all duration-300 ${active
                         ? 'bg-[#D16D6A] shadow-[0_0_8px_rgba(209,109,106,0.8)]'
-                        : 'bg-white/20'
+                        : 'bg-black/20'
                         }`}
                     style={{
                         animationDelay: `${i * 0.1}s`,
@@ -257,7 +213,7 @@ export const Hero: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative min-h-screen w-full flex flex-col justify-end md:justify-center px-6 md:px-12 pb-24 pt-32 overflow-hidden bg-[#050505]">
+        <section className="relative min-h-screen w-full flex flex-col justify-end md:justify-center px-6 md:px-12 pb-24 pt-32 overflow-hidden bg-[#EBE9DF]">
 
             {/* --- BACKGROUND FX --- */}
 
@@ -266,14 +222,14 @@ export const Hero: React.FC = () => {
                 <img
                     src={HeroBg}
                     alt="Background"
-                    className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                    className="w-full h-full object-cover opacity-80"
                 />
                 {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-black/40"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#EBE9DF] via-[#EBE9DF]/80 to-transparent"></div>
             </div>
 
             {/* 2. GRID OVERLAY */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] z-0 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] z-0 pointer-events-none"></div>
 
             <Embers />
 
@@ -281,7 +237,7 @@ export const Hero: React.FC = () => {
             <div
                 className={`
                     absolute right-0 top-[5%] md:top-[-5%]
-                    text-[40vw] leading-none font-black text-[#1A1A1A] 
+                    text-[40vw] leading-none font-black text-[#FFFFFF] 
                     select-none pointer-events-none z-0 mix-blend-color-dodge
                     transition-all duration-[2000ms] ease-out
                     ${loaded ? 'opacity-40 translate-x-[10%]' : 'opacity-0 translate-x-[30%]'}
@@ -298,7 +254,7 @@ export const Hero: React.FC = () => {
                 <div className="flex-1 flex flex-col w-full md:w-auto relative z-20 mb-16 md:mb-0">
 
                     {/* REFINED TYPOGRAPHY */}
-                    <h1 className="flex flex-col font-black text-[#EBE9DF] uppercase leading-[0.85] tracking-tighter mix-blend-normal -ml-[0.02em]">
+                    <h1 className="flex flex-col font-black text-[#0a0a0a] uppercase leading-[0.85] tracking-tighter mix-blend-normal -ml-[0.02em]">
                         {/* LINE 1 */}
                         <div className="overflow-hidden">
                             <span className={`
@@ -318,7 +274,7 @@ export const Hero: React.FC = () => {
                                     transition-transform duration-[1200ms] cubic-bezier(0.2, 1, 0.2, 1) delay-150
                                     ${loaded ? 'translate-y-0' : 'translate-y-full'}
                                 `}
-                                style={{ WebkitTextStroke: '1px rgba(255,255,255,0.3)' }}
+                                style={{ WebkitTextStroke: '1px rgba(0,0,0,0.3)' }}
                             >
                                 THE MODERN
                             </span>
@@ -340,8 +296,8 @@ export const Hero: React.FC = () => {
                         transition-all duration-1000 delay-500
                         ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
                     `}>
-                        <p className="text-xs md:text-base font-mono text-white/50 leading-relaxed border-l-2 border-[#D16D6A] pl-5">
-                            Constructing <strong className="text-white">high-fidelity</strong> experiences for the next internet.
+                        <p className="text-xs md:text-base font-mono text-black/60 leading-relaxed border-l-2 border-[#D16D6A] pl-5">
+                            Constructing <strong className="text-black">high-fidelity</strong> experiences for the next internet.
                             We incinerate the boundaries between design and code.
                         </p>
                     </div>
@@ -379,7 +335,7 @@ export const Hero: React.FC = () => {
                             intensity={cookingIntensity / 2}
                         />
 
-                        {/* --- HIDDEN BUTTON --- */}
+                        {/* --- HIDDEN ACTION BUTTON (REVEALED WHEN OPEN) --- */}
                         <div className={`
                             absolute bottom-7 z-10 
                             w-[160px] h-[44px]
@@ -390,7 +346,10 @@ export const Hero: React.FC = () => {
                             }
                         `}>
                             <button
-                                onClick={handleCookClick}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.location.href = '/contact';
+                                }}
                                 className="
                                     relative w-full h-full rounded-full flex items-center justify-center
                                     bg-[#1A1A1A] text-white shadow-[0_0_30px_rgba(209,109,106,0.6)]
@@ -403,12 +362,12 @@ export const Hero: React.FC = () => {
                                     active:scale-95
                                 "
                             >
-                                <span className="relative z-10">READY TO COOK</span>
+                                <span className="relative z-10">LET'S COOK</span>
                                 <div className="absolute inset-0 rounded-full bg-[#D16D6A] opacity-0 hover:opacity-20 blur-xl transition-opacity duration-300" />
                             </button>
                         </div>
 
-                        {/* --- THE LID --- */}
+                        {/* --- THE LID (RESTORED CSS VERSION) --- */}
                         <div
                             onClick={handleLidClick}
                             onMouseEnter={() => setLidHovered(true)}
@@ -465,7 +424,7 @@ export const Hero: React.FC = () => {
                                     `}
                                 ></div>
 
-                                {/* Internal Reactor Pulse - REMOVED animate-pulse */}
+                                {/* Internal Reactor Pulse */}
                                 <div
                                     className={`
                                         absolute bottom-0 w-[90px] h-[35px] 
@@ -561,6 +520,6 @@ export const Hero: React.FC = () => {
                     transform-style: preserve-3d;
                 }
             `}</style>
-        </section>
+        </section >
     );
 };
