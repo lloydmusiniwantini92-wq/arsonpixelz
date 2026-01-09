@@ -6,7 +6,7 @@ import DomeRedGlass from './assets/dome-red-glass.png';
 
 // --- COMPONENT: EMBERS (ATMOSPHERE) ---
 const Embers = () => {
-    const embers = Array.from({ length: 25 }).map((_, i) => ({
+    const embers = Array.from({ length: 12 }).map((_, i) => ({ // Reduced from 25 to 12
         id: i,
         left: `${Math.random() * 100}%`,
         animationDuration: `${Math.random() * 90 + 90}s`,
@@ -27,6 +27,7 @@ const Embers = () => {
                         height: `${ember.size}px`,
                         opacity: ember.opacity,
                         animation: `floatUp ${ember.animationDuration} linear infinite ${ember.animationDelay}`,
+                        willChange: 'transform, opacity', // GPU Hint
                     }}
                 />
             ))}
@@ -45,7 +46,7 @@ const Embers = () => {
 const RealisticSteam = React.memo(({ isActive }: { isActive: boolean }) => {
     // Generate static particles once
     const particles = React.useMemo(() => {
-        return Array.from({ length: 15 }).map((_, i) => ({
+        return Array.from({ length: 8 }).map((_, i) => ({ // Reduced from 15 to 8
             id: i,
             left: 20 + Math.random() * 60, // Concentrated in middle
             width: 30 + Math.random() * 40,
@@ -71,6 +72,7 @@ const RealisticSteam = React.memo(({ isActive }: { isActive: boolean }) => {
                         opacity: 0, // Start hidden, animate in
                         animation: `steamFloat ${p.duration}s linear infinite`,
                         animationDelay: `${p.delay}s`,
+                        willChange: 'transform, opacity', // GPU Hint
                     }}
                 />
             ))}
@@ -97,6 +99,7 @@ const HeatDistortion = ({ isActive }: { isActive: boolean }) => {
                     style={{
                         background: 'radial-gradient(circle, rgba(0,0,0,0.05) 0%, transparent 70%)',
                         filter: 'blur(20px)',
+                        willChange: 'transform, opacity', // GPU Hint
                     }}
                 />
             </div>
@@ -123,6 +126,7 @@ const VaporWisps = ({ isActive }: { isActive: boolean }) => {
                     style={{
                         left: `${wisp.x}%`,
                         animation: `wisp ${wisp.duration}s ease-in-out infinite ${wisp.delay}s`,
+                        willChange: 'transform', // GPU Hint
                     }}
                 >
                     <div
@@ -161,6 +165,7 @@ const CookingIntensity = ({ level }: { level: number }) => {
 export const Hero: React.FC = () => {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(false);
+    const [showEffects, setShowEffects] = useState(false); // Deferred effects state
     const [isLidOpen, setIsLidOpen] = useState(false);
     const [isCooking, setIsCooking] = useState(false);
     const [cookingIntensity, setCookingIntensity] = useState(0);
@@ -169,7 +174,11 @@ export const Hero: React.FC = () => {
     const intensityTimer = useRef<NodeJS.Timeout>();
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoaded(true), 100);
+        const timer = setTimeout(() => {
+            setLoaded(true);
+            // Defer heavy effects by an additional 1.5s after main load
+            setTimeout(() => setShowEffects(true), 1500);
+        }, 100);
         return () => clearTimeout(timer);
     }, []);
 
@@ -238,7 +247,7 @@ export const Hero: React.FC = () => {
             {/* 2. GRID OVERLAY */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] z-0 pointer-events-none"></div>
 
-            <Embers />
+            {showEffects && <Embers />}
 
             {/* --- GIANT "7" MARK --- */}
             <div
