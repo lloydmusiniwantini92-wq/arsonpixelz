@@ -351,6 +351,7 @@ export const Navigation: React.FC = () => {
                 <style>{`
                     @keyframes singularity-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
                     @keyframes core-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.45; } 50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.6; } }
+                    @keyframes menu-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
                     @keyframes quantum-sweep { 0% { transform: translateX(-120%) scaleX(0.4) scaleY(0.8); opacity: 0; } 25% { transform: translateX(-10%) scaleX(1) scaleY(1); opacity: 1; } 100% { transform: translateX(220%) scaleX(0.3) scaleY(0.8); opacity: 0; } }
                     @keyframes interference { 0% { transform: translateX(-130%) scaleX(1.2); opacity: 0; } 50% { transform: translateX(40%) scaleX(1.05); opacity: 1; } 100% { transform: translateX(230%) scaleX(0.6); opacity: 0; } }
                     @keyframes substrate { 0% { opacity: 0.3; } 100% { opacity: 0.7; } }
@@ -399,8 +400,21 @@ export const Navigation: React.FC = () => {
                         <div className={`hidden md:block w-[1px] h-6 ${onLightBackground ? 'bg-black/20' : 'bg-white/20'} transition-opacity ${scrolled ? 'opacity-100' : 'opacity-50'}`} aria-hidden="true" />
 
                         <button onClick={toggleMenu} className={`relative group flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-[#D16D6A] focus:ring-offset-2 ${onLightBackground ? 'focus:ring-offset-[#EBE9DF]' : 'focus:ring-offset-[#0F0F0F]'} rounded-full`} aria-label={isOpen ? "Close menu" : "Open menu"} aria-expanded={isOpen}>
-                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full ${onLightBackground ? 'bg-black/10 hover:bg-[#D16D6A] border border-black/5' : 'bg-white/10 hover:bg-[#D16D6A] border border-white/5'} transition-colors duration-500 overflow-hidden backdrop-blur-sm`}>
-                                <img src={PLogo} alt="" className={`w-5 h-5 md:w-6 md:h-6 object-contain ${onLightBackground ? '' : 'filter brightness-0 invert'} group-hover:rotate-90 transition-transform duration-500`} aria-hidden="true" />
+                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black hover:bg-[#D16D6A] ${onLightBackground ? 'border border-black/5' : 'border border-white/5'} transition-colors duration-500 overflow-hidden backdrop-blur-sm animate-[menu-breathe_3s_ease-in-out_infinite] group-hover:animate-none`}>
+                                <div
+                                    className="w-5 h-5 md:w-6 md:h-6 bg-white group-hover:bg-white group-hover:rotate-90 transition-all duration-500"
+                                    style={{
+                                        maskImage: `url(${PLogo})`,
+                                        WebkitMaskImage: `url(${PLogo})`,
+                                        maskSize: 'contain',
+                                        WebkitMaskSize: 'contain',
+                                        maskRepeat: 'no-repeat',
+                                        WebkitMaskRepeat: 'no-repeat',
+                                        maskPosition: 'center',
+                                        WebkitMaskPosition: 'center'
+                                    }}
+                                    aria-hidden="true"
+                                />
                             </div>
                         </button>
                     </div>
