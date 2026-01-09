@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
     ArrowRightIcon,
     ArrowUpRightIcon,
@@ -170,10 +171,10 @@ ${status === 'SUCCESS'
                             <ul className="space-y-4">
                                 {navLinks.map((link) => (
                                     <li key={link.title}>
-                                        <a href={link.href} className="group flex items-center gap-2 text-lg font-bold uppercase tracking-tight hover:text-arson-accent transition-colors">
+                                        <Link to={link.href} className="group flex items-center gap-2 text-lg font-bold uppercase tracking-tight hover:text-arson-accent transition-colors">
                                             <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100 font-mono text-xs">/</span>
                                             {link.title}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>

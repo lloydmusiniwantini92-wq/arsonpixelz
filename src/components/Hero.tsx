@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 // Import the image based on your folder structure
 import HeroBg from './assets/hero-light-bg.png';
 import DomeRedGlass from './assets/dome-red-glass.png';
@@ -158,6 +159,7 @@ const CookingIntensity = ({ level }: { level: number }) => {
 };
 
 export const Hero: React.FC = () => {
+    const navigate = useNavigate();
     const [loaded, setLoaded] = useState(false);
     const [isLidOpen, setIsLidOpen] = useState(false);
     const [isCooking, setIsCooking] = useState(false);
@@ -221,8 +223,13 @@ export const Hero: React.FC = () => {
             <div className="absolute inset-0 z-0 select-none pointer-events-none">
                 <img
                     src={HeroBg}
-                    alt="Background"
+                    alt="Abstract minimalist architectural background"
                     className="w-full h-full object-cover opacity-80"
+                    width={1920}
+                    height={1080}
+                    fetchPriority="high"
+                    loading="eager"
+                    decoding="async"
                 />
                 {/* Dark Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#EBE9DF] via-[#EBE9DF]/80 to-transparent"></div>
@@ -332,7 +339,6 @@ export const Hero: React.FC = () => {
                         {/* Realistic Steam System */}
                         <RealisticSteam
                             isActive={isCooking}
-                            intensity={cookingIntensity / 2}
                         />
 
                         {/* --- HIDDEN ACTION BUTTON (REVEALED WHEN OPEN) --- */}
@@ -348,7 +354,7 @@ export const Hero: React.FC = () => {
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    window.location.href = '/contact';
+                                    navigate('/contact');
                                 }}
                                 className="
                                     relative w-full h-full rounded-full flex items-center justify-center
