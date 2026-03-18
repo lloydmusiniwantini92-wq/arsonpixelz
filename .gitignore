@@ -12,13 +12,15 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# Visual Studio
+.vs/
 *.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+*.user
+*.userosscache
+*.sln.docstates
+*.slnx.sqlite
+
+# OS files
+.DS_Store
+Thumbs.db
+.env

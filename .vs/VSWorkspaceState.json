@@ -1,12 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\hooks",
-    "\\services",
     "\\src",
     "\\src\\components",
-    "\\src\\pages"
+    "\\src\\components\\fx",
+    "\\src\\components\\layout",
+    "\\src\\context",
+    "\\src\\data",
+    "\\src\\pages",
+    "\\src\\utils",
+    "\\src_backup"
   ],
-  "SelectedNode": "\\src\\components\\Hero.tsx",
   "PreviewInSolutionExplorer": false
 }

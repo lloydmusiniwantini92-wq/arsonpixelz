@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
     ArrowRightIcon,
     ArrowUpRightIcon,
@@ -9,27 +9,24 @@ import {
 
 // --- Subcomponents for cleaner organization ---
 
-const Marquee: React.FC<{ text: string; reverse?: boolean }> = ({ text, reverse = false }) => {
+const Marquee: React.FC<{ text: string; reverse?: boolean; accentColor?: string; borderColor?: string }> = ({
+    text, reverse = false, accentColor = '#D16D6A', borderColor = '#1A1A1A'
+}) => {
     const content = (
         <div className={`flex gap-8 items-center whitespace-nowrap ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
             {[...Array(8)].map((_, i) => (
                 <React.Fragment key={i}>
-                    <span className="text-6xl md:text-8xl font-black tracking-tighter uppercase opacity-10 text-transparent stroke-text">
+                    <span className="text-6xl md:text-8xl font-black tracking-tighter uppercase text-transparent stroke-text" style={{ WebkitTextStroke: `2px ${borderColor}`, opacity: 0.15 }}>
                         {text}
                     </span>
-                    <span className="text-2xl font-black text-arson-accent/50">///</span>
+                    <span className="text-2xl font-black" style={{ color: accentColor, opacity: 0.5 }}>///</span>
                 </React.Fragment>
             ))}
         </div>
     );
 
     return (
-        <div className="overflow-hidden py-4 bg-arson-base border-t-2 border-b-2 border-arson-dark select-none pointer-events-none">
-            <style>{`
-                .stroke-text {
-                    -webkit-text-stroke: 2px #1A1A1A;
-                }
-            `}</style>
+        <div className="overflow-hidden py-4 select-none pointer-events-none" style={{ borderTop: `2px solid ${borderColor}20`, borderBottom: `2px solid ${borderColor}20` }}>
             <div className="flex w-max">
                 {content}
                 {content}
@@ -53,7 +50,7 @@ const LiveClock: React.FC = () => {
     );
 };
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC<{ theme?: 'light' | 'dark' }> = ({ theme = 'light' }) => {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'IDLE' | 'PROCESSING' | 'SUCCESS'>('IDLE');
 
@@ -67,6 +64,116 @@ export const Footer: React.FC = () => {
             setTimeout(() => setStatus('IDLE'), 3000);
         }, 1500);
     };
+
+    const location = useLocation();
+
+    // Contextual Page Data Map
+    const getFooterContent = () => {
+        switch (location.pathname) {
+            case '/branding':
+                return {
+                    marquee: "IDENTITY IS DESTINY // AESTHETICS ARE WEAPONIZED //",
+                    heading: <>Bland Is A <span style={{ color: '#D16D6A' }} className="italic">Death Sentence.</span></>,
+                    paragraph: "In a saturated digital landscape, safety is your greatest liability. We engineer identities that scream.",
+                    cta: "Initiate Brand Audit",
+                    directive: "Autonomous Creative System",
+                    theme: {
+                        bg: '#EBE9DF',        // warm parchment — on-brand homepage base
+                        text: '#1A1A1A',
+                        accent: '#D16D6A',    // the classic Arson red
+                        border: '#1A1A1A',
+                        rightBg: 'rgba(209,109,106,0.08)',
+                    }
+                };
+            case '/marketing':
+                return {
+                    marquee: "SCALE UNFAIRLY // ACCELERATE BEYOND REASON //",
+                    heading: <>Force <br /><span style={{ color: '#00E5C3' }} className="italic">Multiplier.</span></>,
+                    paragraph: "Stop burning venture capital on inefficient ad spend. Start accelerating.",
+                    cta: "Execute Campaign",
+                    directive: "Growth Engineering",
+                    theme: {
+                        bg: '#0A1A16',        // deep teal-black
+                        text: '#E8FFF9',
+                        accent: '#00E5C3',    // electric mint
+                        border: '#00E5C3',
+                        rightBg: 'rgba(0,229,195,0.06)',
+                    }
+                };
+            case '/dev-ai':
+                return {
+                    marquee: "INFRASTRUCTURE AS CODE // SCALABILITY IS MANDATORY //",
+                    heading: <>Build The <br /><span style={{ color: '#4FC3F7' }} className="italic">Engine.</span></>,
+                    paragraph: "Beautiful design without structural integrity is a house of cards. We engineer for exponential scale.",
+                    cta: "Initialize Stack",
+                    directive: "Digital Architecture",
+                    theme: {
+                        bg: '#050D1A',        // deep navy-black
+                        text: '#C9E8FF',
+                        accent: '#4FC3F7',    // electric sky blue
+                        border: '#1B3A5C',
+                        rightBg: 'rgba(79,195,247,0.06)',
+                    }
+                };
+            case '/gaming':
+                return {
+                    marquee: "PIXEL PERFECT // VIRTUAL WORLDS // REAL EMOTION //",
+                    heading: <>Enter The <br /><span style={{ color: '#D16D6A' }} className="italic">Arena.</span></>,
+                    paragraph: "Bridging the gap between interactive entertainment and high-fidelity digital experiences.",
+                    cta: "Load Environment",
+                    directive: "Interactive Media",
+                    theme: {
+                        bg: '#0A0A0A',        // pure noir — matches GamingPage bg
+                        text: '#EBE9DF',
+                        accent: '#D16D6A',
+                        border: '#2A0A0A',
+                        rightBg: 'rgba(209,109,106,0.07)',
+                    }
+                };
+            case '/shop':
+                return {
+                    marquee: "GEAR UP // THE ARMORY // DIGITAL ASSETS //",
+                    heading: <>Equip The <br /><span style={{ color: '#F5C842' }} className="italic">Future.</span></>,
+                    paragraph: "Physical artifacts and digital tools engineered for the modern creative operator.",
+                    cta: "Access Armory",
+                    directive: "Asset Acquisition",
+                    theme: {
+                        bg: '#1A1500',        // dark amber-black
+                        text: '#FFF8DC',
+                        accent: '#F5C842',    // gold
+                        border: '#3D2E00',
+                        rightBg: 'rgba(245,200,66,0.07)',
+                    }
+                };
+            default:
+                // Homepage / Catch-all
+                return {
+                    marquee: "SYSTEMS OF INFLUENCE // DESIGN IS WARFARE //",
+                    heading: <>Don't Just <span style={{ color: '#D16D6A' }} className="italic">Exist.</span><br />Dominate<br />The Feed.</>,
+                    paragraph: "Attention isn't passive currency — it is agency, leverage, and revolt. We craft digital systems that cannot be ignored.",
+                    cta: "Initiate Sequence",
+                    directive: "Autonomous Creative System",
+                    theme: {
+                        bg: '#EBE9DF',
+                        text: '#1A1A1A',
+                        accent: '#D16D6A',
+                        border: '#1A1A1A',
+                        rightBg: 'rgba(255,255,255,0.4)',
+                    }
+                };
+        }
+    };
+
+    const content = getFooterContent();
+
+    // If 'dark' theme is explicitly requested via props (ReverseVoidSystem),
+    // override the theme colors to match the Void.
+    if (theme === 'dark') {
+        content.theme.bg = '#020202';
+        content.theme.text = '#EBE9DF';
+        content.theme.border = 'rgba(235,233,223,0.3)';
+        content.theme.rightBg = 'rgba(255,255,255,0.03)';
+    }
 
     const navLinks = [
         { title: 'Studio', href: '/' },
@@ -82,73 +189,97 @@ export const Footer: React.FC = () => {
     ];
 
     return (
-        <footer className="relative bg-arson-base text-arson-dark border-t-[12px] border-arson-dark flex flex-col noise-bg">
+        <footer
+            className="relative flex flex-col noise-bg transition-colors duration-700"
+            style={{
+                backgroundColor: content.theme.bg,
+                color: content.theme.text,
+                borderTop: `12px solid ${content.theme.border}`,
+            }}
+        >
 
             {/* 1. SCROLLING MARQUEE */}
-            <Marquee text="SYSTEMS OF INFLUENCE // DESIGN IS WARFARE //" />
+            <Marquee key={content.marquee} text={content.marquee} accentColor={content.theme.accent} borderColor={content.theme.border} />
 
             {/* 2. MAIN GRID CONTENT */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px] border-b-2 border-arson-dark">
+            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]" style={{ borderBottom: `2px solid ${content.theme.border}` }}>
 
                 {/* Left Col: Brand & Statement */}
-                <div className="lg:col-span-7 flex flex-col justify-between p-6 md:p-12 border-r-2 border-arson-dark relative overflow-hidden group">
-                    <div className="absolute inset-0 opacity-[0.1] bg-[linear-gradient(#1A1A1A_1px,transparent_1px),linear-gradient(90deg,#1A1A1A_1px,transparent_1px)] bg-[size:2rem_2rem] pointer-events-none"></div>
+                <div className="lg:col-span-7 flex flex-col justify-between p-6 md:p-12 relative overflow-hidden group" style={{ borderRight: `2px solid ${content.theme.border}` }}>
+                    <div
+                        className="absolute inset-0 opacity-[0.08] pointer-events-none"
+                        style={{ backgroundImage: `linear-gradient(${content.theme.border} 1px, transparent 1px), linear-gradient(90deg, ${content.theme.border} 1px, transparent 1px)`, backgroundSize: '2rem 2rem' }}
+                    />
 
                     <div className="relative z-10">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-3 h-3 bg-arson-accent animate-pulse"></div>
-                            <p className="font-mono text-[10px] tracking-[0.3em] uppercase">Autonomous Creative System</p>
+                            <div className="w-3 h-3 animate-pulse" style={{ backgroundColor: content.theme.accent }} />
+                            <p className="font-mono text-[10px] tracking-[0.3em] uppercase opacity-60">{content.directive}</p>
                         </div>
 
-                        <h2 className="font-black text-5xl sm:text-7xl xl:text-8xl tracking-tighter leading-[0.85] uppercase mb-8">
-                            Don't Just <span className="text-arson-accent italic">Exist.</span><br />
-                            Dominate<br />
-                            The Feed.
+                        <h2 className="font-black text-5xl sm:text-7xl xl:text-8xl tracking-tighter leading-[0.85] uppercase mb-8 transition-all duration-500">
+                            {content.heading}
                         </h2>
                     </div>
 
                     <div className="relative z-10 mt-auto pt-12">
-                        <p className="font-medium text-lg md:text-xl leading-relaxed max-w-xl text-arson-dark/80">
-                            Attention isn’t passive currency — it is agency, leverage, and revolt. We craft digital systems that cannot be ignored.
+                        <p className="font-medium text-lg md:text-xl leading-relaxed max-w-xl opacity-75">
+                            {content.paragraph}
                         </p>
                     </div>
                 </div>
 
                 {/* Right Col: Interaction Area */}
-                <div className="lg:col-span-5 flex flex-col bg-white/40">
+                <div className="lg:col-span-5 flex flex-col" style={{ backgroundColor: content.theme.rightBg }}>
 
                     {/* Subscription Module */}
-                    <div className="p-8 md:p-12 flex-grow flex flex-col justify-center border-b-2 border-arson-dark hover:bg-white transition-colors duration-500">
-                        <label className="font-mono text-[10px] tracking-[0.3em] uppercase mb-4 block text-arson-dark/60">
-                            / Initiate Sequence
+                    <div
+                        className="p-8 md:p-12 flex-grow flex flex-col justify-center border-b-2 group/sub transition-colors duration-500"
+                        style={{
+                            borderColor: `${content.theme.border}40`,
+                            '--sub-text': content.theme.text,
+                            '--sub-bg': content.theme.bg,
+                            '--sub-accent': content.theme.accent,
+                        } as React.CSSProperties}
+                    >
+                        <label
+                            className="font-mono text-[10px] tracking-[0.3em] uppercase mb-4 block opacity-60"
+                            style={{ color: content.theme.text }}
+                        >
+                            / {content.cta}
                         </label>
 
-                        <form onSubmit={handleSubmit} className="relative group">
-                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-arson-dark"></div>
-                            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-arson-dark"></div>
-                            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-arson-dark"></div>
-                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-arson-dark"></div>
-
+                        <form onSubmit={handleSubmit} className="relative">
                             <input
                                 type="email"
                                 placeholder={status === 'SUCCESS' ? "TRANSMISSION RECEIVED" : "ENTER_EMAIL_ADDRESS"}
                                 disabled={status !== 'IDLE'}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-transparent p-6 font-mono text-sm border-2 border-arson-dark outline-none focus:bg-arson-accent/10 focus:border-arson-accent transition-all placeholder:text-arson-dark/30 uppercase"
+                                className="w-full bg-transparent p-6 font-mono text-sm outline-none transition-all uppercase"
+                                style={{
+                                    border: `2px solid ${content.theme.border}60`,
+                                    color: content.theme.text,
+                                    '--tw-placeholder-color': `${content.theme.text}40`,
+                                } as React.CSSProperties}
                             />
+                            <style>{`input::placeholder { color: ${content.theme.text}55; }`}</style>
 
                             <button
                                 type="submit"
                                 disabled={status !== 'IDLE'}
-                                className={`absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center border border-arson-dark transition-all duration-300
+                                className={`absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center border transition-all duration-300
 ${status === 'SUCCESS'
                                         ? 'bg-green-500 text-white border-green-600'
-                                        : 'bg-arson-dark text-arson-base hover:bg-arson-accent hover:border-arson-accent'}
-`}
+                                        : ''}`}
+                                style={status !== 'SUCCESS' ? {
+                                    backgroundColor: content.theme.text,
+                                    color: content.theme.bg,
+                                    borderColor: content.theme.border,
+                                } : {}}
                             >
                                 {status === 'PROCESSING' ? (
-                                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                                 ) : status === 'SUCCESS' ? (
                                     <span className="font-bold">✓</span>
                                 ) : (
@@ -157,21 +288,30 @@ ${status === 'SUCCESS'
                             </button>
                         </form>
 
-                        <p className="mt-4 font-mono text-[9px] text-arson-dark/40 uppercase tracking-widest">
+                        <p className="mt-4 font-mono text-[9px] uppercase tracking-widest opacity-40" style={{ color: content.theme.text }}>
                             By connecting, you agree to the data retention protocols.
                         </p>
                     </div>
 
                     {/* Navigation Grid */}
                     <div className="grid grid-cols-2 h-full">
-                        <div className="border-r-2 border-arson-dark p-8">
-                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-arson-accent block mb-6">
+                        <div className="p-8" style={{ borderRight: `2px solid ${content.theme.border}40` }}>
+                            <span
+                                className="font-mono text-[10px] tracking-[0.3em] uppercase block mb-6"
+                                style={{ color: content.theme.accent }}
+                            >
                                 Directory
                             </span>
                             <ul className="space-y-4">
                                 {navLinks.map((link) => (
                                     <li key={link.title}>
-                                        <Link to={link.href} className="group flex items-center gap-2 text-lg font-bold uppercase tracking-tight hover:text-arson-accent transition-colors">
+                                        <Link
+                                            to={link.href}
+                                            className="group flex items-center gap-2 text-lg font-bold uppercase tracking-tight transition-colors"
+                                            style={{ color: content.theme.text }}
+                                            onMouseEnter={e => (e.currentTarget.style.color = content.theme.accent)}
+                                            onMouseLeave={e => (e.currentTarget.style.color = content.theme.text)}
+                                        >
                                             <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100 font-mono text-xs">/</span>
                                             {link.title}
                                         </Link>
@@ -181,13 +321,28 @@ ${status === 'SUCCESS'
                         </div>
 
                         <div className="p-8">
-                            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-arson-accent block mb-6">
+                            <span
+                                className="font-mono text-[10px] tracking-[0.3em] uppercase block mb-6"
+                                style={{ color: content.theme.accent }}
+                            >
                                 Network
                             </span>
                             <ul className="space-y-4">
                                 {socialLinks.map((link) => (
                                     <li key={link.title}>
-                                        <a href={link.href} className="group flex items-center justify-between text-sm font-bold uppercase border-b border-arson-dark/20 pb-2 hover:border-arson-accent hover:text-arson-accent transition-all">
+                                        <a
+                                            href={link.href}
+                                            className="group flex items-center justify-between text-sm font-bold uppercase pb-2 transition-all"
+                                            style={{ color: content.theme.text, borderBottom: `1px solid ${content.theme.border}25` }}
+                                            onMouseEnter={e => {
+                                                e.currentTarget.style.color = content.theme.accent;
+                                                e.currentTarget.style.borderBottomColor = content.theme.accent;
+                                            }}
+                                            onMouseLeave={e => {
+                                                e.currentTarget.style.color = content.theme.text;
+                                                e.currentTarget.style.borderBottomColor = `${content.theme.border}25`;
+                                            }}
+                                        >
                                             {link.title}
                                             <ArrowUpRightIcon className="w-3 h-3 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                                         </a>

@@ -26,7 +26,7 @@ export const products: Product[] = [
         image: NexusImg,
         tags: ['React', 'Framer Motion', 'WebGL'],
         featured: true,
-        stripePriceId: 'price_mock_nexus' // REPLACE WITH REAL PRICE ID
+        stripePriceId: 'price_1TB9od2NRAQRhNmZwg3Uq5O4' // NEXUS // PORTFOLIO
     },
     {
         id: 'font-001',
@@ -37,7 +37,7 @@ export const products: Product[] = [
         category: 'font',
         image: ThanoicImg,
         tags: ['Display', 'Variable', 'Cyrillic'],
-        stripePriceId: 'price_mock_thanoic' // REPLACE WITH REAL PRICE ID
+        stripePriceId: 'price_1TB9of2NRAQRhNmZc2OZIirU' // THANOIC // ULTRA
     },
     {
         id: 'agent-001',
@@ -49,7 +49,7 @@ export const products: Product[] = [
         image: VantaImg,
         tags: ['Python', 'LLM', 'Automation'],
         featured: true,
-        stripePriceId: 'price_mock_vanta' // REPLACE WITH REAL PRICE ID
+        stripePriceId: 'price_1TB9og2NRAQRhNmZPthpOe2z' // VANTABLACKS // OPS
     },
     {
         id: 'tmpl-002',
@@ -60,7 +60,7 @@ export const products: Product[] = [
         category: 'template',
         image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000',
         tags: ['Shopify', 'Next.js 14', 'Stripe'],
-        stripePriceId: 'price_mock_void' // REPLACE WITH REAL PRICE ID
+        stripePriceId: 'price_1TB9oi2NRAQRhNmZxPHtkPpK' // VOID // E-COMMERCE
     },
     {
         id: 'wkfl-001',
@@ -71,6 +71,6 @@ export const products: Product[] = [
         category: 'workflow',
         image: 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&q=80&w=1000',
         tags: ['Make.com', 'Notion', 'Anthropic'],
-        stripePriceId: 'price_mock_ghost' // REPLACE WITH REAL PRICE ID
+        stripePriceId: 'price_1TB9oj2NRAQRhNmZO0gMRkPS' // GHOST // WRITER
     }
 ];

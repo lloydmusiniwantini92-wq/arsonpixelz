@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe';
+import { ScrollReveal } from '../components/fx/ScrollReveal';
 
 const TierListPage: React.FC = () => {
     const [loaded, setLoaded] = useState(false);
@@ -24,13 +26,15 @@ const TierListPage: React.FC = () => {
                     title: 'Full Brand Transformation',
                     category: 'fire',
                     description: 'Complete visual identity overhaul',
-                    metrics: { impact: 100, duration: '12-16 weeks', investment: '$$$$$' }
+                    metrics: { impact: 100, duration: '12-16 weeks', investment: '$$$$$' },
+                    stripePriceId: 'price_mock_inferno_brand'
                 },
                 {
                     title: 'AAA Game Launch Campaign',
                     category: 'fire',
                     description: 'End-to-end gaming experience',
-                    metrics: { impact: 100, duration: '16-24 weeks', investment: '$$$$$' }
+                    metrics: { impact: 100, duration: '16-24 weeks', investment: '$$$$$' },
+                    stripePriceId: 'price_mock_inferno_game'
                 }
             ]
         },
@@ -46,19 +50,22 @@ const TierListPage: React.FC = () => {
                     title: 'Website + E-Commerce Platform',
                     category: 'heat',
                     description: 'Full-stack digital storefront',
-                    metrics: { impact: 90, duration: '8-12 weeks', investment: '$$$$' }
+                    metrics: { impact: 90, duration: '8-12 weeks', investment: '$$$$' },
+                    stripePriceId: 'price_mock_blaze_web'
                 },
                 {
                     title: 'Game UI/UX Design System',
                     category: 'heat',
                     description: 'Complete interface overhaul',
-                    metrics: { impact: 88, duration: '6-10 weeks', investment: '$$$$' }
+                    metrics: { impact: 88, duration: '6-10 weeks', investment: '$$$$' },
+                    stripePriceId: 'price_mock_blaze_gameui'
                 },
                 {
                     title: 'Marketing Campaign Suite',
                     category: 'heat',
                     description: 'Multi-channel brand amplification',
-                    metrics: { impact: 85, duration: '4-8 weeks', investment: '$$$$' }
+                    metrics: { impact: 85, duration: '4-8 weeks', investment: '$$$$' },
+                    stripePriceId: 'price_mock_blaze_marketing'
                 }
             ]
         },
@@ -74,19 +81,22 @@ const TierListPage: React.FC = () => {
                     title: 'Brand Identity Package',
                     category: 'spark',
                     description: 'Logo, colors, typography system',
-                    metrics: { impact: 75, duration: '4-6 weeks', investment: '$$$' }
+                    metrics: { impact: 75, duration: '4-6 weeks', investment: '$$$' },
+                    stripePriceId: 'price_mock_flame_brand'
                 },
                 {
                     title: 'Custom Web Application',
                     category: 'spark',
                     description: 'React/Node full-stack build',
-                    metrics: { impact: 80, duration: '6-8 weeks', investment: '$$$' }
+                    metrics: { impact: 80, duration: '6-8 weeks', investment: '$$$' },
+                    stripePriceId: 'price_mock_flame_webapp'
                 },
                 {
                     title: 'Character Design Suite',
                     category: 'spark',
                     description: '5-10 hero/villain concepts',
-                    metrics: { impact: 72, duration: '3-5 weeks', investment: '$$$' }
+                    metrics: { impact: 72, duration: '3-5 weeks', investment: '$$$' },
+                    stripePriceId: 'price_mock_flame_character'
                 }
             ]
         },
@@ -102,19 +112,22 @@ const TierListPage: React.FC = () => {
                     title: 'Landing Page Design',
                     category: 'spark',
                     description: 'Single high-converting page',
-                    metrics: { impact: 65, duration: '2-3 weeks', investment: '$$' }
+                    metrics: { impact: 65, duration: '2-3 weeks', investment: '$$' },
+                    stripePriceId: 'price_mock_ember_landing'
                 },
                 {
                     title: 'Social Media Brand Kit',
                     category: 'spark',
                     description: 'Templates + guidelines',
-                    metrics: { impact: 60, duration: '1-2 weeks', investment: '$$' }
+                    metrics: { impact: 60, duration: '1-2 weeks', investment: '$$' },
+                    stripePriceId: 'price_mock_ember_social'
                 },
                 {
                     title: 'Mobile App Prototype',
                     category: 'spark',
                     description: 'Interactive MVP design',
-                    metrics: { impact: 68, duration: '3-4 weeks', investment: '$$' }
+                    metrics: { impact: 68, duration: '3-4 weeks', investment: '$$' },
+                    stripePriceId: 'price_mock_ember_mobile'
                 }
             ]
         }
@@ -134,8 +147,26 @@ const TierListPage: React.FC = () => {
         )
     })).filter(tier => tier.products.length > 0);
 
+    const handleCheckout = async (priceId: string | undefined) => {
+        if (!priceId) {
+            alert('Price ID not found for this package.');
+            return;
+        }
+        if (!isStripeConfigured()) {
+            alert("Stripe is not configured. Please set VITE_STRIPE_PUBLIC_KEY in your .env file.");
+            return;
+        }
+
+        try {
+            await redirectToCheckoutLineItems([{ price: priceId, quantity: 1 }]);
+        } catch (error) {
+            console.error("Stripe checkout error:", error);
+            alert("Failed to initialize checkout. If you are using mock IDs, please ensure they exist in your Stripe Dashboard.");
+        }
+    };
+
     return (
-        <section className="relative min-h-screen w-full px-6 md:px-12 pt-32 md:pt-40 pb-24 overflow-hidden bg-[#050505]">
+        <section className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#050505]">
 
             {/* Background Code Pattern */}
             <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none">
@@ -193,13 +224,10 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
 
                     <div className="overflow-hidden">
                         <h2 className={`
-                            text-2xl md:text-4xl font-black uppercase tracking-tighter text-transparent
+                            text-2xl md:text-4xl font-black uppercase tracking-tighter text-[#EBE9DF]/30
                             transition-transform duration-1200 delay-300
                             ${loaded ? 'translate-y-0' : 'translate-y-full'}
-                        `} style={{
-                                fontFamily: 'Syne, sans-serif',
-                                WebkitTextStroke: '1px rgba(235,233,223,0.25)'
-                            }}>
+                        `} style={{ fontFamily: 'Syne, sans-serif' }}>
                             IGNITION POWER SCALE
                         </h2>
                     </div>
@@ -248,14 +276,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                 {/* Tier List */}
                 <div className="space-y-8 md:space-y-12">
                     {filteredTiers.map((tier, tierIdx) => (
-                        <div
-                            key={tier.rank}
-                            className={`
-                                transition-all duration-1000
-                                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
-                            `}
-                            style={{ transitionDelay: `${600 + tierIdx * 150}ms` }}
-                        >
+                        <ScrollReveal key={tier.rank} staggerIndex={tierIdx} yOffset={50}>
                             {/* Tier Header */}
                             <div className="flex items-stretch gap-4 mb-4">
                                 {/* Rank Badge */}
@@ -330,7 +351,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                             </div>
 
                                             {/* Progress Bar */}
-                                            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-6">
                                                 <div
                                                     className={`h-full bg-gradient-to-r ${tier.gradient} transition-all duration-1000 delay-100 group-hover:scale-x-100`}
                                                     style={{
@@ -339,11 +360,20 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                                     }}
                                                 />
                                             </div>
+
+                                            {/* Checkout Button */}
+                                            <button
+                                                onClick={() => handleCheckout(product.stripePriceId)}
+                                                className={`w-full py-2.5 rounded text-xs font-mono font-bold uppercase tracking-widest border border-white/10 text-white/70 transition-all duration-300 hover:text-white hover:border-transparent relative overflow-hidden group/btn`}
+                                            >
+                                                <div className={`absolute inset-0 bg-gradient-to-r ${tier.gradient} opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 z-0`}></div>
+                                                <span className="relative z-10">INITIALIZE CHECKOUT</span>
+                                            </button>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                        </div>
+                        </ScrollReveal>
                     ))}
                 </div>
 

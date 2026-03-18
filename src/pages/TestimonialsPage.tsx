@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { testimonials, Testimonial } from '../data/testimonials';
 
 const TestimonialCard: React.FC<{ item: Testimonial; index: number }> = ({ item, index }) => {
@@ -76,6 +77,7 @@ export const TestimonialsPage: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef });
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
+    const navigate = useNavigate();
 
     const scrollContainer = (direction: 'left' | 'right') => {
         const container = containerRef.current;
@@ -155,6 +157,7 @@ export const TestimonialsPage: React.FC = () => {
 
                     {/* Call to Action Card */}
                     <motion.div
+                        onClick={() => navigate('/contact')}
                         className="relative flex-shrink-0 w-[85vw] md:w-[40vw] h-[70vh] mr-12 flex items-center justify-center border border-white/10 bg-white/5 rounded-sm hover:bg-[#D16D6A] group cursor-pointer transition-colors duration-500"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}

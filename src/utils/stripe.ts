@@ -13,13 +13,18 @@ export const isStripeConfigured = (): boolean => {
 };
 
 /**
- * Redirects the user to the Stripe Checkout page.
- * @param lineItems Array of items to purchase { price: string, quantity: number }
- * @param successUrl URL to redirect on success
- * @param cancelUrl URL to redirect on cancel
+ * Redirects the user to the Stripe Checkout page using Client-Only integration.
+ * Note: Requires products/prices to exist in your Stripe Dashboard and 
+ * "Enable client-only integration" to be turned on in Stripe Checkout settings.
+ * 
+ * @param lineItems Array of items containing price (Price ID) and quantity.
+ * @param successUrl The URL to redirect to upon successful payment.
+ * @param cancelUrl The URL to redirect to if the user cancels.
  */
-export const redirectToCheckout = async (
-    lineItems: { price: string; quantity: number }[]
+export const redirectToCheckoutLineItems = async (
+    lineItems: { price: string; quantity: number }[],
+    successUrl: string = `${window.location.origin}/success`,
+    cancelUrl: string = `${window.location.origin}/cancel`
 ) => {
     const stripe = await stripePromise;
     if (!stripe) throw new Error('Stripe failed to initialize');
@@ -27,8 +32,8 @@ export const redirectToCheckout = async (
     const { error } = await stripe.redirectToCheckout({
         mode: 'payment',
         lineItems,
-        successUrl: `${window.location.origin}/success`,
-        cancelUrl: `${window.location.origin}/shop`,
+        successUrl,
+        cancelUrl
     });
 
     if (error) {

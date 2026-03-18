@@ -1,8 +1,13 @@
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PageTransition } from "./components/fx/PageTransition";
+import { ErrorBoundary } from "./components/common/ErrorBoundary";
+import { ClothTear } from "./components/fx/ClothTear";
 import { Navigation } from "./components/Navigation";
-import { Hero } from "./components/Hero";
-import { About } from "./components/About";
+import { UnifiedVoidSystem } from "./components/fx/UnifiedVoidSystem";
 import { Services } from "./components/Services";
 import { Work } from "./components/Work";
 import { Footer } from "./components/Footer";
@@ -10,7 +15,15 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { CartProvider } from './context/CartContext';
 import { LoadingSpinner } from "./components/LoadingSpinner";
+import { VoidOverlay } from "./components/fx/VoidOverlay";
 import { CodeWatermark } from "./components/layout/CodeWatermark";
+import { HorizontalScrollSection } from "./components/fx/HorizontalScrollSection";
+import { MagneticCursor } from "./components/fx/MagneticCursor";
+import { Preloader } from "./components/layout/Preloader";
+import { ReverseVoidSystem } from "./components/fx/ReverseVoidSystem";
+
+// Global Context to track if this relies on a fresh load vs internal navigation
+export const NavigationContext = React.createContext({ isInitialLoad: true });
 
 // Lazy Loaded Pages
 const MarketingPage = React.lazy(() => import("./pages/MarketingPage"));
@@ -28,53 +41,134 @@ const AboutPage = React.lazy(() => import("./pages/AboutPage").then(module => ({
 const LegalPage = React.lazy(() => import("./pages/LegalPage").then(module => ({ default: module.LegalPage })));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage").then(module => ({ default: module.NotFoundPage })));
 
-// Home Section (Keep critical components eager for LCP)
-const HomePage = () => (
+// Home Page
+const HomePage = () => {
+  return (
     <>
-        <Hero />
-        <About />
-        <Services />
+      <UnifiedVoidSystem />
+      {/* 
+        Phase 2 Fix: Unifying horizontal and work sections within a persistent 
+        dark background container to mask the transparent .pin-spacers 
+        and visually eliminate the "Spatial Void" during the scroll transition.
+      */}
+      <div className="bg-[#020202] relative overflow-hidden">
+        <HorizontalScrollSection />
         <Work />
+      </div>
+      <ReverseVoidSystem />
     </>
-);
+  );
+};
+
+const FooterWrapper = () => {
+    const loc = useLocation();
+    if (loc.pathname === '/') return null;
+    return <Footer />;
+};
+
+const AnimatedRoutes = () => {
+    const location = useLocation();
+    return (
+        <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+                <Route path="/work" element={<PageTransition><WorkIndexPage /></PageTransition>} />
+                <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+                <Route path="/legal" element={<PageTransition><LegalPage /></PageTransition>} />
+
+                <Route path="/marketing" element={<PageTransition><MarketingPage /></PageTransition>} />
+                <Route path="/branding" element={<PageTransition><BrandingPage /></PageTransition>} />
+                <Route path="/gaming" element={<PageTransition><GamingPage /></PageTransition>} />
+                <Route path="/dev-ai" element={<PageTransition><DevAIPage /></PageTransition>} />
+                <Route path="/shop" element={<PageTransition><ShopPage /></PageTransition>} />
+                <Route path="/tier-list" element={<PageTransition><TierListPage /></PageTransition>} />
+                <Route path="/transmissions" element={<PageTransition><TestimonialsPage /></PageTransition>} />
+                <Route path="/success" element={<PageTransition><SuccessPage /></PageTransition>} />
+                <Route path="/cancel" element={<PageTransition><CancelPage /></PageTransition>} />
+                <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+
+                <Route path="*" element={<PageTransition><NotFoundPage /></PageTransition>} />
+            </Routes>
+        </AnimatePresence>
+    );
+};
 
 const App = () => {
+    React.useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        let raf1 = 0;
+        let raf2 = 0;
+
+        const refreshScroll = () => {
+            raf1 = requestAnimationFrame(() => {
+                raf2 = requestAnimationFrame(() => {
+                    ScrollTrigger.clearScrollMemory();
+                    ScrollTrigger.sort();
+                    ScrollTrigger.refresh();
+                });
+            });
+        };
+
+        const handleLoad = () => refreshScroll();
+        const handleResize = () => refreshScroll();
+
+        window.addEventListener("load", handleLoad);
+        window.addEventListener("resize", handleResize);
+
+        refreshScroll();
+
+        return () => {
+            if (raf1) cancelAnimationFrame(raf1);
+            if (raf2) cancelAnimationFrame(raf2);
+            window.removeEventListener("load", handleLoad);
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    // ONLY true on the very first time the user opens/refreshes the tab. 
+    // Remains false on all subsequent internal navigations via React Router.
+    const [isInitialLoad, setIsInitialLoad] = React.useState(true);
+
+    React.useEffect(() => {
+        let rafId = 0;
+        const timer = setTimeout(() => {
+            setIsInitialLoad(false);
+            rafId = requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+            });
+        }, 4000);
+        return () => {
+            clearTimeout(timer);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, []);
+
     return (
+        <NavigationContext.Provider value={{ isInitialLoad }}>
         <CartProvider>
             <Router>
-                <div className="flex flex-col min-h-screen bg-[#EBE9DF]">
+                <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#EBE9DF] text-[#1A1A1A]">
+                    <Preloader />
                     <CodeWatermark />
+                    <MagneticCursor />
                     <Navigation />
                     <CartDrawer />
                     <ScrollToTop />
+
                     <div className="flex-grow z-10"> {/* Added z-10 to ensure content sits above watermark */}
-                        <Suspense fallback={<LoadingSpinner />}>
-                            <Routes>
-                                <Route path="/" element={<HomePage />} />
-                                <Route path="/work" element={<WorkIndexPage />} />
-                                <Route path="/about" element={<AboutPage />} />
-                                <Route path="/legal" element={<LegalPage />} />
-
-                                <Route path="/marketing" element={<MarketingPage />} />
-                                <Route path="/branding" element={<BrandingPage />} />
-                                <Route path="/gaming" element={<GamingPage />} />
-                                <Route path="/dev-ai" element={<DevAIPage />} />
-                                <Route path="/shop" element={<ShopPage />} />
-                                <Route path="/tier-list" element={<TierListPage />} />
-                                <Route path="/transmissions" element={<TestimonialsPage />} />
-                                <Route path="/success" element={<SuccessPage />} />
-                                <Route path="/cancel" element={<CancelPage />} />
-                                <Route path="/contact" element={<ContactPage />} />
-
-                                <Route path="*" element={<NotFoundPage />} />
-                            </Routes>
-                        </Suspense>
+                        <ClothTear>
+                            <Suspense fallback={<LoadingSpinner />}>
+                                <AnimatedRoutes />
+                            </Suspense>
+                        </ClothTear>
                     </div>
 
-                    <Footer />
+                    <FooterWrapper />
                 </div>
             </Router>
         </CartProvider>
+        </NavigationContext.Provider>
     );
 };
 

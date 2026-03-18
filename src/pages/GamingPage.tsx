@@ -1,9 +1,116 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GamingPage: React.FC = () => {
     const [loaded, setLoaded] = useState(false);
+
+    const containerRef = React.useRef<HTMLElement>(null);
+    const bgGridRef = React.useRef<HTMLDivElement>(null);
+    const plusRef = React.useRef<HTMLDivElement>(null);
+    const headingRef = React.useRef<HTMLDivElement>(null);
+    const descRef = React.useRef<HTMLDivElement>(null);
+    const cardsRef = React.useRef<HTMLDivElement>(null);
+    const statsRef = React.useRef<HTMLDivElement>(null);
+    const ctaRef = React.useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            if (!containerRef.current || !headingRef.current || !descRef.current || !cardsRef.current || !statsRef.current || !ctaRef.current) return;
+
+            // Background Parallax
+            if (bgGridRef.current) {
+                gsap.to(bgGridRef.current, {
+                    y: '20%',
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            }
+            if (plusRef.current) {
+                gsap.to(plusRef.current, {
+                    y: '40%',
+                    rotation: 90,
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 2
+                    }
+                });
+            }
+
+            // HUD Glitch Heading
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: headingRef.current,
+                    start: 'top 85%'
+                }
+            });
+
+            tl.from(headingRef.current, {
+                opacity: 0,
+                x: -30,
+                filter: 'hue-rotate(90deg) blur(4px)',
+                duration: 0.3,
+                ease: 'steps(4)'
+            }).from(descRef.current, {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
+                ease: 'power3.out'
+            }, "+=0.2");
+
+            // Service Cards (Mechanical Screen-Refresh)
+            gsap.from('.gaming-card', {
+                opacity: 0,
+                scaleX: 0.9,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: 'steps(5)',
+                clearProps: 'all',
+                scrollTrigger: {
+                    trigger: cardsRef.current,
+                    start: 'top bottom', // fires as soon as grid enters view
+                    once: true,
+                }
+            });
+
+            // Scrambled Stats Counter
+            const stats = gsap.utils.toArray('.stat-node');
+            gsap.from(stats, {
+                y: 30,
+                opacity: 0,
+                duration: 0.4,
+                stagger: 0.1,
+                ease: 'steps(3)',
+                scrollTrigger: {
+                    trigger: statsRef.current,
+                    start: 'top 85%'
+                }
+            });
+
+            // CTA Bootup
+            gsap.from(ctaRef.current, {
+                clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+                duration: 0.8,
+                ease: 'power4.inOut',
+                scrollTrigger: {
+                    trigger: ctaRef.current,
+                    start: 'top 85%'
+                }
+            });
+
+        }, containerRef);
+        return () => ctx.revert();
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -11,27 +118,49 @@ const GamingPage: React.FC = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    const handleCheckout = async (priceId: string | undefined) => {
+        if (!priceId) {
+            alert('Price ID not found for this package.');
+            return;
+        }
+        if (!isStripeConfigured()) {
+            alert("Stripe is not configured. Please set VITE_STRIPE_PUBLIC_KEY in your .env file.");
+            return;
+        }
+
+        try {
+            await redirectToCheckoutLineItems([{ price: priceId, quantity: 1 }]);
+        } catch (error) {
+            console.error("Stripe checkout error:", error);
+            alert("Failed to initialize checkout. If you are using mock IDs, please ensure they exist in your Stripe Dashboard.");
+        }
+    };
+
     const services = [
         {
             title: "GAME UI/UX DESIGN",
-            description: "Interfaces that enhance gameplay without getting in the way. We design HUDs, menus, and systems that feel native to your world."
+            description: "Interfaces that enhance gameplay without getting in the way. We design HUDs, menus, and systems that feel native to your world.",
+            stripePriceId: 'price_mock_gaming_uiux'
         },
         {
             title: "CHARACTER & ASSET DESIGN",
-            description: "Heroes, villains, and everything between. We create memorable characters and assets that define your game's visual identity."
+            description: "Heroes, villains, and everything between. We create memorable characters and assets that define your game's visual identity.",
+            stripePriceId: 'price_mock_gaming_assets'
         },
         {
             title: "GAME BRANDING & MARKETING",
-            description: "Launch campaigns that build hype and community. From key art to trailers, we position your game for maximum impact."
+            description: "Launch campaigns that build hype and community. From key art to trailers, we position your game for maximum impact.",
+            stripePriceId: 'price_mock_gaming_marketing'
         },
         {
             title: "INTERACTIVE EXPERIENCES",
-            description: "Web-based games, AR filters, and branded interactions. We blur the lines between game and marketing."
+            description: "Web-based games, AR filters, and branded interactions. We blur the lines between game and marketing.",
+            stripePriceId: 'price_mock_gaming_interactive'
         }
     ];
 
     return (
-        <section className="relative min-h-screen w-full px-6 md:px-12 pt-32 md:pt-40 pb-24 overflow-hidden bg-[#0a0a0a]">
+        <section ref={containerRef} className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#0a0a0a]">
 
             {/* Background Code - Full Screen Coverage (Gaming Theme) */}
             <div className="absolute inset-0 overflow-hidden opacity-[0.06] pointer-events-none flex items-start justify-center">
@@ -213,7 +342,7 @@ export default rightAsset;`.repeat(50)}
             </div>
 
             {/* Animated Grid Background */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div ref={bgGridRef} className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(209,109,106,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(209,109,106,0.1)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-pulse"
                     style={{ animationDuration: '8s' }}
                 />
@@ -225,6 +354,7 @@ export default rightAsset;`.repeat(50)}
 
             {/* Decorative Plus Icon */}
             <div
+                ref={plusRef}
                 className={`
                     absolute right-[15%] top-[15%]
                     text-[20vw] leading-none font-black text-[#D16D6A]/10
@@ -259,40 +389,23 @@ export default rightAsset;`.repeat(50)}
                 </div>
 
                 {/* Main Heading */}
-                <div className="mb-16 md:mb-24">
+                <div ref={headingRef} className="mb-16 md:mb-24">
                     <div className="overflow-hidden mb-4">
-                        <h1 className={`
-                            text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter
-                            text-[#EBE9DF]
-                            transition-transform duration-1000 delay-300
-                            ${loaded ? 'translate-y-0' : 'translate-y-full'}
-                        `} style={{ fontFamily: 'Syne, sans-serif' }}>
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#EBE9DF]" style={{ fontFamily: 'Syne, sans-serif' }}>
                             GAMING EXPERIENCES
                         </h1>
                     </div>
 
                     <div className="overflow-hidden">
-                        <h2 className={`
-                            text-3xl md:text-5xl font-black uppercase tracking-tighter
-                            text-transparent
-                            transition-transform duration-1000 delay-400
-                            ${loaded ? 'translate-y-0' : 'translate-y-full'}
-                        `}
-                            style={{
-                                fontFamily: 'Syne, sans-serif',
-                                WebkitTextStroke: '1px rgba(235,233,223,0.3)'
-                            }}>
+                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/25"
+                            style={{ fontFamily: 'Syne, sans-serif' }}>
                             LEVEL UP YOUR VISION
                         </h2>
                     </div>
                 </div>
 
                 {/* Description */}
-                <div className={`
-                    max-w-3xl mb-20 md:mb-32
-                    transition-all duration-1000 delay-500
-                    ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-                `}>
+                <div ref={descRef} className="max-w-3xl mb-20 md:mb-32">
                     <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#D16D6A] pl-6">
                         From indie titles to AAA launches, we craft <strong className="text-white">immersive experiences</strong> that
                         keep players engaged and communities thriving. Your game deserves more than pixels—it deserves artistry.
@@ -300,16 +413,9 @@ export default rightAsset;`.repeat(50)}
                 </div>
 
                 {/* Services Grid */}
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">
+                <div ref={cardsRef} className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">
                     {services.map((service, idx) => (
-                        <div
-                            key={idx}
-                            className={`
-                                card-standard-dark group
-                                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
-                            `}
-                            style={{ transitionDelay: `${600 + idx * 100}ms` }}
-                        >
+                        <div key={idx} className="gaming-card group h-full relative overflow-hidden flex flex-col justify-between bg-[#111111] border border-white/10 rounded-xl p-8 hover:border-[#D16D6A]/60 transition-colors duration-300">
                             <div className="absolute inset-0 bg-gradient-to-br from-[#D16D6A]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             <div className="relative z-10">
@@ -323,9 +429,16 @@ export default rightAsset;`.repeat(50)}
                                     {service.title}
                                 </h3>
 
-                                <p className="text-sm font-mono text-white/70 leading-relaxed">
+                                <p className="text-sm font-mono text-white/70 leading-relaxed mb-6">
                                     {service.description}
                                 </p>
+
+                                <button
+                                    onClick={() => handleCheckout(service.stripePriceId)}
+                                    className="w-full py-3 rounded-md bg-white text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#D16D6A] hover:text-white transition-all transform active:scale-95"
+                                >
+                                    INITIALIZE QUEST
+                                </button>
 
                                 <div className="mt-6 h-2 bg-white/10 rounded-full overflow-hidden">
                                     <div className="h-full bg-gradient-to-r from-[#D16D6A] to-[#B04E4B] scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left" />
@@ -336,10 +449,8 @@ export default rightAsset;`.repeat(50)}
                 </div>
 
                 {/* Stats */}
-                <div className={`
+                <div ref={statsRef} className={`
                     mb-24 grid md:grid-cols-4 gap-8
-                    transition-all duration-1000 delay-1000
-                    ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
                 `}>
                     {[
                         { label: 'PROJECTS SHIPPED', value: '50+' },
@@ -347,7 +458,7 @@ export default rightAsset;`.repeat(50)}
                         { label: 'PLAYER RATING', value: '5★' },
                         { label: 'AWARDS WON', value: '12+' }
                     ].map((stat, idx) => (
-                        <div key={idx} className="text-center p-6 bg-white/5 rounded-lg border border-white/10">
+                        <div key={idx} className="stat-node text-center p-6 bg-white/5 rounded-lg border border-white/10">
                             <div className="text-4xl md:text-5xl font-black text-[#D16D6A] mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {stat.value}
                             </div>
@@ -359,11 +470,9 @@ export default rightAsset;`.repeat(50)}
                 </div>
 
                 {/* CTA */}
-                <div className={`
+                <div ref={ctaRef} className={`
                     relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#D16D6A] to-[#B04E4B]
                     overflow-hidden
-                    transition-all duration-1000 delay-1100
-                    ${loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
                 `}>
 
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />

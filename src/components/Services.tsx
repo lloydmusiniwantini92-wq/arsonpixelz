@@ -4,26 +4,11 @@
  */
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRightIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// --- INTERNAL HOOK: INTERSECTION OBSERVER ---
-const useInView = (options = { threshold: 0.1 }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [isInView, setIsInView] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setIsInView(true);
-                observer.disconnect();
-            }
-        }, options);
-
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
-    }, [options]);
-
-    return [ref, isInView] as const;
-};
+import { ScrollReveal } from './fx/ScrollReveal';
 
 // --- VISUAL 1: THE TURBINE (Branding) ---
 const SchematicTurbine = () => (
@@ -98,9 +83,14 @@ const SchematicRadar = () => (
 );
 
 
-export const Services: React.FC = () => {
-    const [ref, isVisible] = useInView({ threshold: 0.1 });
+export const Services: React.FC<{ theme?: 'light' | 'dark' }> = ({ theme = 'light' }) => {
     const [activeService, setActiveService] = useState(0);
+
+    const isDark = theme === 'dark';
+    const bgColor = isDark ? '#020202' : '#EBE9DF';
+    const textColor = isDark ? '#EBE9DF' : '#1A1A1A';
+    const borderColor = isDark ? 'rgba(235,233,223,0.3)' : '#1A1A1A';
+    const accentColor = '#D16D6A'; // fiery orange/red
 
     const services = [
         {
@@ -108,112 +98,178 @@ export const Services: React.FC = () => {
             title: "Brand Ignition",
             tags: ["Identity Systems", "Strategy", "UI/UX"],
             description: "Your brand is the smoke that signals the fire. We forge identities that burn into the memory of your audience.",
-            Visual: SchematicTurbine
+            Visual: SchematicTurbine,
+            link: "/branding"
         },
         {
             id: "02",
             title: "Digital Architecture",
             tags: ["Full Stack", "E-Commerce", "App Dev"],
             description: "A beautiful flame needs a solid structure to sustain it. We build robust, scalable platforms that act as your engine.",
-            Visual: SchematicStack
+            Visual: SchematicStack,
+            link: "/dev-ai"
         },
         {
             id: "03",
             title: "Market Acceleration",
             tags: ["SEO", "Performance", "CRO"],
             description: "We act as the accelerant for your business growth using aggressive, data-driven marketing strategies.",
-            Visual: SchematicRadar
+            Visual: SchematicRadar,
+            link: "/marketing"
         }
     ];
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 600); 
+        return () => clearTimeout(timer);
+    }, [activeService]);
+
     return (
-        <section className="relative py-24 md:py-40 px-6 md:px-12 bg-[#EBE9DF] overflow-hidden">
+        <section className={`relative py-24 md:py-40 px-6 md:px-12 overflow-hidden ${isDark ? 'text-white' : 'text-black'}`} style={{ backgroundColor: bgColor }}>
 
             {/* --- 1. BACKGROUND NOISE & DECORATION --- */}
-            <div className="absolute inset-0 pointer-events-none opacity-40 mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-[#1A1A1A]/5"></div>
+            {isDark && (
+                <>
+                    {/* Add the orangy void singularity back in for the dark theme */}
+                    <div className="absolute left-1/2 top-[20%] -translate-x-1/2 w-[80vw] h-[80vw] rounded-full bg-[#D16D6A]/10 blur-[150px] mix-blend-screen pointer-events-none z-0" />
+                    <div className="absolute inset-x-[-20%] inset-y-0 opacity-20 mix-blend-screen bg-cover bg-center pointer-events-none z-0" style={{ backgroundImage: "url('/images/background/kinetic_bg.png')" }} />
+                </>
+            )}
+            <div className={`absolute inset-0 pointer-events-none opacity-40 mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0`}></div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full z-0" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(26,26,26,0.05)' }}></div>
 
             <div className="max-w-[90rem] mx-auto relative z-10">
 
                 {/* Header */}
-                <div ref={ref} className={`mb-20 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="inline-block border border-[#1A1A1A] px-4 py-1 mb-6">
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]">System Capabilities</span>
+                <ScrollReveal staggerIndex={0}>
+                    <div className="mb-20 text-center">
+                        <div className="inline-block border px-4 py-1 mb-6" style={{ borderColor: isDark ? 'rgba(235,233,223,0.3)' : '#1A1A1A' }}>
+                            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: textColor }}>System Capabilities</span>
+                        </div>
+                        <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter" style={{ color: textColor }}>
+                            Blueprint <span className="text-[#D16D6A]" style={isDark ? { textShadow: '0 0 40px rgba(209,109,106,0.4)' } : {}}>Engine</span>
+                        </h2>
                     </div>
-                    <h2 className="text-5xl md:text-7xl font-black text-[#1A1A1A] uppercase tracking-tighter">
-                        Blueprint <span className="text-[#D16D6A]">Engine</span>
-                    </h2>
-                </div>
+                </ScrollReveal>
 
                 <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
 
                     {/* --- LEFT: INTERACTIVE ACCORDION LIST --- */}
                     <div className="lg:col-span-7 flex flex-col">
                         {services.map((service, index) => (
-                            <div
-                                key={index}
-                                className={`group border-t border-[#1A1A1A] transition-all duration-500 cursor-pointer ${activeService === index ? 'pb-12' : 'hover:bg-[#1A1A1A]/5'}`}
-                                onMouseEnter={() => setActiveService(index)}
-                            >
-                                {/* Service Header */}
-                                <div className="py-8 md:py-10 flex items-baseline justify-between">
-                                    <div className="flex items-baseline space-x-6 md:space-x-10">
-                                        <span className={`font-mono text-sm md:text-base font-bold transition-colors duration-300 ${activeService === index ? 'text-[#D16D6A]' : 'text-[#1A1A1A]/40'}`}>
-                                            / {service.id}
-                                        </span>
-                                        <h3 className={`text-3xl md:text-5xl font-black uppercase tracking-tight transition-all duration-300 ${activeService === index ? 'translate-x-4 text-[#D16D6A]' : 'text-[#1A1A1A]'}`}>
-                                            {service.title}
-                                        </h3>
+                            <ScrollReveal key={index} staggerIndex={index + 1}>
+                                <div
+                                    className={`group border-t transition-all duration-500 cursor-pointer ${activeService === index ? 'pb-12' : isDark ? 'hover:bg-white/5' : 'hover:bg-[#1A1A1A]/5'}`}
+                                    style={{ borderColor: borderColor }}
+                                    onMouseEnter={() => setActiveService(index)}
+                                >
+                                    {/* Service Header */}
+                                    <div className="py-8 md:py-10 flex items-baseline justify-between">
+                                        <div className="flex items-baseline space-x-6 md:space-x-10">
+                                            <span 
+                                                className={`font-mono text-sm md:text-base font-bold transition-colors duration-300 ${activeService === index ? 'text-[#D16D6A]' : ''}`}
+                                                style={activeService !== index ? { color: isDark ? 'rgba(235,233,223,0.4)' : 'rgba(26,26,26,0.4)' } : undefined}
+                                            >
+                                                / {service.id}
+                                            </span>
+                                            <h3 
+                                                className={`text-3xl md:text-5xl font-black uppercase tracking-tight transition-all duration-300 ${activeService === index ? 'translate-x-4 text-[#D16D6A]' : ''}`}
+                                                style={activeService !== index ? { color: textColor } : undefined}
+                                            >
+                                                {service.title}
+                                            </h3>
+                                        </div>
+                                        <div className="hidden md:block">
+                                            <ArrowRightIcon 
+                                                className={`w-6 h-6 transition-all duration-300 ${activeService === index ? 'text-[#D16D6A] -rotate-45' : ''}`} 
+                                                style={activeService !== index ? { color: textColor, opacity: 0.2 } : undefined}
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="hidden md:block">
-                                        <ArrowRightIcon className={`w-6 h-6 transition-all duration-300 ${activeService === index ? 'text-[#D16D6A] -rotate-45' : 'text-[#1A1A1A] opacity-20'}`} />
-                                    </div>
-                                </div>
 
-                                {/* Expanded Details (Desktop & Mobile) */}
-                                <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeService === index ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                                    <div className="pl-0 md:pl-20 pr-0 md:pr-10 grid md:grid-cols-2 gap-8">
-                                        <p className="text-lg font-medium text-[#1A1A1A]/70 leading-relaxed">
-                                            {service.description}
-                                        </p>
-                                        <ul className="space-y-2">
-                                            {service.tags.map((tag, i) => (
-                                                <li key={i} className="flex items-center space-x-3 font-mono text-sm font-bold uppercase tracking-wider text-[#1A1A1A]">
-                                                    <div className="w-1.5 h-1.5 bg-[#D16D6A]"></div>
-                                                    <span>{tag}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                    {/* Expanded Details (Desktop & Mobile) */}
+                                    <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeService === index ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                        <div className="pl-0 md:pl-20 pr-0 md:pr-10 grid md:grid-cols-2 gap-8 pb-8">
+                                            <div className="flex flex-col space-y-8">
+                                                <p className="text-lg font-medium leading-relaxed" style={{ color: isDark ? 'rgba(235,233,223,0.7)' : 'rgba(26,26,26,0.7)' }}>
+                                                    {service.description}
+                                                </p>
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        navigate(service.link);
+                                                    }}
+                                                    className={`group relative inline-flex items-center justify-center px-6 py-3 w-max overflow-hidden transition-all duration-300 shadow-[4px_4px_0px_rgba(209,109,106,1)] hover:shadow-[2px_2px_0px_rgba(209,109,106,1)] hover:translate-x-[2px] hover:translate-y-[2px] ${isDark ? 'bg-white text-black' : 'bg-[#1A1A1A] text-white'}`}
+                                                >
+                                                    <span className={`relative z-10 font-mono font-bold uppercase tracking-widest text-[10px] sm:text-xs transition-colors ${isDark ? 'group-hover:text-black' : 'group-hover:text-[#D16D6A]'}`}>
+                                                        Explore Capabilities
+                                                    </span>
+                                                    <ArrowRightIcon className={`relative z-10 w-3 h-3 sm:w-4 sm:h-4 ml-2 transition-colors group-hover:translate-x-1 duration-300 ${isDark ? 'text-black group-hover:text-[#D16D6A]' : 'text-white group-hover:text-[#D16D6A]'}`} />
+                                                </button>
+                                            </div>
+                                            <ul className="space-y-2">
+                                                {service.tags.map((tag, i) => (
+                                                    <li key={i} className="flex items-center space-x-3 font-mono text-sm font-bold uppercase tracking-wider" style={{ color: textColor }}>
+                                                        <div className="w-1.5 h-1.5 bg-[#D16D6A]"></div>
+                                                        <span>{tag}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </ScrollReveal>
                         ))}
-                        <div className="border-t border-[#1A1A1A]"></div>
+                        <ScrollReveal staggerIndex={services.length + 1}>
+                            <div className="border-t" style={{ borderColor: borderColor }}></div>
+                        </ScrollReveal>
                     </div>
 
                     {/* --- RIGHT: HOLOGRAPHIC PREVIEW WINDOW (STICKY) --- */}
-                    <div className="hidden lg:block lg:col-span-5 h-[500px] sticky top-32">
-                        <div className="relative w-full h-full bg-[#EBE9DF] border-2 border-[#1A1A1A] p-2 shadow-[12px_12px_0px_#1A1A1A]">
+                    <div className="hidden lg:block lg:col-span-5 sticky top-32">
+                        <ScrollReveal staggerIndex={1}>
+                            <div className="relative w-full h-[520px] bg-[#080808] overflow-hidden" style={{ boxShadow: '0 0 0 1px rgba(209,109,106,0.2), 0 20px 60px rgba(0,0,0,0.5)' }}>
 
-                            {/* Blueprint Container */}
-                            <div className="relative w-full h-full border border-[#1A1A1A]/20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-opacity-20 overflow-hidden">
-                                {/* Grid Overlay */}
-                                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
+                                {/* Top bar — terminal chrome */}
+                                <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-[#0d0d0d]">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#D16D6A] animate-pulse" />
+                                        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-white/30">
+                                            BLUEPRINT_ENGINE // SYSTEM.RENDER
+                                        </span>
+                                    </div>
+                                    <span className="font-mono text-[9px] text-white/20 tracking-widest">
+                                        SVC_{services[activeService].id}
+                                    </span>
+                                </div>
 
-                                {/* HUD Corners */}
-                                <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#1A1A1A]"></div>
-                                <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#1A1A1A]"></div>
-                                <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#1A1A1A]"></div>
-                                <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#1A1A1A]"></div>
+                                {/* Faint grid overlay */}
+                                <div
+                                    className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                                    style={{ backgroundImage: 'linear-gradient(rgba(209,109,106,1) 1px, transparent 1px), linear-gradient(90deg, rgba(209,109,106,1) 1px, transparent 1px)', backgroundSize: '2.5rem 2.5rem' }}
+                                />
 
-                                {/* Active Visual Render */}
-                                <div className="absolute inset-0 p-12 transition-all duration-700 ease-out key={activeService}">
+                                {/* Corner brackets */}
+                                <div className="absolute top-12 left-3 w-5 h-5 border-t border-l border-[#D16D6A]/40" />
+                                <div className="absolute top-12 right-3 w-5 h-5 border-t border-r border-[#D16D6A]/40" />
+                                <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-[#D16D6A]/40" />
+                                <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-[#D16D6A]/40" />
+
+                                {/* Red top glow */}
+                                <div className="absolute top-8 left-0 right-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(209,109,106,0.12)_0%,transparent_70%)] pointer-events-none" />
+
+                                {/* Schematic visuals — each service has a visual that now renders dark */}
+                                <div className="absolute inset-0 pt-12 pb-16">
                                     {services.map((service, index) => {
                                         const VisualComponent = service.Visual;
                                         return (
                                             <div
                                                 key={index}
-                                                className={`absolute inset-0 transition-all duration-500 transform ${activeService === index ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}
+                                                className={`absolute inset-0 pt-12 pb-16 transition-all duration-500 ${activeService === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
                                             >
                                                 <VisualComponent />
                                             </div>
@@ -221,10 +277,28 @@ export const Services: React.FC = () => {
                                     })}
                                 </div>
 
-                                {/* Scanner Line */}
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D16D6A]/5 to-transparent animate-[scan_4s_linear_infinite] pointer-events-none"></div>
+                                {/* Scan sweep */}
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D16D6A]/[0.04] to-transparent animate-[scan_5s_linear_infinite] pointer-events-none" />
+
+                                {/* Bottom stats strip */}
+                                <div className="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-[#0d0d0d] px-4 py-3 flex gap-6">
+                                    {[
+                                        { label: 'MODULE', value: services[activeService].id },
+                                        { label: 'STATUS', value: 'ACTIVE' },
+                                        { label: 'INTEGRITY', value: '100%' },
+                                    ].map(s => (
+                                        <div key={s.label} className="flex flex-col gap-0.5">
+                                            <span className="font-mono text-[8px] tracking-[0.25em] uppercase text-white/20">{s.label}</span>
+                                            <span className="font-mono text-[10px] font-bold tracking-widest text-[#D16D6A]">{s.value}</span>
+                                        </div>
+                                    ))}
+                                    <div className="ml-auto flex items-center gap-1.5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#D16D6A] animate-pulse" />
+                                        <span className="font-mono text-[8px] tracking-widest text-white/20 uppercase">LIVE</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </ScrollReveal>
                     </div>
 
                 </div>

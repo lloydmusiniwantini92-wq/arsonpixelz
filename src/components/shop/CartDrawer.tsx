@@ -98,37 +98,48 @@ export const CartDrawer = () => {
                                     </span>
                                 </div>
                                 <button
-                                    onClick={async () => {
-                                        try {
-                                            const { redirectToCheckout, isStripeConfigured } = await import('../../utils/stripe');
+                                        onClick={async () => {
+                                            try {
+                                                const lineItems = cartItems.map(item => {
+                                                    if (!item.stripePriceId) {
+                                                        console.warn(`Product ${item.title} missing stripePriceId`);
+                                                        return null;
+                                                    }
+                                                    return {
+                                                        price: item.stripePriceId,
+                                                        quantity: item.quantity
+                                                    };
+                                                }).filter((item): item is { price: string; quantity: number } => item !== null);
 
-                                            if (!isStripeConfigured()) {
-                                                alert("Stripe is not configured. Please set VITE_STRIPE_PUBLIC_KEY in your .env file.");
-                                                return;
-                                            }
-
-                                            const lineItems = cartItems.map(item => {
-                                                if (!item.stripePriceId) {
-                                                    console.warn(`Product ${item.title} missing stripePriceId`);
-                                                    return null;
+                                                if (lineItems.length === 0) {
+                                                    alert("No products with valid Price IDs found in cart.");
+                                                    return;
                                                 }
-                                                return {
-                                                    price: item.stripePriceId,
-                                                    quantity: item.quantity
-                                                };
-                                            }).filter((item): item is { price: string; quantity: number } => item !== null);
 
-                                            if (lineItems.length === 0) {
-                                                alert("No products with valid Price IDs found in cart.");
-                                                return;
+                                                const response = await fetch('http://localhost:3001/api/create-checkout-session', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                    },
+                                                    body: JSON.stringify({ lineItems }),
+                                                });
+
+                                                if (!response.ok) {
+                                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                                }
+
+                                                const data = await response.json();
+                                                
+                                                if (data.url) {
+                                                    window.location.href = data.url;
+                                                } else {
+                                                    throw new Error('No checkout URL returned');
+                                                }
+                                            } catch (err) {
+                                                console.error("Checkout setup failed:", err);
+                                                alert("Checkout failed to setup. See console for details.");
                                             }
-
-                                            await redirectToCheckout(lineItems);
-                                        } catch (err) {
-                                            console.error("Checkout failed:", err);
-                                            alert("Checkout failed to initialize. See console for details.");
-                                        }
-                                    }}
+                                        }}
                                     className="w-full btn-thanoic text-center hover:scale-[1.02] active:scale-[0.98]"
                                 >
                                     INITIALIZE CHECKOUT

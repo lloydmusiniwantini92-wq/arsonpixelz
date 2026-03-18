@@ -1,13 +1,16 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
-*/
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import React, { useState, useEffect, useRef } from 'react';
+import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollReveal } from '../components/fx/ScrollReveal';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DevAIPage: React.FC = () => {
     const [loaded, setLoaded] = useState(false);
+    const containerRef = useRef<HTMLElement>(null);
+    const ctaRef = useRef<HTMLDivElement>(null);
+    const capabilitiesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -15,45 +18,130 @@ const DevAIPage: React.FC = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const services = [
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            if (!containerRef.current || !ctaRef.current) return;
+
+            // CTA Ignition Reveal
+            gsap.from(ctaRef.current, {
+                scaleX: 0.8,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: ctaRef.current,
+                    start: 'top 85%'
+                }
+            });
+
+            // 3D Server Rack Initialization
+            if (capabilitiesRef.current) {
+                const blades = gsap.utils.toArray('.capability-blade', capabilitiesRef.current);
+                
+                blades.forEach((blade: any, i) => {
+                    gsap.set(blade, { transformPerspective: 2000, transformOrigin: 'top center' });
+                    
+                    gsap.from(blade, {
+                        scrollTrigger: {
+                            trigger: blade,
+                            start: 'top 85%',
+                            toggleActions: "play reverse play reverse",
+                        },
+                        rotationX: -90,
+                        z: -1000,
+                        opacity: 0,
+                        duration: 1.2,
+                        ease: 'expo.out'
+                    });
+                });
+            }
+
+        }, containerRef);
+        return () => ctx.revert();
+    }, []);
+
+    const handleCheckout = async (priceId: string | undefined) => {
+        if (!priceId) {
+            alert('Price ID not found for this package.');
+            return;
+        }
+        if (!isStripeConfigured()) {
+            alert("Stripe is not configured. Please set VITE_STRIPE_PUBLIC_KEY in your .env file.");
+            return;
+        }
+
+        try {
+            await redirectToCheckoutLineItems([{ price: priceId, quantity: 1 }]);
+        } catch (error) {
+            console.error("Stripe checkout error:", error);
+            alert("Failed to initialize checkout. If you are using mock IDs, please ensure they exist in your Stripe Dashboard.");
+        }
+    };
+
+    const capabilities = [
         {
-            title: "FULL-STACK WEB DEVELOPMENT",
-            subtitle: "(React, Node, Python)",
-            description:
-                "Scalable, maintainable, blazing-fast. We architect web applications that handle millions of users without breaking a sweat.",
-            tech: ["React", "Next.js", "Node", "Python"],
+            id: "01",
+            title: "FULL-STACK PLATFORMS",
+            subtitle: "The Foundation",
+            description: "Scalable, maintainable, blazing-fast. We don't just build websites; we architect complex digital ecosystems capable of handling millions of concurrent operations without breaking a sweat.",
+            deliverables: ["React / Next.js Architecture", "Scalable Node/Python Backends", "Custom API Development", "High-Availability Cloud Hosting"],
+            stripePriceId: 'price_mock_dev_web'
         },
         {
-            title: "E-COMMERCE SOLUTIONS",
-            subtitle: "(Shopify/Custom)",
-            description:
-                "From Shopify Plus to headless commerce, we build online stores that convert browsers into buyers at scale.",
-            tech: ["Shopify", "WooCommerce", "Custom"],
+            id: "02",
+            title: "E-COMMERCE ENGINES",
+            subtitle: "The Conversion Machine",
+            description: "We engineer high-performance retail experiences. From custom headless commerce solutions to heavily optimized Shopify Plus builds, we design systems tailored purely for transaction volume and conversion.",
+            deliverables: ["Headless Commerce Builds", "Custom Shopify Theme Dev", "Complex Inventory Syncing", "Conversion Rate Optimization"],
+            stripePriceId: 'price_mock_dev_ecommerce'
         },
         {
-            title: "MOBILE APP DEVELOPMENT",
-            subtitle: "",
-            description:
-                "Native iOS, Android, or cross-platform. We build apps that users love and app stores feature.",
-            tech: ["React Native", "Flutter", "Swift"],
+            id: "03",
+            title: "NATIVE & CROSS-PLATFORM",
+            subtitle: "The Mobile Experience",
+            description: "Deploy uncompromising performance directly to your users' hands. We build native-feeling, high-fidelity applications that bridge the gap between utility and obsession.",
+            deliverables: ["React Native Development", "iOS/Android Deployment", "Offline-First Architecture", "App Store Optimization"],
+            stripePriceId: 'price_mock_dev_mobile'
         },
         {
+            id: "04",
             title: "AI & AUTOMATION",
-            subtitle: "",
-            description:
-                "Harness the power of AI. From chatbots to predictive analytics, we integrate cutting-edge ML into your products.",
-            tech: ["OpenAI", "TensorFlow", "Custom ML"],
+            subtitle: "The Force Multiplier",
+            description: "Harness cognitive computation. We integrate cutting-edge machine learning protocols into your business, automating workflows and deploying intelligent predictive models that operate 24/7.",
+            deliverables: ["Custom LLM Integration", "Automated Workflows", "Predictive Analytics Models", "Conversational AI Interfaces"],
+            stripePriceId: 'price_mock_dev_ai'
         },
     ];
 
+    const processes = [
+        { num: "I", title: "THE ARCHITECTURE", desc: "We map the data relationships, API structures, and technological stack required to support your long-term operational scale." },
+        { num: "II", title: "THE COMPILATION", desc: "Our engineers write clean, typed, modular code. We build in isolated environments, ensuring no systemic failures affect the entire platform." },
+        { num: "III", title: "THE DEPLOYMENT", desc: "Rigorous QA, automated testing, and CI/CD pipelines guarantee a flawless rollout to the production environment." }
+    ];
+
     return (
-        <section className="relative min-h-screen w-full px-6 md:px-12 pt-32 md:pt-40 pb-24 overflow-hidden bg-[#050505]">
+        <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#050505] text-[#EBE9DF]">
+            
+            {/* HER0 HEADER */}
+            <div className="pt-28 md:pt-32 pb-20 px-6 md:px-12 max-w-[100rem] mx-auto relative z-10">
+                <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <div className="inline-block px-4 py-1 mb-8 border border-[#EBE9DF]/10">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#EBE9DF]/50">Sector // Dev + AI</span>
+                    </div>
+                    <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white">
+                        DIGITAL <br />
+                        <span className="text-[#D16D6A]">ARCHITECTURE</span>
+                    </h1>
+                    <p className="text-xl md:text-3xl font-mono text-[#EBE9DF]/70 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
+                        A beautiful flame needs a solid structure to sustain it. We build robust, scalable platforms powered by cutting-edge tech.
+                    </p>
+                </div>
+            </div>
 
-            {/* Background Code - Full Screen Coverage (Subtle Watermark) */}
-            <div className="absolute inset-0 overflow-hidden opacity-[0.06] pointer-events-none flex items-start justify-center">
-                <pre className="text-[#D16D6A] text-xs leading-relaxed font-mono w-full px-4 text-center">
-                    {`// ARSON PIXELS - DIGITAL ARCHITECTURE ENGINE v7.0
-
+            {/* Background Code Watermark */}
+            <div className="absolute top-0 left-0 w-full h-[80vh] overflow-hidden opacity-[0.03] pointer-events-none select-none z-0 flex items-start justify-center">
+                <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono w-full px-4 text-center">
+                    {`// ARSON PIXELS - ENGINE v7.0
 const buildTheFuture = () => {
     return {
         frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
@@ -62,379 +150,159 @@ const buildTheFuture = () => {
         cloud: ['AWS', 'Vercel', 'Railway', 'Cloudflare'],
     };
 };
-
 interface Architecture {
     scalability: 'infinite';
     performance: 'blazing';
     security: 'fortress';
     innovation: 'relentless';
-}
-
-export const igniteSystem = async () => {
-    await initializeFirewall();
-    await deployMicroservices();
-    await scaleInfrastructure();
-    return { status: 'burning_bright' };
-};
-
-class DigitalForge {
-    constructor(vision) {
-        this.vision = vision;
-        this.fuel = 'innovation';
-        this.temperature = Infinity;
-    }
-    
-    async craft() {
-        const design = await this.conceptualize();
-        const code = await this.architect();
-        const product = await this.deploy();
-        return this.ignite(product);
-    }
-}
-
-const techStack = {
-    modern: true,
-    scalable: true,
-    secure: true,
-    innovative: true,
-    performant: 'always'
-};
-
-// API ROUTES - IGNITION PROTOCOL
-app.post('/api/ignite', async (req, res) => {
-    const { project, vision } = req.body;
-    const flame = await igniteProject(project);
-    return res.json({ flame, status: 'blazing' });
-});
-
-app.get('/api/architecture/:id', async (req, res) => {
-    const blueprint = await fetchBlueprint(req.params.id);
-    return res.json({ blueprint, structural_integrity: 100 });
-});
-
-// DEPLOYMENT SEQUENCE
-const deploy = async (codebase) => {
-    await runTests();
-    await buildOptimized();
-    await deployToProduction();
-    console.log('🔥 System Online. Temperature: MAXIMUM');
-};
-
-// AI INTEGRATION ENGINE
-const aiPipeline = {
-    models: ['GPT-4', 'Claude', 'Stable Diffusion'],
-    capabilities: ['generation', 'analysis', 'optimization'],
-    integrate: async (model) => {
-        const connection = await model.connect();
-        return connection.activate();
-    }
-};
-
-// E-COMMERCE REACTOR
-const commerceEngine = {
-    platforms: ['Shopify', 'WooCommerce', 'Custom'],
-    features: {
-        cart: 'optimized',
-        checkout: 'streamlined',
-        payments: 'secure',
-        analytics: 'real-time'
-    },
-    async processOrder(order) {
-        await validatePayment(order);
-        await fulfillOrder(order);
-        return { success: true, flame: 'sustained' };
-    }
-};
-
-// MOBILE FORGE
-const mobileFramework = {
-    native: ['Swift', 'Kotlin'],
-    crossPlatform: ['React Native', 'Flutter'],
-    deploy: async (app) => {
-        await testOnDevices();
-        await submitToStores();
-        return 'APPROVED';
-    }
-};
-
-export const ignitionProtocol = () => {
-    const systems = initializeSystems();
-    const forge = activateForge();
-    const temperature = setMaximum();
-    
-    return {
-        systems,
-        forge,
-        temperature,
-        status: 'OPERATIONAL'
-    };
-};
-
-// PERFORMANCE OPTIMIZATION MATRIX
-const optimize = async () => {
-    await minifyAssets();
-    await enableCaching();
-    await loadBalance();
-    await cdnDistribute();
-    console.log('⚡ Performance: MAXIMUM');
-};
-
-// SECURITY FORTRESS
-const securityLayer = {
-    encryption: 'AES-256',
-    authentication: 'JWT + OAuth',
-    firewall: 'WAF enabled',
-    monitoring: '24/7',
-    async protect(system) {
-        await scanVulnerabilities();
-        await patchSystems();
-        return 'FORTRESS_MODE_ACTIVE';
-    }
-};
-
-`.repeat(20)}
+}`.repeat(50)}
                 </pre>
             </div>
 
-            {/* Additional Code Layers for Full Coverage (Very Subtle) */}
-            <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none">
-                <div className="grid grid-cols-3 gap-6 w-full h-full p-6">
-                    {/* Left Column */}
-                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
-                        {`const leftEngine = {
-  initialize: true,
-  optimize: 'always'
-};
-
-async function processLeft() {
-  return await compute();
-}
-
-export default leftEngine;`.repeat(50)}
-                    </pre>
-
-                    {/* Center Column */}
-                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
-                        {`const centerCore = {
-  status: 'active',
-  power: 'maximum'
-};
-
-async function processCtr() {
-  return await ignite();
-}
-
-export default centerCore;`.repeat(50)}
-                    </pre>
-
-                    {/* Right Column */}
-                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
-                        {`const rightSystem = {
-  deploy: true,
-  scale: 'infinite'
-};
-
-async function processRt() {
-  return await launch();
-}
-
-export default rightSystem;`.repeat(50)}
-                    </pre>
-                </div>
-            </div>
-
-            {/* Angle Bracket Decoration - Left */}
-            <div
-                className={`
-                    absolute left-[10%] top-[20%]
-                    text-[15vw] leading-none font-mono text-[#D16D6A]/10
-                    transition-all duration-[2000ms] ease-out
-                    ${loaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}
-                `}
-            >
-                {"</>"}
-            </div>
-
-            {/* Angle Bracket Decoration - Right */}
-            <div
-                className={`
-                    absolute right-[10%] top-[20%]
-                    text-[15vw] leading-none font-mono text-[#D16D6A]/10
-                    transition-all duration-[2000ms] ease-out
-                    ${loaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}
-                `}
-            >
-                {"</>"}
-            </div>
-
-            <div className="relative z-10">
-
-                {/* Top Row */}
-                <div
-                    className={`
-                        flex items-center justify-between mb-10 md:mb-16
-                        transition-all duration-700 delay-100
-                        ${loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
-                    `}
-                >
-                    {/* Category Tag */}
-                    <div
-                        className={`
-                            inline-block px-6 py-2 rounded-full bg-[#D16D6A] text-white
-                            font-mono text-xs font-bold uppercase tracking-[0.3em]
-                            transition-all duration-700 delay-200
-                        `}
-                    >
-                        DEVELOPMENT
-                    </div>
-                </div>
-
-                {/* Title */}
-                <div className="mb-20 md:mb-28">
-                    <div className="overflow-hidden mb-4">
-                        <h1
-                            className={`
-                                text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#EBE9DF]
-                                transition-transform duration-1000 delay-300
-                                ${loaded ? "translate-y-0" : "translate-y-full"}
-                            `}
-                            style={{ fontFamily: "Syne, sans-serif" }}
-                        >
-                            DIGITAL ARCHITECTURE
-                        </h1>
-                    </div>
-
-                    <div className="overflow-hidden">
-                        <h2
-                            className={`
-                                text-3xl md:text-5xl font-black uppercase tracking-tighter text-transparent
-                                transition-transform duration-1000 delay-400
-                                ${loaded ? "translate-y-0" : "translate-y-full"}
-                            `}
-                            style={{
-                                fontFamily: "Syne, sans-serif",
-                                WebkitTextStroke: "1px rgba(235,233,223,0.3)",
-                            }}
-                        >
-                            (DEVELOPMENT)
+            {/* PHILOSOPHY SECTION */}
+            <div className="py-24 md:py-32 bg-[#EBE9DF] text-[#1A1A1A] relative z-10 box-shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+                <div className="max-w-[90rem] mx-auto px-6 md:px-12">
+                    <ScrollReveal staggerIndex={0}>
+                        <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 mix-blend-difference text-white/90">
+                            SCALABILITY IS <span className="text-[#D16D6A]">NOT OPTIONAL.</span>
                         </h2>
+                    </ScrollReveal>
+                    <div className="grid md:grid-cols-2 gap-12">
+                        <ScrollReveal staggerIndex={1}>
+                            <p className="font-mono text-lg text-[#1A1A1A]/70 leading-relaxed">
+                                Beautiful design without structural integrity is a house of cards. We engineer digital products with the assumption that they will handle exponential scale. Your platform must never be the bottleneck to your growth.
+                            </p>
+                        </ScrollReveal>
+                        <ScrollReveal staggerIndex={2}>
+                            <p className="font-mono text-lg text-[#1A1A1A]/70 leading-relaxed">
+                                From isolated microservices to headless architectures, we enforce strict, modern engineering paradigms. No legacy code. No shortcuts. Just pure, unadulterated performance.
+                            </p>
+                        </ScrollReveal>
                     </div>
                 </div>
+            </div>
 
-                {/* Description */}
-                <div
-                    className={`
-                        max-w-3xl mb-20 md:mb-32
-                        transition-all duration-1000 delay-500
-                        ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-                    `}
-                >
-                    <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#D16D6A] pl-6">
-                        A beautiful flame needs a <strong className="text-white">solid structure</strong> to sustain it.
-                        We build robust, scalable platforms that turn vision into reality—powered by cutting-edge tech and AI.
-                    </p>
-                </div>
+            {/* CAPABILITIES DEEP DIVE */}
+            <div className="py-32 px-6 md:px-12 max-w-[90rem] mx-auto relative z-10">
+                <ScrollReveal staggerIndex={0}>
+                    <div className="mb-24">
+                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#D16D6A] mb-4">Engineering Capabilities</h2>
+                        <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Stack & Infrastructure</h3>
+                    </div>
+                </ScrollReveal>
 
-                {/* Services Grid */}
-                <div className="grid md:grid-cols-2 gap-12">
-                    {services.map((service, idx) => (
-                        <div
-                            key={idx}
-                            className={`
-                                card-standard-dark group
-                                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
-                            `}
-                            style={{ transitionDelay: `${600 + idx * 100}ms` }}
-                        >
-                            {/* Window Header */}
-                            <div className="flex items-center gap-2 mb-6 pb-4 border-b border-white/10">
-                                <div className="flex gap-1.5">
-                                    <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                                    <div className="w-3 h-3 rounded-full bg-green-500/50" />
-                                </div>
-                                <span className="font-mono text-xs text-white/40 ml-2">
-                                    service_{idx + 1}.tsx
-                                </span>
+                <div ref={capabilitiesRef} className="space-y-32 perspective-[2000px]">
+                    {capabilities.map((cap, index) => (
+                        <div key={cap.id} className={`capability-blade grid lg:grid-cols-12 gap-12 items-center w-full will-change-transform ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
+                            
+                            {/* Visual Abstract side */}
+                            <div className={`lg:col-span-5 h-[400px] border border-white/10 bg-[#0A0A0A] relative overflow-hidden flex items-center justify-center p-8 group w-full ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:1rem_1rem]"></div>
+                                <span className="text-[12rem] font-black text-white/5 font-mono select-none transition-transform duration-700 group-hover:scale-110">{cap.id}</span>
+                                
+                                {/* Tech scanner effect */}
+                                <div className="absolute inset-x-0 h-[1px] bg-[#D16D6A]/50 shadow-[0_0_10px_#D16D6A] animate-[scan_3s_linear_infinite]"></div>
                             </div>
 
-                            {/* Title */}
-                            <h3
-                                className="text-xl font-black uppercase text-white mb-2 group-hover:text-[#D16D6A] transition-colors"
-                                style={{ fontFamily: "Syne, sans-serif" }}
-                            >
-                                {service.title}
-                            </h3>
-
-                            {service.subtitle && (
-                                <p className="text-xs font-mono font-bold uppercase text-white/50 mb-4">
-                                    {service.subtitle}
+                            {/* Content Side */}
+                            <div className={`lg:col-span-7 flex flex-col w-full ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
+                                <div className="flex items-center space-x-4 mb-4">
+                                    <span className="font-mono text-sm font-bold text-[#D16D6A]">{`<${cap.id} />`}</span>
+                                    <span className="font-mono text-xs tracking-widest uppercase opacity-50">{cap.subtitle}</span>
+                                </div>
+                                <h4 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-6">{cap.title}</h4>
+                                <p className="text-lg font-mono text-white/70 leading-relaxed mb-8 max-w-2xl">
+                                    {cap.description}
                                 </p>
-                            )}
-
-                            {/* Description */}
-                            <p className="text-sm font-mono text-white/70 leading-relaxed mb-6">
-                                {service.description}
-                            </p>
-
-                            {/* Tech Tags */}
-                            <div className="flex flex-wrap gap-2">
-                                {service.tech.map((tech, i) => (
-                                    <span
-                                        key={i}
-                                        className="px-3 py-1 text-xs font-mono font-bold bg-[#D16D6A]/10 text-[#D16D6A] rounded border border-[#D16D6A]/30 group-hover:bg-[#D16D6A] group-hover:text-white transition-colors"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
+                                
+                                <div className="mb-10">
+                                    <h5 className="font-bold text-xs font-mono uppercase tracking-widest text-white/30 mb-4 border-b border-white/10 pb-2">Technical Deliverables:</h5>
+                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {cap.deliverables.map((item, i) => (
+                                            <li key={i} className="flex items-center space-x-3 text-sm font-mono text-white/90">
+                                                <svg className="w-4 h-4 text-[#D16D6A] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                
+                                <button 
+                                    onClick={() => handleCheckout(cap.stripePriceId)}
+                                    className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#050505] font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#D16D6A] hover:text-white transition-colors w-max"
+                                >
+                                    Initialize Stack
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
+            </div>
 
-                {/* CTA */}
-                <div
-                    className={`
-                        relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#D16D6A] to-[#B04E4B]
-                        transition-all duration-1000 delay-1200
-                        overflow-hidden
-                        ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}
-                    `}
-                >
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
-
-                    <div className="relative z-10 flex flex-col md:flex-row justify-between gap-8 items-center">
-                        <div>
-                            <h3
-                                className="text-3xl md:text-4xl font-black uppercase mb-4 text-white"
-                                style={{ fontFamily: "Syne, sans-serif" }}
-                            >
-                                READY TO BUILD?
-                            </h3>
-                            <p className="text-white/80 font-mono text-lg max-w-xl">
-                                Let's architect a digital platform that scales with your ambition.
-                            </p>
+            {/* METHODOLOGY SECTION */}
+            <div className="bg-[#0A0A0A] border-t-2 border-[#1A1A1A] py-32 px-6 md:px-12 overflow-hidden relative z-10">
+                <div className="max-w-[90rem] mx-auto">
+                    <ScrollReveal staggerIndex={0}>
+                        <div className="mb-20">
+                            <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#D16D6A] mb-4">The Methodology</h2>
+                            <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Build Sequence</h3>
                         </div>
+                    </ScrollReveal>
 
-                        <a
-                            href="mailto:hello@arsonpixels.com?subject=Development%20Project%20Inquiry"
-                            className="group px-8 py-4 bg-white text-[#D16D6A] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-[#0a0a0a] hover:text-white transition-all duration-300"
+                    <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
+                        <div className="hidden md:block absolute top-[40px] left-0 w-full h-[1px] border-t border-dashed border-white/20 -z-10"></div>
+                        {processes.map((step, index) => (
+                            <ScrollReveal key={step.num} staggerIndex={index + 1}>
+                                <div className="bg-[#111] p-8 md:p-10 border border-white/5 hover:border-[#D16D6A]/50 transition-colors h-full flex flex-col">
+                                    <div className="w-16 h-16 bg-[#D16D6A]/10 text-[#D16D6A] font-bold font-mono flex items-center justify-center text-xl mb-8 group-hover:bg-[#D16D6A] group-hover:text-white transition-colors">
+                                        {'/* ' + step.num + ' */'}
+                                    </div>
+                                    <h4 className="text-2xl font-black uppercase mb-4">{step.title}</h4>
+                                    <p className="font-mono text-sm text-white/60 leading-relaxed flex-grow">
+                                        {step.desc}
+                                    </p>
+                                </div>
+                            </ScrollReveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* BOTTOM CTA */}
+            <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-32 pt-16 relative z-10">
+                <div ref={ctaRef} className="relative p-12 md:p-20 bg-gradient-to-br from-[#D16D6A] to-[#B04E4B] overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                    
+                    <div className="absolute top-0 right-0 p-8 opacity-10">
+                        <pre className="font-mono text-xs text-white">
+                            {'status: "WAITING_FOR_INPUT"\nlatency: "0ms"'}
+                        </pre>
+                    </div>
+
+                    <div className="relative z-10 max-w-2xl">
+                        <h3 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase mb-6 text-white leading-[0.9]">
+                            SYSTEMS ONLINE.
+                        </h3>
+                        <p className="text-white/90 font-mono text-lg mb-10">
+                            Stop patching broken legacy systems. Architect the future of your platform today.
+                        </p>
+                        <a href="mailto:hello@arsonpixels.com?subject=Dev%20Project%20Inquiry"
+                           className="inline-block px-10 py-5 bg-[#0A0A0A] text-white font-mono font-bold uppercase tracking-widest hover:bg-white hover:text-[#0A0A0A] transition-colors"
                         >
-                            <span className="inline-flex items-center gap-2">
-                                START PROJECT
-                                <svg
-                                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </span>
+                            Open Terminal
                         </a>
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                @keyframes scan { 
+                    0% { transform: translateY(-200px); } 
+                    100% { transform: translateY(600px); } 
+                }
+            `}</style>
         </section>
     );
 };

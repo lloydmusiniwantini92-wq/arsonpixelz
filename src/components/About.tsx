@@ -1,192 +1,186 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from 'react-router-dom';
+import VoidBg from './assets/void_bg.png';
 
-export const About: React.FC = () => {
-    const sectionRef = useRef<HTMLElement>(null);
-    const [isVisible, setIsVisible] = useState(false);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+interface Stat {
+    value: string;
+    label: string;
+    sub?: string;
+}
 
-    // --- INTERSECTION OBSERVER (REVEAL ON SCROLL) ---
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) setIsVisible(true);
-            },
-            { threshold: 0.15 }
-        );
+const stats: Stat[] = [
+    { value: '120+', label: 'Brands Ignited', sub: 'since 2020' },
+    { value: '7X', label: 'Avg. Growth Multiplier', sub: 'in 18 months' },
+    { value: '∞', label: 'Creative Threshold', sub: 'no ceiling' },
+    { value: '01', label: 'Civilization Level', sub: 'currently ascending' },
+];
 
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
+interface AboutContentProps {
+  theme: 'light' | 'dark';
+}
 
-    // --- MOUSE PARALLAX CALCULATION ---
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!sectionRef.current) return;
-        const rect = sectionRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        setMousePos({ x, y });
-    };
+/**
+ * AboutContent renders the visual structure, styled for light/dark mode.
+ */
+export const AboutContent: React.FC<AboutContentProps> = ({ theme }) => {
+    const isDark = theme === 'dark';
+    const navigate = useNavigate();
+
+    // Thematic Classes
+    const textColor = isDark ? 'text-[#EBE9DF]' : 'text-[#1A1A1A]';
+    const textMuted = isDark ? 'text-[#EBE9DF]/70' : 'text-[#1A1A1A]/70';
+    const textSub = isDark ? 'text-[#EBE9DF]/30' : 'text-[#1A1A1A]/40';
+    
+    const borderColor = isDark ? 'border-[#EBE9DF]/10' : 'border-[#1A1A1A]/10';
+    const gridBg = isDark ? 'bg-[#D16D6A]/10' : 'bg-[#1A1A1A]/10';
+    const statBg = isDark ? 'bg-[#0a0a0a]' : 'bg-[#EBE9DF]';
+    const statHover = isDark ? 'hover:bg-[#0f0808]' : 'hover:bg-[#f5f3eb]';
+    
+    const buttonShadowColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(26,26,26,0.15)';
+    const marqueeStyle = isDark ? 'opacity-20 border-[#D16D6A]/10 text-[#EBE9DF]' : 'opacity-10 border-[#1A1A1A]/10 text-[#1A1A1A]';
 
     return (
-        <section
-            ref={sectionRef}
-            onMouseMove={handleMouseMove}
-            className="relative py-32 md:py-40 px-6 md:px-12 overflow-hidden bg-[#EBE9DF] text-[#1A1A1A]"
-        >
-            {/* --- 1. BACKGROUND TEXTURE & GRID --- */}
-            <div className="absolute inset-0 pointer-events-none">
-                {/* Subtle Grain Overlay */}
-                <div className="absolute inset-0 opacity-[0.3] mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        <div className={`relative transition-colors duration-500 overflow-hidden ${isDark ? 'bg-[#0a0a0a]' : ''}`}>
+            {/* Dark theme specifics: extraordinary background */}
+            {isDark && (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <div 
+                        className="absolute inset-0 opacity-60"
+                        style={{ 
+                            backgroundImage: `url(${VoidBg})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundAttachment: 'fixed',
+                            animation: 'void-drift-slow 30s ease-in-out infinite alternate',
+                            mixBlendMode: 'screen',
+                        }}
+                    />
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D16D6A]/50 to-transparent" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(209,109,106,0.2)_0%,transparent_75%)]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/40 to-[#0a0a0a]" />
+                </div>
+            )}
 
-                {/* Technical Grid (Light Mode) */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_100%,transparent_0%)]"></div>
+            <div className="relative z-10 max-w-[90rem] mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-0">
+
+            {/* ── Sector tag ── */}
+            <div className={`flex items-center gap-3 mb-10 ${isDark ? 'opacity-50' : 'opacity-60'}`}>
+                <div className="w-2 h-2 rounded-full bg-[#D16D6A] animate-pulse" />
+                <span className={`font-mono text-xs tracking-[0.3em] uppercase ${textColor}`}>
+                    Sector_02 // Core Identity
+                </span>
+                <div className={`h-px flex-1 max-w-[4rem] ${isDark ? 'bg-[#D16D6A]/40' : 'bg-[#D16D6A]/60'}`} />
             </div>
 
-            <div className="max-w-[90rem] mx-auto grid lg:grid-cols-12 gap-16 lg:gap-24 items-center relative z-10">
-
-                {/* --- LEFT: EDITORIAL CONTENT ENGINE --- */}
-                <div className={`lg:col-span-7 flex flex-col space-y-10 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-
-                    {/* Technical Header */}
-                    <div className="flex items-center space-x-3 opacity-60">
-                        <div className="w-2 h-2 bg-[#D16D6A] rounded-full animate-pulse"></div>
-                        <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-[#1A1A1A]">
-                            Sector 02 // Core Identity
-                        </span>
-                        <div className="h-[1px] w-16 bg-[#1A1A1A]"></div>
-                    </div>
-
-                    {/* Massive Typography with GLITCH */}
-                    <h2 className="relative text-5xl md:text-7xl lg:text-[7rem] font-black text-[#1A1A1A] leading-[0.85] tracking-tighter">
-                        <span className="block opacity-60 font-mono text-2xl md:text-3xl mb-4 tracking-normal font-normal">
-                            WE ARE THE
-                        </span>
-                        <span className="relative inline-block text-[#D16D6A]">
-                            <span className="relative z-10">SPARK</span>
-                            <span className="absolute top-0 left-0 -ml-[3px] text-[#D16D6A] opacity-70 animate-glitch-1 mix-blend-multiply" aria-hidden="true">
-                                SPARK
+            {/* ── Massive headline ── */}
+            <h2 className="animate-title font-black uppercase tracking-tighter leading-[0.82] mb-16" style={{ fontFamily: 'Syne, sans-serif' }}>
+                <span
+                    className="block text-[13vw] md:text-[10vw] text-transparent"
+                    style={{ WebkitTextStroke: `1.5px ${isDark ? 'rgba(235,233,223,0.2)' : 'rgba(26,26,26,0.15)'}` }}
+                >
+                    WE ARE
+                </span>
+                <span
+                    className="block text-[18vw] md:text-[14vw] relative"
+                    style={{
+                        color: '#D16D6A',
+                        textShadow: isDark ? '0 0 80px rgba(209,109,106,0.6), 0 0 200px rgba(209,109,106,0.25)' : 'none',
+                        fontFamily: 'Syne, sans-serif',
+                    }}
+                >
+                    THE SPARK
+                    {isDark && (
+                        <>
+                            <span
+                                className="absolute inset-0 text-[#D16D6A] opacity-40"
+                                style={{ animation: 'spark-glitch1 4s infinite linear alternate-reverse', textShadow: 'none', clipPath: 'inset(30% 0 55% 0)' }}
+                                aria-hidden="true"
+                            >
+                                THE SPARK
                             </span>
-                            <span className="absolute top-0 left-0 ml-[3px] text-cyan-600 opacity-70 animate-glitch-2 mix-blend-multiply" aria-hidden="true">
-                                SPARK
+                            <span
+                                className="absolute inset-0 text-[#00E5C3] opacity-25"
+                                style={{ animation: 'spark-glitch2 3s infinite linear alternate-reverse', textShadow: 'none', clipPath: 'inset(60% 0 20% 0)' }}
+                                aria-hidden="true"
+                            >
+                                THE SPARK
                             </span>
-                        </span>
-                    </h2>
+                        </>
+                    )}
+                </span>
+            </h2>
 
-                    {/* Narrative Block */}
-                    <div className="relative pl-6 md:pl-8 border-l-2 border-[#D16D6A] space-y-6 max-w-2xl">
-                        <div className="absolute top-0 left-[-2px] w-[2px] h-12 bg-[#D16D6A]"></div>
+            {/* ── Two column layout ── */}
+            <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start pb-20">
 
-                        <p className="text-lg md:text-xl font-mono text-[#1A1A1A]/70 leading-relaxed">
-                            In a digital landscape crowded with static noise,{" "}
-                            <span className="text-[#1A1A1A] font-bold bg-[#D16D6A]/10 px-1">
-                                Arson Pixelz
-                            </span>{" "}
+                <div className="lg:col-span-7 flex flex-col gap-10">
+                    <div className="relative pl-6 border-l-2 border-[#D16D6A] space-y-6 max-w-2xl">
+                        <p className={`text-xl md:text-2xl font-mono ${textMuted} leading-relaxed`}>
+                            In a digital landscape crowded with static noise,{' '}
+                            <span className={`${textColor} font-bold`}>Arson Pixelz</span>{' '}
                             is the aberration. We are a reactor core for brands ready to go critical.
                         </p>
-
-                        <p className="text-xl md:text-2xl font-bold text-[#1A1A1A] leading-tight font-sans">
-                            Fusing industrial-grade code with volatile creativity to engineer ecosystems that are impossible to ignore.
+                        <p className={`text-2xl md:text-3xl font-bold ${textColor} leading-tight`}>
+                            Fusing industrial-grade code with volatile creativity to engineer ecosystems that are{' '}
+                            <span className="text-[#D16D6A]">impossible to ignore.</span>
                         </p>
                     </div>
 
-                    {/* Industrial Button */}
-                    <div className="pt-4">
-                        <button className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1A1A1A] text-white overflow-hidden transition-all duration-300 shadow-[8px_8px_0px_rgba(209,109,106,1)] hover:shadow-[4px_4px_0px_rgba(209,109,106,1)] hover:translate-x-[2px] hover:translate-y-[2px]">
-                            <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-
-                            <span className="relative z-10 font-mono font-bold uppercase tracking-widest text-sm group-hover:text-[#D16D6A] transition-colors">
-                                Initialize Protocol
-                            </span>
-                            <ArrowRightIcon className="relative z-10 w-4 h-4 ml-3 text-white group-hover:text-[#D16D6A] transition-colors group-hover:translate-x-1 duration-300" />
-                        </button>
-                    </div>
-                </div>
-
-                {/* --- RIGHT: 3D ARTIFACT CASE --- */}
-                <div className="lg:col-span-5 relative h-[600px] flex items-center justify-center perspective-[1000px]">
-                    <div
-                        className="relative w-full max-w-[420px] aspect-[4/5] transition-transform duration-100 ease-out"
-                        style={{
-                            transform: `rotateY(${mousePos.x * 12}deg) rotateX(${mousePos.y * -12}deg)`
-                        }}
+                    <button
+                        onClick={() => navigate('/contact')}
+                        className="group relative inline-flex items-center justify-center w-max px-10 py-5 overflow-hidden transition-all duration-300"
+                        style={{ background: '#D16D6A', boxShadow: `8px 8px 0px ${buttonShadowColor}` }}
                     >
-                        <div className="absolute top-10 left-10 w-full h-full border-2 border-[#1A1A1A]/10 rounded-sm -z-10"></div>
+                        <span className="font-mono font-bold uppercase tracking-widest text-sm text-[#0a0a0a]">
+                            Initialize Protocol
+                        </span>
+                        <ArrowRightIcon className="w-4 h-4 ml-3 text-[#0a0a0a] transition-transform group-hover:translate-x-1 duration-300" />
+                    </button>
+                </div>
 
-                        <div className="absolute inset-0 bg-[#151515] rounded-sm overflow-hidden shadow-2xl border border-[#333]">
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
-                            <div className="absolute top-0 right-10 w-1 h-full bg-[#D16D6A]/20"></div>
-
-                            <div
-                                className="absolute inset-0 flex items-center justify-center"
-                                style={{ transform: `translateX(${mousePos.x * -20}px) translateY(${mousePos.y * -20}px)` }}
+                <div className={`lg:col-span-5 grid grid-cols-2 gap-px ${gridBg}`}>
+                    {stats.map((stat) => (
+                        <div
+                            key={stat.label}
+                            className={`stat-item ${statBg} border ${borderColor} p-8 flex flex-col gap-2 hover:border-[#D16D6A]/40 ${statHover} transition-all duration-300`}
+                        >
+                            <span
+                                className="font-black text-5xl md:text-6xl leading-none tracking-tighter text-[#D16D6A]"
+                                style={{ fontFamily: isDark ? 'Syne, sans-serif' : 'Montserrat, sans-serif', textShadow: isDark ? '0 0 30px rgba(209,109,106,0.4)' : '0 0 30px rgba(209,109,106,0.2)' }}
                             >
-                                <svg viewBox="0 0 200 200" className="w-[60%] h-[60%] text-[#EBE9DF]">
-                                    <path
-                                        fill="currentColor"
-                                        d="M 100 20 L 180 160 L 140 160 L 125 130 L 75 130 L 60 160 L 20 160 L 100 20 Z"
-                                        className="drop-shadow-[0_0_15px_rgba(235,233,223,0.3)]"
-                                    />
-                                    <path fill="#151515" d="M 100 65 L 82 105 L 118 105 Z" />
-                                </svg>
-                            </div>
-
-                            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none"></div>
-
-                            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
-                                <div className="flex flex-col">
-                                    <span className="font-mono text-[10px] text-[#D16D6A] tracking-widest uppercase mb-1">
-                                        Status
-                                    </span>
-                                    <span className="font-bold text-white text-xl tracking-tighter">
-                                        UNLEASHED
-                                    </span>
-                                </div>
-                                <div className="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center animate-spin-slow">
-                                    <div className="w-2 h-2 bg-[#D16D6A] rounded-full"></div>
-                                </div>
-                            </div>
+                                {stat.value}
+                            </span>
+                            <span className={`font-bold text-sm uppercase tracking-wider ${textColor}`}>
+                                {stat.label}
+                            </span>
+                            {stat.sub && (
+                                <span className={`font-mono text-[10px] tracking-widest ${textSub} uppercase`}>
+                                    {stat.sub}
+                                </span>
+                            )}
                         </div>
-
-                        <div className="absolute -top-4 -right-4 bg-[#D16D6A] text-[#1A1A1A] font-mono text-xs font-bold px-3 py-1 rotate-3 shadow-lg">
-                            FIG. 01
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
 
-            <div className="absolute bottom-10 left-0 w-full overflow-hidden opacity-10 pointer-events-none">
-                <div className="whitespace-nowrap animate-marquee font-black text-6xl text-[#1A1A1A] uppercase tracking-tighter">
-                    Strategy /// Design /// Development /// Immersion /// Strategy /// Design /// Development /// Immersion ///
+            <div className={`relative overflow-hidden border-t py-6 pointer-events-none ${marqueeStyle}`}>
+                <div className="whitespace-nowrap font-black text-6xl uppercase tracking-tighter animate-about-marquee">
+                    Strategy /// Design /// Development /// Immersion /// Identity /// Strategy /// Design /// Development /// Immersion /// Identity ///
                 </div>
             </div>
-
             <style>{`
-                .animate-spin-slow {
-                    animation: spin 10s linear infinite;
-                }
-                @keyframes spin {
-                    from { transform: rotate(0deg); }
-                    to { transform: rotate(360deg); }
-                }
-                .animate-marquee {
-                    animation: marquee 20s linear infinite;
-                }
-                @keyframes marquee {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-                @keyframes glitch-1 {
-                    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-                    100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
-                }
-                @keyframes glitch-2 {
-                    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-                    100% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, -2px); }
-                }
-                .animate-glitch-1 { animation: glitch-1 3s infinite linear alternate-reverse; }
-                .animate-glitch-2 { animation: glitch-2 2.5s infinite linear alternate-reverse; }
+                @keyframes void-drift-slow { from { transform: scale(1.1) rotate(-0.5deg); } to { transform: scale(1.15) rotate(0.5deg); } }
             `}</style>
+            </div>
+        </div>
+    );
+};
+
+export const About: React.FC = () => {
+    return (
+        <section id="about-section" className="relative bg-[#EBE9DF]">
+            <AboutContent theme="light" />
         </section>
     );
 };

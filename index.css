@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-[#EBE9DF] text-[#1A1A1A] antialiased selection:bg-[#D16D6A] selection:text-white;
+    @apply bg-[#EBE9DF] text-[#1A1A1A] antialiased selection:bg-[#D16D6A] selection:text-white overflow-x-hidden;
   }
 
   /* Custom Scrollbar */
