@@ -32,8 +32,8 @@ export const Preloader: React.FC = () => {
     useEffect(() => {
         let frame: number;
         let hideTimer: number | undefined;
-        const duration = 3400;
-        const holdAfterComplete = 500;
+        const duration = 2400;
+        const holdAfterComplete = 200;
         const start = performance.now();
 
         const tick = (now: number) => {
@@ -84,13 +84,14 @@ export const Preloader: React.FC = () => {
                     initial={{ opacity: 1 }}
                     exit={{
                         opacity: 0,
-                        scale: 1.02,
-                        filter: 'blur(22px)',
-                        transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
+                        scale: 1.4,
+                        filter: 'blur(40px) brightness(2)',
+                        transition: { duration: 0.85, ease: [0.85, 0, 0.15, 1] },
                     }}
                 >
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(209,109,106,0.22),transparent_30%),radial-gradient(circle_at_80%_30%,rgba(235,233,223,0.08),transparent_25%),radial-gradient(circle_at_50%_80%,rgba(209,109,106,0.15),transparent_30%)]" />
-                    <div className="absolute inset-0 opacity-[0.14] mix-blend-screen bg-[linear-gradient(transparent,rgba(255,255,255,0.06),transparent),repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.08)_4px)]" />
+                    <div className="absolute inset-0 opacity-[0.22] mix-blend-screen bg-[linear-gradient(transparent,rgba(255,255,255,0.06),transparent),repeating-linear-gradient(0deg,transparent_0,transparent_3px,rgba(255,255,255,0.08)_4px)]" />
+                    <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.85\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E')" }} />
                     <motion.div
                         className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
                         animate={{ rotate: 360 }}
@@ -131,10 +132,10 @@ export const Preloader: React.FC = () => {
                                             src={activeFrame.src}
                                             alt={activeFrame.title}
                                             className="absolute inset-0 h-full w-full object-cover"
-                                            initial={{ scale: 1.14, opacity: 0, filter: 'blur(16px)' }}
-                                            animate={{ scale: 1, opacity: 0.84, filter: 'blur(0px)' }}
+                                            initial={{ scale: 1.15, opacity: 0, filter: 'blur(24px) brightness(2)' }}
+                                            animate={{ scale: 1, opacity: 0.85, filter: 'blur(0px) brightness(1)' }}
                                             exit={{ scale: 0.96, opacity: 0, filter: 'blur(18px)' }}
-                                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                                         />
                                     </AnimatePresence>
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
