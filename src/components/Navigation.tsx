@@ -213,6 +213,13 @@ const QuantumLogo = memo(({
     isHUDActive: boolean;
     hudIntensity: number;
 }) => {
+    const [shimmerActive, setShimmerActive] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShimmerActive(false), 5000);
+        return () => clearTimeout(timer);
+    }, []);
+
     const primaryColor = onLightBackground ? '#0a0a0a' : '#EBE9DF';
     
     // Extracted directly from assets/full.svg paths for direct mathematical manipulation
@@ -282,14 +289,15 @@ const QuantumLogo = memo(({
                     </svg>
                 </div>
 
-                {/* ... (LAYER 3 remains for the sizzling entry) ... */}
+                {/* LAYER 3: Sizzling Entry / Shimmer */}
                 {!isHUDActive && (
-                  <div 
+                  <motion.div 
                       className="absolute inset-0 w-full h-full" 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: shimmerActive ? 1 : 0 }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
                       style={{ 
-                          animation: 'fire-sweep 5.5s cubic-bezier(0.16,1,0.3,1) both',
-                          animationDelay: '3.5s',
-                          filter: 'drop-shadow(0px 0px 4px #D16D6A)'
+                          filter: 'drop-shadow(0px 0px 6px #D16D6A)'
                       }}
                   >
                       <svg viewBox="0 0 232.99 30.04" className="w-full h-full overflow-visible">
@@ -306,11 +314,11 @@ const QuantumLogo = memo(({
                                   </feMerge>
                               </filter>
                           </defs>
-                          <g fill="#D16D6A" filter="url(#fireSizzle)">
+                          <g fill="#D16D6A" filter="url(#fireSizzle)" style={{ animation: 'fire-sizzle-static 3s ease-in-out infinite' }}>
                               {svgPaths.map((d, i) => <path key={`fire-${i}`} d={d} />)}
                           </g>
                       </svg>
-                  </div>
+                  </motion.div>
                 )}
             </div>
 
@@ -573,7 +581,11 @@ export const Navigation: React.FC = () => {
                     @keyframes singularity-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
                     @keyframes core-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.45; } 50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.6; } }
                     @keyframes menu-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-                    @keyframes quantum-sweep { 0% { transform: translateX(-120%) scaleX(0.4) scaleY(0.8); opacity: 0; } 25% { transform: translateX(-10%) scaleX(1) scaleY(1); opacity: 1; } 100% { transform: translateX(220%) scaleX(0.3) scaleY(0.8); opacity: 0; } }
+                    @keyframes quantum-sweep { 0% { transform: translateX(-10%) scaleX(1) scaleY(1); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateX(10%) scaleX(1) scaleY(1); opacity: 0; } }
+                    @keyframes fire-sizzle-static {
+                        0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 4px #D16D6A) brightness(1); }
+                        50% { opacity: 1; filter: drop-shadow(0 0 12px #D16D6A) brightness(1.4); }
+                    }
                     @keyframes substrate { 0% { opacity: 0.3; } 100% { opacity: 0.7; } }
                     @keyframes sizzle-wash { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
                     @keyframes fire-rain { 

@@ -116,10 +116,13 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
               <RevealText
                 text="MODERN"
                 tag="div"
-                className="block text-[9vw] md:text-[6vw] text-[#EBE9DF]/5"
+                className={`block text-[9vw] md:text-[6vw] ${textColor} font-black`}
                 delay={0.38}
                 startAnimation={loaded}
-                style={{ WebkitTextStroke: `2px ${strokeColor}`, textShadow: '0 2px 12px rgba(0,0,0,0.3)' }}
+                style={{ 
+                  textShadow: '0 0 20px rgba(209,109,106,0.8), 0 0 10px rgba(209,109,106,0.4), 0 2px 12px rgba(0,0,0,0.3)',
+                  filter: 'drop-shadow(0 0 8px rgba(209,109,106,0.5))'
+                }}
               />
             </div>
             <RevealText
