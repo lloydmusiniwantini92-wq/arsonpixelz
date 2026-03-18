@@ -34,25 +34,30 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
     <div className={`relative h-screen w-full flex flex-col overflow-hidden ${isDark ? 'bg-[#080808]' : 'bg-[#EBE9DF]'}`}>
       
       {/* ── Background Layer (Persistent & Unmasked) ── */}
-      <motion.div 
-        className="absolute inset-0 z-0 select-none origin-center"
-        initial={{ scale: 1.4, filter: 'blur(34px) brightness(1.8)', opacity: 0.8 }}
-        animate={loaded ? { scale: 1, filter: 'blur(0px) brightness(1)', opacity: 1 } : { scale: 1.4, filter: 'blur(34px) brightness(1.8)', opacity: 0.8 }}
-        transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }} 
-      >
-          <img 
+      <div className="absolute inset-0 z-0 select-none overflow-hidden bg-[#080808]">
+          <motion.img 
             src={ArsonicBg} 
             alt="Arsonic Background" 
-            className="h-full w-full object-cover" 
+            className="absolute inset-0 h-full w-full object-cover origin-center max-w-none" 
+            variants={{
+                hidden: { scale: 1.5, filter: 'blur(40px) brightness(2)', opacity: 0 },
+                visible: { 
+                    scale: 1, 
+                    filter: 'blur(0px) brightness(1)', 
+                    opacity: 1,
+                    transition: { duration: 2.8, ease: [0.16, 1, 0.3, 1] } 
+                }
+            }}
+            initial="hidden"
+            animate={loaded ? "visible" : "hidden"}
             style={{ 
-              opacity: 1, // Full fidelity
               animation: (isDark && loaded) ? 'void-drift 20s ease-in-out infinite alternate' : 'none'
             }} 
           />
           
           {/* Subtle themed overlays only for the Dark layer to aid contrast for the Singularity */}
           {isDark && (
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 pointer-events-none">
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(209,109,106,0.3)_0%,rgba(209,109,106,0.1)_40%,transparent_75%)]" />
                <div
                  className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(180,60,50,0.15)_0%,transparent_60%)]"
@@ -66,7 +71,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
                <div className="absolute rounded-full border border-[#D16D6A]/10" style={{ width: '90%', height: '90%', left: '5%', top: '5%', animation: 'ring-spin 30s linear infinite' }} />
             </div>
           )}
-      </motion.div>
+      </div>
 
       {/* ── Content layer ── */}
       <div className="relative z-10 flex-1 flex flex-col">
@@ -168,7 +173,7 @@ export const Hero: React.FC = () => {
   const { isInitialLoad } = useContext(NavigationContext);
 
   useEffect(() => {
-    const delay = isInitialLoad ? 2500 : 500;
+    const delay = isInitialLoad ? 2600 : 500;
     const timer = setTimeout(() => setLoaded(true), delay);
     return () => clearTimeout(timer);
   }, [isInitialLoad]);
