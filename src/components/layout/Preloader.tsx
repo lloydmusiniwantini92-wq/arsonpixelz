@@ -37,7 +37,7 @@ export const Preloader: React.FC = () => {
         const start = performance.now();
 
         const tick = (now: number) => {
-            const elapsed = now - start;
+            const elapsed = Math.max(0, now - start);
             const raw = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - raw, 3);
             setCount(Math.round(eased * 100));
@@ -64,13 +64,13 @@ export const Preloader: React.FC = () => {
     }, [isLoading]);
 
     const activePhase = useMemo(() => {
-        const index = Math.min(phases.length - 1, Math.floor((count / 100) * phases.length));
-        return phases[index];
+        const index = Math.max(0, Math.min(phases.length - 1, Math.floor((count / 100) * phases.length)));
+        return phases[index] || phases[0];
     }, [count]);
 
     const activeFrame = useMemo(() => {
-        const index = Math.min(frames.length - 1, Math.floor((count / 100) * frames.length));
-        return frames[index];
+        const index = Math.max(0, Math.min(frames.length - 1, Math.floor((count / 100) * frames.length)));
+        return frames[index] || frames[0];
     }, [count]);
 
     const ringOffset = 339.292 - (339.292 * count) / 100;
