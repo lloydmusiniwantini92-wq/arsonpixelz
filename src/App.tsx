@@ -15,7 +15,6 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { CartProvider } from './context/CartContext';
 import { LoadingSpinner } from "./components/LoadingSpinner";
-import { VoidOverlay } from "./components/fx/VoidOverlay";
 import { CodeWatermark } from "./components/layout/CodeWatermark";
 import { HorizontalScrollSection } from "./components/fx/HorizontalScrollSection";
 import { MagneticCursor } from "./components/fx/MagneticCursor";
