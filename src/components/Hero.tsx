@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigationContext } from '../App';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ArsonicBg from './assets/arsonic.jpg';
@@ -33,14 +34,19 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
     <div className={`relative h-screen w-full flex flex-col overflow-hidden ${isDark ? 'bg-[#080808]' : 'bg-[#EBE9DF]'}`}>
       
       {/* ── Background Layer (Persistent & Unmasked) ── */}
-      <div className="absolute inset-0 z-0 select-none">
+      <motion.div 
+        className="absolute inset-0 z-0 select-none origin-center"
+        initial={{ scale: 1.4, filter: 'blur(34px) brightness(1.8)', opacity: 0.8 }}
+        animate={loaded ? { scale: 1, filter: 'blur(0px) brightness(1)', opacity: 1 } : { scale: 1.4, filter: 'blur(34px) brightness(1.8)', opacity: 0.8 }}
+        transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }} 
+      >
           <img 
             src={ArsonicBg} 
             alt="Arsonic Background" 
             className="h-full w-full object-cover" 
             style={{ 
               opacity: 1, // Full fidelity
-              animation: isDark ? 'void-drift 20s ease-in-out infinite alternate' : 'none'
+              animation: (isDark && loaded) ? 'void-drift 20s ease-in-out infinite alternate' : 'none'
             }} 
           />
           
@@ -60,7 +66,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
                <div className="absolute rounded-full border border-[#D16D6A]/10" style={{ width: '90%', height: '90%', left: '5%', top: '5%', animation: 'ring-spin 30s linear infinite' }} />
             </div>
           )}
-      </div>
+      </motion.div>
 
       {/* ── Content layer ── */}
       <div className="relative z-10 flex-1 flex flex-col">
