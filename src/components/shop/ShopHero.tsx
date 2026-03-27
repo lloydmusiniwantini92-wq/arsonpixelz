@@ -1,38 +1,84 @@
 import React, { useEffect, useRef } from 'react';
+import { PageHeroBackground } from '../fx/PageHeroBackground';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const ShopHero = () => {
-    const titleRef = useRef<HTMLHeadingElement>(null);
-    const glowRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        const tl = gsap.timeline({ delay: 0.2 });
+        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+        const ctx = gsap.context(() => {
+            if (!containerRef.current) return;
 
-        if (glowRef.current) {
-            gsap.set(glowRef.current, { scale: 0.4, opacity: 0 });
-            tl.to(glowRef.current, { scale: 1, opacity: 1, duration: 1.4, ease: 'power2.out' }, 0);
-        }
+            const tl = gsap.timeline();
 
-        tl.from('.shop-hero-line', {
-            y: 80, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'power4.out',
-        }, 0.1);
+            // Entrance animation for content
+            tl.from('.hero-content-item', {
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: CINEMATIC_EASE,
+                clearProps: 'all'
+            });
 
-        tl.from('.shop-hero-sub', {
-            y: 30, opacity: 0, duration: 0.7, ease: 'power3.out',
-        }, 0.5);
+            // Parallax Scroll Depth effect on titles and stats
+            const heroTitles = gsap.utils.toArray('.hero-title-parallax');
+            heroTitles.forEach(title => {
+                gsap.to(title as HTMLElement, {
+                    y: '-18%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 1.2
+                    }
+                });
+            });
 
-        tl.from('.shop-hero-stats .stat', {
-            y: 20, opacity: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out',
-        }, 0.6);
+            const heroDesc = containerRef.current.querySelector('.hero-desc-parallax');
+            if (heroDesc) {
+                gsap.to(heroDesc, {
+                    y: '-8%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            }
+
+            // Bloom entrance
+            const bloom = containerRef.current.querySelector('.bloom-effect');
+            if (bloom) {
+                gsap.from(bloom, {
+                    scale: 0.4,
+                    opacity: 0,
+                    duration: 1.4,
+                    ease: CINEMATIC_EASE
+                });
+            }
+
+        }, containerRef);
+        return () => ctx.revert();
     }, []);
 
     return (
-        <section className="relative min-h-[72vh] flex flex-col justify-end overflow-hidden pt-28 md:pt-32 pb-0"
-            style={{ background: 'linear-gradient(to bottom, #050505 0%, #0a0505 60%, #0f0808 100%)' }}
+        <section ref={containerRef} className="relative min-h-[72vh] flex flex-col justify-end overflow-hidden pt-28 md:pt-32 pb-0"
+            style={{ background: '#020202' }}
         >
-            {/* ── Red coordinate grid ── */}
+            {/* Homepage-level immersive background */}
+            <PageHeroBackground accentColor="#D16D6A" />
+            
+            {/* ── Red coordinate grid ── — enhanced on top of bg */}
             <div
-                className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                className="absolute inset-0 pointer-events-none opacity-[0.06] z-[3]"
                 style={{
                     backgroundImage: 'linear-gradient(rgba(209,109,106,1) 1px, transparent 1px), linear-gradient(90deg, rgba(209,109,106,1) 1px, transparent 1px)',
                     backgroundSize: '5rem 5rem',
@@ -44,8 +90,7 @@ export const ShopHero = () => {
 
             {/* ── Red bloom top-right ── */}
             <div
-                ref={glowRef}
-                className="absolute top-0 right-0 w-[700px] h-[500px] pointer-events-none"
+                className="bloom-effect absolute top-0 right-0 w-[700px] h-[500px] pointer-events-none"
                 style={{
                     background: 'radial-gradient(ellipse at 100% 0%, rgba(209,109,106,0.22) 0%, rgba(180,50,40,0.08) 40%, transparent 70%)',
                     filter: 'blur(60px)',
@@ -63,7 +108,7 @@ export const ShopHero = () => {
 
             {/* ── ARMORY watermark ── */}
             <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+                className="hero-title-parallax absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
                 aria-hidden="true"
             >
                 <span
@@ -75,10 +120,11 @@ export const ShopHero = () => {
             </div>
 
             {/* ── Content ── */}
-            <div className="relative z-10 max-w-[90rem] mx-auto px-6 md:px-12 pb-0">
-
+            <div 
+                className="relative z-10 max-w-[90rem] mx-auto px-6 md:px-12 pb-0 opacity-100"
+            >
                 {/* Sector tag */}
-                <div className="shop-hero-line flex items-center gap-3 mb-8 opacity-60">
+                <div className="hero-content-item flex items-center gap-3 mb-8 opacity-60">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#D16D6A] animate-pulse" />
                     <span className="font-mono text-xs tracking-[0.35em] uppercase text-[#D16D6A]">
                         /// The Armory
@@ -87,26 +133,17 @@ export const ShopHero = () => {
                 </div>
 
                 {/* Headline */}
-                <h1
-                    className="font-black uppercase tracking-tighter leading-[0.82] mb-10"
-                    ref={titleRef}
-                    style={{ fontFamily: 'Syne, sans-serif' }}
-                >
-                    <span className="shop-hero-line block text-[13vw] md:text-[9vw] text-[#EBE9DF]"
-                        style={{ textShadow: '0 4px 10px rgba(0,0,0,0.5)' }}
-                    >
+                <h1 className="hero-content-item hero-title-parallax font-black uppercase tracking-tighter leading-[0.82] mb-10" style={{ fontFamily: 'Syne, sans-serif' }}>
+                    <span className="block text-[13vw] md:text-[9vw] text-[#EBE9DF]" style={{ textShadow: '0 4px 10px rgba(0,0,0,0.5)' }}>
                         BUILD YOUR
                     </span>
-                    <span
-                        className="shop-hero-line block text-[13vw] md:text-[9vw] text-[#ff8e8a]"
-                        style={{ textShadow: '0 0 60px rgba(209,109,106,0.6)' }}
-                    >
+                    <span className="block text-[13vw] md:text-[9vw] text-[#ff8e8a]" style={{ textShadow: '0 0 60px rgba(209,109,106,0.6)' }}>
                         DIGITAL EMPIRE
                     </span>
                 </h1>
 
                 {/* Description + stats row */}
-                <div className="shop-hero-sub grid md:grid-cols-12 gap-8 md:gap-16 items-end pb-12 border-b border-[#D16D6A]/10">
+                <div className="hero-content-item hero-desc-parallax grid md:grid-cols-12 gap-8 md:gap-16 items-end pb-12 border-b border-[#D16D6A]/10">
 
                     {/* Description */}
                     <div className="md:col-span-6 border-l-2 border-[#D16D6A] pl-6">
@@ -119,17 +156,17 @@ export const ShopHero = () => {
                     </div>
 
                     {/* Stats */}
-                    <div className="shop-hero-stats md:col-span-6 flex gap-8 md:gap-12 justify-start md:justify-end">
+                    <div className="md:col-span-6 flex gap-8 md:gap-12 justify-start md:justify-end">
                         {[
                             { val: '40+', label: 'War Assets' },
                             { val: '$0', label: 'To Start' },
                             { val: '∞', label: 'Scalability' },
-                        ].map(s => (
-                            <div key={s.label} className="stat flex flex-col gap-1">
-                                <span
-                                    className="font-black text-4xl md:text-5xl leading-none tracking-tighter text-[#ff8e8a]"
-                                    style={{ fontFamily: 'Syne, sans-serif', textShadow: '0 0 30px rgba(209,109,106,0.35)' }}
-                                >
+                        ].map((s, i) => (
+                            <div 
+                                key={s.label} 
+                                className="hero-content-item flex flex-col gap-1"
+                            >
+                                <span className="font-black text-4xl md:text-5xl leading-none tracking-tighter text-[#ff8e8a]" style={{ fontFamily: 'Syne, sans-serif', textShadow: '0 0 30px rgba(209,109,106,0.35)' }}>
                                     {s.val}
                                 </span>
                                 <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#EBE9DF]/30">

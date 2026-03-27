@@ -28,7 +28,7 @@ export const Work: React.FC = () => {
             title: "TONY THOMPSON",
             category: "BRAND + DIGITAL PLATFORM",
             image: AboutImg,
-            link: "/work/tony-thompson",
+            link: "/archive/tt-01",
         },
         {
             id: "EA-42",
@@ -84,7 +84,7 @@ export const Work: React.FC = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="min-h-screen w-full bg-[#020202] text-[#EBE9DF] relative z-20 flex flex-col items-center justify-start -mt-[1px]">
+        <section ref={sectionRef} id="work-section" className="min-h-screen w-full bg-[#020202] text-[#EBE9DF] relative z-20 flex flex-col items-center justify-start -mt-[1px] scroll-mt-20">
             {/* EXACT BACKGROUND FROM HORIZONTAL SCROLL SECTION */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
                 {/* Layer 1: Static Technical Grid */}

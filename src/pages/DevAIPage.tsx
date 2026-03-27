@@ -3,6 +3,7 @@ import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
+import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,26 +20,80 @@ const DevAIPage: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            if (!containerRef.current || !ctaRef.current) return;
+        // ── CINEMATIC TRANSITIONS ───────────────────────────────────────────────
+        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
-            // CTA Ignition Reveal
-            gsap.from(ctaRef.current, {
-                scaleX: 0.8,
+        const ctx = gsap.context(() => {
+            if (!containerRef.current) return;
+
+            // 1. Cinematic Page Wipe
+            gsap.from(containerRef.current, {
                 opacity: 0,
-                duration: 1.5,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: ctaRef.current,
-                    start: 'top 85%'
-                }
+                filter: 'blur(12px)',
+                scale: 1.04,
+                duration: 1.4,
+                ease: CINEMATIC_EASE,
+                clearProps: 'filter,scale'
             });
 
-            // 3D Server Rack Initialization
+            // 2. Hero Parallax Depth
+            const heroTitle = containerRef.current.querySelector('.hero-title');
+            const heroDesc = containerRef.current.querySelector('.hero-desc');
+            
+            if (heroTitle) {
+                gsap.to(heroTitle, {
+                    y: '-15%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroTitle,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1.2
+                    }
+                });
+            }
+            if (heroDesc) {
+                gsap.to(heroDesc, {
+                    y: '-5%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroDesc,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            }
+
+            // 3. CTA Ignition Reveal - Cinematic clip-path wipe
+            if (ctaRef.current) {
+                gsap.fromTo(ctaRef.current, 
+                    {
+                        opacity: 0,
+                        clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+                        filter: 'blur(10px)'
+                    },
+                    {
+                        opacity: 1,
+                        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+                        filter: 'blur(0px)',
+                        duration: 1.4,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter',
+                        scrollTrigger: {
+                            trigger: ctaRef.current,
+                            start: 'top 85%',
+                            once: true
+                        }
+                    }
+                );
+            }
+
+            // 4. 3D Server Rack Initialization (Existing)
             if (capabilitiesRef.current) {
                 const blades = gsap.utils.toArray('.capability-blade', capabilitiesRef.current);
                 
-                blades.forEach((blade: any, i) => {
+                blades.forEach((blade: any) => {
                     gsap.set(blade, { transformPerspective: 2000, transformOrigin: 'top center' });
                     
                     gsap.from(blade, {
@@ -123,40 +178,31 @@ const DevAIPage: React.FC = () => {
         <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#050505] text-[#EBE9DF]">
             
             {/* HER0 HEADER */}
-            <div className="pt-28 md:pt-32 pb-20 px-6 md:px-12 max-w-[100rem] mx-auto relative z-10">
-                <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="inline-block px-4 py-1 mb-8 border border-[#EBE9DF]/10">
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#EBE9DF]/50">Sector // Dev + AI</span>
+            <div className="relative pt-28 md:pt-32 pb-28 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#020202' }}>
+                <PageHeroBackground accentColor="#D16D6A" />
+                {/* Background Code Watermark — sits above bg image but behind text */}
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-[0.04] pointer-events-none select-none z-[5] flex items-start justify-center">
+                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono w-full px-4 text-center">
+                        {`// ARSON PIXELS - ENGINE v7.0
+const buildTheFuture = () => ({
+    frontend: ['React', 'Next.js', 'TypeScript'],
+    backend: ['Node', 'Python', 'GraphQL'],
+    cloud: ['AWS', 'Vercel', 'Cloudflare'],
+});`.repeat(30)}
+                    </pre>
+                </div>
+                <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <div className="inline-block px-4 py-1 mb-8 border border-white/20">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/50">Sector // Dev + AI</span>
                     </div>
-                    <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white">
+                    <h1 className="hero-title text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white">
                         DIGITAL <br />
                         <span className="text-[#D16D6A]">ARCHITECTURE</span>
                     </h1>
-                    <p className="text-xl md:text-3xl font-mono text-[#EBE9DF]/70 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
+                    <p className="hero-desc text-xl md:text-3xl font-mono text-white/60 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
                         A beautiful flame needs a solid structure to sustain it. We build robust, scalable platforms powered by cutting-edge tech.
                     </p>
                 </div>
-            </div>
-
-            {/* Background Code Watermark */}
-            <div className="absolute top-0 left-0 w-full h-[80vh] overflow-hidden opacity-[0.03] pointer-events-none select-none z-0 flex items-start justify-center">
-                <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono w-full px-4 text-center">
-                    {`// ARSON PIXELS - ENGINE v7.0
-const buildTheFuture = () => {
-    return {
-        frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
-        backend: ['Node', 'Python', 'GraphQL', 'Express'],
-        database: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma'],
-        cloud: ['AWS', 'Vercel', 'Railway', 'Cloudflare'],
-    };
-};
-interface Architecture {
-    scalability: 'infinite';
-    performance: 'blazing';
-    security: 'fortress';
-    innovation: 'relentless';
-}`.repeat(50)}
-                </pre>
             </div>
 
             {/* PHILOSOPHY SECTION */}

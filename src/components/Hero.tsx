@@ -40,12 +40,12 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
             alt="Arsonic Background" 
             className="absolute inset-0 h-full w-full object-cover origin-center max-w-none" 
             variants={{
-                hidden: { scale: 1.5, filter: 'blur(40px) brightness(2)', opacity: 0 },
+                hidden: { scale: 1, filter: 'blur(20px) brightness(1.5)', opacity: 0 },
                 visible: { 
                     scale: 1, 
                     filter: 'blur(0px) brightness(1)', 
                     opacity: 1,
-                    transition: { duration: 2.8, ease: [0.16, 1, 0.3, 1] } 
+                    transition: { duration: 2.2, ease: 'easeOut' } 
                 }
             }}
             initial="hidden"
@@ -91,13 +91,13 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
         <div className="flex-1 flex flex-col justify-center pt-20 md:pt-24 pb-24 px-8 md:px-16">
           <div className={`mb-4 transition-all duration-700 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             <span className={`font-mono text-xs tracking-[0.35em] uppercase ${textMuted}`}>
-              Next-gen creative studio ↗ Cape Town
+              Silicon Valley Standard ↗ Cape Town
             </span>
           </div>
 
           <div className="flex flex-col font-black uppercase tracking-tighter leading-[0.82] max-w-[72%]" style={{ fontFamily: 'Montserrat, sans-serif', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))' }}>
             <RevealText
-              text="IGNITING"
+              text="NEXT-GEN"
               tag="h1"
               className={`block text-[14vw] md:text-[9vw] ${textColor}`}
               delay={0.15}
@@ -106,7 +106,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
             />
             <div className="flex items-baseline flex-wrap gap-x-4">
               <RevealText
-                text="THE"
+                text="DIGITAL"
                 tag="div"
                 className={`block text-[9vw] md:text-[6vw] text-[#EBE9DF]/80`}
                 delay={0.3}
@@ -114,7 +114,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
                 style={{ textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}
               />
               <RevealText
-                text="MODERN"
+                text="CREATIVE"
                 tag="div"
                 className={`block text-[9vw] md:text-[6vw] ${textColor} font-black`}
                 delay={0.38}
@@ -126,7 +126,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
               />
             </div>
             <RevealText
-              text="DIGITAL"
+              text="STUDIO"
               tag="div"
               className={`block text-[18vw] md:text-[12vw] text-[#D16D6A] leading-[0.78]`}
               delay={0.5}
@@ -152,7 +152,15 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
 
         {/* CTA Button (Right) */}
         <div className={`absolute bottom-8 right-8 md:right-16 transition-all duration-1000 delay-[1000ms] ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <MagneticButton onClick={() => navigate('/work')}>
+          <MagneticButton onClick={() => {
+              if (window.location.pathname === '/') {
+                  setTimeout(() => {
+                      document.getElementById('work-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 100);
+              } else {
+                  navigate('/#work-section');
+              }
+          }}>
             <button className={`group flex items-center gap-3 bg-[#EBE9DF] text-[#0a0a0a] hover:bg-[#D16D6A] px-6 py-3 font-mono text-xs uppercase tracking-widest transition-colors duration-300 shadow-xl`}>
               <span>Explore Work</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -163,7 +171,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({ theme, loaded }) => {
       </div>
 
       <style>{`
-        @keyframes void-drift { from { transform: scale(1.05); } to { transform: scale(1.15); } }
+        @keyframes void-drift { from { opacity: 0.8; } to { opacity: 1; } }
         @keyframes ring-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes orb-breathe { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
       `}</style>
@@ -176,7 +184,7 @@ export const Hero: React.FC = () => {
   const { isInitialLoad } = useContext(NavigationContext);
 
   useEffect(() => {
-    const delay = isInitialLoad ? 2600 : 500;
+    const delay = isInitialLoad ? 3100 : 500;
     const timer = setTimeout(() => setLoaded(true), delay);
     return () => clearTimeout(timer);
   }, [isInitialLoad]);

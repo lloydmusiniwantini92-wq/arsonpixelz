@@ -35,9 +35,10 @@ const TestimonialsPage = React.lazy(() => import("./pages/TestimonialsPage").the
 const SuccessPage = React.lazy(() => import("./pages/SuccessPage"));
 const CancelPage = React.lazy(() => import("./pages/CancelPage"));
 const ContactPage = React.lazy(() => import("./pages/ContactPage"));
-const WorkIndexPage = React.lazy(() => import("./pages/WorkIndexPage").then(module => ({ default: module.WorkIndexPage })));
+// Removed WorkIndexPage for section targeting instead of page.
 const AboutPage = React.lazy(() => import("./pages/AboutPage").then(module => ({ default: module.AboutPage })));
 const LegalPage = React.lazy(() => import("./pages/LegalPage").then(module => ({ default: module.LegalPage })));
+const ArchivePage = React.lazy(() => import("./pages/ArchivePage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage").then(module => ({ default: module.NotFoundPage })));
 
 // Home Page
@@ -51,7 +52,7 @@ const HomePage = () => {
         and visually eliminate the "Spatial Void" during the scroll transition.
       */}
       <div className="bg-[#020202] relative overflow-hidden">
-        <HorizontalScrollSection />
+        {/* <HorizontalScrollSection /> */}
         <Work />
       </div>
       <ReverseVoidSystem />
@@ -71,7 +72,7 @@ const AnimatedRoutes = () => {
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
-                <Route path="/work" element={<PageTransition><WorkIndexPage /></PageTransition>} />
+                {/* Standalone work page removed in favor of Section on homepage */}
                 <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
                 <Route path="/legal" element={<PageTransition><LegalPage /></PageTransition>} />
 
@@ -85,6 +86,7 @@ const AnimatedRoutes = () => {
                 <Route path="/success" element={<PageTransition><SuccessPage /></PageTransition>} />
                 <Route path="/cancel" element={<PageTransition><CancelPage /></PageTransition>} />
                 <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+                <Route path="/archive/:id" element={<PageTransition><ArchivePage /></PageTransition>} />
 
                 <Route path="*" element={<PageTransition><NotFoundPage /></PageTransition>} />
             </Routes>
@@ -94,6 +96,9 @@ const AnimatedRoutes = () => {
 
 const App = () => {
     React.useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
         gsap.registerPlugin(ScrollTrigger);
 
         let raf1 = 0;

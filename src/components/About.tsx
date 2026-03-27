@@ -76,8 +76,7 @@ export const AboutContent: React.FC<AboutContentProps> = ({ theme }) => {
             {/* ── Massive headline ── */}
             <h2 className="animate-title font-black uppercase tracking-tighter leading-[0.82] mb-16" style={{ fontFamily: 'Syne, sans-serif' }}>
                 <span
-                    className="block text-[13vw] md:text-[10vw] text-transparent"
-                    style={{ WebkitTextStroke: `1.5px ${isDark ? 'rgba(235,233,223,0.2)' : 'rgba(26,26,26,0.15)'}` }}
+                    className={`block text-[13vw] md:text-[10vw] ${isDark ? 'text-white/20' : 'text-black/10'}`}
                 >
                     WE ARE
                 </span>
@@ -117,13 +116,11 @@ export const AboutContent: React.FC<AboutContentProps> = ({ theme }) => {
                 <div className="lg:col-span-7 flex flex-col gap-10">
                     <div className="relative pl-6 border-l-2 border-[#D16D6A] space-y-6 max-w-2xl">
                         <p className={`text-xl md:text-2xl font-mono ${textMuted} leading-relaxed`}>
-                            In a digital landscape crowded with static noise,{' '}
-                            <span className={`${textColor} font-bold`}>Arson Pixelz</span>{' '}
-                            is the aberration. We are a reactor core for brands ready to go critical.
+                            At the convergence of <span className={`${textColor} font-bold`}>architectural engineering</span> and volatile digital design, we operate as a high-fidelity bridge for brands ready to go critical.
                         </p>
                         <p className={`text-2xl md:text-3xl font-bold ${textColor} leading-tight`}>
-                            Fusing industrial-grade code with volatile creativity to engineer ecosystems that are{' '}
-                            <span className="text-[#D16D6A]">impossible to ignore.</span>
+                            Fusing industrial-grade IT consulting with cinematic creativity to engineer ecosystems that are 
+                            <span className="text-[#D16D6A]"> impossible to ignore.</span>
                         </p>
                     </div>
 

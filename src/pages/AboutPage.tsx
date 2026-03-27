@@ -1,20 +1,116 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const AboutPage = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+        const ctx = gsap.context(() => {
+            if (!containerRef.current) return;
+
+            // 1. Cinematic Page Wipe
+            gsap.from(containerRef.current, {
+                opacity: 0,
+                filter: 'blur(12px)',
+                scale: 1.04,
+                duration: 1.4,
+                ease: CINEMATIC_EASE,
+                clearProps: 'filter,scale'
+            });
+
+            // 2. Hero Parallax
+            const heroTitle = containerRef.current.querySelector('.hero-title-parallax');
+            const heroDesc = containerRef.current.querySelector('.hero-desc-parallax');
+
+            if (heroTitle) {
+                gsap.to(heroTitle, {
+                    y: '-15%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroTitle,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1.2
+                    }
+                });
+            }
+            if (heroDesc) {
+                gsap.to(heroDesc, {
+                    y: '-5%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroDesc,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            }
+
+            // 3. Image Parallax (The Construct)
+            const teamImg = containerRef.current.querySelector('.team-img-parallax');
+            if (teamImg) {
+                gsap.fromTo(teamImg, 
+                    { y: '-10%' },
+                    { 
+                        y: '10%',
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: teamImg.parentElement,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true
+                        }
+                    }
+                );
+            }
+
+            // 4. Staggered reveal for Sector Log items
+            const logItems = gsap.utils.toArray('.sector-log-item');
+            if (logItems.length) {
+                gsap.from(logItems, {
+                    opacity: 0,
+                    y: 40,
+                    stagger: 0.1,
+                    duration: 1,
+                    ease: CINEMATIC_EASE,
+                    scrollTrigger: {
+                        trigger: logItems[0] as HTMLElement,
+                        start: 'top 85%'
+                    }
+                });
+            }
+
+        }, containerRef);
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <div className="min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12">
-            <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+        <div ref={containerRef} className="relative min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12 overflow-hidden">
+            {/* Background Image Layer (High-Fidelity) */}
+            <div className="absolute inset-0 z-0 overflow-hidden opacity-10 pointer-events-none">
+                 <img 
+                    src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2670&auto=format&fit=crop" 
+                    alt="Agency Environment" 
+                    className="w-full h-full object-cover grayscale mix-blend-multiply scale-105" 
+                />
+            </div>
+            
+            <div className="relative z-10 max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
 
                 {/* Left Col - Header */}
                 <div className="lg:col-span-8">
-                    <h1 className="font-syne font-black text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] uppercase text-[#0F0F0F] mb-12">
+                    <h1 className="hero-title-parallax font-syne font-black text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] uppercase text-[#0F0F0F] mb-12">
                         We Build <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D16D6A] to-[#8B3A38]"> empires </span> <br />
                         not pages.
                     </h1>
 
-                    <div className="text-xl md:text-3xl font-medium leading-relaxed text-[#0F0F0F]/80 max-w-4xl space-y-8">
+                    <div className="hero-desc-parallax text-xl md:text-3xl font-medium leading-relaxed text-[#0F0F0F]/80 max-w-4xl space-y-8">
                         <p>
                             Arson Pixelz wasn't founded to make "pretty websites." We exist to burn down the boring, the safe, and the templated.
                         </p>
@@ -58,9 +154,9 @@ export const AboutPage = () => {
                     <img
                         src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop"
                         alt="The Lab"
-                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 scale-105 group-hover:scale-100 transition-transform ease-out"
+                        className="team-img-parallax w-full h-[120%] object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 scale-105 group-hover:scale-100 ease-out"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <span className="font-syne font-black text-white/50 text-[10vw] uppercase select-none tracking-widest z-10">
                             The Construct
                         </span>
@@ -131,7 +227,7 @@ export const AboutPage = () => {
                         { year: "2022", event: "Protocol: Breach", desc: "First major award win for 'Cyber-Brutalism' utility site. The industry takes notice." },
                         { year: "2020", event: "Genesis", desc: "Founded in a basement server room. Two laptops, too much caffeine, and a refusal to compromise." }
                     ].map((item, idx) => (
-                        <div key={idx} className="group border-b border-black/10 py-12 flex flex-col md:flex-row gap-8 md:gap-24 items-start hover:bg-white transition-colors duration-500 -mx-6 px-6 md:-mx-12 md:px-12">
+                        <div key={idx} className="sector-log-item group border-b border-black/10 py-12 flex flex-col md:flex-row gap-8 md:gap-24 items-start hover:bg-white transition-colors duration-500 -mx-6 px-6 md:-mx-12 md:px-12">
                             <span className="font-mono text-3xl md:text-5xl font-bold text-[#D16D6A]/40 group-hover:text-[#D16D6A] transition-colors">
                                 {item.year}
                             </span>

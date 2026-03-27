@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,95 +19,197 @@ const GamingPage: React.FC = () => {
     const statsRef = React.useRef<HTMLDivElement>(null);
     const ctaRef = React.useRef<HTMLDivElement>(null);
 
+    // ── CINEMATIC TRANSITIONS (from cinematic_transitions skill) ──────────────
+    // Custom expensive-feeling cubic-bezier: [0.76, 0, 0.24, 1]
+    const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+
     useEffect(() => {
         const ctx = gsap.context(() => {
-            if (!containerRef.current || !headingRef.current || !descRef.current || !cardsRef.current || !statsRef.current || !ctaRef.current) return;
+            if (!containerRef.current) return;
 
-            // Background Parallax
+            // ── 1. CINEMATIC PAGE WIPE ─────────────────────────────────────────
+            // Skill: opacity:0, blur(10px), scale:1.05 → normal
+            // Applied to the whole page on mount
+            gsap.from(containerRef.current, {
+                opacity: 0,
+                filter: 'blur(10px)',
+                scale: 1.05,
+                duration: 1.4,
+                ease: CINEMATIC_EASE,
+                clearProps: 'filter,scale'
+            });
+
+            // ── 2. PARALLAX SCROLL ARCHITECT ──────────────────────────────────
+            // Skill: containerY: [150→0], opacity: [0,0.2,0.8,1]→[0,1,1,0]
+            // inner text-blocks move at counter rate for depth
+
+            // Background grid drifts opposite direction for max depth layer
             if (bgGridRef.current) {
                 gsap.to(bgGridRef.current, {
-                    y: '20%',
+                    y: '30%',
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: containerRef.current,
                         start: 'top top',
                         end: 'bottom top',
-                        scrub: 1
+                        scrub: 1.5
                     }
                 });
             }
+
+            // Plus icon parallax (deeper plane)
             if (plusRef.current) {
                 gsap.to(plusRef.current, {
-                    y: '40%',
-                    rotation: 90,
+                    y: '50%',
+                    rotation: 120,
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: containerRef.current,
                         start: 'top top',
                         end: 'bottom top',
-                        scrub: 2
+                        scrub: 2.5
                     }
                 });
             }
 
-            // HUD Glitch Heading
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: headingRef.current,
-                    start: 'top 85%'
-                }
-            });
+            // Hero heading — cinematic blur-in from left (HUD glitch)
+            if (headingRef.current && descRef.current) {
+                const heroTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: headingRef.current,
+                        start: 'top 85%'
+                    }
+                });
+                heroTl
+                    .from(headingRef.current, {
+                        opacity: 0,
+                        x: -40,
+                        filter: 'blur(8px) hue-rotate(90deg)',
+                        duration: 1.4,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter'
+                    })
+                    .from(descRef.current, {
+                        opacity: 0,
+                        y: 30,
+                        filter: 'blur(4px)',
+                        duration: 1.0,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter'
+                    }, '-=0.8');
+            }
 
-            tl.from(headingRef.current, {
-                opacity: 0,
-                x: -30,
-                filter: 'hue-rotate(90deg) blur(4px)',
-                duration: 0.3,
-                ease: 'steps(4)'
-            }).from(descRef.current, {
-                opacity: 0,
-                y: 20,
-                duration: 0.5,
-                ease: 'power3.out'
-            }, "+=0.2");
+            // Service Cards — Parallax Scroll Architect pattern
+            // Each card: enter from y:150, opacity:0 → fade out at bottom
+            if (cardsRef.current) {
+                const cards = gsap.utils.toArray<HTMLElement>('.gaming-card');
+                cards.forEach((card, i) => {
+                    // Container enters from below (the 150→0 parallax slide)
+                    gsap.fromTo(card,
+                        { opacity: 0, y: 150, filter: 'blur(8px)' },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            filter: 'blur(0px)',
+                            duration: 1.4,
+                            delay: i * 0.12,
+                            ease: CINEMATIC_EASE,
+                            clearProps: 'filter',
+                            scrollTrigger: {
+                                trigger: card,
+                                start: 'top 90%',
+                                once: true
+                            }
+                        }
+                    );
 
-            // Service Cards (Mechanical Screen-Refresh)
-            gsap.from('.gaming-card', {
-                opacity: 0,
-                scaleX: 0.9,
-                duration: 0.6,
-                stagger: 0.15,
-                ease: 'steps(5)',
-                clearProps: 'all',
-                scrollTrigger: {
-                    trigger: cardsRef.current,
-                    start: 'top bottom', // fires as soon as grid enters view
-                    once: true,
-                }
-            });
+                    // Inner title counter-scrolls upward (depth layer)
+                    const title = card.querySelector('h3');
+                    if (title) {
+                        gsap.fromTo(title,
+                            { y: '20%' },
+                            {
+                                y: '-10%',
+                                ease: 'none',
+                                scrollTrigger: {
+                                    trigger: card,
+                                    start: 'top bottom',
+                                    end: 'bottom top',
+                                    scrub: 1.2
+                                }
+                            }
+                        );
+                    }
+                });
+            }
 
-            // Scrambled Stats Counter
-            const stats = gsap.utils.toArray('.stat-node');
-            gsap.from(stats, {
-                y: 30,
-                opacity: 0,
-                duration: 0.4,
-                stagger: 0.1,
-                ease: 'steps(3)',
-                scrollTrigger: {
-                    trigger: statsRef.current,
-                    start: 'top 85%'
-                }
-            });
+            // Stats — parallax entrance with stagger, fade out at scroll bottom
+            if (statsRef.current) {
+                const statNodes = gsap.utils.toArray<HTMLElement>('.stat-node');
+                statNodes.forEach((node, i) => {
+                    gsap.fromTo(node,
+                        { opacity: 0, y: 100, filter: 'blur(6px)' },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            filter: 'blur(0px)',
+                            duration: 1.2,
+                            delay: i * 0.1,
+                            ease: CINEMATIC_EASE,
+                            clearProps: 'filter',
+                            scrollTrigger: {
+                                trigger: statsRef.current,
+                                start: 'top 85%',
+                                once: true
+                            }
+                        }
+                    );
+                });
+            }
 
-            // CTA Bootup
-            gsap.from(ctaRef.current, {
-                clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
-                duration: 0.8,
-                ease: 'power4.inOut',
-                scrollTrigger: {
-                    trigger: ctaRef.current,
-                    start: 'top 85%'
+            // CTA — Cinematic Page Wipe variant: blur + clip expansion
+            if (ctaRef.current) {
+                gsap.fromTo(ctaRef.current,
+                    {
+                        opacity: 0,
+                        clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+                        filter: 'blur(10px)',
+                        scale: 1.02
+                    },
+                    {
+                        opacity: 1,
+                        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+                        filter: 'blur(0px)',
+                        scale: 1,
+                        duration: 1.4,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter,scale',
+                        scrollTrigger: {
+                            trigger: ctaRef.current,
+                            start: 'top 85%',
+                            once: true
+                        }
+                    }
+                );
+
+                // CTA inner content counter-scrolls for depth
+                const ctaInner = ctaRef.current.querySelector('.relative.z-10');
+                if (ctaInner) {
+                    gsap.fromTo(ctaInner,
+                        { y: '15%' },
+                        {
+                            y: '-5%',
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: ctaRef.current,
+                                start: 'top bottom',
+                                end: 'bottom top',
+                                scrub: 1
+                            }
+                        }
+                    );
                 }
-            });
+            }
 
         }, containerRef);
         return () => ctx.revert();
@@ -160,10 +263,57 @@ const GamingPage: React.FC = () => {
     ];
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#0a0a0a]">
+        <section ref={containerRef} className="relative min-h-screen w-full pb-24 overflow-hidden bg-[#0a0a0a]">
 
-            {/* Background Code - Full Screen Coverage (Gaming Theme) */}
-            <div className="absolute inset-0 overflow-hidden opacity-[0.06] pointer-events-none flex items-start justify-center">
+            {/* ── HERO SECTION with homepage-level background ── */}
+            <div className="relative px-6 md:px-12 pt-28 md:pt-32 pb-28 overflow-hidden" style={{ background: '#020202' }}>
+                <PageHeroBackground accentColor="#D16D6A" />
+
+                {/* Glowing Orbs — preserved above the bg layer */}
+                <div className="absolute top-20 right-20 w-64 h-64 bg-[#D16D6A] rounded-full blur-[120px] opacity-10 animate-pulse z-10" style={{ animationDuration: '6s' }} />
+
+                {/* Decorative Plus Icon */}
+                <div
+                    ref={plusRef}
+                    className={`absolute right-[15%] top-[15%] text-[20vw] leading-none font-black text-[#D16D6A]/10 select-none pointer-events-none transition-all duration-[2000ms] ease-out z-10 ${loaded ? 'opacity-100 rotate-45' : 'opacity-0 rotate-0'}`}
+                >
+                    +
+                </div>
+
+                <div className="relative z-10">
+                    {/* Top Row */}
+                    <div className={`flex items-center justify-between mb-10 md:mb-16 transition-all duration-700 delay-100 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
+                        <div className="inline-block px-6 py-2 rounded-full bg-[#D16D6A] text-white font-mono text-xs font-bold uppercase tracking-[0.3em]">
+                            GAMING
+                        </div>
+                    </div>
+
+                    {/* Main Heading */}
+                    <div ref={headingRef} className="mb-16 md:mb-24">
+                        <div className="overflow-hidden mb-4">
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#EBE9DF]" style={{ fontFamily: 'Syne, sans-serif' }}>
+                                GAMING EXPERIENCES
+                            </h1>
+                        </div>
+                        <div className="overflow-hidden">
+                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/25" style={{ fontFamily: 'Syne, sans-serif' }}>
+                                LEVEL UP YOUR VISION
+                            </h2>
+                        </div>
+                    </div>
+
+                    {/* Description */}
+                    <div ref={descRef} className="max-w-3xl">
+                        <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#D16D6A] pl-6">
+                            From indie titles to AAA launches, we craft <strong className="text-white">immersive experiences</strong> that
+                            keep players engaged and communities thriving. Your game deserves more than pixels—it deserves artistry.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Code Watermark — absolutely positioned, no layout impact */}
+            <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none z-0">
                 <pre className="text-[#D16D6A] text-xs leading-relaxed font-mono w-full px-4 text-center">
                     {`// ARSON PIXELS - GAMING EXPERIENCE ENGINE v7.0
 
@@ -352,65 +502,7 @@ export default rightAsset;`.repeat(50)}
             <div className="absolute top-20 right-20 w-64 h-64 bg-[#D16D6A] rounded-full blur-[120px] opacity-20 animate-pulse" style={{ animationDuration: '6s' }} />
             <div className="absolute bottom-40 left-20 w-96 h-96 bg-[#D16D6A] rounded-full blur-[150px] opacity-15 animate-pulse" style={{ animationDuration: '10s' }} />
 
-            {/* Decorative Plus Icon */}
-            <div
-                ref={plusRef}
-                className={`
-                    absolute right-[15%] top-[15%]
-                    text-[20vw] leading-none font-black text-[#D16D6A]/10
-                    select-none pointer-events-none
-                    transition-all duration-[2000ms] ease-out
-                    ${loaded ? 'opacity-100 rotate-45' : 'opacity-0 rotate-0'}
-                `}
-            >
-                +
-            </div>
-
-            <div className="relative z-10">
-
-                {/* Top Row */}
-                <div
-                    className={`
-                        flex items-center justify-between mb-10 md:mb-16
-                        transition-all duration-700 delay-100
-                        ${loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}
-                    `}
-                >
-                    {/* Category Tag */}
-                    <div
-                        className={`
-                            inline-block px-6 py-2 rounded-full bg-[#D16D6A] text-white
-                            font-mono text-xs font-bold uppercase tracking-[0.3em]
-                            transition-all duration-700 delay-200
-                        `}
-                    >
-                        GAMING
-                    </div>
-                </div>
-
-                {/* Main Heading */}
-                <div ref={headingRef} className="mb-16 md:mb-24">
-                    <div className="overflow-hidden mb-4">
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#EBE9DF]" style={{ fontFamily: 'Syne, sans-serif' }}>
-                            GAMING EXPERIENCES
-                        </h1>
-                    </div>
-
-                    <div className="overflow-hidden">
-                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/25"
-                            style={{ fontFamily: 'Syne, sans-serif' }}>
-                            LEVEL UP YOUR VISION
-                        </h2>
-                    </div>
-                </div>
-
-                {/* Description */}
-                <div ref={descRef} className="max-w-3xl mb-20 md:mb-32">
-                    <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#D16D6A] pl-6">
-                        From indie titles to AAA launches, we craft <strong className="text-white">immersive experiences</strong> that
-                        keep players engaged and communities thriving. Your game deserves more than pixels—it deserves artistry.
-                    </p>
-                </div>
+            <div className="relative z-10 px-6 md:px-12">
 
                 {/* Services Grid */}
                 <div ref={cardsRef} className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">

@@ -3,6 +3,7 @@ import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
+import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,9 @@ const MarketingPage: React.FC = () => {
     const containerRef = useRef<HTMLElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
     const loopContainerRef = useRef<HTMLDivElement>(null);
+    const heroHeadingRef = useRef<HTMLHeadingElement>(null);
+    const heroDescRef = useRef<HTMLParagraphElement>(null);
+    const philosophyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -19,26 +23,128 @@ const MarketingPage: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            if (!containerRef.current || !ctaRef.current) return;
+        // ── CINEMATIC TRANSITIONS (from cinematic_transitions skill) ────────────
+        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
-            // CTA Reveal
-            gsap.from(ctaRef.current, {
-                scaleX: 0.8,
+        const ctx = gsap.context(() => {
+            if (!containerRef.current) return;
+
+            // ── 1. CINEMATIC PAGE WIPE ────────────────────────────────────────
+            gsap.from(containerRef.current, {
                 opacity: 0,
-                duration: 1.5,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: ctaRef.current,
-                    start: 'top 85%'
+                filter: 'blur(12px)',
+                scale: 1.04,
+                duration: 1.4,
+                ease: CINEMATIC_EASE,
+                clearProps: 'filter,scale'
+            });
+
+            // ── 2. HERO PARALLAX DEPTH ────────────────────────────────────────
+            if (heroHeadingRef.current) {
+                gsap.to(heroHeadingRef.current, {
+                    y: '-18%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroHeadingRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1.5
+                    }
+                });
+            }
+            if (heroDescRef.current) {
+                gsap.to(heroDescRef.current, {
+                    y: '-8%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroDescRef.current,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            }
+
+            // ── 3. PHILOSOPHY SECTION — cinematic reveal ──────────────────────
+            if (philosophyRef.current) {
+                gsap.fromTo(philosophyRef.current,
+                    { opacity: 0, y: 80, filter: 'blur(8px)' },
+                    {
+                        opacity: 1, y: 0, filter: 'blur(0px)',
+                        duration: 1.4,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter',
+                        scrollTrigger: {
+                            trigger: philosophyRef.current,
+                            start: 'top 85%',
+                            once: true
+                        }
+                    }
+                );
+            }
+
+            // ── 4. CAPABILITY ROWS — Parallax Scroll Architect ────────────────
+            const capRows = gsap.utils.toArray<HTMLElement>('.cap-row');
+            capRows.forEach((row, i) => {
+                const contentPanel = row.querySelector('.cap-content');
+                const visualPanel  = row.querySelector('.cap-visual');
+
+                if (contentPanel) {
+                    gsap.fromTo(contentPanel,
+                        { opacity: 0, y: 120, filter: 'blur(10px)' },
+                        {
+                            opacity: 1, y: 0, filter: 'blur(0px)',
+                            duration: 1.4,
+                            delay: 0.1,
+                            ease: CINEMATIC_EASE,
+                            clearProps: 'filter',
+                            scrollTrigger: {
+                                trigger: row,
+                                start: 'top 82%',
+                                once: true
+                            }
+                        }
+                    );
+                    const heading = contentPanel.querySelector('h4');
+                    if (heading) {
+                        gsap.fromTo(heading,
+                            { y: '15%' },
+                            {
+                                y: '-8%',
+                                ease: 'none',
+                                scrollTrigger: {
+                                    trigger: row,
+                                    start: 'top bottom',
+                                    end: 'bottom top',
+                                    scrub: 1.2
+                                }
+                            }
+                        );
+                    }
+                }
+
+                if (visualPanel) {
+                    gsap.fromTo(visualPanel,
+                        { opacity: 0, x: i % 2 === 0 ? -60 : 60, filter: 'blur(8px)' },
+                        {
+                            opacity: 1, x: 0, filter: 'blur(0px)',
+                            duration: 1.4,
+                            ease: CINEMATIC_EASE,
+                            clearProps: 'filter',
+                            scrollTrigger: {
+                                trigger: row,
+                                start: 'top 82%',
+                                once: true
+                            }
+                        }
+                    );
                 }
             });
 
-            // Acceleration Loop Pinned Stack
+            // ── 5. METHODOLOGY — enhanced page-flip with blur + scanline sweep ─
             if (loopContainerRef.current) {
-                const cards = gsap.utils.toArray('.loop-card', loopContainerRef.current);
-                
-                // Pin the entire section
+                const cards = gsap.utils.toArray<HTMLElement>('.loop-card', loopContainerRef.current);
+
                 ScrollTrigger.create({
                     trigger: loopContainerRef.current,
                     start: 'top top',
@@ -47,23 +153,94 @@ const MarketingPage: React.FC = () => {
                     anticipatePin: 1
                 });
 
-                // Animate each card sweeping in from below with a violent snap rotation
-                cards.forEach((card: any, i) => {
-                    if (i === 0) return; // First card is already visible
-                    
-                    gsap.from(card, {
-                        yPercent: 150,
-                        rotation: 12, // Aggressive initial tilt
-                        scale: 0.8,
-                        boxShadow: "0px 100px 100px rgba(0,0,0,0.8)",
-                        scrollTrigger: {
-                            trigger: loopContainerRef.current,
-                            start: `top+=${(i - 1) * 80}% top`,
-                            end: `top+=${i * 80}% top`,
-                            scrub: 1, // Smooth scrub but violent appearance constraints
+                cards.forEach((card, i) => {
+                    if (i === 0) return;
+
+                    gsap.fromTo(card,
+                        {
+                            yPercent: 130,
+                            rotation: 10,
+                            scale: 0.85,
+                            filter: 'blur(14px)',
+                            boxShadow: '0px 120px 120px rgba(0,0,0,0.9)'
+                        },
+                        {
+                            yPercent: 0,
+                            rotation: 0,
+                            scale: 1,
+                            filter: 'blur(0px)',
+                            boxShadow: '0px 0px 0px rgba(0,0,0,0)',
+                            ease: CINEMATIC_EASE,
+                            clearProps: 'filter',
+                            scrollTrigger: {
+                                trigger: loopContainerRef.current,
+                                start: `top+=${(i - 1) * 80}% top`,
+                                end: `top+=${i * 80}% top`,
+                                scrub: 1.2
+                            }
                         }
-                    });
+                    );
+
+                    // Scanline sweep — wipes across card as it flips in
+                    const scanline = card.querySelector('.scanline-sweep');
+                    if (scanline) {
+                        gsap.fromTo(scanline,
+                            { opacity: 0.8, y: '-100%' },
+                            {
+                                y: '200%',
+                                opacity: 0,
+                                ease: 'power2.in',
+                                scrollTrigger: {
+                                    trigger: loopContainerRef.current,
+                                    start: `top+=${(i - 1) * 80}% top`,
+                                    end: `top+=${(i - 0.3) * 80}% top`,
+                                    scrub: 1
+                                }
+                            }
+                        );
+                    }
                 });
+            }
+
+            // ── 6. CTA — Cinematic clip-path wipe + blur ─────────────────────
+            if (ctaRef.current) {
+                gsap.fromTo(ctaRef.current,
+                    {
+                        opacity: 0,
+                        clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+                        filter: 'blur(10px)'
+                    },
+                    {
+                        opacity: 1,
+                        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+                        filter: 'blur(0px)',
+                        duration: 1.4,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter',
+                        scrollTrigger: {
+                            trigger: ctaRef.current,
+                            start: 'top 85%',
+                            once: true
+                        }
+                    }
+                );
+
+                const ctaInner = ctaRef.current.querySelector('.relative.z-10');
+                if (ctaInner) {
+                    gsap.fromTo(ctaInner,
+                        { y: '12%' },
+                        {
+                            y: '-4%',
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: ctaRef.current,
+                                start: 'top bottom',
+                                end: 'bottom top',
+                                scrub: 1
+                            }
+                        }
+                    );
+                }
             }
 
         }, containerRef);
@@ -125,16 +302,17 @@ const MarketingPage: React.FC = () => {
         <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#EBE9DF] text-[#1A1A1A]">
             
             {/* HER0 HEADER */}
-            <div className="pt-28 md:pt-32 pb-20 px-6 md:px-12 max-w-[100rem] mx-auto relative z-10">
-                <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="inline-block px-4 py-1 mb-8 border border-[#1A1A1A]">
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]">Sector // Market Acceleration</span>
+            <div className="relative pt-28 md:pt-32 pb-28 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#020202' }}>
+                <PageHeroBackground accentColor="#D16D6A" />
+                <div className={`relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <div className="inline-block px-4 py-1 mb-8 border border-white/20">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/60">Sector // Market Acceleration</span>
                     </div>
-                    <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                    <h1 ref={heroHeadingRef} className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white">
                         MARKET <br />
                         <span className="text-[#D16D6A]">ACCELERATION</span>
                     </h1>
-                    <p className="text-xl md:text-3xl font-mono text-[#1A1A1A]/70 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
+                    <p ref={heroDescRef} className="text-xl md:text-3xl font-mono text-white/60 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
                         We don't just market—we accelerate. Strategic campaigns engineered to amplify your reach, engagement, and revenue at unprecedented velocity.
                     </p>
                 </div>
@@ -144,7 +322,7 @@ const MarketingPage: React.FC = () => {
             <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none"></div>
 
             {/* PHILOSOPHY SECTION */}
-            <div className="py-24 md:py-32 bg-[#D16D6A] text-[#1A1A1A] relative z-10 box-shadow-[0_-20px_50px_rgba(209,109,106,0.2)] overflow-hidden">
+            <div ref={philosophyRef} className="py-24 md:py-32 bg-[#D16D6A] text-[#1A1A1A] relative z-10 overflow-hidden">
                 {/* Decorative Graph Line Background */}
                 <div className="absolute inset-0 opacity-10 pointer-events-none transform -skew-y-6 scale-150">
                     <div className="absolute bottom-0 w-full h-[2px] bg-[#1A1A1A]"></div>
@@ -154,22 +332,22 @@ const MarketingPage: React.FC = () => {
                 </div>
 
                 <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-10">
-                    <ScrollReveal staggerIndex={0}>
+                    
                         <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 mix-blend-multiply text-[#1A1A1A]/90">
                             TRAFFIC IS VANITY. <br/> <span className="text-white">REVENUE IS SANITY.</span>
                         </h2>
-                    </ScrollReveal>
+                    
                     <div className="grid md:grid-cols-2 gap-12">
-                        <ScrollReveal staggerIndex={1}>
+                        
                             <p className="font-mono text-lg text-[#1A1A1A]/80 leading-relaxed font-semibold">
                                 Every dollar you spend on marketing should be an employee working tirelessly to bring you more dollars. We do not care about hollow metrics, vanity likes, or empty impressions. We care about the bottom line.
                             </p>
-                        </ScrollReveal>
-                        <ScrollReveal staggerIndex={2}>
+                        
+                        
                             <p className="font-mono text-lg text-[#1A1A1A]/80 leading-relaxed font-semibold">
                                 By fusing behavioral psychology with aggressive, data-driven mathematical models, we construct marketing machines that predictably, and ruthlessly, scale your business.
                             </p>
-                        </ScrollReveal>
+                        
                     </div>
                 </div>
             </div>
@@ -185,11 +363,11 @@ const MarketingPage: React.FC = () => {
 
                 <div className="space-y-32">
                     {capabilities.map((cap, index) => (
-                        <div key={cap.id} className={`grid lg:grid-cols-12 gap-12 items-center ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
+                        <div key={cap.id} className={`cap-row grid lg:grid-cols-12 gap-12 items-center ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
                             
                             {/* Visual Abstract side */}
-                            <div className={`lg:col-span-5 h-[400px] border-2 border-[#1A1A1A] bg-white relative overflow-hidden flex items-center justify-center p-8 group ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
-                                <ScrollReveal staggerIndex={1}>
+                            <div className={`cap-visual lg:col-span-5 h-[400px] border-2 border-[#1A1A1A] bg-white relative overflow-hidden flex items-center justify-center p-8 group ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
+                                
                                     <span className="text-[12rem] font-black text-[#1A1A1A]/5 font-mono select-none transition-transform duration-700 group-hover:scale-110">{cap.id}</span>
                                     
                                     {/* Tech graph effect */}
@@ -199,12 +377,12 @@ const MarketingPage: React.FC = () => {
                                         ))}
                                     </div>
                                     <div className="absolute top-4 right-4 text-xs font-mono font-bold text-[#D16D6A] animate-pulse">UPWARD_TREND_DETECTED</div>
-                                </ScrollReveal>
+                                
                             </div>
 
                             {/* Content Side */}
-                            <div className={`lg:col-span-7 flex flex-col ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
-                                <ScrollReveal staggerIndex={2}>
+                            <div className={`cap-content lg:col-span-7 flex flex-col ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
+                                
                                     <div className="flex items-center space-x-4 mb-4">
                                         <span className="font-mono text-sm font-bold text-[#D16D6A]">ACT {cap.id}</span>
                                         <span className="font-mono text-xs tracking-widest uppercase opacity-50">{cap.subtitle}</span>
@@ -234,16 +412,25 @@ const MarketingPage: React.FC = () => {
                                     >
                                         Execute Campaign
                                     </button>
-                                </ScrollReveal>
+                                
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* METHODOLOGY SECTION (PINNED LOOP) */}
-            <div ref={loopContainerRef} className="bg-[#1A1A1A] text-[#EBE9DF] w-full h-screen overflow-hidden flex flex-col justify-center relative z-10 box-shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-                <div className="max-w-[90rem] mx-auto px-6 md:px-12 w-full">
+            {/* METHODOLOGY SECTION (PINNED LOOP) — enhanced flip */}
+            <div
+                ref={loopContainerRef}
+                className="bg-[#1A1A1A] text-[#EBE9DF] w-full h-screen overflow-hidden flex flex-col justify-center relative z-10"
+            >
+                {/* Atmospheric background for methodology */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(209,109,106,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(209,109,106,0.06)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(209,109,106,0.12)_0%,transparent_70%)]" />
+                </div>
+
+                <div className="max-w-[90rem] mx-auto px-6 md:px-12 w-full relative z-10">
                     <div className="mb-12 text-center">
                         <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#D16D6A] mb-4">The Methodology</h2>
                         <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">The Acceleration Loop</h3>
@@ -251,19 +438,23 @@ const MarketingPage: React.FC = () => {
 
                     <div className="relative w-full max-w-5xl mx-auto h-[500px] perspective-[1500px]">
                         {processes.map((step, index) => (
-                            <div 
-                                key={step.num} 
-                                className="loop-card absolute inset-0 w-full bg-[#111111] border-2 border-[#D16D6A] p-10 md:p-16 flex flex-col text-center items-center justify-center transform origin-bottom shadow-[0_-20px_50px_rgba(0,0,0,0.8)] will-change-transform"
+                            <div
+                                key={step.num}
+                                className="loop-card absolute inset-0 w-full bg-[#111111] border-2 border-[#D16D6A] p-10 md:p-16 flex flex-col text-center items-center justify-center origin-bottom will-change-transform overflow-hidden"
                                 style={{ zIndex: index + 1 }}
                             >
+                                {/* Noise texture */}
                                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
+                                {/* Static scan-line atmosphere */}
+                                <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.08)_2px,rgba(0,0,0,0.08)_4px)] pointer-events-none" />
+                                {/* Scanline sweep — animated by GSAP on flip */}
+                                <div className="scanline-sweep absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#D16D6A]/40 to-transparent pointer-events-none z-20 opacity-0" />
+
                                 <div className="w-24 h-24 rounded-full border-4 border-[#D16D6A] text-[#D16D6A] font-black font-mono flex items-center justify-center text-3xl mb-8 relative z-10 bg-[#1A1A1A] shadow-[0_0_30px_rgba(209,109,106,0.3)]">
                                     {step.num}
                                 </div>
                                 <h4 className="text-4xl md:text-5xl font-black uppercase mb-6 relative z-10 text-white tracking-tight">{step.title}</h4>
-                                <p className="font-mono text-lg md:text-xl text-white/70 leading-relaxed max-w-3xl relative z-10">
-                                    {step.desc}
-                                </p>
+                                <p className="font-mono text-lg md:text-xl text-white/70 leading-relaxed max-w-3xl relative z-10">{step.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -274,7 +465,6 @@ const MarketingPage: React.FC = () => {
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-32 pt-16 relative z-10">
                 <div ref={ctaRef} className="relative p-12 md:p-20 bg-white border border-[#1A1A1A] shadow-[20px_20px_0px_#1A1A1A] overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
-                    
                     <div className="relative z-10 max-w-2xl">
                         <h3 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase mb-6 text-[#1A1A1A] leading-[0.9]">
                             SCALE UNFAIRLY.
@@ -283,7 +473,6 @@ const MarketingPage: React.FC = () => {
                             Stop burning venture capital on inefficient ad spend. Start accelerating.
                         </p>
                     </div>
-
                     <a href="mailto:hello@arsonpixels.com?subject=Marketing%20Project%20Inquiry"
                        className="relative z-10 inline-block px-12 py-6 bg-[#D16D6A] text-white font-mono font-bold text-lg uppercase tracking-widest hover:bg-[#1A1A1A] transition-colors shadow-[8px_8px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_#1A1A1A] whitespace-nowrap"
                     >

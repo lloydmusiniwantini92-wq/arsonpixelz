@@ -3,6 +3,7 @@ import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
+import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,22 +22,76 @@ const BrandingPage: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            if (!containerRef.current || !ctaRef.current) return;
+        // ── CINEMATIC TRANSITIONS ───────────────────────────────────────────────
+        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
-            // CTA Ignition Reveal
-            gsap.from(ctaRef.current, {
-                scaleX: 0.8,
+        const ctx = gsap.context(() => {
+            if (!containerRef.current) return;
+
+            // 1. Cinematic Page Wipe
+            gsap.from(containerRef.current, {
                 opacity: 0,
-                duration: 1.5,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: ctaRef.current,
-                    start: 'top 85%'
-                }
+                filter: 'blur(12px)',
+                scale: 1.04,
+                duration: 1.4,
+                ease: CINEMATIC_EASE,
+                clearProps: 'filter,scale'
             });
 
-            // Monumental Philosophy Scale
+            // 2. Hero Parallax Depth
+            const heroTitle = containerRef.current.querySelector('.hero-title');
+            const heroDesc = containerRef.current.querySelector('.hero-desc');
+            
+            if (heroTitle) {
+                gsap.to(heroTitle, {
+                    y: '-15%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroTitle,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1.2
+                    }
+                });
+            }
+            if (heroDesc) {
+                gsap.to(heroDesc, {
+                    y: '-5%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: heroDesc,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            }
+
+            // 3. CTA Ignition Reveal - Cinematic clip-path wipe
+            if (ctaRef.current) {
+                gsap.fromTo(ctaRef.current, 
+                    {
+                        opacity: 0,
+                        clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+                        filter: 'blur(10px)'
+                    },
+                    {
+                        opacity: 1,
+                        clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+                        filter: 'blur(0px)',
+                        duration: 1.4,
+                        ease: CINEMATIC_EASE,
+                        clearProps: 'filter',
+                        scrollTrigger: {
+                            trigger: ctaRef.current,
+                            start: 'top 85%',
+                            once: true
+                        }
+                    }
+                );
+            }
+
+            // 4. Monumental Philosophy Scale (Existing)
             if (philosophyRef.current && philosophyTextRef.current && philosophyContentRef.current) {
                 const tl = gsap.timeline({
                     scrollTrigger: {
@@ -121,16 +176,17 @@ const BrandingPage: React.FC = () => {
         <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#EBE9DF] text-[#1A1A1A]">
             
             {/* HER0 HEADER */}
-            <div className="pt-28 md:pt-32 pb-20 px-6 md:px-12 max-w-[100rem] mx-auto">
-                <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="inline-block px-4 py-1 mb-8 border border-[#1A1A1A]">
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]">Sector // Brand Ignition</span>
+            <div className="relative pt-28 md:pt-32 pb-28 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#020202' }}>
+                <PageHeroBackground accentColor="#D16D6A" />
+                <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <div className="inline-block px-4 py-1 mb-8 border border-white/20">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/60">Sector // Brand Ignition</span>
                     </div>
-                    <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8">
+                    <h1 className="hero-title text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white">
                         IGNITE <br />
                         <span className="text-[#D16D6A]">THE BRAND</span>
                     </h1>
-                    <p className="text-xl md:text-3xl font-mono text-[#1A1A1A]/70 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
+                    <p className="hero-desc text-xl md:text-3xl font-mono text-white/60 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
                         Your brand is the smoke that signals the fire. We forge identities that burn into memory—impossible to ignore, impossible to forget.
                     </p>
                 </div>

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShopHero } from '../components/shop/ShopHero';
 import { ProductCard } from '../components/shop/ProductCard';
 import { products } from '../data/products';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const categories = ['all', 'template', 'font', 'agent', 'workflow'];
 
@@ -16,6 +20,27 @@ const categoryLabels: Record<string, string> = {
 
 const ShopPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        
+        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+        const ctx = gsap.context(() => {
+            if (!containerRef.current) return;
+            
+            gsap.from(containerRef.current, {
+                opacity: 0,
+                filter: 'blur(12px)',
+                scale: 1.04,
+                duration: 1.4,
+                ease: CINEMATIC_EASE,
+                clearProps: 'filter,scale'
+            });
+        }, containerRef);
+        
+        return () => ctx.revert();
+    }, []);
 
     const filteredProducts = selectedCategory === 'all'
         ? products
@@ -23,6 +48,7 @@ const ShopPage = () => {
 
     return (
         <div
+            ref={containerRef}
             className="min-h-screen"
             style={{ background: 'linear-gradient(to bottom, #050505 0%, #0a0505 30%, #0f0808 100%)' }}
         >
@@ -90,8 +116,8 @@ const ShopPage = () => {
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
                     >
-                        {filteredProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                        {filteredProducts.map((product, i) => (
+                            <ProductCard key={product.id} product={product} index={i} />
                         ))}
                     </motion.div>
                 </AnimatePresence>

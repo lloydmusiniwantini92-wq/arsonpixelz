@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
 
 const ContactPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -9,9 +10,23 @@ const ContactPage: React.FC = () => {
         budget: '',
         details: ''
     });
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        const ctx = gsap.context(() => {
+            if (containerRef.current) {
+                gsap.from(containerRef.current, {
+                    opacity: 0,
+                    filter: 'blur(12px)',
+                    scale: 1.04,
+                    duration: 1.4,
+                    ease: 'cubic-bezier(0.76, 0, 0.24, 1)',
+                    clearProps: 'filter,scale'
+                });
+            }
+        });
+        return () => ctx.revert();
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -27,7 +42,7 @@ const ContactPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12 flex flex-col items-center">
+        <div ref={containerRef} className="min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12 flex flex-col items-center">
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}

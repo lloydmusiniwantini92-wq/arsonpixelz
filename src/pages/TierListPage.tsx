@@ -1,16 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
+import gsap from 'gsap';
 
 const TierListPage: React.FC = () => {
     const [loaded, setLoaded] = useState(false);
     const [activeFilter, setActiveFilter] = useState<'all' | 'fire' | 'heat' | 'spark'>('all');
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         const timer = setTimeout(() => setLoaded(true), 100);
-        return () => clearTimeout(timer);
+        
+        const ctx = gsap.context(() => {
+            if (containerRef.current) {
+                gsap.from(containerRef.current, {
+                    opacity: 0,
+                    filter: 'blur(12px)',
+                    scale: 1.04,
+                    duration: 1.4,
+                    ease: 'cubic-bezier(0.76, 0, 0.24, 1)',
+                    clearProps: 'filter,scale'
+                });
+            }
+        });
+        
+        return () => {
+            clearTimeout(timer);
+            ctx.revert();
+        };
     }, []);
 
     const tiers = [
@@ -166,7 +185,7 @@ const TierListPage: React.FC = () => {
     };
 
     return (
-        <section className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#050505]">
+        <section ref={containerRef} className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#050505]">
 
             {/* Background Code Pattern */}
             <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none">

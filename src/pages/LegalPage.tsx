@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 export const LegalPage = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        const ctx = gsap.context(() => {
+            if (containerRef.current) {
+                gsap.from(containerRef.current, {
+                    opacity: 0,
+                    filter: 'blur(12px)',
+                    scale: 1.04,
+                    duration: 1.4,
+                    ease: 'cubic-bezier(0.76, 0, 0.24, 1)',
+                    clearProps: 'filter,scale'
+                });
+            }
+        });
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <div className="min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
+        <div ref={containerRef} className="min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
             {/* Background Grid */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
                 style={{

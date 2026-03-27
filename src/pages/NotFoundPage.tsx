@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 
 export const NotFoundPage = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            if (containerRef.current) {
+                gsap.from(containerRef.current, {
+                    opacity: 0,
+                    filter: 'blur(12px)',
+                    scale: 1.04,
+                    duration: 1.4,
+                    ease: 'cubic-bezier(0.76, 0, 0.24, 1)',
+                    clearProps: 'filter,scale'
+                });
+            }
+        });
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <div className="min-h-screen bg-[#0F0F0F] flex flex-col items-center justify-center px-6 relative overflow-hidden">
+        <div ref={containerRef} className="min-h-screen bg-[#0F0F0F] flex flex-col items-center justify-center px-6 relative overflow-hidden">
             {/* Background Glitch */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 

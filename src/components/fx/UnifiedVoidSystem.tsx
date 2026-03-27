@@ -22,7 +22,7 @@ export const UnifiedVoidSystem: React.FC = () => {
     const { isInitialLoad } = useContext(NavigationContext);
 
     useEffect(() => {
-        const delay = isInitialLoad ? 2500 : 500;
+        const delay = isInitialLoad ? 3000 : 500;
         const timer = setTimeout(() => setLoaded(true), delay);
         return () => clearTimeout(timer);
     }, [isInitialLoad]);

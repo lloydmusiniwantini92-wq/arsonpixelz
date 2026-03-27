@@ -82,10 +82,10 @@ export const ReverseVoidSystem: React.FC = () => {
             {/* ── LAYER 2: DARK VOID (collapsing) ── */}
             <div
                 ref={darkLayerRef}
-                className="absolute inset-0 z-20 bg-[#020202]"
+                className="absolute inset-0 z-20 bg-[#020202] pointer-events-none"
                 style={{ clipPath: `circle(200vmax at 0% 1000px)` }} // initial guess for Y
             >
-                <div className="w-full h-full flex flex-col relative">
+                <div className="w-full h-full flex flex-col relative pointer-events-auto">
                     <Services theme="dark" />
                     <Footer theme="dark" />
 

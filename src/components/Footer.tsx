@@ -171,6 +171,7 @@ export const Footer: React.FC<{ theme?: 'light' | 'dark' }> = ({ theme = 'light'
     if (theme === 'dark') {
         content.theme.bg = '#020202';
         content.theme.text = '#EBE9DF';
+        content.theme.accent = '#D16D6A'; // Explicitly ensure brand red in dark mode
         content.theme.border = 'rgba(235,233,223,0.3)';
         content.theme.rightBg = 'rgba(255,255,255,0.03)';
     }
@@ -249,34 +250,50 @@ export const Footer: React.FC<{ theme?: 'light' | 'dark' }> = ({ theme = 'light'
                             / {content.cta}
                         </label>
 
-                        <form onSubmit={handleSubmit} className="relative">
+                        <form onSubmit={handleSubmit} className="relative group/form">
                             <input
                                 type="email"
                                 placeholder={status === 'SUCCESS' ? "TRANSMISSION RECEIVED" : "ENTER_EMAIL_ADDRESS"}
                                 disabled={status !== 'IDLE'}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-transparent p-6 font-mono text-sm outline-none transition-all uppercase"
+                                className="w-full bg-transparent p-6 font-mono text-sm outline-none transition-all uppercase focus:pl-8 border"
                                 style={{
-                                    border: `2px solid ${content.theme.border}60`,
+                                    borderColor: `${content.theme.border}40`,
                                     color: content.theme.text,
                                     '--tw-placeholder-color': `${content.theme.text}40`,
                                 } as React.CSSProperties}
                             />
-                            <style>{`input::placeholder { color: ${content.theme.text}55; }`}</style>
+                            <style>{`
+                                input::placeholder { color: ${content.theme.text}55; }
+                                input:focus { border-color: ${content.theme.accent} !important; box-shadow: 0 0 20px -5px ${content.theme.accent}30; }
+                            `}</style>
 
                             <button
                                 type="submit"
                                 disabled={status !== 'IDLE'}
-                                className={`absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center border transition-all duration-300
-${status === 'SUCCESS'
+                                className={`absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center border transition-all duration-500
+                                ${status === 'SUCCESS'
                                         ? 'bg-green-500 text-white border-green-600'
-                                        : ''}`}
+                                        : 'hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(209,109,106,0.4)]'}`}
                                 style={status !== 'SUCCESS' ? {
                                     backgroundColor: content.theme.text,
                                     color: content.theme.bg,
                                     borderColor: content.theme.border,
-                                } : {}}
+                                    '--hover-bg': content.theme.accent
+                                } as React.CSSProperties : {}}
+                                onMouseEnter={e => {
+                                    if(status === 'IDLE') {
+                                        e.currentTarget.style.backgroundColor = content.theme.accent;
+                                        e.currentTarget.style.color = 'white';
+                                    }
+                                }}
+                                onMouseLeave={e => {
+                                    if(status === 'IDLE') {
+                                        e.currentTarget.style.backgroundColor = content.theme.text;
+                                        e.currentTarget.style.color = content.theme.bg;
+                                    }
+                                }}
                             >
                                 {status === 'PROCESSING' ? (
                                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -297,7 +314,7 @@ ${status === 'SUCCESS'
                     <div className="grid grid-cols-2 h-full">
                         <div className="p-8" style={{ borderRight: `2px solid ${content.theme.border}40` }}>
                             <span
-                                className="font-mono text-[10px] tracking-[0.3em] uppercase block mb-6"
+                                className="font-mono text-[10px] tracking-[0.3em] uppercase block mb-6 transition-colors duration-300"
                                 style={{ color: content.theme.accent }}
                             >
                                 Directory
@@ -307,13 +324,21 @@ ${status === 'SUCCESS'
                                     <li key={link.title}>
                                         <Link
                                             to={link.href}
-                                            className="group flex items-center gap-2 text-lg font-bold uppercase tracking-tight transition-colors"
-                                            style={{ color: content.theme.text }}
-                                            onMouseEnter={e => (e.currentTarget.style.color = content.theme.accent)}
-                                            onMouseLeave={e => (e.currentTarget.style.color = content.theme.text)}
+                                            className="group flex items-center gap-2 text-lg font-bold uppercase tracking-tight transition-all duration-300 hover:translate-x-2"
+                                            style={{ 
+                                                '--hover-color': content.theme.accent,
+                                                '--base-color': content.theme.text 
+                                            } as React.CSSProperties}
                                         >
-                                            <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100 font-mono text-xs">/</span>
-                                            {link.title}
+                                            <span 
+                                                className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100 font-mono text-xs"
+                                                style={{ color: content.theme.accent }}
+                                            >
+                                                /
+                                            </span>
+                                            <span className="transition-colors group-hover:text-[var(--hover-color)]" style={{ color: content.theme.text }}>
+                                                {link.title}
+                                            </span>
                                         </Link>
                                     </li>
                                 ))}
@@ -322,7 +347,7 @@ ${status === 'SUCCESS'
 
                         <div className="p-8">
                             <span
-                                className="font-mono text-[10px] tracking-[0.3em] uppercase block mb-6"
+                                className="font-mono text-[10px] tracking-[0.3em] uppercase block mb-6 transition-colors duration-300"
                                 style={{ color: content.theme.accent }}
                             >
                                 Network
@@ -332,19 +357,19 @@ ${status === 'SUCCESS'
                                     <li key={link.title}>
                                         <a
                                             href={link.href}
-                                            className="group flex items-center justify-between text-sm font-bold uppercase pb-2 transition-all"
-                                            style={{ color: content.theme.text, borderBottom: `1px solid ${content.theme.border}25` }}
-                                            onMouseEnter={e => {
-                                                e.currentTarget.style.color = content.theme.accent;
-                                                e.currentTarget.style.borderBottomColor = content.theme.accent;
-                                            }}
-                                            onMouseLeave={e => {
-                                                e.currentTarget.style.color = content.theme.text;
-                                                e.currentTarget.style.borderBottomColor = `${content.theme.border}25`;
-                                            }}
+                                            className="group flex items-center justify-between text-sm font-bold uppercase pb-2 transition-all border-b border-transparent"
+                                            style={{ 
+                                                color: content.theme.text, 
+                                                borderBottomColor: `${content.theme.border}25`,
+                                                '--hover-color': content.theme.accent 
+                                            } as React.CSSProperties}
                                         >
-                                            {link.title}
-                                            <ArrowUpRightIcon className="w-3 h-3 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                                            <span className="group-hover:text-[var(--hover-color)] transition-colors">
+                                                {link.title}
+                                            </span>
+                                            <ArrowUpRightIcon 
+                                                className="w-3 h-3 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-all group-hover:text-[var(--hover-color)]" 
+                                            />
                                         </a>
                                     </li>
                                 ))}
