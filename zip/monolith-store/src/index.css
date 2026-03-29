@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-outline-variant: #5d3f38;
+  --color-on-surface-variant: #e7bdb3;
+  --color-primary: #ffb4a2;
+  --color-surface: #131313;
+  --color-surface-container: #1f1f1f;
+  --color-on-surface: #e2e2e2;
+  --color-primary-container: #ff562b;
+  --color-on-primary-container: #550e00;
+  --color-surface-container-highest: #353535;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1b1b1b;
+  --color-tertiary: #a7c8ff;
+  --color-background: #131313;
+
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-label: "Space Grotesk", sans-serif;
+
+  --radius-none: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-full: 9999px;
+}
+
+body {
+  background-color: #000000;
+  color: #E2E2E2;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #FF3E00; }
+
+.monolith-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}

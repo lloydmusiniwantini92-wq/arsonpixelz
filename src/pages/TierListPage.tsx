@@ -37,9 +37,9 @@ const TierListPage: React.FC = () => {
             rank: 'S',
             label: 'INFERNO TIER',
             subtitle: 'Maximum Heat',
-            color: '#D16D6A',
-            gradient: 'from-[#D16D6A] to-[#B04E4B]',
-            bgGlow: 'bg-[#D16D6A]',
+            color: '#FF3E00',
+            gradient: 'from-[#FF3E00] to-[#E63900]',
+            bgGlow: 'bg-[#FF3E00]',
             products: [
                 {
                     title: 'Full Brand Transformation',
@@ -61,9 +61,9 @@ const TierListPage: React.FC = () => {
             rank: 'A',
             label: 'BLAZE TIER',
             subtitle: 'High Temperature',
-            color: '#E88B87',
-            gradient: 'from-[#E88B87] to-[#D16D6A]',
-            bgGlow: 'bg-[#E88B87]',
+            color: '#FF3E00',
+            gradient: 'from-[#FF3E00] to-[#E63900]',
+            bgGlow: 'bg-[#FF3E00]',
             products: [
                 {
                     title: 'Website + E-Commerce Platform',
@@ -92,9 +92,9 @@ const TierListPage: React.FC = () => {
             rank: 'B',
             label: 'FLAME TIER',
             subtitle: 'Sustained Burn',
-            color: '#F5A9A5',
-            gradient: 'from-[#F5A9A5] to-[#E88B87]',
-            bgGlow: 'bg-[#F5A9A5]',
+            color: '#FFFFFF',
+            gradient: 'from-white/20 to-white/5',
+            bgGlow: 'bg-white',
             products: [
                 {
                     title: 'Brand Identity Package',
@@ -123,9 +123,9 @@ const TierListPage: React.FC = () => {
             rank: 'C',
             label: 'EMBER TIER',
             subtitle: 'Core Ignition',
-            color: '#FFCDC9',
-            gradient: 'from-[#FFCDC9] to-[#F5A9A5]',
-            bgGlow: 'bg-[#FFCDC9]',
+            color: '#FFFFFF',
+            gradient: 'from-white/10 to-transparent',
+            bgGlow: 'bg-white',
             products: [
                 {
                     title: 'Landing Page Design',
@@ -185,11 +185,11 @@ const TierListPage: React.FC = () => {
     };
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#050505]">
+        <section ref={containerRef} className="relative min-h-screen w-full px-6 md:px-12 pt-28 md:pt-32 pb-24 overflow-hidden bg-[#000000]">
 
             {/* Background Code Pattern */}
             <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none">
-                <pre className="text-[#D16D6A] text-[10px] leading-loose font-mono">
+                <pre className="text-[#FF3E00] text-[10px] leading-loose font-mono">
                     {`const tierSystem = { S: 'INFERNO', A: 'BLAZE', B: 'FLAME', C: 'EMBER' };
 const rankProducts = (impact) => impact > 95 ? 'S' : impact > 85 ? 'A' : impact > 70 ? 'B' : 'C';
 export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact > threshold));`.repeat(100)}
@@ -197,17 +197,17 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
             </div>
 
             {/* Animated Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(209,109,106,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(209,109,106,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,62,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,62,0,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
             {/* Glowing Orbs */}
-            <div className="absolute top-40 right-20 w-96 h-96 bg-[#D16D6A] rounded-full blur-[200px] opacity-10 animate-pulse" style={{ animationDuration: '12s' }} />
-            <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-[#D16D6A] rounded-full blur-[250px] opacity-8 animate-pulse" style={{ animationDuration: '18s' }} />
+            <div className="absolute top-40 right-20 w-96 h-96 bg-[#FF3E00] rounded-full blur-[200px] opacity-10 animate-pulse" style={{ animationDuration: '12s' }} />
+            <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-[#FF3E00] rounded-full blur-[250px] opacity-8 animate-pulse" style={{ animationDuration: '18s' }} />
 
             {/* Decorative "S" Tier Mark */}
             <div
                 className={`
                     absolute right-[5%] top-[10%]
-                    text-[25vw] leading-none font-black text-[#D16D6A]/5
+                    text-[25vw] leading-none font-black text-[#FF3E00]/5
                     select-none pointer-events-none
                     transition-all duration-[2500ms] ease-out
                     ${loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
@@ -226,14 +226,14 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                     ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}
                 `}>
                     {/* Category Tag */}
-                    <div className="inline-block px-6 py-2 rounded-full bg-[#D16D6A] text-white font-mono text-xs font-bold uppercase tracking-[0.3em] mb-8">
+                    <div className="inline-block px-6 py-2 rounded-full bg-[#FF3E00] text-white font-mono text-xs font-bold uppercase tracking-[0.3em] mb-8">
                         TIER SYSTEM
                     </div>
 
                     {/* Main Title */}
                     <div className="overflow-hidden mb-4">
                         <h1 className={`
-                            text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-[#EBE9DF]
+                            text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white
                             transition-transform duration-1200 delay-200
                             ${loaded ? 'translate-y-0' : 'translate-y-full'}
                         `} style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -243,7 +243,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
 
                     <div className="overflow-hidden">
                         <h2 className={`
-                            text-2xl md:text-4xl font-black uppercase tracking-tighter text-[#EBE9DF]/30
+                            text-2xl md:text-4xl font-black uppercase tracking-tighter text-white/20
                             transition-transform duration-1200 delay-300
                             ${loaded ? 'translate-y-0' : 'translate-y-full'}
                         `} style={{ fontFamily: 'Syne, sans-serif' }}>
@@ -258,11 +258,11 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                     transition-all duration-1000 delay-400
                     ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                 `}>
-                    <p className="text-base md:text-xl font-mono text-white/70 leading-relaxed border-l-4 border-[#D16D6A] pl-6">
+                    <p className="text-base md:text-xl font-mono text-white/70 leading-relaxed border-l-4 border-[#FF3E00] pl-6">
                         From <strong className="text-white">enterprise transformations</strong> to targeted ignition projects—
-                        every offering is ranked by <span className="text-[#D16D6A]">impact potential</span>,
-                        <span className="text-[#D16D6A]"> execution complexity</span>, and
-                        <span className="text-[#D16D6A]"> fire temperature</span>.
+                        every offering is ranked by <span className="text-[#FF3E00]">impact potential</span>,
+                        <span className="text-[#FF3E00]"> execution complexity</span>, and
+                        <span className="text-[#FF3E00]"> fire temperature</span>.
                         Pick your tier. Start your burn.
                     </p>
                 </div>
@@ -281,8 +281,8 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                 px-6 py-3 rounded-full font-mono text-xs font-bold uppercase tracking-wider
                                 transition-all duration-300 border-2
                                 ${activeFilter === filter.id
-                                    ? 'bg-[#D16D6A] text-white border-[#D16D6A] shadow-[0_0_20px_rgba(209,109,106,0.5)]'
-                                    : 'bg-transparent text-white/60 border-white/20 hover:border-[#D16D6A] hover:text-white'
+                                    ? 'bg-[#FF3E00] text-white border-[#FF3E00] shadow-[0_0_20px_rgba(255,62,0,0.5)]'
+                                    : 'bg-transparent text-white/60 border-white/20 hover:border-[#FF3E00] hover:text-white'
                                 }
                             `}
                         >
@@ -302,7 +302,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                 <div className={`
                                     relative w-24 md:w-32 flex-shrink-0 flex flex-col items-center justify-center
                                     rounded-xl bg-gradient-to-br ${tier.gradient} p-[3px] overflow-hidden
-                                    shadow-[0_0_30px_rgba(209,109,106,0.3)]
+                                    shadow-[0_0_30px_rgba(255,62,0,0.3)]
                                 `}>
                                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
                                     <div className="relative z-10 text-center">
@@ -331,7 +331,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                 {tier.products.map((product, idx) => (
                                     <div
                                         key={idx}
-                                        className="group relative p-6 bg-[#0F0F0F] rounded-lg border-2 border-white/10 hover:border-[#D16D6A] transition-all duration-500 overflow-hidden"
+                                        className="group relative p-6 bg-[#0A0A0A] rounded-lg border-2 border-white/5 hover:border-[#FF3E00] transition-all duration-500 overflow-hidden"
                                     >
                                         {/* Glow Effect */}
                                         <div className={`absolute inset-0 ${tier.bgGlow} opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-500`} />
@@ -340,7 +340,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                         <div className="relative z-10">
                                             {/* Product Header */}
                                             <div className="flex items-start justify-between mb-4">
-                                                <h4 className="text-lg font-black uppercase text-white group-hover:text-[#D16D6A] transition-colors leading-tight flex-1" style={{ fontFamily: 'Syne, sans-serif' }}>
+                                                <h4 className="text-lg font-black uppercase text-white group-hover:text-[#FF3E00] transition-colors leading-tight flex-1" style={{ fontFamily: 'Syne, sans-serif' }}>
                                                     {product.title}
                                                 </h4>
 
@@ -353,19 +353,19 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                             </div>
 
                                             {/* Description */}
-                                            <p className="text-xs font-mono text-white/60 mb-4 leading-relaxed">
+                                            <p className="text-xs font-mono text-white/40 mb-4 leading-relaxed">
                                                 {product.description}
                                             </p>
 
                                             {/* Metrics */}
-                                            <div className="space-y-2 pb-4 mb-4 border-b border-white/10">
+                                            <div className="space-y-2 pb-4 mb-4 border-b border-white/5">
                                                 <div className="flex justify-between text-[10px] font-mono">
-                                                    <span className="text-white/40 uppercase tracking-wider">Duration</span>
-                                                    <span className="text-white/80 font-bold">{product.metrics.duration}</span>
+                                                    <span className="text-white/20 uppercase tracking-wider">Duration</span>
+                                                    <span className="text-white/60 font-bold">{product.metrics.duration}</span>
                                                 </div>
                                                 <div className="flex justify-between text-[10px] font-mono">
-                                                    <span className="text-white/40 uppercase tracking-wider">Investment</span>
-                                                    <span className="text-white/80 font-bold">{product.metrics.investment}</span>
+                                                    <span className="text-white/20 uppercase tracking-wider">Investment</span>
+                                                    <span className="text-white/60 font-bold">{product.metrics.investment}</span>
                                                 </div>
                                             </div>
 
@@ -383,7 +383,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                                             {/* Checkout Button */}
                                             <button
                                                 onClick={() => handleCheckout(product.stripePriceId)}
-                                                className={`w-full py-2.5 rounded text-xs font-mono font-bold uppercase tracking-widest border border-white/10 text-white/70 transition-all duration-300 hover:text-white hover:border-transparent relative overflow-hidden group/btn`}
+                                                className={`w-full py-2.5 rounded text-xs font-mono font-bold uppercase tracking-widest border border-white/5 text-white/50 transition-all duration-300 hover:text-white hover:border-transparent relative overflow-hidden group/btn`}
                                             >
                                                 <div className={`absolute inset-0 bg-gradient-to-r ${tier.gradient} opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 z-0`}></div>
                                                 <span className="relative z-10">INITIALIZE CHECKOUT</span>
@@ -398,7 +398,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
 
                 {/* CTA Footer */}
                 <div className={`
-                    mt-20 md:mt-32 relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#D16D6A] to-[#B04E4B]
+                    mt-20 md:mt-32 relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#FF3E00] to-[#E63900]
                     overflow-hidden
                     transition-all duration-1000 delay-1000
                     ${loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
@@ -421,7 +421,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
                                 href="mailto:hello@arsonpixels.com?subject=Tier%20Consultation%20Request"
-                                className="group px-8 py-4 bg-white text-[#D16D6A] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-[#0a0a0a] hover:text-white transition-all duration-300 inline-flex items-center justify-center gap-2 border-2 border-white hover:border-[#0a0a0a]"
+                                className="group px-8 py-4 bg-white text-[#FF3E00] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-[#0a0a0a] hover:text-white transition-all duration-300 inline-flex items-center justify-center gap-2 border-2 border-white hover:border-[#0a0a0a]"
                             >
                                 START CONVERSATION
                                 <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -22,25 +22,25 @@ export const NotFoundPage = () => {
     }, []);
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#0F0F0F] flex flex-col items-center justify-center px-6 relative overflow-hidden">
+        <div ref={containerRef} className="min-h-screen bg-[#000000] flex flex-col items-center justify-center px-6 relative overflow-hidden">
             {/* Background Glitch */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
 
-            <h1 className="font-syne font-black text-[#D16D6A] text-[20vw] leading-none opacity-50 select-none">
+            <h1 className="font-syne font-black text-[#FF3E00] text-[20vw] leading-none opacity-40 select-none tracking-tighter italic">
                 404
             </h1>
 
             <div className="relative z-10 text-center -mt-8 md:-mt-16">
-                <p className="font-mono text-white/50 text-sm tracking-[0.5em] uppercase mb-4">
+                <p className="font-mono text-white/50 text-[10px] md:text-sm tracking-[0.5em] uppercase mb-6 font-black">
                     System Failure // Path Not Found
                 </p>
-                <p className="font-syne font-bold text-white text-2xl md:text-4xl max-w-xl mx-auto mb-12">
+                <h2 className="font-syne font-black text-white text-2xl md:text-5xl max-w-2xl mx-auto mb-14 uppercase leading-tight tracking-tighter">
                     You have drifted into the void. This sector does not exist.
-                </p>
+                </h2>
 
                 <Link
                     to="/"
-                    className="inline-block bg-[#D16D6A] text-white font-mono font-bold text-sm tracking-widest uppercase px-8 py-4 rounded hover:bg-white hover:text-[#D16D6A] transition-colors duration-300"
+                    className="inline-block bg-[#FF3E00] text-black font-syne font-black text-[11px] tracking-[0.4em] uppercase px-12 py-5 hover:bg-white transition-all duration-300 hover:scale-105"
                 >
                     Return to Base
                 </Link>

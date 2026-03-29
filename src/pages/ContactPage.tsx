@@ -42,7 +42,7 @@ const ContactPage: React.FC = () => {
     };
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#EBE9DF] pt-32 pb-20 px-6 md:px-12 flex flex-col items-center">
+        <div ref={containerRef} className="min-h-screen bg-[#000000] pt-32 pb-20 px-6 md:px-12 flex flex-col items-center">
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -51,22 +51,24 @@ const ContactPage: React.FC = () => {
                 className="max-w-4xl w-full"
             >
                 <div className="text-center mb-16">
-                    <span className="font-mono text-[#D16D6A] text-xs tracking-[0.3em] uppercase mb-4 block">
+                    <span className="font-mono text-[#FF3E00] text-xs tracking-[0.3em] uppercase mb-4 block font-black">
                         /// Initiate Protocol
                     </span>
-                    <h1 className="font-syne text-5xl md:text-7xl font-black text-[#0a0a0a] tracking-tighter uppercase mb-6">
+                    <h1 className="font-syne text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-6">
                         Start Your<br />Project
                     </h1>
-                    <p className="font-mono text-[#0a0a0a]/60 text-sm max-w-xl mx-auto leading-relaxed">
+                    <p className="font-mono text-white/60 text-sm max-w-xl mx-auto leading-relaxed uppercase tracking-widest">
                         Tell us about your vision. We engineer high-fidelity digital experiences that incinerate boundaries.
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-sm shadow-xl border border-[#0a0a0a]/5">
+                <form onSubmit={handleSubmit} className="bg-[#0a0a0a] p-8 md:p-12 rounded-none shadow-2xl border border-white/5 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF3E00]/50 to-transparent" />
+                    
                     <div className="grid md:grid-cols-2 gap-8 mb-8">
                         {/* Name */}
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="name" className="font-mono text-xs font-bold uppercase tracking-widest text-[#0a0a0a]/50">Name</label>
+                            <label htmlFor="name" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Name</label>
                             <input
                                 type="text"
                                 id="name"
@@ -74,14 +76,14 @@ const ContactPage: React.FC = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-[#EBE9DF]/50 border-b-2 border-[#0a0a0a]/10 px-4 py-3 font-syne font-bold text-[#0a0a0a] focus:outline-none focus:border-[#D16D6A] transition-colors placeholder-[#0a0a0a]/20"
-                                placeholder="ENTER NAME"
+                                className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors placeholder-white/10 uppercase tracking-tighter"
+                                placeholder="ENTER_NAME"
                             />
                         </div>
 
                         {/* Email */}
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="email" className="font-mono text-xs font-bold uppercase tracking-widest text-[#0a0a0a]/50">Email</label>
+                            <label htmlFor="email" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Email</label>
                             <input
                                 type="email"
                                 id="email"
@@ -89,8 +91,8 @@ const ContactPage: React.FC = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-[#EBE9DF]/50 border-b-2 border-[#0a0a0a]/10 px-4 py-3 font-syne font-bold text-[#0a0a0a] focus:outline-none focus:border-[#D16D6A] transition-colors placeholder-[#0a0a0a]/20"
-                                placeholder="ENTER EMAIL"
+                                className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors placeholder-white/10 uppercase tracking-tighter"
+                                placeholder="ENTER_EMAIL"
                             />
                         </div>
                     </div>
@@ -98,53 +100,59 @@ const ContactPage: React.FC = () => {
                     <div className="grid md:grid-cols-2 gap-8 mb-8">
                         {/* Project Type */}
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="projectType" className="font-mono text-xs font-bold uppercase tracking-widest text-[#0a0a0a]/50">Project Type</label>
-                            <select
-                                id="projectType"
-                                name="projectType"
-                                value={formData.projectType}
-                                onChange={handleChange}
-                                className="w-full bg-[#EBE9DF]/50 border-b-2 border-[#0a0a0a]/10 px-4 py-3 font-syne font-bold text-[#0a0a0a] focus:outline-none focus:border-[#D16D6A] transition-colors appearance-none cursor-pointer"
-                            >
-                                <option value="" disabled>SELECT TYPE</option>
-                                <option value="branding">Branding</option>
-                                <option value="website">Web Development</option>
-                                <option value="app">Application</option>
-                                <option value="marketing">Marketing</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <label htmlFor="projectType" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Project Type</label>
+                            <div className="relative">
+                                <select
+                                    id="projectType"
+                                    name="projectType"
+                                    value={formData.projectType}
+                                    onChange={handleChange}
+                                    className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors appearance-none cursor-pointer uppercase tracking-tighter"
+                                >
+                                    <option value="" disabled className="bg-[#0a0a0a]">SELECT_TYPE</option>
+                                    <option value="branding" className="bg-[#0a0a0a]">Branding</option>
+                                    <option value="website" className="bg-[#0a0a0a]">Web Development</option>
+                                    <option value="app" className="bg-[#0a0a0a]">Application</option>
+                                    <option value="marketing" className="bg-[#0a0a0a]">Marketing</option>
+                                    <option value="other" className="bg-[#0a0a0a]">Other</option>
+                                </select>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px]">▼</div>
+                            </div>
                         </div>
 
                         {/* Budget */}
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="budget" className="font-mono text-xs font-bold uppercase tracking-widest text-[#0a0a0a]/50">Budget Range</label>
-                            <select
-                                id="budget"
-                                name="budget"
-                                value={formData.budget}
-                                onChange={handleChange}
-                                className="w-full bg-[#EBE9DF]/50 border-b-2 border-[#0a0a0a]/10 px-4 py-3 font-syne font-bold text-[#0a0a0a] focus:outline-none focus:border-[#D16D6A] transition-colors appearance-none cursor-pointer"
-                            >
-                                <option value="" disabled>SELECT RANGE</option>
-                                <option value="5k-10k">$5k - $10k</option>
-                                <option value="10k-25k">$10k - $25k</option>
-                                <option value="25k-50k">$25k - $50k</option>
-                                <option value="50k+">$50k+</option>
-                            </select>
+                            <label htmlFor="budget" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Budget Range</label>
+                            <div className="relative">
+                                <select
+                                    id="budget"
+                                    name="budget"
+                                    value={formData.budget}
+                                    onChange={handleChange}
+                                    className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors appearance-none cursor-pointer uppercase tracking-tighter"
+                                >
+                                    <option value="" disabled className="bg-[#0a0a0a]">SELECT_RANGE</option>
+                                    <option value="5k-10k" className="bg-[#0a0a0a]">$5k - $10k</option>
+                                    <option value="10k-25k" className="bg-[#0a0a0a]">$10k - $25k</option>
+                                    <option value="25k-50k" className="bg-[#0a0a0a]">$25k - $50k</option>
+                                    <option value="50k+" className="bg-[#0a0a0a]">$50k+</option>
+                                </select>
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px]">▼</div>
+                            </div>
                         </div>
                     </div>
 
                     {/* Details */}
                     <div className="flex flex-col gap-2 mb-12">
-                        <label htmlFor="details" className="font-mono text-xs font-bold uppercase tracking-widest text-[#0a0a0a]/50">Project Details</label>
+                        <label htmlFor="details" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Project Details</label>
                         <textarea
                             id="details"
                             name="details"
                             value={formData.details}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full bg-[#EBE9DF]/50 border-b-2 border-[#0a0a0a]/10 px-4 py-3 font-syne font-bold text-[#0a0a0a] focus:outline-none focus:border-[#D16D6A] transition-colors placeholder-[#0a0a0a]/20 resize-none"
-                            placeholder="TELL US ABOUT YOUR GOALS..."
+                            className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors placeholder-white/10 uppercase tracking-tighter resize-none"
+                            placeholder="TELL_US_ABOUT_YOUR_GOALS..."
                         ></textarea>
                     </div>
 
@@ -152,10 +160,10 @@ const ContactPage: React.FC = () => {
                     <div className="flex justify-end">
                         <button
                             type="submit"
-                            className="group relative px-8 py-4 bg-[#0a0a0a] text-white font-mono text-xs font-bold uppercase tracking-widest overflow-hidden"
+                            className="group relative px-10 py-5 bg-[#FF3E00] text-black font-syne font-black uppercase text-[11px] tracking-[0.4em] overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
                         >
-                            <span className="relative z-10 group-hover:text-[#0a0a0a] transition-colors duration-300">Transmit Request</span>
-                            <div className="absolute inset-0 bg-[#D16D6A] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                            <span className="relative z-10 transition-colors duration-300">Transmit Request</span>
+                            <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                         </button>
                     </div>
 

@@ -10,12 +10,21 @@ export default {
                 sans: ['Montserrat', 'sans-serif'],
                 mono: ['JetBrains Mono', 'monospace'],
                 syne: ['Syne', 'sans-serif'],
+                display: ['Anton', 'sans-serif'],
+                rajdhani: ['Rajdhani', 'sans-serif'],
             },
             colors: {
                 arson: {
-                    beige: '#EBE9DF',
-                    red: '#D16D6A',
-                    black: '#1A1A1A',
+                    black: '#000000',
+                    orange: '#FF3E00',
+                    white: '#FFFFFF',
+                }
+            },
+            keyframes: {
+                sweep: {
+                    '0%': { transform: 'translateX(-100%)' },
+                    '50%': { transform: 'translateX(100%)' },
+                    '100%': { transform: 'translateX(100%)' }
                 }
             }
         },

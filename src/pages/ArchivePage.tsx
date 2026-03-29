@@ -1,323 +1,499 @@
-import React, { useMemo, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MagneticButton } from '../components/fx/MagneticButton';
 import { PremiumArchiveGallery } from '../components/archive/PremiumArchiveGallery';
 import gsap from 'gsap';
 
+// ── Archive Data ──────────────────────────────────────────────────────────────
 const archiveData = {
+    'tt-01': {
+        title: 'TONY THOMPSON',
+        headline: 'KEYNOTE SPEAKER\n& COACH',
+        category: 'BRAND & DIGITAL PLATFORM',
+        accent: '#FF3E00',
+        image: '/images/archive1/Screenshot 2026-03-19 014514.png',
+        bio: 'Tony Thompson is a globally recognized keynote speaker, leadership coach, and author who has transformed thousands of professionals across multiple industries. Known for his electrifying "Missing Piece" framework, Tony bridges the gap between ambition and execution, equipping leaders with the clarity and firepower needed to dominate their respective fields.',
+        testimonial: {
+            quote: 'ArsonPixelz didn\'t build us a website — they built us an empire. The platform they engineered captures exactly who we are and converts like nothing we\'ve ever seen. It\'s not just a brand, it\'s a statement.',
+            name: 'TONY THOMPSON',
+            title: 'Keynote Speaker, The Missing Piece',
+        },
+        deliverables: ['Brand Identity System', 'Digital Platform Architecture', 'Conversion-Flow Engineering', 'Content Ecosystem Strategy'],
+    },
     'evo-1': {
         title: 'STRATEGY ARCHIVE',
-        subtitle: 'Phase 01 // Architectural Mapping',
-        desc: 'Consulting on core systems to ensure a foundation that holds under extreme pressure. We decouple noise from systemic value, building blueprints for long-term scalability and business logic clarity.',
-        accent: '#D16D6A',
+        headline: 'STRATEGY\n& ARCHITECTURE',
+        category: 'SYSTEMIC GROWTH',
+        accent: '#FF3E00',
         image: '/images/archive_static.png',
-        stats: [
-            { label: 'LOGIC DEPTH', value: '98%' },
-            { label: 'INFRASTRUCTURE', value: 'TIER-1' },
-            { label: 'ROI MULTIPLIER', value: '7X+' }
-        ],
-        details: [
-            "Systemic Growth Audit.",
-            "UX Logic Mapping.",
-            "Performance Strategy.",
-            "Tech-Stack Alignment."
-        ],
-        specs: [
-            "Logic Layer: Immutable",
-            "Context: Institutional",
-            "Architecture: Micro-services",
-            "Void Engine Status: STABLE"
-        ]
+        bio: 'A deep-dive into the strategic foundations that power enterprise-level systems. We deconstructed noise from systemic value, building blueprints for long-term scalability.',
+        testimonial: null,
+        deliverables: ['Systemic Growth Audit', 'UX Logic Mapping', 'Performance Strategy', 'Tech-Stack Alignment'],
     },
     'evo-2': {
         title: 'IDENTITY ARCHIVE',
-        subtitle: 'Phase 02 // Cinematic Disruption',
-        desc: 'High-fidelity creative that cuts through the void. We engineer visual voices that are as visceral as they are precise, ensuring your brand presence is both premium and impossible to ignore.',
+        headline: 'CINEMATIC\nDISRUPTION',
+        category: 'BRANDING / IDENTITY',
         accent: '#00E5C3',
         image: '/images/archive_social.png',
-        stats: [
-            { label: 'PERCEPTION', value: '100%' },
-            { label: 'BRAND FIDELITY', value: 'ULTRA' },
-            { label: 'RECALL RATE', value: 'VOLATILE' }
-        ],
-        details: [
-            "Visual DNA Architecture.",
-            "Cinematic Asset Design.",
-            "Motion Brand Systems.",
-            "Interactive Aesthetics."
-        ],
-        specs: [
-            "Resolution: Dynamic 8K",
-            "Rendering: Real-time GPU",
-            "Physics: Interactive",
-            "Void Engine Status: BURNING"
-        ]
+        bio: 'High-fidelity creative that cuts through the void. We engineer visual voices that are as visceral as they are precise.',
+        testimonial: null,
+        deliverables: ['Visual DNA Architecture', 'Cinematic Asset Design', 'Motion Brand Systems', 'Interactive Aesthetics'],
     },
     'evo-3': {
         title: 'ENGINEERING ARCHIVE',
-        subtitle: 'Phase 03 // Industrial Performance',
-        desc: 'We don\'t just write code; we engineer ecosystems. Full-stack industrial-grade development designed for extreme scale, deep security, and frictionless user interaction.',
+        headline: 'INDUSTRIAL\nPERFORMANCE',
+        category: 'FULL-STACK ENGINEERING',
         accent: '#B794F4',
         image: '/images/web_3.png',
-        stats: [
-            { label: 'STABILITY', value: '99.9%' },
-            { label: 'LATENCY', value: '< 15ms' },
-            { label: 'SECURITY', value: 'SOVEREIGN' }
-        ],
-        details: [
-            "Full-Stack Ecosystems.",
-            "Scalable API Fabric.",
-            "Cloud Infrastructure.",
-            "Performance Optimization."
-        ],
-        specs: [
-            "Runtime: Arson-V8 Engine",
-            "Language: TypeScript/Rust",
-            "Protocol: End-to-End Secure",
-            "Void Engine Status: IGNITED"
-        ]
+        bio: 'We don\'t just write code; we engineer ecosystems. Full-stack industrial-grade development designed for extreme scale and frictionless user interaction.',
+        testimonial: null,
+        deliverables: ['Full-Stack Ecosystems', 'Scalable API Fabric', 'Cloud Infrastructure', 'Performance Optimization'],
     },
     'evo-4': {
         title: 'INTELLIGENCE ARCHIVE',
-        subtitle: 'Phase 04 // Autonomous Logic',
-        desc: 'The future is self-evolving. We integrate advanced AI and machine learning logic to create interfaces that anticipate user needs, learn from patterns, and adapt in real-time.',
-        accent: '#D16D6A',
+        headline: 'AUTONOMOUS\nLOGIC',
+        category: 'AI & MACHINE LEARNING',
+        accent: '#FF3E00',
         image: '/images/sentient_archive.png',
-        stats: [
-            { label: 'AUTONOMY', value: 'FULL' },
-            { label: 'PREDICTION', value: '95%+' },
-            { label: 'LOGIC SYNC', value: 'REAL-TIME' }
-        ],
-        details: [
-            "AI Integration Layer.",
-            "LLM Orchestration.",
-            "Predictive UI Systems.",
-            "Neural Feedback Loops."
-        ],
-        specs: [
-            "Brain: Neural Core Active",
-            "Learning: Active/Passive",
-            "Sync: Deep-Link Node",
-            "Void Engine Status: SENTIENT"
-        ]
+        bio: 'The future is self-evolving. We integrate advanced AI and machine learning logic to create interfaces that anticipate user needs and adapt in real-time.',
+        testimonial: null,
+        deliverables: ['AI Integration Layer', 'LLM Orchestration', 'Predictive UI Systems', 'Neural Feedback Loops'],
     },
-    'tt-01': {
-        title: 'TONY THOMPSON',
-        subtitle: 'Brand & Digital Platform',
-        desc: 'Bespoke gallery experience.',
-        accent: '#D16D6A',
-        image: '/images/black_void.png',
-        stats: [], details: [], specs: []
-    }
 };
 
+// ── Other Projects for the bottom list ───────────────────────────────────────
+const otherProjects = [
+    { id: 'tt-01', label: 'TONY THOMPSON', service: 'BRAND / DIGITAL PLATFORM', year: '2024' },
+    { id: 'evo-2', label: 'IDENTITY ARCHIVE', service: 'BRANDING / IDENTITY', year: '2024' },
+    { id: 'evo-3', label: 'ENGINEERING ARCHIVE', service: 'FULL-STACK ENGINEERING', year: '2024' },
+    { id: 'evo-4', label: 'INTELLIGENCE ARCHIVE', service: 'AI / MACHINE LEARNING', year: '2025' },
+    { id: 'evo-1', label: 'STRATEGY ARCHIVE', service: 'STRATEGY / ARCHITECTURE', year: '2024' },
+];
+
+// ── Component ─────────────────────────────────────────────────────────────────
 const ArchivePage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const data = useMemo(() => archiveData[id as keyof typeof archiveData] || archiveData['evo-1'], [id]);
+    const data = useMemo(() => archiveData[id as keyof typeof archiveData] || archiveData['tt-01'], [id]);
     const containerRef = useRef<HTMLDivElement>(null);
+    const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
     useEffect(() => {
+        window.scrollTo({ top: 0 });
         const ctx = gsap.context(() => {
             if (containerRef.current) {
                 gsap.from(containerRef.current, {
                     opacity: 0,
                     filter: 'blur(12px)',
-                    scale: 1.04,
-                    duration: 1.4,
-                    ease: 'cubic-bezier(0.76, 0, 0.24, 1)',
-                    clearProps: 'filter,scale'
+                    scale: 1.02,
+                    duration: 1.2,
+                    ease: 'power3.out',
+                    clearProps: 'filter,scale',
                 });
             }
         });
         return () => ctx.revert();
     }, [id]);
 
+    const filteredProjects = otherProjects.filter(p => p.id !== id);
+
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#020202] text-[#EBE9DF] font-sans selection:bg-[#D16D6A] selection:text-white overflow-x-hidden">
-            {/* Background Image Layer */}
-            <div className="fixed inset-0 z-0 overflow-hidden">
-                <motion.img 
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.3 }}
-                    transition={{ duration: 2, ease: "easeOut" }}
+        <div
+            ref={containerRef}
+            className="min-h-screen bg-[#000000] text-[#FFFFFF] selection:bg-[#FF3E00] selection:text-black overflow-x-hidden"
+            style={{ fontFamily: 'Syne, sans-serif' }}
+        >
+            {/* ── Fixed Background ─────────────────────────────────────────── */}
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                <motion.img
                     key={`${id}-bg`}
-                    src={data.image} 
-                    alt={data.title} 
-                    className="w-full h-full object-cover grayscale saturate-50 mix-blend-luminosity" 
+                    initial={{ scale: 1.08, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 0.08 }}
+                    transition={{ duration: 2.5, ease: 'easeOut' }}
+                    src={data.image}
+                    alt=""
+                    className="w-full h-full object-cover grayscale mix-blend-overlay"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent" />
-                <div className={`absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.8)_100%)]`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/80 to-transparent" />
+
+                {/* Hovered project BG reveal */}
+                <AnimatePresence>
+                    {hoveredProject && hoveredProject !== id && (
+                        <motion.div
+                            key={hoveredProject}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.12 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="absolute inset-0"
+                        >
+                            <img
+                                src={archiveData[hoveredProject as keyof typeof archiveData]?.image}
+                                alt=""
+                                className="w-full h-full object-cover grayscale mix-blend-overlay"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/60 to-transparent" />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
 
-            {/* Cinematic Noise & Grain Overlay */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.05] z-50 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+            {/* Grain overlay */}
+            <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
 
-            {/* Vertical Scanner Line Effect */}
-            <motion.div 
-               className="fixed inset-0 pointer-events-none z-40 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.03)_50%,transparent_100%)] h-[100vh]"
-               animate={{ y: ['-100%', '100%'] }}
-               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            {/* Scanline */}
+            <motion.div
+                className="fixed inset-0 pointer-events-none z-10 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)]"
+                animate={{ y: ['-100%', '100%'] }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
             />
 
-            {/* Content Layer */}
-            {id === 'tt-01' ? (
-                <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center pt-24 pb-20 overflow-hidden">
-                    <div className="w-full max-w-[1400px] px-6 flex justify-between items-center mb-8">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-px bg-current opacity-50" style={{ color: data.accent }} />
-                            <span className="font-mono text-xs md:text-sm uppercase tracking-[0.5em] font-bold" style={{ color: data.accent }}>
-                                TRANS-ERA PROTOCOL // {id?.toUpperCase() || "001"}
-                            </span>
-                        </div>
-                        
-                        <div 
-                            className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-[#D16D6A] transition-colors duration-300 flex items-center gap-2"
-                            onClick={() => navigate(-1)}
-                        >
-                            ← Back to Void
-                        </div>
-                    </div>
-                    
-                    <div className="w-full px-6 flex justify-center flex-1 items-center">
-                        <PremiumArchiveGallery accentColor={data.accent} />
-                    </div>
+            <div className="fixed inset-0 pointer-events-none border-[12px] md:border-[20px] border-[#000000] z-50 overflow-hidden">
+                <div className="absolute top-8 right-8 flex gap-1 items-end opacity-10">
+                    {[...Array(8)].map((_, i) => (
+                        <div key={i} className="w-[2px] bg-white" style={{ height: `${(i + i) * 3 + 4}px` }} />
+                    ))}
                 </div>
-            ) : (
-            <div className="relative z-10 container mx-auto px-6 py-20 md:py-32 flex flex-col min-h-screen items-center md:items-start">
-                <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-5xl"
-                >
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-px bg-current opacity-50" style={{ color: data.accent }} />
-                            <span className="font-mono text-xs md:text-sm uppercase tracking-[0.5em] font-bold" style={{ color: data.accent }}>
-                                TRANS-ERA PROTOCOL // {id?.toUpperCase() || "001"}
+                <div className="absolute bottom-8 right-8 font-mono text-[9px] uppercase tracking-[0.5em] text-white/20">
+                    ARSON_PROTOCOL_v4.0
+                </div>
+            </div>
+
+            {/* ── Content ───────────────────────────────────────────────────── */}
+            <div className="relative z-20 w-full">
+
+                {/* TOP NAV BAR */}
+                <div className="w-full max-w-[1400px] mx-auto px-6 pt-12 pb-8 flex justify-between items-center">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="flex items-center gap-3"
+                    >
+                        <span className="font-mono text-[9px] uppercase tracking-[0.5em] text-white/20">
+                            {id?.toUpperCase()} // ARCHIVE
+                        </span>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div
+                            className="group cursor-pointer font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-[#FF3E00] transition-all duration-300 flex items-center gap-4 bg-white/5 px-6 py-3 rounded-none border border-white/5 backdrop-blur-md"
+                            onClick={() => navigate('/#work-section')}
+                        >
+                            <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
+                            <span>Back to SELECTED WORKS</span>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* ── HERO HEADLINE ─────────────────────────────────────────── */}
+                <div className="w-full max-w-[1400px] mx-auto px-6 pt-12 pb-8 border-b border-white/5">
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: data.accent }} />
+                            <span className="font-mono text-[9px] uppercase tracking-[0.5em]" style={{ color: data.accent }}>
+                                {data.category}
                             </span>
                         </div>
-                        
-                        <div 
-                            className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-[#D16D6A] transition-colors duration-300 flex items-center gap-2"
-                            onClick={() => navigate(-1)}
+                        <h1
+                            className="text-[14vw] md:text-[10vw] font-black uppercase leading-none tracking-tighter"
+                            style={{ fontFamily: 'Syne, sans-serif' }}
                         >
-                            ← Back to Void
-                        </div>
-                    </div>
-
-                    <>
-                            <h1 
-                                className="text-6xl md:text-[9rem] font-black uppercase leading-[0.8] tracking-tighter mb-16"
-                                style={{ fontFamily: 'Syne, sans-serif' }}
-                            >
-                                <span className="block">{data.title.split(' ')[0]}</span>
-                                <span className="text-transparent" style={{ WebkitTextStroke: `1.5px ${data.accent}` }}>
-                                    {data.title.split(' ').slice(1).join(' ')}
+                            {data.headline.split('\n').map((line, i) => (
+                                <span key={i} className={`block ${i === 1 ? 'text-transparent' : ''}`}
+                                    style={i === 1 ? { WebkitTextStroke: `1.5px ${data.accent}` } : {}}>
+                                    {line}
                                 </span>
-                            </h1>
+                            ))}
+                        </h1>
+                    </motion.div>
+                </div>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
-                                {/* Summary & Stats */}
-                                <div className="lg:col-span-12">
-                                    <p className="text-xl md:text-3xl font-mono text-white/90 leading-snug max-w-4xl mb-16 border-l-[3px] md:border-l-4 pl-8" style={{ borderColor: data.accent }}>
-                                        {data.desc}
-                                    </p>
-                                </div>
+                {/* ── BIO + IMAGE (tt-01 specific) ─────────────────────────── */}
+                {id === 'tt-01' && (
+                    <div className="w-full max-w-[1400px] mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-12 gap-16 border-b border-white/5">
+                        {/* Left: Bio copy */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.9 }}
+                            className="lg:col-span-6 flex flex-col justify-center gap-8"
+                        >
+                            <p className="text-2xl md:text-3xl font-light text-white/70 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                                {data.bio}
+                            </p>
+                            <div className="flex flex-wrap gap-3 mt-4">
+                                {data.deliverables.map((d, i) => (
+                                    <span
+                                        key={i}
+                                        className="font-mono text-[9px] uppercase tracking-[0.4em] px-4 py-2 border border-white/10 text-white/40 hover:border-[#FF3E00]/40 hover:text-[#FF3E00] transition-all duration-500"
+                                    >
+                                        {d}
+                                    </span>
+                                ))}
+                            </div>
+                        </motion.div>
 
-                                {/* Technical Matrix */}
-                                <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-12">
-                                    {data.stats.map((stat, i) => (
-                                        <div key={i} className="flex flex-col gap-3 group">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: data.accent }} />
-                                                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">{stat.label}</span>
-                                            </div>
-                                            <span className="text-2xl font-black md:text-5xl tracking-tighter transition-all duration-300 group-hover:scale-105 origin-left" style={{ color: data.accent }}>
-                                                {stat.value}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
+                        {/* Right: Tony Image */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 1.04 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="lg:col-span-6 relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.9)]"
+                        >
+                            <img
+                                src="/images/archive1/Screenshot 2026-03-19 014514.png"
+                                alt="Tony Thompson"
+                                className="w-full h-full object-cover object-center opacity-80"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent" />
+                            {/* Corner decoration */}
+                            <div className="absolute top-6 left-6 w-10 h-10 border-t border-l border-white/20" />
+                            <div className="absolute bottom-6 right-6 w-10 h-10 border-b border-r border-white/20" />
+                        </motion.div>
+                    </div>
+                )}
 
-                                {/* Specs Sidebar */}
-                                <div className="lg:col-span-4 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 shadow-2xl relative overflow-hidden">
-                                     <div className="absolute top-0 right-0 w-32 h-32 bg-current opacity-10 blur-3xl pointer-events-none" style={{ color: data.accent }} />
-                                     <h3 className="font-mono text-xs uppercase tracking-[0.3em] mb-6 font-bold text-white/80 border-b border-white/10 pb-4">
-                                        TECHNICAL_SPECS
-                                     </h3>
-                                     <div className="space-y-4">
-                                        {data.specs.map((spec, i) => (
-                                            <div key={i} className="flex items-center gap-3 font-mono text-[11px] text-white/60 tracking-wider">
-                                                <div className="w-1 h-1 bg-white/30 rounded-full" />
-                                                {spec}
-                                            </div>
-                                        ))}
-                                     </div>
-                                </div>
+                {/* ── GALLERY ───────────────────────────────────────────────── */}
+                <div className="w-full px-6 pt-24 pb-40 flex justify-center">
+                    <PremiumArchiveGallery accentColor={data.accent} />
+                </div>
+
+                {/* ── TESTIMONIAL (tt-01 specific) ────────────────────────── */}
+                {id === 'tt-01' && data.testimonial && (
+                    <div className="w-full py-0 mt-12 mb-4">
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                            className="relative w-full bg-[#0d0d0d] border-y border-white/5 overflow-hidden"
+                        >
+                            {/* Cinematic BG layer */}
+                            <div className="absolute inset-0 pointer-events-none">
+                                <img
+                                    src="/images/archive1/Screenshot 2026-03-19 014514.png"
+                                    alt=""
+                                    className="absolute right-0 top-0 h-full w-1/2 object-cover object-left opacity-10 grayscale"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/90 to-transparent" />
+                                {/* Accent glow */}
+                                <div
+                                    className="absolute -bottom-20 left-20 w-[600px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none"
+                                    style={{ backgroundColor: data.accent }}
+                                />
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-24">
-                                {data.details.map((detail, i) => (
-                                    <motion.div 
-                                        key={i} 
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.5 + i * 0.1 }}
-                                        className="px-6 py-4 bg-black/40 border border-white/10 rounded-xl font-mono text-[10px] md:text-xs uppercase tracking-widest text-white/70 backdrop-blur-sm flex items-center justify-center text-center leading-relaxed"
+                            {/* Quote content */}
+                            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-16 py-24 md:py-32 flex flex-col gap-12">
+                                {/* Opening mark */}
+                                <div className="flex items-start gap-8">
+                                    <div
+                                        className="text-[140px] leading-none font-black select-none -mt-6 opacity-20"
+                                        style={{ color: data.accent, fontFamily: 'Georgia, serif', lineHeight: 1 }}
                                     >
-                                        {detail}
+                                        "
+                                    </div>
+                                    <div className="flex flex-col gap-10 pt-2 flex-1">
+                                        <p
+                                            className="text-2xl md:text-3xl lg:text-4xl text-white/90 leading-[1.5] font-light max-w-4xl"
+                                            style={{ fontFamily: 'Inter, ui-sans-serif, sans-serif' }}
+                                        >
+                                            {data.testimonial.quote}
+                                        </p>
+
+                                        {/* Attribution */}
+                                        <div className="flex items-center gap-6 pt-4 border-t border-white/10 max-w-4xl">
+                                            {/* Avatar accent */}
+                                            <div
+                                                className="w-14 h-14 rounded-full flex-shrink-0 border-2 overflow-hidden"
+                                                style={{ borderColor: data.accent }}
+                                            >
+                                                <img
+                                                    src="/images/archive1/Screenshot 2026-03-19 014514.png"
+                                                    alt="Tony Thompson"
+                                                    className="w-full h-full object-cover object-top scale-150"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col gap-1">
+                                                <span
+                                                    className="text-sm font-black uppercase tracking-[0.3em]"
+                                                    style={{ color: data.accent, fontFamily: 'Inter, sans-serif' }}
+                                                >
+                                                    {data.testimonial.name}
+                                                </span>
+                                                <span
+                                                    className="text-xs text-white/40 uppercase tracking-[0.25em] font-normal"
+                                                    style={{ fontFamily: 'Inter, sans-serif' }}
+                                                >
+                                                    {data.testimonial.title}
+                                                </span>
+                                            </div>
+                                            <div className="ml-auto hidden md:flex items-center gap-3 opacity-40">
+                                                {[1, 2, 3, 4, 5].map(s => (
+                                                    <svg key={s} className="w-4 h-4" viewBox="0 0 20 20" fill={data.accent}>
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                    </svg>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+
+
+                {/* ── PROJECT INSIGHTS ─────────────────────────────────────── */}
+                {id === 'tt-01' && (
+                    <div className="w-full max-w-[1400px] mx-auto px-6 py-24 border-t border-white/5">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                            <div className="lg:col-span-5 flex flex-col gap-8">
+                                <motion.div
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    className="flex items-center gap-3"
+                                >
+                                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: data.accent }} />
+                                    <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold">PROJECT_INSIGHTS</span>
+                                </motion.div>
+                                <h2 className="text-4xl md:text-6xl font-black uppercase leading-none tracking-tighter">
+                                    Bridging the{' '}
+                                    <span className="text-transparent" style={{ WebkitTextStroke: `1px ${data.accent}` }}>
+                                        Missing Piece
+                                    </span>
+                                </h2>
+                                <p className="text-lg font-light text-white/60 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                                    Tony Thompson required more than just a website; he needed a{' '}
+                                    <span className="text-white font-medium">Digital Growth Ecosystem</span>. We engineered a platform that
+                                    captures the raw intensity of his high-performance coaching while providing the technical stability
+                                    for global business scalability.
+                                </p>
+                            </div>
+                            <div className="lg:col-span-1" />
+                            <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-10 pt-8">
+                                {[
+                                    { num: '01', title: 'BRANDING AUTHORITY', desc: 'Defining the visual DNA that resonates with world-class leaders. High-fidelity creative combined with systemic brand logic.' },
+                                    { num: '02', title: 'DIGITAL ARCHITECTURE', desc: 'A conversion-centric platform designed for frictionless interaction across programs, podcasts, and community systems.' },
+                                    { num: '03', title: 'GROWTH LOGIC', desc: 'Integrating complex user flows that transition cold traffic into lifelong community members through strategic data points.' },
+                                    { num: '04', title: 'ECOSYSTEM SYNC', desc: 'Unifying various sub-brands into a single, cohesive digital voice that maintains authority across all touchpoints.' },
+                                ].map((item, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.1 }}
+                                        className="flex flex-col gap-4 border-l-2 border-white/5 pl-8 hover:border-[#D16D6A] transition-colors duration-500"
+                                    >
+                                        <span className="font-mono text-[9px] uppercase tracking-[0.3em] font-bold" style={{ color: data.accent }}>
+                                            {item.num} // {item.title}
+                                        </span>
+                                        <p className="text-xs text-white/40 font-mono tracking-wider leading-relaxed uppercase">{item.desc}</p>
                                     </motion.div>
                                 ))}
                             </div>
-                        </>
-
-                    <div className="flex flex-col md:flex-row gap-8 items-center pt-16 border-t border-white/10 group/footer w-full pb-32">
-                        <button 
-                            className="relative px-12 py-6 bg-[#EBE9DF] text-black font-mono text-[11px] uppercase tracking-[0.4em] font-black hover:bg-[#D16D6A] hover:text-white transition-all duration-500 shadow-[0_30px_70px_rgba(0,0,0,0.6)] group overflow-hidden pointer-events-auto"
-                            onClick={() => navigate(-1)}
-                        >
-                            <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-x-2">
-                                ← DISCONNECT_ARCHIVE
-                            </span>
-                        </button>
-                        
-                        <div className="flex flex-col gap-1">
-                             <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">
-                                Connection: SOVEREIGN_VOICE_ENCRYPTED
-                             </span>
-                             <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#D16D6A]">
-                                Unauthorized access monitored by SENTIENT Core.
-                             </span>
                         </div>
                     </div>
-                </motion.div>
-            </div>
-            )}
+                )}
 
-            {/* Persistent HUD Frame (Enhanced) */}
-            <div className="fixed inset-0 pointer-events-none border-[12px] md:border-[20px] border-[#020202] z-50 overflow-hidden">
-                <div className="absolute top-10 left-10 font-mono text-[10px] uppercase tracking-[0.6em] text-white/20 flex items-center gap-4">
-                    <div className="w-3 h-3 border border-white/20 rounded-full animate-pulse" />
-                    Archive_Index_v.3.7 // {id?.toUpperCase()}
-                </div>
-                <div className="absolute bottom-10 left-10 font-mono text-[9px] uppercase tracking-[0.5em] text-white/20 hidden md:block">
-                    Sector: {id === 'evo-4' ? 'DEEP_CORE' : 'LEGACY_VOID'}
-                </div>
-                <div className="absolute top-10 right-10 flex gap-1 items-end opacity-20">
-                     {[...Array(8)].map((_, i) => (
-                        <div key={i} className="w-[2px] bg-white" style={{ height: `${Math.random() * 20 + 5}px` }} />
-                     ))}
-                </div>
-                <div className="absolute bottom-10 right-10 font-mono text-[10px] uppercase tracking-[0.6em] text-white/20">
-                    ARSONPIXELZ © 2024
+                {/* ── OTHER SELECTED WORKS (Reference-style list) ──────────── */}
+                <div className="w-full border-t border-white/10 relative">
+                    {/* Section label */}
+                    <div className="w-full max-w-[1400px] mx-auto px-6 pt-20 pb-12">
+                        <div className="flex items-center gap-4">
+                            <div className="w-2 h-2 rounded-full bg-white/20" />
+                            <span className="font-mono text-[9px] uppercase tracking-[0.5em] text-white/30">
+                                MORE SELECTED WORKS
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Project rows */}
+                    <div className="flex flex-col">
+                        {filteredProjects.map((project, index) => (
+                            <Link
+                                key={project.id}
+                                to={`/archive/${project.id}`}
+                                className="group relative border-b border-white/10 cursor-pointer overflow-hidden block"
+                                onMouseEnter={() => setHoveredProject(project.id)}
+                                onMouseLeave={() => setHoveredProject(null)}
+                            >
+                                {/* Hover fill */}
+                                <div
+                                    className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+                                    style={{ backgroundColor: project.id === 'evo-2' ? '#00E5C3' : (project.id === 'evo-3' ? '#B794F4' : '#FF3E00') }}
+                                />
+
+                                <div className="px-6 py-10 md:py-14 max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                                    {/* Index + Title */}
+                                    <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-10 w-full md:w-2/3">
+                                        <span
+                                            className="font-mono font-bold text-xl md:text-2xl transition-colors duration-500 group-hover:text-black/50"
+                                            style={{ color: project.id === 'evo-2' ? '#00E5C3' : (project.id === 'evo-3' ? '#B794F4' : '#FF3E00') }}
+                                        >
+                                            {String(index + 1).padStart(2, '0')}/
+                                        </span>
+                                        <h2
+                                            className="font-black text-4xl md:text-6xl lg:text-7xl leading-none tracking-tighter uppercase transition-all duration-500 text-transparent group-hover:text-black"
+                                            style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}
+                                        >
+                                            {project.label}
+                                        </h2>
+                                    </div>
+
+                                    {/* Metadata + Arrow */}
+                                    <div className="flex items-center justify-between md:justify-end gap-8 w-full md:w-1/3">
+                                        <div className="flex flex-col gap-1 md:opacity-0 md:-translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">
+                                            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 group-hover:text-black/60">
+                                                {project.year}
+                                            </p>
+                                            <p className="font-mono text-xs text-white/70 group-hover:text-black font-medium uppercase tracking-wider">
+                                                {project.service}
+                                            </p>
+                                        </div>
+
+                                        <div className="w-12 h-12 rounded-full border border-white/20 group-hover:border-black flex items-center justify-center transition-all duration-500 shrink-0 group-hover:bg-black/10">
+                                            <svg
+                                                className="w-5 h-5 text-white group-hover:text-black transition-all duration-500 -rotate-45 group-hover:rotate-0"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+
+                    {/* Bottom CTA */}
+                    <div className="w-full max-w-[1400px] mx-auto px-6 py-20 flex justify-between items-center border-t border-white/5">
+                        <div
+                            className="group cursor-pointer font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-[#FF3E00] transition-all duration-300 flex items-center gap-4 bg-white/5 px-6 py-3 rounded-none border border-white/5 backdrop-blur-md"
+                            onClick={() => navigate('/#work-section')}
+                        >
+                            <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
+                            <span>Back to SELECTED WORKS</span>
+                        </div>
+                        <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/20">
+                            ARSON_PROTOCOL_WORKS
+                        </span>
+                    </div>
                 </div>
             </div>
-            
-            {/* Cinematic Scanline Overlay Filter */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.1] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] z-[60]" />
         </div>
     );
 };

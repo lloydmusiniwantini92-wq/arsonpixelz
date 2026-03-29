@@ -41,7 +41,6 @@ const LegalPage = React.lazy(() => import("./pages/LegalPage").then(module => ({
 const ArchivePage = React.lazy(() => import("./pages/ArchivePage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage").then(module => ({ default: module.NotFoundPage })));
 
-// Home Page
 const HomePage = () => {
   return (
     <>
@@ -51,19 +50,32 @@ const HomePage = () => {
         dark background container to mask the transparent .pin-spacers 
         and visually eliminate the "Spatial Void" during the scroll transition.
       */}
-      <div className="bg-[#020202] relative overflow-hidden">
+      <div className="bg-[#000000] relative overflow-hidden">
         {/* <HorizontalScrollSection /> */}
         <Work />
       </div>
-      <ReverseVoidSystem />
+      <Services />
     </>
   );
 };
 
 const FooterWrapper = () => {
     const loc = useLocation();
-    if (loc.pathname === '/') return null;
+    if (loc.pathname === '/shop') return null;
     return <Footer />;
+};
+
+// Hide global nav/cart on shop (shop has its own navbar)
+const GlobalShell = () => {
+    const loc = useLocation();
+    const isShop = loc.pathname === '/shop';
+    if (isShop) return null;
+    return (
+        <>
+            <Navigation />
+            <CartDrawer />
+        </>
+    );
 };
 
 const AnimatedRoutes = () => {
@@ -132,43 +144,41 @@ const App = () => {
 
     // ONLY true on the very first time the user opens/refreshes the tab. 
     // Remains false on all subsequent internal navigations via React Router.
-    const [isInitialLoad, setIsInitialLoad] = React.useState(true);
+    const [isInitialLoad, setIsInitialLoad] = React.useState(false);
 
-    React.useEffect(() => {
-        let rafId = 0;
-        const timer = setTimeout(() => {
-            setIsInitialLoad(false);
-            rafId = requestAnimationFrame(() => {
-                ScrollTrigger.refresh();
-            });
-        }, 4000);
-        return () => {
-            clearTimeout(timer);
-            if (rafId) cancelAnimationFrame(rafId);
-        };
-    }, []);
+    const handlePreloaderComplete = () => {
+        setIsInitialLoad(false);
+        // Trigger a refresh after the UI has settled
+        requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+        });
+    };
 
     return (
         <NavigationContext.Provider value={{ isInitialLoad }}>
         <CartProvider>
             <Router>
-                <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#EBE9DF] text-[#1A1A1A]">
-                    <Preloader />
-                    <CodeWatermark />
-                    <MagneticCursor />
-                    <Navigation />
-                    <CartDrawer />
-                    <ScrollToTop />
+                <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#000000] text-[#FFFFFF]">
+                    {/* <Preloader onComplete={handlePreloaderComplete} /> */}
+                    
+                    {!isInitialLoad && (
+                        <>
+                            <CodeWatermark />
+                            <MagneticCursor />
+                            <GlobalShell />
+                            <ScrollToTop />
 
-                    <div className="flex-grow z-10"> {/* Added z-10 to ensure content sits above watermark */}
-                        <ClothTear>
-                            <Suspense fallback={<LoadingSpinner />}>
-                                <AnimatedRoutes />
-                            </Suspense>
-                        </ClothTear>
-                    </div>
+                            <div className="flex-grow z-10"> {/* Added z-10 to ensure content sits above watermark */}
+                                <ClothTear>
+                                    <Suspense fallback={<LoadingSpinner />}>
+                                        <AnimatedRoutes />
+                                    </Suspense>
+                                </ClothTear>
+                            </div>
 
-                    <FooterWrapper />
+                            <FooterWrapper />
+                        </>
+                    )}
                 </div>
             </Router>
         </CartProvider>

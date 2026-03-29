@@ -1,18 +1,14 @@
-import NexusImg from '../assets/nexus.png';
-import ThanoicImg from '../assets/thanoic.png';
-import VantaImg from '../assets/vanta.png';
-
 export interface Product {
     id: string;
     title: string;
     description: string;
     price: string;
-    priceValue: number; // Added for calculations
+    priceValue: number;
     category: 'template' | 'font' | 'agent' | 'workflow';
     image: string;
     tags: string[];
     featured?: boolean;
-    stripePriceId?: string; // Added for Stripe integration
+    stripePriceId?: string;
 }
 
 export const products: Product[] = [
@@ -23,10 +19,10 @@ export const products: Product[] = [
         price: '$149',
         priceValue: 149,
         category: 'template',
-        image: NexusImg,
+        image: '/images/shop/nexus.png',
         tags: ['React', 'Framer Motion', 'WebGL'],
         featured: true,
-        stripePriceId: 'price_1TB9od2NRAQRhNmZwg3Uq5O4' // NEXUS // PORTFOLIO
+        stripePriceId: 'price_1TB9od2NRAQRhNmZwg3Uq5O4',
     },
     {
         id: 'font-001',
@@ -35,9 +31,9 @@ export const products: Product[] = [
         price: '$89',
         priceValue: 89,
         category: 'font',
-        image: ThanoicImg,
+        image: '/images/shop/thanoic.png',
         tags: ['Display', 'Variable', 'Cyrillic'],
-        stripePriceId: 'price_1TB9of2NRAQRhNmZc2OZIirU' // THANOIC // ULTRA
+        stripePriceId: 'price_1TB9of2NRAQRhNmZc2OZIirU',
     },
     {
         id: 'agent-001',
@@ -46,10 +42,10 @@ export const products: Product[] = [
         price: '$499/mo',
         priceValue: 499,
         category: 'agent',
-        image: VantaImg,
+        image: '/images/shop/vanta.png',
         tags: ['Python', 'LLM', 'Automation'],
         featured: true,
-        stripePriceId: 'price_1TB9og2NRAQRhNmZPthpOe2z' // VANTABLACKS // OPS
+        stripePriceId: 'price_1TB9og2NRAQRhNmZPthpOe2z',
     },
     {
         id: 'tmpl-002',
@@ -60,7 +56,7 @@ export const products: Product[] = [
         category: 'template',
         image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000',
         tags: ['Shopify', 'Next.js 14', 'Stripe'],
-        stripePriceId: 'price_1TB9oi2NRAQRhNmZxPHtkPpK' // VOID // E-COMMERCE
+        stripePriceId: 'price_1TB9oi2NRAQRhNmZxPHtkPpK',
     },
     {
         id: 'wkfl-001',
@@ -71,6 +67,6 @@ export const products: Product[] = [
         category: 'workflow',
         image: 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&q=80&w=1000',
         tags: ['Make.com', 'Notion', 'Anthropic'],
-        stripePriceId: 'price_1TB9oj2NRAQRhNmZO0gMRkPS' // GHOST // WRITER
-    }
+        stripePriceId: 'price_1TB9oj2NRAQRhNmZO0gMRkPS',
+    },
 ];

@@ -1,145 +1,147 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { ShopNavbar } from '../components/shop/ShopNavbar';
+import { CartDrawer } from '../components/shop/CartDrawer';
 import { ShopHero } from '../components/shop/ShopHero';
-import { ProductCard } from '../components/shop/ProductCard';
-import { products } from '../data/products';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ServiceMatrix } from '../components/shop/ServiceMatrix/ServiceMatrix';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const categories = ['all', 'template', 'font', 'agent', 'workflow'];
-
-const categoryLabels: Record<string, string> = {
-    all: 'All Assets',
-    template: 'Templates',
-    font: 'Typefaces',
-    agent: 'Agent Systems',
-    workflow: 'Workflows',
-};
+// ── Metrics for manifesto section ────────────────────────────────────────────
+const METRICS = [
+    { label: 'CACHE_LOAD', value: 82.4, unit: '%', color: '#4a9eff', handshake: 'NODE_ALPHA_01' },
+    { label: 'NET_LATENCY', value: 12.4, unit: 'ms', color: '#FF3E00', handshake: '0x42.11.B8' },
+    { label: 'CORE_INTEGRITY', value: 99.9, unit: 'NOMINAL', color: '#22c55e', handshake: 'STABLE_CORE' },
+];
 
 const ShopPage = () => {
-    const [selectedCategory, setSelectedCategory] = useState('all');
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        
-        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
-        const ctx = gsap.context(() => {
-            if (!containerRef.current) return;
-            
-            gsap.from(containerRef.current, {
-                opacity: 0,
-                filter: 'blur(12px)',
-                scale: 1.04,
-                duration: 1.4,
-                ease: CINEMATIC_EASE,
-                clearProps: 'filter,scale'
-            });
-        }, containerRef);
-        
-        return () => ctx.revert();
-    }, []);
-
-    const filteredProducts = selectedCategory === 'all'
-        ? products
-        : products.filter(p => p.category === selectedCategory);
+    useEffect(() => { window.scrollTo(0, 0); }, []);
 
     return (
         <div
-            ref={containerRef}
-            className="min-h-screen"
-            style={{ background: 'linear-gradient(to bottom, #050505 0%, #0a0505 30%, #0f0808 100%)' }}
+            className="min-h-screen text-white selection:bg-[#FF3E00] selection:text-black"
+            style={{ background: '#000000', fontFamily: 'Inter, sans-serif' }}
         >
+            {/* ── SHOP NAVBAR ── */}
+            <ShopNavbar />
+
+            {/* ── HERO: DIGITAL MONOLITH ── */}
             <ShopHero />
 
-            {/* ── Filter / Category selector ── */}
-            <div className="relative max-w-[90rem] mx-auto px-6 md:px-12 py-10">
+            {/* ── SERVICE MATRIX ── */}
+            <ServiceMatrix />
 
-                {/* Active category title */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
-                    <div>
-                        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#D16D6A]/60 block mb-1">
-                            Browsing
-                        </span>
-                        <h2
-                            className="font-black text-3xl md:text-4xl uppercase tracking-tighter text-[#EBE9DF]"
-                            style={{ fontFamily: 'Syne, sans-serif' }}
-                        >
-                            {categoryLabels[selectedCategory]}
-                        </h2>
+            {/* ── MANIFESTO / DIAGNOSTIC METRICS SECTION ── */}
+            <section className="relative border-t border-white/5 bg-[#000000] overflow-hidden">
+                {/* Background Watermark */}
+                <div className="absolute inset-0 opacity-[0.02] flex items-center justify-center pointer-events-none select-none">
+                    <span className="text-[30vw] font-black uppercase tracking-tighter font-['Space_Grotesk'] leading-none">
+                        MONOLITH
+                    </span>
+                </div>
+
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-32 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-20 lg:gap-32 items-start relative z-10">
+                    
+                    {/* Diagnostic Metrics */}
+                    <div className="space-y-12">
+                        <p className="font-['Space_Grotesk'] text-[10px] uppercase font-black tracking-[0.6em] text-[#FF3E00] mb-8">
+                            SYSTEM_DIAGNOSTICS_v0.8
+                        </p>
+                        
+                        {METRICS.map(m => (
+                            <div key={m.label} className="group space-y-4">
+                                <div className="flex items-center justify-between text-[11px] font-mono">
+                                    <span className="text-white/40 tracking-[0.3em] uppercase">{m.label}</span>
+                                    <span className="text-[#FF3E00] font-black">{m.value}{m.unit}</span>
+                                </div>
+                                
+                                <div className="h-[3px] bg-white/5 relative overflow-hidden">
+                                    <motion.div
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: `${m.value}%` }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                        className="h-full"
+                                        style={{ background: m.color }}
+                                    />
+                                    {/* Scanline pattern for the bar */}
+                                    <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(to right, #000 1px, transparent 1px)', backgroundSize: '4px 100%' }} />
+                                </div>
+                                
+                                <div className="flex justify-between text-[9px] font-mono text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span>{m.handshake}</span>
+                                    <span>STATUS: NOMINAL</span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
-                    {/* Filter pills */}
-                    <div className="flex flex-wrap gap-2">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setSelectedCategory(cat)}
-                                className="font-mono text-[10px] uppercase tracking-[0.25em] px-4 py-2 transition-all duration-300"
-                                style={{
-                                    background: selectedCategory === cat ? '#D16D6A' : 'transparent',
-                                    border: `1px solid ${selectedCategory === cat ? '#D16D6A' : 'rgba(209,109,106,0.2)'}`,
-                                    color: selectedCategory === cat ? '#0a0a0a' : 'rgba(235,233,223,0.4)',
-                                    fontWeight: selectedCategory === cat ? '900' : '500',
-                                }}
-                                onMouseEnter={e => {
-                                    if (selectedCategory !== cat) {
-                                        (e.currentTarget as HTMLElement).style.borderColor = '#D16D6A';
-                                        (e.currentTarget as HTMLElement).style.color = '#D16D6A';
-                                    }
-                                }}
-                                onMouseLeave={e => {
-                                    if (selectedCategory !== cat) {
-                                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(209,109,106,0.2)';
-                                        (e.currentTarget as HTMLElement).style.color = 'rgba(235,233,223,0.4)';
-                                    }
-                                }}
+                    {/* Manifesto Quote */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2 }}
+                        className="relative"
+                    >
+                        <blockquote
+                            className="font-black text-4xl md:text-7xl xl:text-[6.5rem] uppercase leading-[0.85] tracking-[-0.05em] mb-12 font-['Space_Grotesk']"
+                        >
+                            "WE ARE NOT <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>BUILDING</span> WEBSITES. <br/> WE ARE <span className="text-[#FF3E00]">DEPLOYING</span> DIGITAL FORTRESSES."
+                        </blockquote>
+                        
+                        <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
+                            <p className="font-mono text-[11px] uppercase tracking-[0.6em] text-[#FF3E00] font-black">
+                                — MANIFESTO_PROTOCOL_0.2
+                            </p>
+                            <div className="hidden md:block h-[1px] flex-grow bg-white/5" />
+                            <div className="flex gap-4 items-center">
+                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="font-mono text-[9px] text-zinc-600 uppercase tracking-widest">ENCRYPTION: AES-256</span>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── SHOP FOOTER: COMMAND CENTER ── */}
+            <footer className="border-t border-white/5 bg-[#000000] relative z-20">
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-0">
+                    
+                    {/* Branded Identity */}
+                    <div className="flex items-center gap-10">
+                        <span className="font-['Space_Grotesk'] font-black text-2xl uppercase tracking-tighter text-[#FF3E00] leading-none">ARSON_STORE</span>
+                        <div className="hidden md:block w-[1px] h-6 bg-white/10" />
+                        <span className="font-mono text-[10px] text-white/20 uppercase tracking-[0.4em]">
+                            BUILD_SYNC_2024 [REV_4.0]
+                        </span>
+                    </div>
+
+                    {/* Utility Grid */}
+                    <div className="flex flex-wrap justify-center gap-8 lg:gap-14">
+                        {['LEGAL', 'TERMS', 'PRIVACY', 'SECURITY'].map(l => (
+                            <button 
+                                key={l} 
+                                className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-white/40 hover:text-[#FF3E00] transition-colors relative group py-2"
                             >
-                                {cat}
+                                {l}
+                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FF3E00] group-hover:w-full transition-all" />
                             </button>
                         ))}
                     </div>
-                </div>
 
-                {/* Divider line */}
-                <div className="w-full h-px bg-[#D16D6A]/10 mb-10" />
-
-                {/* Product Grid */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={selectedCategory}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
-                    >
-                        {filteredProducts.map((product, i) => (
-                            <ProductCard key={product.id} product={product} index={i} />
-                        ))}
-                    </motion.div>
-                </AnimatePresence>
-
-                {/* Empty state */}
-                {filteredProducts.length === 0 && (
-                    <div className="text-center py-32 flex flex-col items-center gap-6">
-                        <span
-                            className="text-8xl font-black text-[#D16D6A]/10 tracking-tighter"
-                            style={{ fontFamily: 'Syne, sans-serif' }}
-                        >
-                            VOID
-                        </span>
-                        <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#EBE9DF]/20">
-                            NO ASSETS IN SECTOR_{String(categories.indexOf(selectedCategory)).padStart(2, '0')}
-                        </span>
+                    {/* System Integrity Indicator */}
+                    <div className="flex items-center gap-3 px-6 py-3 border border-[#FF3E00]/10 bg-white/[0.02]">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" />
+                        <span className="font-mono text-[10px] uppercase font-black tracking-widest text-emerald-400">CORE_STABLE_ONLINE</span>
+                        <span className="mx-2 text-white/10">|</span>
+                        <span className="font-mono text-[10px] text-white/30 tracking-tighter">LATENCY: 12ms</span>
                     </div>
-                )}
+                </div>
+                
+                {/* Visual anchor bar */}
+                <div className="h-1.5 w-full bg-[#FF3E00]" />
+            </footer>
 
-                {/* Bottom padding zone */}
-                <div className="h-20" />
-            </div>
+            <CartDrawer />
         </div>
     );
 };

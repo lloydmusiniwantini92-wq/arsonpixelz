@@ -299,52 +299,52 @@ const MarketingPage: React.FC = () => {
     ];
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#EBE9DF] text-[#1A1A1A]">
+        <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#000000] text-[#FFFFFF]">
             
             {/* HER0 HEADER */}
-            <div className="relative pt-28 md:pt-32 pb-28 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#020202' }}>
-                <PageHeroBackground accentColor="#D16D6A" />
+            <div className="relative pt-28 md:pt-32 pb-28 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#000000' }}>
+                <PageHeroBackground accentColor="#FF3E00" />
                 <div className={`relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="inline-block px-4 py-1 mb-8 border border-white/20">
                         <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/60">Sector // Market Acceleration</span>
                     </div>
                     <h1 ref={heroHeadingRef} className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white">
                         MARKET <br />
-                        <span className="text-[#D16D6A]">ACCELERATION</span>
+                        <span className="text-[#FF3E00]">ACCELERATION</span>
                     </h1>
-                    <p ref={heroDescRef} className="text-xl md:text-3xl font-mono text-white/60 max-w-4xl border-l-4 border-[#D16D6A] pl-6">
+                    <p ref={heroDescRef} className="text-xl md:text-3xl font-mono text-white/60 max-w-4xl border-l-4 border-[#FF3E00] pl-6">
                         We don't just market—we accelerate. Strategic campaigns engineered to amplify your reach, engagement, and revenue at unprecedented velocity.
                     </p>
                 </div>
             </div>
 
             {/* Background Grid Lines */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-0 pointer-events-none"></div>
 
             {/* PHILOSOPHY SECTION */}
-            <div ref={philosophyRef} className="py-24 md:py-32 bg-[#D16D6A] text-[#1A1A1A] relative z-10 overflow-hidden">
+            <div ref={philosophyRef} className="py-24 md:py-32 bg-[#000000] text-white relative z-10 overflow-hidden border-t border-b border-white/5">
                 {/* Decorative Graph Line Background */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none transform -skew-y-6 scale-150">
-                    <div className="absolute bottom-0 w-full h-[2px] bg-[#1A1A1A]"></div>
+                <div className="absolute inset-0 opacity-5 pointer-events-none transform -skew-y-6 scale-150">
+                    <div className="absolute bottom-0 w-full h-[2px] bg-[#FF3E00]"></div>
                     {[...Array(20)].map((_, i) => (
-                        <div key={i} className="absolute bottom-0 w-[40px] bg-[#1A1A1A]" style={{ left: `${i * 5}%`, height: `${Math.random() * 80}%` }}></div>
+                        <div key={i} className="absolute bottom-0 w-[40px] bg-[#FF3E00]/50" style={{ left: `${i * 5}%`, height: `${Math.random() * 80}%` }}></div>
                     ))}
                 </div>
 
                 <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-10">
                     
-                        <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 mix-blend-multiply text-[#1A1A1A]/90">
-                            TRAFFIC IS VANITY. <br/> <span className="text-white">REVENUE IS SANITY.</span>
+                        <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 text-white/90">
+                            TRAFFIC IS VANITY. <br/> <span className="text-[#FF3E00]">REVENUE IS SANITY.</span>
                         </h2>
                     
                     <div className="grid md:grid-cols-2 gap-12">
                         
-                            <p className="font-mono text-lg text-[#1A1A1A]/80 leading-relaxed font-semibold">
+                            <p className="font-mono text-lg text-white/60 leading-relaxed">
                                 Every dollar you spend on marketing should be an employee working tirelessly to bring you more dollars. We do not care about hollow metrics, vanity likes, or empty impressions. We care about the bottom line.
                             </p>
                         
                         
-                            <p className="font-mono text-lg text-[#1A1A1A]/80 leading-relaxed font-semibold">
+                            <p className="font-mono text-lg text-white/60 leading-relaxed">
                                 By fusing behavioral psychology with aggressive, data-driven mathematical models, we construct marketing machines that predictably, and ruthlessly, scale your business.
                             </p>
                         
@@ -356,7 +356,7 @@ const MarketingPage: React.FC = () => {
             <div className="py-32 px-6 md:px-12 max-w-[90rem] mx-auto relative z-10">
                 <ScrollReveal staggerIndex={0}>
                     <div className="mb-24">
-                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#D16D6A] mb-4">Growth Capabilities</h2>
+                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#FF3E00] mb-4">Growth Capabilities</h2>
                         <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Velocity Systems</h3>
                     </div>
                 </ScrollReveal>
@@ -366,17 +366,17 @@ const MarketingPage: React.FC = () => {
                         <div key={cap.id} className={`cap-row grid lg:grid-cols-12 gap-12 items-center ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
                             
                             {/* Visual Abstract side */}
-                            <div className={`cap-visual lg:col-span-5 h-[400px] border-2 border-[#1A1A1A] bg-white relative overflow-hidden flex items-center justify-center p-8 group ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
+                            <div className={`cap-visual lg:col-span-5 h-[400px] border border-white/10 bg-[#0A0A0A] relative overflow-hidden flex items-center justify-center p-8 group ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
                                 
-                                    <span className="text-[12rem] font-black text-[#1A1A1A]/5 font-mono select-none transition-transform duration-700 group-hover:scale-110">{cap.id}</span>
+                                    <span className="text-[12rem] font-black text-white/5 font-mono select-none transition-transform duration-700 group-hover:scale-110">{cap.id}</span>
                                     
                                     {/* Tech graph effect */}
                                     <div className="absolute inset-0 p-8 flex items-end justify-between opacity-20 transition-opacity group-hover:opacity-40">
                                         {[10, 30, 20, 50, 40, 80, 70, 100].map((h, i) => (
-                                            <div key={i} className="w-[10%] bg-[#D16D6A] transition-all duration-[2s] ease-out hover:bg-[#1A1A1A]" style={{ height: `${h}%` }}></div>
+                                            <div key={i} className="w-[10%] bg-[#FF3E00] transition-all duration-[2s] ease-out hover:bg-white" style={{ height: `${h}%` }}></div>
                                         ))}
                                     </div>
-                                    <div className="absolute top-4 right-4 text-xs font-mono font-bold text-[#D16D6A] animate-pulse">UPWARD_TREND_DETECTED</div>
+                                    <div className="absolute top-4 right-4 text-xs font-mono font-bold text-[#FF3E00] animate-pulse">UPWARD_TREND_DETECTED</div>
                                 
                             </div>
 
@@ -384,23 +384,23 @@ const MarketingPage: React.FC = () => {
                             <div className={`cap-content lg:col-span-7 flex flex-col ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
                                 
                                     <div className="flex items-center space-x-4 mb-4">
-                                        <span className="font-mono text-sm font-bold text-[#D16D6A]">ACT {cap.id}</span>
+                                        <span className="font-mono text-sm font-bold text-[#FF3E00]">ACT {cap.id}</span>
                                         <span className="font-mono text-xs tracking-widest uppercase opacity-50">{cap.subtitle}</span>
                                     </div>
                                     <h4 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-6">{cap.title}</h4>
-                                    <p className="text-lg font-mono text-[#1A1A1A]/70 leading-relaxed mb-8 max-w-2xl">
+                                    <p className="text-lg font-mono text-white/60 leading-relaxed mb-8 max-w-2xl">
                                         {cap.description}
                                     </p>
                                     
                                     <div className="mb-10">
-                                        <h5 className="font-bold text-xs font-mono uppercase tracking-widest text-[#1A1A1A]/40 mb-4 border-b border-[#1A1A1A]/10 pb-2">Execution Vectors:</h5>
+                                        <h5 className="font-bold text-xs font-mono uppercase tracking-widest text-white/30 mb-4 border-b border-white/10 pb-2">Execution Vectors:</h5>
                                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {cap.deliverables.map((item, i) => (
                                                 <li key={i} className="flex items-start">
-                                                    <div className="w-4 h-4 text-[#D16D6A] mt-0.5 mr-2 flex-shrink-0">
+                                                    <div className="w-4 h-4 text-[#FF3E00] mt-0.5 mr-2 flex-shrink-0">
                                                         <svg fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                                                     </div>
-                                                    <span className="font-mono text-sm text-[#1A1A1A]/80">{item}</span>
+                                                    <span className="font-mono text-sm text-white/80">{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -408,7 +408,7 @@ const MarketingPage: React.FC = () => {
 
                                     <button 
                                         onClick={() => handleCheckout(cap.stripePriceId)}
-                                        className="inline-flex items-center justify-center px-8 py-4 bg-[#1A1A1A] text-white font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#D16D6A] hover:text-white transition-colors w-max"
+                                        className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#FF3E00] hover:text-white transition-colors w-max"
                                     >
                                         Execute Campaign
                                     </button>
@@ -422,17 +422,17 @@ const MarketingPage: React.FC = () => {
             {/* METHODOLOGY SECTION (PINNED LOOP) — enhanced flip */}
             <div
                 ref={loopContainerRef}
-                className="bg-[#1A1A1A] text-[#EBE9DF] w-full h-screen overflow-hidden flex flex-col justify-center relative z-10"
+                className="bg-[#050505] text-[#FFFFFF] w-full h-screen overflow-hidden flex flex-col justify-center relative z-10 border-t border-white/5"
             >
                 {/* Atmospheric background for methodology */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(209,109,106,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(209,109,106,0.06)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(209,109,106,0.12)_0%,transparent_70%)]" />
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,62,0,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,62,0,0.06)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(255,62,0,0.12)_0%,transparent_70%)]" />
                 </div>
 
                 <div className="max-w-[90rem] mx-auto px-6 md:px-12 w-full relative z-10">
                     <div className="mb-12 text-center">
-                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#D16D6A] mb-4">The Methodology</h2>
+                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#FF3E00] mb-4">The Methodology</h2>
                         <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">The Acceleration Loop</h3>
                     </div>
 
@@ -440,17 +440,17 @@ const MarketingPage: React.FC = () => {
                         {processes.map((step, index) => (
                             <div
                                 key={step.num}
-                                className="loop-card absolute inset-0 w-full bg-[#111111] border-2 border-[#D16D6A] p-10 md:p-16 flex flex-col text-center items-center justify-center origin-bottom will-change-transform overflow-hidden"
+                                className="loop-card absolute inset-0 w-full bg-[#000000] border-2 border-[#FF3E00] p-10 md:p-16 flex flex-col text-center items-center justify-center origin-bottom will-change-transform overflow-hidden"
                                 style={{ zIndex: index + 1 }}
                             >
                                 {/* Noise texture */}
                                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
                                 {/* Static scan-line atmosphere */}
-                                <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.08)_2px,rgba(0,0,0,0.08)_4px)] pointer-events-none" />
+                                <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)] pointer-events-none" />
                                 {/* Scanline sweep — animated by GSAP on flip */}
-                                <div className="scanline-sweep absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#D16D6A]/40 to-transparent pointer-events-none z-20 opacity-0" />
+                                <div className="scanline-sweep absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FF3E00]/40 to-transparent pointer-events-none z-20 opacity-0" />
 
-                                <div className="w-24 h-24 rounded-full border-4 border-[#D16D6A] text-[#D16D6A] font-black font-mono flex items-center justify-center text-3xl mb-8 relative z-10 bg-[#1A1A1A] shadow-[0_0_30px_rgba(209,109,106,0.3)]">
+                                <div className="w-24 h-24 rounded-full border-4 border-[#FF3E00] text-[#FF3E00] font-black font-mono flex items-center justify-center text-3xl mb-8 relative z-10 bg-black shadow-[0_0_30px_rgba(255,62,0,0.3)]">
                                     {step.num}
                                 </div>
                                 <h4 className="text-4xl md:text-5xl font-black uppercase mb-6 relative z-10 text-white tracking-tight">{step.title}</h4>
@@ -463,18 +463,18 @@ const MarketingPage: React.FC = () => {
 
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-32 pt-16 relative z-10">
-                <div ref={ctaRef} className="relative p-12 md:p-20 bg-white border border-[#1A1A1A] shadow-[20px_20px_0px_#1A1A1A] overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
+                <div ref={ctaRef} className="relative p-12 md:p-20 bg-[#000000] border border-white/10 shadow-[20px_20px_0px_#FF3E00] overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
                     <div className="relative z-10 max-w-2xl">
-                        <h3 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase mb-6 text-[#1A1A1A] leading-[0.9]">
+                        <h3 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase mb-6 text-white leading-[0.9]">
                             SCALE UNFAIRLY.
                         </h3>
-                        <p className="text-[#1A1A1A]/70 font-mono text-lg font-bold">
+                        <p className="text-white/70 font-mono text-lg font-bold">
                             Stop burning venture capital on inefficient ad spend. Start accelerating.
                         </p>
                     </div>
                     <a href="mailto:hello@arsonpixels.com?subject=Marketing%20Project%20Inquiry"
-                       className="relative z-10 inline-block px-12 py-6 bg-[#D16D6A] text-white font-mono font-bold text-lg uppercase tracking-widest hover:bg-[#1A1A1A] transition-colors shadow-[8px_8px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_#1A1A1A] whitespace-nowrap"
+                       className="relative z-10 inline-block px-12 py-6 bg-[#FF3E00] text-white font-mono font-bold text-lg uppercase tracking-widest hover:bg-white hover:text-black transition-colors shadow-[8px_8px_0px_white] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_white] whitespace-nowrap"
                     >
                         Force Multiplier
                     </a>

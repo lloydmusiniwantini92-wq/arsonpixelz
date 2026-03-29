@@ -263,19 +263,19 @@ const GamingPage: React.FC = () => {
     ];
 
     return (
-        <section ref={containerRef} className="relative min-h-screen w-full pb-24 overflow-hidden bg-[#0a0a0a]">
+        <section ref={containerRef} className="relative min-h-screen w-full pb-24 overflow-hidden bg-[#000000] text-[#FFFFFF]">
 
             {/* ── HERO SECTION with homepage-level background ── */}
-            <div className="relative px-6 md:px-12 pt-28 md:pt-32 pb-28 overflow-hidden" style={{ background: '#020202' }}>
-                <PageHeroBackground accentColor="#D16D6A" />
+            <div className="relative px-6 md:px-12 pt-28 md:pt-32 pb-28 overflow-hidden" style={{ background: '#000000' }}>
+                <PageHeroBackground accentColor="#FF3E00" />
 
                 {/* Glowing Orbs — preserved above the bg layer */}
-                <div className="absolute top-20 right-20 w-64 h-64 bg-[#D16D6A] rounded-full blur-[120px] opacity-10 animate-pulse z-10" style={{ animationDuration: '6s' }} />
+                <div className="absolute top-20 right-20 w-64 h-64 bg-[#FF3E00] rounded-full blur-[120px] opacity-10 animate-pulse z-10" style={{ animationDuration: '6s' }} />
 
                 {/* Decorative Plus Icon */}
                 <div
                     ref={plusRef}
-                    className={`absolute right-[15%] top-[15%] text-[20vw] leading-none font-black text-[#D16D6A]/10 select-none pointer-events-none transition-all duration-[2000ms] ease-out z-10 ${loaded ? 'opacity-100 rotate-45' : 'opacity-0 rotate-0'}`}
+                    className={`absolute right-[15%] top-[15%] text-[20vw] leading-none font-black text-[#FF3E00]/10 select-none pointer-events-none transition-all duration-[2000ms] ease-out z-10 ${loaded ? 'opacity-100 rotate-45' : 'opacity-0 rotate-0'}`}
                 >
                     +
                 </div>
@@ -283,7 +283,7 @@ const GamingPage: React.FC = () => {
                 <div className="relative z-10">
                     {/* Top Row */}
                     <div className={`flex items-center justify-between mb-10 md:mb-16 transition-all duration-700 delay-100 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
-                        <div className="inline-block px-6 py-2 rounded-full bg-[#D16D6A] text-white font-mono text-xs font-bold uppercase tracking-[0.3em]">
+                        <div className="inline-block px-6 py-2 rounded-full bg-[#FF3E00] text-white font-mono text-xs font-bold uppercase tracking-[0.3em]">
                             GAMING
                         </div>
                     </div>
@@ -291,12 +291,12 @@ const GamingPage: React.FC = () => {
                     {/* Main Heading */}
                     <div ref={headingRef} className="mb-16 md:mb-24">
                         <div className="overflow-hidden mb-4">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-[#EBE9DF]" style={{ fontFamily: 'Syne, sans-serif' }}>
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 GAMING EXPERIENCES
                             </h1>
                         </div>
                         <div className="overflow-hidden">
-                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/25" style={{ fontFamily: 'Syne, sans-serif' }}>
+                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/20" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 LEVEL UP YOUR VISION
                             </h2>
                         </div>
@@ -304,7 +304,7 @@ const GamingPage: React.FC = () => {
 
                     {/* Description */}
                     <div ref={descRef} className="max-w-3xl">
-                        <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#D16D6A] pl-6">
+                        <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#FF3E00] pl-6">
                             From indie titles to AAA launches, we craft <strong className="text-white">immersive experiences</strong> that
                             keep players engaged and communities thriving. Your game deserves more than pixels—it deserves artistry.
                         </p>
@@ -314,7 +314,7 @@ const GamingPage: React.FC = () => {
 
             {/* Code Watermark — absolutely positioned, no layout impact */}
             <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none z-0">
-                <pre className="text-[#D16D6A] text-xs leading-relaxed font-mono w-full px-4 text-center">
+                <pre className="text-[#FF3E00] text-xs leading-relaxed font-mono w-full px-4 text-center">
                     {`// ARSON PIXELS - GAMING EXPERIENCE ENGINE v7.0
 
 class GameWorld {
@@ -445,7 +445,7 @@ const achievements = {
             <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none">
                 <div className="grid grid-cols-3 gap-6 w-full h-full p-6">
                     {/* Left Column */}
-                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono">
                         {`const leftPlayer = {
   health: 100,
   level: 'max',
@@ -460,7 +460,7 @@ export default leftPlayer;`.repeat(50)}
                     </pre>
 
                     {/* Center Column */}
-                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono">
                         {`const gameCore = {
   status: 'active',
   fps: 144,
@@ -475,7 +475,7 @@ export default gameCore;`.repeat(50)}
                     </pre>
 
                     {/* Right Column */}
-                    <pre className="text-[#D16D6A] text-[10px] leading-relaxed font-mono">
+                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono">
                         {`const rightAsset = {
   loaded: true,
   optimized: 'yes',
@@ -493,47 +493,47 @@ export default rightAsset;`.repeat(50)}
 
             {/* Animated Grid Background */}
             <div ref={bgGridRef} className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(209,109,106,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(209,109,106,0.1)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-pulse"
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,62,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,62,0,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-pulse"
                     style={{ animationDuration: '8s' }}
                 />
             </div>
 
             {/* Glowing Orbs */}
-            <div className="absolute top-20 right-20 w-64 h-64 bg-[#D16D6A] rounded-full blur-[120px] opacity-20 animate-pulse" style={{ animationDuration: '6s' }} />
-            <div className="absolute bottom-40 left-20 w-96 h-96 bg-[#D16D6A] rounded-full blur-[150px] opacity-15 animate-pulse" style={{ animationDuration: '10s' }} />
+            <div className="absolute top-20 right-20 w-64 h-64 bg-[#FF3E00] rounded-full blur-[120px] opacity-20 animate-pulse" style={{ animationDuration: '6s' }} />
+            <div className="absolute bottom-40 left-20 w-96 h-96 bg-[#FF3E00] rounded-full blur-[150px] opacity-15 animate-pulse" style={{ animationDuration: '10s' }} />
 
             <div className="relative z-10 px-6 md:px-12">
 
                 {/* Services Grid */}
                 <div ref={cardsRef} className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">
                     {services.map((service, idx) => (
-                        <div key={idx} className="gaming-card group h-full relative overflow-hidden flex flex-col justify-between bg-[#111111] border border-white/10 rounded-xl p-8 hover:border-[#D16D6A]/60 transition-colors duration-300">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#D16D6A]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div key={idx} className="gaming-card group h-full relative overflow-hidden flex flex-col justify-between bg-[#0A0A0A] border border-white/10 rounded-xl p-8 hover:border-[#FF3E00]/60 transition-colors duration-300">
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF3E00]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             <div className="relative z-10">
-                                <div className="inline-block mb-4 px-3 py-1 rounded bg-[#D16D6A]/20 border border-[#D16D6A]/50">
-                                    <span className="font-mono text-[#D16D6A] font-bold text-xs">
+                                <div className="inline-block mb-4 px-3 py-1 rounded bg-[#FF3E00]/10 border border-[#FF3E00]/30">
+                                    <span className="font-mono text-[#FF3E00] font-bold text-xs">
                                         LVL {idx + 1}
                                     </span>
                                 </div>
 
-                                <h3 className="text-2xl font-black uppercase mb-4 text-white group-hover:text-[#D16D6A] transition-colors leading-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+                                <h3 className="text-2xl font-black uppercase mb-4 text-white group-hover:text-[#FF3E00] transition-colors leading-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
                                     {service.title}
                                 </h3>
 
-                                <p className="text-sm font-mono text-white/70 leading-relaxed mb-6">
+                                <p className="text-sm font-mono text-white/50 leading-relaxed mb-6">
                                     {service.description}
                                 </p>
 
                                 <button
                                     onClick={() => handleCheckout(service.stripePriceId)}
-                                    className="w-full py-3 rounded-md bg-white text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#D16D6A] hover:text-white transition-all transform active:scale-95"
+                                    className="w-full py-3 rounded-md bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#FF3E00] hover:text-white transition-all transform active:scale-95"
                                 >
                                     INITIALIZE QUEST
                                 </button>
 
-                                <div className="mt-6 h-2 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full bg-gradient-to-r from-[#D16D6A] to-[#B04E4B] scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left" />
+                                <div className="mt-6 h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div className="h-full bg-gradient-to-r from-[#FF3E00] to-[#E63900] scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left" />
                                 </div>
                             </div>
                         </div>
@@ -550,11 +550,11 @@ export default rightAsset;`.repeat(50)}
                         { label: 'PLAYER RATING', value: '5★' },
                         { label: 'AWARDS WON', value: '12+' }
                     ].map((stat, idx) => (
-                        <div key={idx} className="stat-node text-center p-6 bg-white/5 rounded-lg border border-white/10">
-                            <div className="text-4xl md:text-5xl font-black text-[#D16D6A] mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
+                        <div key={idx} className="stat-node text-center p-6 bg-white/5 rounded-lg border border-white/5">
+                            <div className="text-4xl md:text-5xl font-black text-[#FF3E00] mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {stat.value}
                             </div>
-                            <div className="text-xs font-mono text-white/60 uppercase tracking-wider">
+                            <div className="text-xs font-mono text-white/40 uppercase tracking-wider">
                                 {stat.label}
                             </div>
                         </div>
@@ -563,7 +563,7 @@ export default rightAsset;`.repeat(50)}
 
                 {/* CTA */}
                 <div ref={ctaRef} className={`
-                    relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#D16D6A] to-[#B04E4B]
+                    relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#FF3E00] to-[#E63900]
                     overflow-hidden
                 `}>
 
@@ -583,7 +583,7 @@ export default rightAsset;`.repeat(50)}
 
                         <a
                             href="mailto:hello@arsonpixels.com?subject=Gaming%20Project%20Inquiry"
-                            className="group px-8 py-4 bg-white text-[#D16D6A] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-[#0a0a0a] hover:text-white transition-all duration-300 whitespace-nowrap border-2 border-white hover:border-[#0a0a0a]"
+                            className="group px-8 py-4 bg-white text-[#FF3E00] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-all duration-300 whitespace-nowrap border-2 border-white hover:border-black"
                         >
                             <span className="inline-flex items-center gap-2">
                                 START QUEST

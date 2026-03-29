@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import PLogo from './assets/p.png';
 
 // --- THEME CONFIGURATION ---
-const LIGHT_BACKGROUND_ROUTES = ['/', '/marketing', '/branding', '/contact', '/about', '/work', '/legal'];
+// Site is now strictly 'Digital Monolith' (Absolute Black). Legacy light theme logic purged.
 
 // --- Helpers ---
 const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(" ");
@@ -103,14 +103,13 @@ ScrambleText.displayName = 'ScrambleText';
 
 // --- NAV LINK COMPONENT ---
 const TopNavLink = memo(({ 
-    label, href, icon: Icon, isActive, onLightBackground, isHUDActive, hudIntensity,
+    label, href, icon: Icon, isActive, isHUDActive, hudIntensity,
     cartCount = 0, onCartClick
 }: {
     label: string;
     href: string;
     icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
     isActive: boolean;
-    onLightBackground: boolean;
     isHUDActive: boolean;
     hudIntensity: number;
     cartCount?: number;
@@ -147,10 +146,10 @@ const TopNavLink = memo(({
         >
             {/* Elegant Hover Glow / OS Scanline background */}
             <div className={cn(
-                "absolute inset-0 bg-gradient-to-t from-[#D16D6A]/[0.15] to-transparent transition-opacity duration-700 ease-out",
+                "absolute inset-0 bg-gradient-to-t from-[#FF3E00]/[0.15] to-transparent transition-opacity duration-700 ease-out",
                 isRevealed ? "opacity-100" : "opacity-0"
             )}>
-                <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(0deg, transparent 50%, rgba(209,109,106,0.3) 50%)', backgroundSize: '100% 4px', mixBlendMode: 'overlay' }} />
+                <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(0deg, transparent 50%, rgba(255,62,0,0.3) 50%)', backgroundSize: '100% 4px', mixBlendMode: 'overlay' }} />
             </div>
             
             <div className={cn(
@@ -159,7 +158,7 @@ const TopNavLink = memo(({
             )}>
                 <Icon className={cn(
                     "w-[14px] h-[14px] transition-all duration-500",
-                    isRevealed ? "text-[#D16D6A] drop-shadow-[0_0_8px_rgba(209,109,106,1)] scale-110" : "text-white opacity-80 group-hover:opacity-100 group-hover:text-white"
+                    isRevealed ? "text-[#FF3E00] drop-shadow-[0_0_8px_rgba(255,62,0,1)] scale-110" : "text-white opacity-80 group-hover:opacity-100 group-hover:text-white"
                 )} />
                 <span className={cn(
                     "font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] whitespace-nowrap transition-all duration-500 relative text-white",
@@ -171,7 +170,7 @@ const TopNavLink = memo(({
                     {isRevealed && (
                         <motion.span 
                             initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }}
-                            className="absolute -top-3 -right-6 text-[6px] font-mono text-[#D16D6A] tracking-wider"
+                            className="absolute -top-3 -right-6 text-[6px] font-mono text-[#FF3E00] tracking-wider"
                         >
                             SYS_{String(label.length).padStart(2, '0')}
                         </motion.span>
@@ -181,18 +180,18 @@ const TopNavLink = memo(({
 
             {/* Hyper-Advanced Kinetic Brackets */}
             <div className={cn(
-                "absolute top-1/2 -translate-y-1/2 left-3 w-[2px] h-4 bg-[#D16D6A] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] before:content-[''] before:absolute before:top-0 before:left-0 before:w-2 before:h-[2px] before:bg-[#D16D6A] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-2 after:h-[2px] after:bg-[#D16D6A]",
-                isRevealed ? "opacity-100 scale-100 drop-shadow-[0_0_8px_rgba(209,109,106,1)]" : "opacity-0 scale-[0.5] -translate-x-2"
+                "absolute top-1/2 -translate-y-1/2 left-3 w-[2px] h-4 bg-[#FF3E00] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] before:content-[''] before:absolute before:top-0 before:left-0 before:w-2 before:h-[2px] before:bg-[#FF3E00] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-2 after:h-[2px] after:bg-[#FF3E00]",
+                isRevealed ? "opacity-100 scale-100 drop-shadow-[0_0_8px_rgba(255,62,0,1)]" : "opacity-0 scale-[0.5] -translate-x-2"
             )} />
             <div className={cn(
-                "absolute top-1/2 -translate-y-1/2 right-3 w-[2px] h-4 bg-[#D16D6A] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] before:content-[''] before:absolute before:top-0 before:right-0 before:w-2 before:h-[2px] before:bg-[#D16D6A] after:content-[''] after:absolute after:bottom-0 after:right-0 after:w-2 after:h-[2px] after:bg-[#D16D6A]",
-                isRevealed ? "opacity-100 scale-100 drop-shadow-[0_0_8px_rgba(209,109,106,1)]" : "opacity-0 scale-[0.5] translate-x-2"
+                "absolute top-1/2 -translate-y-1/2 right-3 w-[2px] h-4 bg-[#FF3E00] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] before:content-[''] before:absolute before:top-0 before:right-0 before:w-2 before:h-[2px] before:bg-[#FF3E00] after:content-[''] after:absolute after:bottom-0 after:right-0 after:w-2 after:h-[2px] after:bg-[#FF3E00]",
+                isRevealed ? "opacity-100 scale-100 drop-shadow-[0_0_8px_rgba(255,62,0,1)]" : "opacity-0 scale-[0.5] translate-x-2"
             )} />
 
             {/* Glowing Bottom Digital Scanner Line */}
             <div className={cn(
-                "absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-[#D16D6A] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]",
-                isRevealed ? "w-full opacity-100 shadow-[0_0_20px_#D16D6A]" : "w-0 opacity-0"
+                "absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-[#FF3E00] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]",
+                isRevealed ? "w-full opacity-100 shadow-[0_0_20px_#FF3E00]" : "w-0 opacity-0"
             )}>
                  {isRevealed && (
                     <motion.div 
@@ -204,7 +203,7 @@ const TopNavLink = memo(({
             </div>
 
             {hasItems && (
-                 <span className="absolute top-1/2 -translate-y-[15px] right-2 bg-[#D16D6A] text-[#050505] px-1.5 py-0.5 text-[8px] font-black rounded-sm shadow-[0_0_10px_#D16D6A]">
+                 <span className="absolute top-1/2 -translate-y-[15px] right-2 bg-[#FF3E00] text-[#000000] px-1.5 py-0.5 text-[8px] font-black rounded-sm shadow-[0_0_10px_#FF3E00]">
                     {cartCount}
                 </span>
             )}
@@ -216,12 +215,10 @@ TopNavLink.displayName = 'TopNavLink';
 // --- QUANTUM LOGO ---
 const QuantumLogo = memo(({
     scrolled,
-    onLightBackground,
     isHUDActive,
     hudIntensity
 }: {
     scrolled: boolean;
-    onLightBackground: boolean;
     isHUDActive: boolean;
     hudIntensity: number;
 }) => {
@@ -247,7 +244,7 @@ const QuantumLogo = memo(({
         };
     }, []);
 
-    const primaryColor = onLightBackground ? '#0a0a0a' : '#EBE9DF';
+    const primaryColor = '#FFFFFF';
     const svgPaths = [
         "M1.27,10.22c.84-1.69,1.99-2.99,3.45-3.9,1.45-.91,3.08-1.36,4.87-1.36,1.53,0,2.88.31,4.03.93,1.16.62,2.05,1.44,2.67,2.46v-3.08h6.66v21.75h-6.66v-3.08c-.65,1.01-1.55,1.83-2.71,2.45-1.16.62-2.5.94-4.03.94-1.77,0-3.38-.46-4.83-1.38-1.46-.92-2.61-2.23-3.45-3.94-.84-1.7-1.27-3.67-1.27-5.9s.42-4.2,1.27-5.88ZM14.91,12.21c-.92-.96-2.05-1.44-3.37-1.44s-2.45.47-3.37,1.42c-.92.95-1.38,2.25-1.38,3.92s.46,2.98,1.38,3.96c.92.97,2.05,1.46,3.37,1.46s2.45-.48,3.37-1.44,1.38-2.27,1.38-3.94-.46-2.97-1.38-3.94Z",
         "M36.4,6.07c1.17-.69,2.47-1.03,3.9-1.03v7.05h-1.83c-1.66,0-2.91.36-3.74,1.07-.83.72-1.25,1.97-1.25,3.76v10.09h-6.66V5.28h6.66v3.62c.78-1.2,1.75-2.14,2.92-2.83Z",
@@ -275,22 +272,22 @@ const QuantumLogo = memo(({
             )}
                 style={{
                   filter: furnaceActive 
-                    ? 'drop-shadow(0 0 40px rgba(255,69,0,0.8)) drop-shadow(0 0 15px rgba(255,0,0,1)) brightness(1.5)' 
-                    : (isHUDActive ? `drop-shadow(0 0 10px rgba(209,109,106,${0.3 * hudIntensity}))` : 'none')
+                    ? 'drop-shadow(0 0 40px rgba(255,62,0,0.8)) drop-shadow(0 0 15px rgba(255,0,0,1)) brightness(1.5)' 
+                    : (isHUDActive ? `drop-shadow(0 0 10px rgba(255,62,0,${0.3 * hudIntensity}))` : 'none')
                 }}
             >
                 {/* HUD Data Pip Layer */}
                 {isHUDActive && (
                   <div className="absolute inset-x-0 -top-1 flex justify-between px-2 pt-1 pointer-events-none" style={{ opacity: hudIntensity * 0.5 }}>
                     {[...Array(8)].map((_, i) => (
-                      <div key={i} className="w-[1px] h-1 bg-[#D16D6A] opacity-40 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                      <div key={i} className="w-[1px] h-1 bg-[#FF3E00] opacity-40 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                     ))}
                   </div>
                 )}
 
                 {/* Core Logo */}
                 <svg viewBox="0 0 232.99 30.04" className={cn("w-full h-full overflow-visible", furnaceActive && "animate-[furnace-flicker_0.1s_ease-in-out_infinite]")}>
-                    <g fill={furnaceActive ? '#ff4500' : (isHUDActive ? '#D16D6A' : 'white')} className="transition-colors duration-[5000ms] ease-out">
+                    <g fill={furnaceActive ? '#FF4500' : (isHUDActive ? '#FF3E00' : 'white')} className="transition-colors duration-[5000ms] ease-out">
                         {svgPaths.map((d, i) => <path key={`core-${i}`} d={d} />)}
                     </g>
                 </svg>
@@ -307,16 +304,16 @@ const QuantumLogo = memo(({
                         width: '100%', height: '100%', left: '0%', top: '0%',
                         borderWidth: isHUDActive ? '1px' : '3px',
                         borderStyle: 'solid',
-                        borderColor: isHUDActive ? '#D16D6A' : primaryColor,
+                        borderColor: isHUDActive ? '#FF3E00' : primaryColor,
                         animation: 'singularity-spin 8s linear infinite',
-                        boxShadow: isHUDActive ? '0 0 15px rgba(209,109,106,0.5)' : 'none'
+                        boxShadow: isHUDActive ? '0 0 15px rgba(255,62,0,0.5)' : 'none'
                     }}
                 />
                 <svg width="24" height="24" viewBox="0 0 20 20" className="relative z-10">
                     <text x="10" y="15" fontSize="14" fontWeight="400" textAnchor="middle" fontFamily="sans-serif" fill="currentColor"
-                        className={`${isHUDActive ? 'text-[#D16D6A]' : 'text-white'} transition-colors duration-300`}>R</text>
+                        className={`${isHUDActive ? 'text-[#FF3E00]' : 'text-white'} transition-colors duration-300`}>R</text>
                 </svg>
-                <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[4px] h-[4px] rounded-full bg-[#D16D6A] blur-[2px] ${isHUDActive ? 'opacity-100' : 'opacity-0'}`} />
+                <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[4px] h-[4px] rounded-full bg-[#FF3E00] blur-[2px] ${isHUDActive ? 'opacity-100' : 'opacity-0'}`} />
             </div>
         </div>
     );
@@ -340,16 +337,16 @@ const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }
             onMouseLeave={() => onHoverChange(false)}
             className={cn(
                 "group flex flex-col justify-between p-8 border-b border-r border-white/5 transition-all duration-300 min-h-[160px] md:min-h-[180px]",
-                isHovered ? "bg-white text-[#050505]" : "hover:bg-white/5"
+                isHovered ? "bg-white text-[#000000]" : "hover:bg-white/5"
             )}
         >
             <div className={cn(
                 "font-mono text-[10px] tracking-[0.3em] transition-colors",
-                isHovered ? "text-[#D16D6A]" : "text-white/40 group-hover:text-[#D16D6A]"
+                isHovered ? "text-[#FF3E00]" : "text-white/40 group-hover:text-[#FF3E00]"
             )}>
                 [{String(index + 1).padStart(2, '0')}]
             </div>
-            <div className="font-black uppercase tracking-tight text-3xl md:text-4xl leading-none">
+            <div className="font-syne font-black uppercase tracking-tight text-3xl md:text-5xl leading-none italic">
                 {label}
             </div>
         </Link>
@@ -379,10 +376,7 @@ export const Navigation: React.FC = () => {
     const isHUDActive = voidProgress > 0.3;
     const hudIntensity = Math.max(0, Math.min((voidProgress - 0.3) * 3, 1));
 
-    const onLightBackground = useMemo(() => {
-        if (location.pathname === '/') return scrolled && voidProgress < 0.3;
-        return LIGHT_BACKGROUND_ROUTES.includes(location.pathname) && voidProgress < 0.3;
-    }, [location.pathname, voidProgress, scrolled]);
+    // Site is strictly 'Digital Monolith' Dark.
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -467,7 +461,6 @@ export const Navigation: React.FC = () => {
                         <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="relative block group">
                             <QuantumLogo 
                                 scrolled={scrolled}
-                                onLightBackground={false}
                                 isHUDActive={isHUDActive} 
                                 hudIntensity={hudIntensity}
                             />
@@ -481,7 +474,6 @@ export const Navigation: React.FC = () => {
                                 key={item.label}
                                 {...item} 
                                 isActive={location.pathname === item.href} 
-                                onLightBackground={onLightBackground}
                                 isHUDActive={isHUDActive}
                                 hudIntensity={hudIntensity}
                                 cartCount={item.label === 'Shop' ? cartCount : 0}
@@ -497,7 +489,7 @@ export const Navigation: React.FC = () => {
                             to="/contact" 
                             className={cn(
                                 "relative hidden md:flex items-center justify-center px-14 font-sans text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-500 overflow-hidden group pointer-events-auto border-l border-white/20",
-                                "hover:bg-white hover:text-[#050505] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] text-white"
+                                "hover:bg-[#FF3E00] hover:text-white hover:border-[#FF3E00] hover:shadow-[0_0_30px_rgba(255,62,0,0.3)] text-white"
                             )}
                         >
                             {/* Crosshairs & Alignment Marks */}
@@ -514,11 +506,11 @@ export const Navigation: React.FC = () => {
                             onClick={toggleMenu}
                             className={cn(
                                 "relative w-16 md:w-20 border-l border-white/20 flex items-center justify-center group focus:outline-none transition-colors pointer-events-auto",
-                                "hover:bg-white text-white hover:text-[#050505]"
+                                "hover:bg-[#FF3E00] text-white hover:text-white"
                             )}
                             aria-label={isOpen ? "Close menu" : "Open menu"}
                         >
-                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black ${onLightBackground ? 'border border-black/5' : 'border border-white/5'} transition-colors duration-500 overflow-hidden backdrop-blur-sm animate-[menu-breathe_3s_ease-in-out_infinite] group-hover:animate-none group-hover:bg-[#D16D6A]`}>
+                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black border border-white/10 transition-colors duration-500 overflow-hidden backdrop-blur-sm animate-[menu-breathe_3s_ease-in-out_infinite] group-hover:animate-none group-hover:bg-[#FF3E00]`}>
                                 <div
                                     className="w-5 h-5 md:w-6 md:h-6 bg-white transition-all duration-500"
                                     style={{
@@ -555,15 +547,15 @@ export const Navigation: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: "-100%" }}
                         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-[100] bg-[#050505] text-white flex flex-col overflow-hidden"
+                        className="fixed inset-0 z-[100] bg-[#000000] text-white flex flex-col overflow-hidden"
                     >
                         {/* Menu Top Bar */}
                         <div className="flex items-stretch h-16 border-b border-white/5 shrink-0">
                             <div className="flex items-center px-8 border-r border-white/5 flex-1 font-mono text-[10px] tracking-[0.4em] text-white/40 uppercase">
-                                <span className={cn("inline-block w-2 h-2 rounded-full mr-4 bg-[#D16D6A] animate-pulse")} />
+                                <span className={cn("inline-block w-2 h-2 rounded-full mr-4 bg-[#FF3E00] animate-pulse")} />
                                 SYS.NAV.OVERRIDE // SECTOR_01
                             </div>
-                            <button onClick={closeMenu} className="w-16 md:w-20 flex items-center justify-center border-l border-white/5 hover:bg-[#D16D6A] hover:text-[#050505] transition-all duration-300">
+                            <button onClick={closeMenu} className="w-16 md:w-20 flex items-center justify-center border-l border-white/5 hover:bg-[#FF3E00] hover:text-white transition-all duration-300">
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
                         </div>
@@ -586,7 +578,7 @@ export const Navigation: React.FC = () => {
                             </div>
 
                             {/* Right: Dynamic Info Panel (Desktop) */}
-                            <div className="hidden md:flex w-1/3 flex-col relative bg-white/5 shrink-0 overflow-hidden">
+                            <div className="hidden md:flex w-1/3 flex-col relative bg-white/[0.02] shrink-0 overflow-hidden">
                                 <AnimatePresence mode="wait">
                                     {hoveredMenuIndex !== null && (
                                         <motion.div 
@@ -597,29 +589,29 @@ export const Navigation: React.FC = () => {
                                             transition={{ duration: 0.4 }}
                                             className="absolute inset-0"
                                         >
-                                            <img src={menuLinks[hoveredMenuIndex].image} alt="" className="w-full h-full object-cover grayscale mix-blend-luminosity" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
+                                            <img src={menuLinks[hoveredMenuIndex].image} alt="" className="w-full h-full object-cover grayscale mix-blend-overlay" />
+                                            <div className="absolute inset-0 bg-[#000000]/60" />
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
 
-                                <div className="absolute top-10 right-10 w-12 h-12 border-t border-r border-[#D16D6A]/40 pointer-events-none" />
-                                <div className="absolute bottom-40 left-10 w-12 h-12 border-b border-l border-[#D16D6A]/40 pointer-events-none" />
+                                <div className="absolute top-10 right-10 w-12 h-12 border-t border-r border-[#FF3E00]/40 pointer-events-none" />
+                                <div className="absolute bottom-40 left-10 w-12 h-12 border-b border-l border-[#FF3E00]/40 pointer-events-none" />
 
-                                <div className="mt-auto p-10 relative z-10 border-t border-white/5 bg-[#050505]/90 backdrop-blur-xl font-mono text-[10px] text-white/30 tracking-[0.2em] space-y-4">
+                                <div className="mt-auto p-10 relative z-10 border-t border-white/5 bg-[#000000]/90 backdrop-blur-xl font-mono text-[10px] text-white/30 tracking-[0.2em] space-y-4">
                                     <div className="flex justify-between border-b border-white/5 pb-4">
                                         <span>TARGET_DIR:</span>
                                         <span className="text-white/80">{hoveredMenuIndex !== null ? menuLinks[hoveredMenuIndex].href : "AWAITING_INPUT"}</span>
                                     </div>
                                     <div className="flex justify-between">
                                         <span>SYS_STATUS:</span>
-                                        <span className={cn(hoveredMenuIndex !== null ? "text-[#D16D6A] animate-pulse" : "text-white/20")}>
+                                        <span className={cn(hoveredMenuIndex !== null ? "text-[#FF3E00] animate-pulse" : "text-white/20")}>
                                             {hoveredMenuIndex !== null ? "ROUTING..." : "IDLE"}
                                         </span>
                                     </div>
                                     <div className="pt-6 border-t border-white/5 mt-6">
                                         <div className="text-[8px] mb-2 opacity-50">PROJECT_SPOTLIGHT // 2024</div>
-                                        <div className="text-white/70 tracking-widest leading-relaxed">PROJECT TITAN: REARCHITECTING THE DIGITAL FRONTIER THROUGH INDUSTRIAL-GRADE IT STRATEGY.</div>
+                                        <div className="text-white/70 tracking-widest leading-relaxed uppercase">PROJECT TITAN: REARCHITECTING THE DIGITAL FRONTIER THROUGH INDUSTRIAL-GRADE IT STRATEGY.</div>
                                     </div>
                                 </div>
                             </div>
