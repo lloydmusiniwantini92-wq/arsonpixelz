@@ -233,7 +233,7 @@ export const ignite = () => tiers.map(tier => tier.products.filter(p => p.impact
                     {/* Main Title */}
                     <div className="overflow-hidden mb-4">
                         <h1 className={`
-                            text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white
+                            text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white
                             transition-transform duration-1200 delay-200
                             ${loaded ? 'translate-y-0' : 'translate-y-full'}
                         `} style={{ fontFamily: 'Syne, sans-serif' }}>

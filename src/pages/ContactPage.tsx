@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
+import ContactBg from '../assets/images/contact_brutalist_bg.webp';
 
 const ContactPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -36,39 +37,48 @@ const ContactPage: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Here you would typically send the data to a backend
         console.log("Form Submitted:", formData);
-        alert("Transmission Sent. We will contact you shortly.");
+        alert("Inquiry Logged. Our strategists will review and respond.");
     };
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#000000] pt-32 pb-20 px-6 md:px-12 flex flex-col items-center">
+        <div ref={containerRef} className="min-h-screen bg-[#000000] relative overflow-hidden flex flex-col items-center justify-center py-24 md:py-32 px-6 md:px-12">
+            
+            {/* Brutalist Background Layer */}
+            <div className="absolute inset-0 z-0">
+                <img 
+                    src={ContactBg} 
+                    alt="" 
+                    className="w-full h-full object-cover opacity-40 grayscale mix-blend-luminosity scale-105" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#000000] via-transparent to-[#000000]" />
+                <div className="absolute inset-0 bg-[#000000]/70" />
+            </div>
 
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="max-w-4xl w-full"
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="max-w-4xl w-full relative z-10"
             >
-                <div className="text-center mb-16">
-                    <span className="font-mono text-[#FF3E00] text-xs tracking-[0.3em] uppercase mb-4 block font-black">
-                        /// Initiate Protocol
-                    </span>
-                    <h1 className="font-syne text-5xl md:text-7xl font-black text-white tracking-tighter uppercase mb-6">
-                        Start Your<br />Project
+                <div className="text-center mb-16 md:mb-20">
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]" style={{ fontFamily: 'Syne, sans-serif' }}>
+                        START YOUR<br /><span className="text-[#FF3E00]">PROJECT</span>
                     </h1>
-                    <p className="font-mono text-white/60 text-sm max-w-xl mx-auto leading-relaxed uppercase tracking-widest">
-                        Tell us about your vision. We engineer high-fidelity digital experiences that incinerate boundaries.
+                    <p className="font-mono text-white/50 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed uppercase tracking-[0.2em] italic font-bold">
+                        Define the scope. We architect high-performance digital systems that incinerate mediocrity and dominate market sectors.
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="bg-[#0a0a0a] p-8 md:p-12 rounded-none shadow-2xl border border-white/5 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FF3E00]/50 to-transparent" />
+                <form onSubmit={handleSubmit} className="bg-white p-8 md:p-16 rounded-none shadow-[0_0_100px_rgba(0,0,0,1)] border-4 border-black relative">
+                    {/* Industrial Accent Lines */}
+                    <div className="absolute top-0 right-0 w-24 h-24 border-r-4 border-t-4 border-[#FF3E00] -translate-y-4 translate-x-4 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 border-l-4 border-b-4 border-black translate-y-4 -translate-x-4 pointer-events-none" />
                     
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                    <div className="grid md:grid-cols-2 gap-10 mb-10">
                         {/* Name */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="name" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Name</label>
+                        <div className="flex flex-col gap-3 group">
+                            <label htmlFor="name" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Name</label>
                             <input
                                 type="text"
                                 id="name"
@@ -76,14 +86,14 @@ const ContactPage: React.FC = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors placeholder-white/10 uppercase tracking-tighter"
-                                placeholder="ENTER_NAME"
+                                className="w-full bg-black/[0.02] border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl md:text-2xl text-black focus:outline-none focus:border-[#FF3E00] transition-all placeholder-black/10 uppercase tracking-tighter"
+                                placeholder="YOUR NAME"
                             />
                         </div>
 
                         {/* Email */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="email" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Email</label>
+                        <div className="flex flex-col gap-3 group">
+                            <label htmlFor="email" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Email</label>
                             <input
                                 type="email"
                                 id="email"
@@ -91,79 +101,80 @@ const ContactPage: React.FC = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors placeholder-white/10 uppercase tracking-tighter"
-                                placeholder="ENTER_EMAIL"
+                                className="w-full bg-black/[0.02] border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl md:text-2xl text-black focus:outline-none focus:border-[#FF3E00] transition-all placeholder-black/10 uppercase tracking-tighter"
+                                placeholder="YOUR EMAIL"
                             />
                         </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                    <div className="grid md:grid-cols-2 gap-10 mb-10">
                         {/* Project Type */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="projectType" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Project Type</label>
+                        <div className="flex flex-col gap-3 group">
+                            <label htmlFor="projectType" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Project Type</label>
                             <div className="relative">
                                 <select
                                     id="projectType"
                                     name="projectType"
                                     value={formData.projectType}
                                     onChange={handleChange}
-                                    className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors appearance-none cursor-pointer uppercase tracking-tighter"
+                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-tighter"
                                 >
-                                    <option value="" disabled className="bg-[#0a0a0a]">SELECT_TYPE</option>
-                                    <option value="branding" className="bg-[#0a0a0a]">Branding</option>
-                                    <option value="website" className="bg-[#0a0a0a]">Web Development</option>
-                                    <option value="app" className="bg-[#0a0a0a]">Application</option>
-                                    <option value="marketing" className="bg-[#0a0a0a]">Marketing</option>
-                                    <option value="other" className="bg-[#0a0a0a]">Other</option>
+                                    <option value="" disabled className="bg-white">SELECT TYPE</option>
+                                    <option value="branding" className="bg-white">Brand Ignition</option>
+                                    <option value="website" className="bg-white">Digital Architecture</option>
+                                    <option value="app" className="bg-white">System Application</option>
+                                    <option value="marketing" className="bg-white">Market Acceleration</option>
+                                    <option value="other" className="bg-white">Custom Execution</option>
                                 </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px]">▼</div>
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px] pr-2">▼</div>
                             </div>
                         </div>
 
                         {/* Budget */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="budget" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Budget Range</label>
+                        <div className="flex flex-col gap-3 group">
+                            <label htmlFor="budget" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Budget</label>
                             <div className="relative">
                                 <select
                                     id="budget"
                                     name="budget"
                                     value={formData.budget}
                                     onChange={handleChange}
-                                    className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors appearance-none cursor-pointer uppercase tracking-tighter"
+                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-tighter"
                                 >
-                                    <option value="" disabled className="bg-[#0a0a0a]">SELECT_RANGE</option>
-                                    <option value="5k-10k" className="bg-[#0a0a0a]">$5k - $10k</option>
-                                    <option value="10k-25k" className="bg-[#0a0a0a]">$10k - $25k</option>
-                                    <option value="25k-50k" className="bg-[#0a0a0a]">$25k - $50k</option>
-                                    <option value="50k+" className="bg-[#0a0a0a]">$50k+</option>
+                                    <option value="" disabled className="bg-white">SELECT BUDGET</option>
+                                    <option value="1k-5k" className="bg-white">1K - 5K USD</option>
+                                    <option value="5k-10k" className="bg-white">5K - 10K USD</option>
+                                    <option value="10k-25k" className="bg-white">10K - 25K USD</option>
+                                    <option value="25k-50k" className="bg-white">25K - 50K USD</option>
+                                    <option value="50k+" className="bg-white">50K+ USD</option>
                                 </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px]">▼</div>
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px] pr-2">▼</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Details */}
-                    <div className="flex flex-col gap-2 mb-12">
-                        <label htmlFor="details" className="font-mono text-[10px] font-black uppercase tracking-widest text-white/30">Project Details</label>
+                    <div className="flex flex-col gap-3 mb-16 group">
+                        <label htmlFor="details" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Message</label>
                         <textarea
                             id="details"
                             name="details"
                             value={formData.details}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full bg-white/[0.03] border-b border-white/10 px-4 py-4 font-syne font-bold text-white focus:outline-none focus:border-[#FF3E00] transition-colors placeholder-white/10 uppercase tracking-tighter resize-none"
-                            placeholder="TELL_US_ABOUT_YOUR_GOALS..."
+                            className="w-full bg-black/[0.02] border-b-2 border-black/20 px-4 py-6 font-syne font-bold text-lg text-black focus:outline-none focus:border-[#FF3E00] transition-all placeholder-black/20 uppercase tracking-wide resize-none leading-relaxed"
+                            placeholder="TELL US ABOUT THE MISSION..."
                         ></textarea>
                     </div>
 
                     {/* Submit Button */}
-                    <div className="flex justify-end">
+                    <div className="flex justify-center md:justify-end">
                         <button
                             type="submit"
-                            className="group relative px-10 py-5 bg-[#FF3E00] text-black font-syne font-black uppercase text-[11px] tracking-[0.4em] overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
+                            className="group relative px-16 py-7 bg-black text-white font-syne font-black uppercase text-[12px] tracking-[0.6em] overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
                         >
-                            <span className="relative z-10 transition-colors duration-300">Transmit Request</span>
-                            <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">SUBMIT_INQUIRY</span>
+                            <div className="absolute inset-0 bg-[#FF3E00] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                         </button>
                     </div>
 

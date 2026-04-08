@@ -26,9 +26,9 @@ export const HologramCarousel: React.FC<HologramCarouselProps> = ({ projects }) 
     
     // High-fidelity generated textures
     const textures = [
-        '/images/hologram/hologram_texture_1_1773230265180.png',
-        '/images/hologram/hologram_texture_2_1773230284758.png',
-        '/images/hologram/hologram_texture_3_1773230303212.png'
+        '/images/hologram/hologram_texture_1_1773230265180.webp',
+        '/images/hologram/hologram_texture_2_1773230284758.webp',
+        '/images/hologram/hologram_texture_3_1773230303212.webp'
     ];
 
     useEffect(() => {

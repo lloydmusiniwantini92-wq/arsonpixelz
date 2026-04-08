@@ -23,7 +23,7 @@ const SuccessPage: React.FC = () => {
                     </div>
                 </div>
 
-                <h1 className="text-4xl font-black text-white uppercase mb-4 font-syne tracking-tighter">
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
                     System Activated
                 </h1>
                 <p className="text-white/40 font-mono text-xs uppercase tracking-[0.2em] mb-10 leading-relaxed">

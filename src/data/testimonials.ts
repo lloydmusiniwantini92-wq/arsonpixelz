@@ -1,8 +1,8 @@
-import Architect from '../assets/testimonials/architect.png';
-import Pilot from '../assets/testimonials/pilot.png';
-import Engineer from '../assets/testimonials/engineer.png';
-import Artist from '../assets/testimonials/artist.png';
-import Broker from '../assets/testimonials/broker.png';
+import Architect from '../assets/testimonials/architect.webp';
+import Pilot from '../assets/testimonials/pilot.webp';
+import Engineer from '../assets/testimonials/engineer.webp';
+import Artist from '../assets/testimonials/artist.webp';
+import Broker from '../assets/testimonials/broker.webp';
 
 export interface Testimonial {
     id: string;

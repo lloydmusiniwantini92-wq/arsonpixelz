@@ -104,7 +104,7 @@ export const AboutPage = () => {
 
                 {/* Left Col - Header */}
                 <div className="lg:col-span-8">
-                    <h1 className="hero-title-parallax font-syne font-black text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] uppercase text-[#FFFFFF] mb-12">
+                    <h1 className="hero-title-parallax text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-white mb-12" style={{ fontFamily: 'Syne, sans-serif' }}>
                         We Build <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF3E00] to-[#E63900]"> empires </span> <br />
                         not pages.

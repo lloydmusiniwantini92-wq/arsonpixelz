@@ -17,77 +17,43 @@ export interface ServiceCategory {
 
 export const services: ServiceCategory[] = [
     {
-        id: 'ai-bots',
-        name: 'AI Bots & Automations',
-        description: 'Artificial Intelligence & Workflow Optimization',
+        id: 'design',
+        name: 'DESIGN & CREATIVE',
+        description: 'VISUAL IDENTITY & GRAPHIC OUTPUT',
         tiers: [
             {
-                title: 'The Frontline Agent',
-                price: '$1,500 – $3,500',
-                description: 'Lead Gen & Support for E-commerce, real estate, and local services.',
-                vibe: 'Helpful, immediate, and conversational.',
-                included: ['Custom chatbot (Voiceflow/Botpress)', 'Instagram/WhatsApp integration', 'Automated lead capture', 'Basic human-handoff routing'],
-                turnaround: '1–2 weeks',
-                stripePriceId: 'price_ai_frontline'
+                title: 'The Asset Drop',
+                price: '$1,000 – $2,000 / mo',
+                description: 'Day-to-day graphic assets for solo founders.',
+                vibe: 'Fast, sharp, and flawlessly on-brand.',
+                included: ['Print & Digital marketing assets', 'Social carousels', '1 active request at a time'],
+                turnaround: '48 hours / req',
+                stripePriceId: 'price_design_drop'
             },
             {
-                title: 'The Operations Brain',
-                price: '$5,000 – $10,000',
-                description: 'Internal Workflows for Agencies, law firms, and mid-sized teams.',
-                vibe: 'Invisible, efficient, and hyper-connected.',
-                included: ['Private internal AI assistant (RAG)', 'API automations (Make.com/Zapier)', 'Automated content generation engine'],
-                turnaround: '3–5 weeks',
-                stripePriceId: 'price_ai_brain'
+                title: 'The Digital Canvas',
+                price: '$3,500 – $6,000 / mo',
+                description: 'Conversion-driven UI/UX and ad creatives.',
+                vibe: 'Conversion-driven, pixel-perfect, and iterative.',
+                included: ['Custom vector illustrations', 'UI mockups', 'Pitch decks & Brand guidelines', '2 active requests'],
+                turnaround: '24–48 hours / req',
+                stripePriceId: 'price_design_canvas'
             },
             {
-                title: 'The Autonomous Enterprise',
-                price: '$20,000 – $50,000+',
-                description: 'Agentic Swarms for Enterprise corporations and data-heavy institutions.',
-                vibe: 'Futuristic, deeply integrated, and self-executing.',
-                included: ['Multi-agent swarms', 'Local/Private LLM deployment', 'Action-taking API bots', 'Voice AI for phone calls'],
-                turnaround: '2–3+ months',
-                stripePriceId: 'price_ai_enterprise'
-            }
-        ]
-    },
-    {
-        id: 'seo',
-        name: 'Search Engine Optimization',
-        description: 'Organic Growth & Search Visibility',
-        tiers: [
-            {
-                title: 'The Baseline Index',
-                price: '$750 – $1,500 / mo',
-                description: 'Fixing technical foundations for local businesses and startups.',
-                vibe: 'Foundational, clean, and structurally sound.',
-                included: ['Technical audit', 'On-page optimization (15 pages)', 'Google Business Profile opt', 'Looker Studio reporting'],
-                turnaround: '2 weeks setup',
-                stripePriceId: 'price_seo_baseline'
-            },
-            {
-                title: 'The Organic Engine',
-                price: '$3,000 – $7,000 / mo',
-                description: 'Aggressive growth for scaling SaaS and e-commerce brands.',
-                vibe: 'Aggressive, content-heavy, and growth-obsessed.',
-                included: ['4 long-form blog posts/month', 'Proactive link building (3-5/mo)', 'Competitor gap analysis', 'Schema markup implementation'],
-                turnaround: 'Ongoing',
-                stripePriceId: 'price_seo_engine'
-            },
-            {
-                title: 'The Market Authority',
-                price: '$12,000 – $25,000+ / mo',
-                description: 'Dominating high-volume keywords for enterprise brands.',
-                vibe: 'Omnipresent, data-driven, and authoritative.',
-                included: ['High-tier Digital PR', 'Programmatic SEO', 'A/B testing organic landing pages', 'Fractional Head of SEO'],
-                turnaround: 'Ongoing',
-                stripePriceId: 'price_seo_authority'
+                title: 'The Immersive Aesthetic',
+                price: '$9,000 – $15,000+ / mo',
+                description: 'Boundary-pushing visual design for enterprise.',
+                vibe: 'Limitless, kinetic, and industry-leading.',
+                included: ['Lottie animations & 3D models', 'Packaging dielines', 'Multiple concurrent requests', 'Dedicated Art Director'],
+                turnaround: 'Priority queueing',
+                stripePriceId: 'price_design_immersive'
             }
         ]
     },
     {
         id: 'web-dev',
-        name: 'Website Development',
-        description: 'Digital Real Estate & Web Architecture',
+        name: 'WEBSITE DEVELOPMENT',
+        description: 'DIGITAL REAL ESTATE & WEB ARCHITECTURE',
         tiers: [
             {
                 title: 'The Digital Footprint',
@@ -120,8 +86,8 @@ export const services: ServiceCategory[] = [
     },
     {
         id: 'app-dev',
-        name: 'App Development',
-        description: 'Software Engineering & Mobile Experiences',
+        name: 'APP DEVELOPMENT',
+        description: 'SOFTWARE ENGINEERING & MOBILE EXPERIENCES',
         tiers: [
             {
                 title: 'The Launchpad MVP',
@@ -153,77 +119,77 @@ export const services: ServiceCategory[] = [
         ]
     },
     {
-        id: 'design',
-        name: 'Design & Creative',
-        description: 'Visual Identity & Graphic Output',
+        id: 'digital-architecture',
+        name: 'DIGITAL ARCHITECTURE',
+        description: 'VANGUARD OPERATIONAL BLUEPRINT',
         tiers: [
             {
-                title: 'The Asset Drop',
-                price: '$1,000 – $2,000 / mo',
-                description: 'Day-to-day graphic assets for solo founders.',
-                vibe: 'Fast, sharp, and flawlessly on-brand.',
-                included: ['Print & Digital marketing assets', 'Social carousels', '1 active request at a time'],
-                turnaround: '48 hours / req',
-                stripePriceId: 'price_design_drop'
+                title: 'The Foundational Framework',
+                price: '$1,500 – $3,500',
+                description: 'Core strategic interfaces for expanding digital influence.',
+                vibe: 'Monolithic, immediate, and kinetic.',
+                included: ['High-Fidelity UI Interface', 'Strategic System Integration', 'Curated Data Capture', 'Human-Led Flow'],
+                turnaround: '1–2 weeks',
+                stripePriceId: 'price_ai_frontline'
             },
             {
-                title: 'The Digital Canvas',
-                price: '$3,500 – $6,000 / mo',
-                description: 'Conversion-driven UI/UX and ad creatives.',
-                vibe: 'Conversion-driven, pixel-perfect, and iterative.',
-                included: ['Custom vector illustrations', 'UI mockups', 'Pitch decks & Brand guidelines', '2 active requests'],
-                turnaround: '24–48 hours / req',
-                stripePriceId: 'price_design_canvas'
+                title: 'The Strategic Infrastructure',
+                price: '$5,000 – $10,000',
+                description: 'Deep-layer orchestration for institutional-scale influence.',
+                vibe: 'Invisible, efficient, and monolithically stable.',
+                included: ['Private Knowledge Architecture', 'Structural API Orchestration', 'Autonomous Operational Engines'],
+                turnaround: '3–5 weeks',
+                stripePriceId: 'price_ai_brain'
             },
             {
-                title: 'The Immersive Aesthetic',
-                price: '$9,000 – $15,000+ / mo',
-                description: 'Boundary-pushing visual design for enterprise.',
-                vibe: 'Limitless, kinetic, and industry-leading.',
-                included: ['Lottie animations & 3D models', 'Packaging dielines', 'Multiple concurrent requests', 'Dedicated Art Director'],
-                turnaround: 'Priority queueing',
-                stripePriceId: 'price_design_immersive'
+                title: 'The Executive Monolith',
+                price: '$20,000 – $50,000+',
+                description: 'Autonomous Ecosystems for global entities and market leaders.',
+                vibe: 'Limitless, deeply integrated, and self-executing.',
+                included: ['Complex Ecosystem Orchestration', 'Internal Infrastructure Design', 'Autonomous Execution Engines', 'Interactive Voice Architecture'],
+                turnaround: '2–3+ months',
+                stripePriceId: 'price_ai_enterprise'
             }
         ]
     },
     {
-        id: 'podcast',
-        name: 'Podcast Production',
-        description: 'Media & Content Syndication',
+        id: 'seo',
+        name: 'SEARCH ENGINE OPTIMIZATION',
+        description: 'ORGANIC GROWTH & SEARCH VISIBILITY',
         tiers: [
             {
-                title: 'The Clean Signal',
-                price: '$500 – $1,200 / mo',
-                description: 'Crisp audio-only production for creators.',
-                vibe: 'Crisp, clear, and zero friction.',
-                included: ['Noise reduction & Mastering', 'Stutter removal', 'Intros/Outros', 'AI show notes'],
-                turnaround: '48 hours / ep',
-                stripePriceId: 'price_podcast_signal'
+                title: 'The Baseline Index',
+                price: '$750 – $1,500 / mo',
+                description: 'Fixing technical foundations for local businesses and startups.',
+                vibe: 'Foundational, clean, and structurally sound.',
+                included: ['Technical audit', 'On-page optimization (15 pages)', 'Google Business Profile opt', 'Looker Studio reporting'],
+                turnaround: '2 weeks setup',
+                stripePriceId: 'price_seo_baseline'
             },
             {
-                title: 'The Omnichannel',
-                price: '$2,500 – $5,000 / mo',
-                description: 'Viral-ready video podcasts for social algorithms.',
-                vibe: 'High-visibility, dynamic, and viral-ready.',
-                included: ['Full video syncing & multicam', '3-5 vertical micro-clips', 'YouTube thumbnails & SEO'],
-                turnaround: '3–4 days / ep',
-                stripePriceId: 'price_podcast_omni'
+                title: 'The Organic Engine',
+                price: '$3,000 – $7,000 / mo',
+                description: 'Aggressive growth for scaling SaaS and e-commerce brands.',
+                vibe: 'Aggressive, content-heavy, and growth-obsessed.',
+                included: ['4 long-form blog posts/month', 'Proactive link building (3-5/mo)', 'Competitor gap analysis', 'Schema markup implementation'],
+                turnaround: 'Ongoing',
+                stripePriceId: 'price_seo_engine'
             },
             {
-                title: 'The Network Anchor',
-                price: '$8,000 – $15,000+ / mo',
-                description: 'Hands-off, CHART-TOPPING enterprise production.',
-                vibe: 'Broadcast-quality, immersive, fully managed.',
-                included: ['Bespoke scoring & SFX', 'Motion graphics integration', 'Distribution management', 'Dedicated producer'],
-                turnaround: 'Weekly pipeline',
-                stripePriceId: 'price_podcast_anchor'
+                title: 'The Market Authority',
+                price: '$12,000 – $25,000+ / mo',
+                description: 'Dominating high-volume keywords for enterprise brands.',
+                vibe: 'Omnipresent, data-driven, and authoritative.',
+                included: ['High-tier Digital PR', 'Programmatic SEO', 'A/B testing organic landing pages', 'Fractional Head of SEO'],
+                turnaround: 'Ongoing',
+                stripePriceId: 'price_seo_authority'
             }
         ]
     },
     {
         id: 'paid-media',
-        name: 'Paid Media',
-        description: 'Customer Acquisition & Advertising',
+        name: 'PAID MEDIA',
+        description: 'CUSTOMER ACQUISITION & ADVERTISING',
         tiers: [
             {
                 title: 'The Ignition Package',
@@ -255,9 +221,43 @@ export const services: ServiceCategory[] = [
         ]
     },
     {
+        id: 'podcast',
+        name: 'PODCAST PRODUCTION',
+        description: 'MEDIA & CONTENT SYNDICATION',
+        tiers: [
+            {
+                title: 'The Clean Signal',
+                price: '$500 – $1,200 / mo',
+                description: 'Crisp audio-only production for creators.',
+                vibe: 'Crisp, clear, and zero friction.',
+                included: ['Noise reduction & Mastering', 'Stutter removal', 'Intros/Outros', 'AI show notes'],
+                turnaround: '48 hours / ep',
+                stripePriceId: 'price_podcast_signal'
+            },
+            {
+                title: 'The Omnichannel',
+                price: '$2,500 – $5,000 / mo',
+                description: 'Viral-ready video podcasts for social algorithms.',
+                vibe: 'High-visibility, dynamic, and viral-ready.',
+                included: ['Full video syncing & multicam', '3-5 vertical micro-clips', 'YouTube thumbnails & SEO'],
+                turnaround: '3–4 days / ep',
+                stripePriceId: 'price_podcast_omni'
+            },
+            {
+                title: 'The Network Anchor',
+                price: '$8,000 – $15,000+ / mo',
+                description: 'Hands-off, CHART-TOPPING enterprise production.',
+                vibe: 'Broadcast-quality, immersive, fully managed.',
+                included: ['Bespoke scoring & SFX', 'Motion graphics integration', 'Distribution management', 'Dedicated producer'],
+                turnaround: 'Weekly pipeline',
+                stripePriceId: 'price_podcast_anchor'
+            }
+        ]
+    },
+    {
         id: 'email-marketing',
-        name: 'Email & Retention',
-        description: 'Customer Lifetime Value & Automation',
+        name: 'EMAIL & RETENTION',
+        description: 'CUSTOMER LIFETIME VALUE & AUTOMATION',
         tiers: [
             {
                 title: 'The Welcome Sequence',
@@ -290,8 +290,8 @@ export const services: ServiceCategory[] = [
     },
     {
         id: 'copywriting',
-        name: 'Copywriting',
-        description: 'Conversion Optimization & Voice',
+        name: 'COPYWRITING',
+        description: 'CONVERSION OPTIMIZATION & VOICE',
         tiers: [
             {
                 title: 'The Brand Voice',

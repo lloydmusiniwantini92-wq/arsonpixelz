@@ -10,10 +10,10 @@ interface ProductCardProps {
 }
 
 const categoryTag: Record<string, string> = {
-    template: '/REACT /LIB',
-    font: '/FONTS',
-    agent: '/ENTERPRISE',
-    workflow: '/AUTOMATION',
+    template: '/FRAMEWORK',
+    font: '/TYPOGRAPHY',
+    agent: '/STRATEGY',
+    workflow: '/INFRASTRUCTURE',
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, assetNum }) => {
@@ -28,8 +28,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
         setTimeout(() => setIsAdded(false), 2000);
     };
 
-    const assetLabel = assetNum || `/ASSET_${String(index + 1).padStart(3, '0')}`;
-    const tagLabel = categoryTag[product.category] ?? '/DIGITAL';
+    const assetLabel = assetNum || `SPECIFICATION // ${product.title.split(' ')[0]}`;
+    const tagLabel = categoryTag[product.category] ?? '/COLLECTION';
 
     return (
         <motion.article
@@ -70,9 +70,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 />
 
-                {/* Animated Scanlines */}
+                {/* Animated Scanlines - Minimal purity */}
                 <motion.div
-                    className="absolute inset-0 pointer-events-none opacity-[0.1] z-10 mix-blend-overlay"
+                    className="absolute inset-0 pointer-events-none opacity-[0.05] z-10 mix-blend-overlay"
                     style={{
                         backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.8) 3px, rgba(255,255,255,0.8) 4px)',
                         backgroundSize: '100% 100%'
@@ -117,7 +117,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
                                 transition={{ delay: 0.08 }}
                                 className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/40"
                             >
-                                // HOVER TO ACQUIRE
+                                VIEW DETAILS
                             </motion.span>
                         </motion.div>
                     )}
@@ -158,7 +158,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
                     }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    {isAdded ? '✓ GOT IT' : 'ACQUIRE'}
+                    {isAdded ? '✓ CONFIRMED' : 'SELECT'}
                 </motion.button>
             </div>
         </motion.article>

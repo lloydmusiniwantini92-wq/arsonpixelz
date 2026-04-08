@@ -280,7 +280,7 @@ export const TestimonialsPage: React.FC = () => {
                 <div className="inline-block px-4 py-1 mb-8 border border-[#D16D6A]/40 w-fit">
                     <span className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-[#D16D6A]">/// SIGNAL ECHOES // ENCODED</span>
                 </div>
-                <h1 className="font-syne font-black text-white leading-[0.85] tracking-[-0.03em] uppercase mb-8 drop-shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full text-center" style={{ fontSize: 'clamp(4rem, 8.5vw, 12rem)' }}>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white leading-[0.85] mb-8 drop-shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full text-center" style={{ fontFamily: 'Syne, sans-serif' }}>
                     NETWORK<br />TRAFFIC
                 </h1>
                 <p className="font-mono text-white/30 text-xs md:text-xl max-w-3xl px-6 leading-relaxed">

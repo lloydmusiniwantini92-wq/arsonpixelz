@@ -4,6 +4,7 @@ import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
+import GamingHeroBg from '../assets/images/mg.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -266,11 +267,9 @@ const GamingPage: React.FC = () => {
         <section ref={containerRef} className="relative min-h-screen w-full pb-24 overflow-hidden bg-[#000000] text-[#FFFFFF]">
 
             {/* ── HERO SECTION with homepage-level background ── */}
-            <div className="relative px-6 md:px-12 pt-28 md:pt-32 pb-28 overflow-hidden" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" />
+            <div className="relative px-6 md:px-12 pt-36 md:pt-48 pb-32 overflow-hidden" style={{ background: '#000000', maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}>
+                <PageHeroBackground accentColor="#FF3E00" backgroundImage={GamingHeroBg} />
 
-                {/* Glowing Orbs — preserved above the bg layer */}
-                <div className="absolute top-20 right-20 w-64 h-64 bg-[#FF3E00] rounded-full blur-[120px] opacity-10 animate-pulse z-10" style={{ animationDuration: '6s' }} />
 
                 {/* Decorative Plus Icon */}
                 <div
@@ -281,215 +280,30 @@ const GamingPage: React.FC = () => {
                 </div>
 
                 <div className="relative z-10">
-                    {/* Top Row */}
-                    <div className={`flex items-center justify-between mb-10 md:mb-16 transition-all duration-700 delay-100 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
-                        <div className="inline-block px-6 py-2 rounded-full bg-[#FF3E00] text-white font-mono text-xs font-bold uppercase tracking-[0.3em]">
-                            GAMING
-                        </div>
-                    </div>
 
                     {/* Main Heading */}
                     <div ref={headingRef} className="mb-16 md:mb-24">
-                        <div className="overflow-hidden mb-4">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
-                                GAMING EXPERIENCES
+                        <div className="overflow-hidden mb-8">
+                            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight text-white leading-[0.8]" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
+                                INDUSTRIAL <br /> ENTERTAINMENT
                             </h1>
                         </div>
                         <div className="overflow-hidden">
-                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/20" style={{ fontFamily: 'Syne, sans-serif' }}>
-                                LEVEL UP YOUR VISION
+                            <h2 className="text-xl md:text-2xl font-mono text-white/20 uppercase tracking-[0.5em] font-bold">
+                                LEGACY_WORLD_BUILDING
                             </h2>
                         </div>
                     </div>
 
                     {/* Description */}
                     <div ref={descRef} className="max-w-3xl">
-                        <p className="text-lg md:text-2xl font-mono text-white/70 leading-relaxed border-l-4 border-[#FF3E00] pl-6">
-                            From indie titles to AAA launches, we craft <strong className="text-white">immersive experiences</strong> that
-                            keep players engaged and communities thriving. Your game deserves more than pixels—it deserves artistry.
+                        <p className="text-lg md:text-3xl font-mono text-white/50 leading-relaxed border-l-8 border-[#FF3E00] pl-10 uppercase font-bold">
+                            WE ARCHITECT IMMERSIVE ECOSYSTEMS. FROM INDIE TITLES TO AAA FRANCHISES, WE ENGINEER THE VISUAL NARRATIVES THAT ANCHOR GLOBAL PLAYER COMMUNITIES.
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* Code Watermark — absolutely positioned, no layout impact */}
-            <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none z-0">
-                <pre className="text-[#FF3E00] text-xs leading-relaxed font-mono w-full px-4 text-center">
-                    {`// ARSON PIXELS - GAMING EXPERIENCE ENGINE v7.0
-
-class GameWorld {
-    constructor() {
-        this.players = new Map();
-        this.assets = [];
-        this.immersion = 'maximum';
-    }
-    
-    async render() {
-        const scene = await this.buildScene();
-        const ui = await this.designInterface();
-        const audio = await this.mixSoundscape();
-        return this.launch({ scene, ui, audio });
-    }
-}
-
-const experienceConfig = {
-    graphics: 'ultra',
-    performance: '144fps',
-    engagement: 'addictive',
-    storytelling: 'cinematic'
-};
-
-// CHARACTER SYSTEM
-const characterEngine = {
-    heroes: ['protagonists', 'antiheroes', 'legends'],
-    villains: ['bosses', 'rivals', 'nemesis'],
-    render: async (character) => {
-        await animateMovement();
-        await applyPhysics();
-        return character.spawn();
-    }
-};
-
-// UI/UX FRAMEWORK
-const interfaceSystem = {
-    hud: 'minimalist',
-    menus: 'intuitive',
-    feedback: 'instant',
-    design: async () => {
-        const layout = await createLayout();
-        const animations = await addTransitions();
-        return { layout, animations, responsive: true };
-    }
-};
-
-export const launchGame = async () => {
-    await loadAssets();
-    await initializePhysics();
-    await spawnPlayers();
-    console.log('🎮 Game Status: LIVE');
-};
-
-// ASSET PIPELINE
-const assetForge = {
-    characters: ['models', 'textures', 'animations'],
-    environments: ['worlds', 'levels', 'props'],
-    effects: ['particles', 'shaders', 'lighting'],
-    async optimize(asset) {
-        await compress();
-        await bundle();
-        return asset.deploy();
-    }
-};
-
-// ENGAGEMENT METRICS
-const playerExperience = {
-    retention: 'high',
-    satisfaction: '5-star',
-    replayability: 'infinite',
-    async track() {
-        const metrics = await gatherAnalytics();
-        const feedback = await collectReviews();
-        return { metrics, feedback, improvement: 'continuous' };
-    }
-};
-
-// MARKETING ENGINE
-const campaignLauncher = {
-    hype: 'maximum',
-    community: 'thriving',
-    channels: ['social', 'streaming', 'events'],
-    async ignite(campaign) {
-        await buildTrailers();
-        await createKeyArt();
-        await engageCommunity();
-        return { status: 'viral', reach: 'global' };
-    }
-};
-
-// INTERACTIVE LAYER
-const interactiveExperience = {
-    web: ['playables', 'demos', 'minigames'],
-    ar: ['filters', 'experiences', 'promotions'],
-    async deploy(experience) {
-        await optimize();
-        await test();
-        return experience.launch();
-    }
-};
-
-export const gameLoop = () => {
-    while (playing) {
-        update();
-        render();
-        handleInput();
-        checkWinCondition();
-    }
-};
-
-// ACHIEVEMENT SYSTEM
-const achievements = {
-    unlocked: [],
-    total: 100,
-    async award(achievement) {
-        achievements.unlocked.push(achievement);
-        await showNotification();
-        return { unlocked: true, reward: 'legendary' };
-    }
-};
-
-`.repeat(20)}
-                </pre>
-            </div>
-
-            {/* Additional Code Layers for Full Coverage */}
-            <div className="absolute inset-0 overflow-hidden opacity-[0.04] pointer-events-none">
-                <div className="grid grid-cols-3 gap-6 w-full h-full p-6">
-                    {/* Left Column */}
-                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono">
-                        {`const leftPlayer = {
-  health: 100,
-  level: 'max',
-  power: 'infinite'
-};
-
-async function spawnLeft() {
-  return await render();
-}
-
-export default leftPlayer;`.repeat(50)}
-                    </pre>
-
-                    {/* Center Column */}
-                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono">
-                        {`const gameCore = {
-  status: 'active',
-  fps: 144,
-  quality: 'ultra'
-};
-
-async function runGame() {
-  return await play();
-}
-
-export default gameCore;`.repeat(50)}
-                    </pre>
-
-                    {/* Right Column */}
-                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono">
-                        {`const rightAsset = {
-  loaded: true,
-  optimized: 'yes',
-  render: 'ready'
-};
-
-async function loadRight() {
-  return await spawn();
-}
-
-export default rightAsset;`.repeat(50)}
-                    </pre>
-                </div>
-            </div>
 
             {/* Animated Grid Background */}
             <div ref={bgGridRef} className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -498,43 +312,35 @@ export default rightAsset;`.repeat(50)}
                 />
             </div>
 
-            {/* Glowing Orbs */}
-            <div className="absolute top-20 right-20 w-64 h-64 bg-[#FF3E00] rounded-full blur-[120px] opacity-20 animate-pulse" style={{ animationDuration: '6s' }} />
-            <div className="absolute bottom-40 left-20 w-96 h-96 bg-[#FF3E00] rounded-full blur-[150px] opacity-15 animate-pulse" style={{ animationDuration: '10s' }} />
 
             <div className="relative z-10 px-6 md:px-12">
 
                 {/* Services Grid */}
                 <div ref={cardsRef} className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">
                     {services.map((service, idx) => (
-                        <div key={idx} className="gaming-card group h-full relative overflow-hidden flex flex-col justify-between bg-[#0A0A0A] border border-white/10 rounded-xl p-8 hover:border-[#FF3E00]/60 transition-colors duration-300">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF3E00]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div key={idx} className="gaming-card group h-[450px] relative overflow-hidden flex flex-col justify-end bg-[#0A0A0A] border border-white/10 p-10 hover:border-[#FF3E00]/60 transition-all duration-700">
+                            <img 
+                                src="/gaming_monolith.webp"
+                                alt={service.title}
+                                className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-1000 grayscale group-hover:grayscale-0"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
 
-                            <div className="relative z-10">
-                                <div className="inline-block mb-4 px-3 py-1 rounded bg-[#FF3E00]/10 border border-[#FF3E00]/30">
-                                    <span className="font-mono text-[#FF3E00] font-bold text-xs">
-                                        LVL {idx + 1}
-                                    </span>
-                                </div>
-
-                                <h3 className="text-2xl font-black uppercase mb-4 text-white group-hover:text-[#FF3E00] transition-colors leading-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+                            <div className="relative z-20">
+                                <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-white leading-none" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.010em' }}>
                                     {service.title}
                                 </h3>
 
-                                <p className="text-sm font-mono text-white/50 leading-relaxed mb-6">
+                                <p className="text-md font-mono text-white/50 leading-relaxed mb-10 font-bold uppercase">
                                     {service.description}
                                 </p>
 
                                 <button
                                     onClick={() => handleCheckout(service.stripePriceId)}
-                                    className="w-full py-3 rounded-md bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#FF3E00] hover:text-white transition-all transform active:scale-95"
+                                    className="px-10 py-5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#FF3E00] hover:text-white transition-all transform active:scale-95"
                                 >
-                                    INITIALIZE QUEST
+                                    Force Protocol
                                 </button>
-
-                                <div className="mt-6 h-2 bg-white/5 rounded-full overflow-hidden">
-                                    <div className="h-full bg-gradient-to-r from-[#FF3E00] to-[#E63900] scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left" />
-                                </div>
                             </div>
                         </div>
                     ))}
@@ -563,7 +369,7 @@ export default rightAsset;`.repeat(50)}
 
                 {/* CTA */}
                 <div ref={ctaRef} className={`
-                    relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#FF3E00] to-[#E63900]
+                    relative p-8 md:p-14 rounded-2xl bg-gradient-to-br from-[#FF3E00] to-[#E63900]
                     overflow-hidden
                 `}>
 
@@ -573,7 +379,7 @@ export default rightAsset;`.repeat(50)}
 
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div>
-                            <h3 className="text-3xl md:text-4xl font-black uppercase mb-4 text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                            <h3 className="text-3xl md:text-5xl font-black uppercase mb-4 text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 READY PLAYER ONE?
                             </h3>
                             <p className="text-white/80 font-mono text-lg max-w-xl">

@@ -4,6 +4,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
+import devAIHero from '../assets/images/DevAI/DEVAIhero.jpg';
+import devAI1 from '../assets/images/DevAI/Dev1.jpg';
+import devAI2 from '../assets/images/DevAI/Dev2.jpg';
+import devAI3 from '../assets/images/DevAI/Dev3.jpg';
+import devAI4 from '../assets/images/DevAI/DEVAI1.jpg';
+import brutalistBg from '../assets/images/DevAI/contact_brutalist_bg.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -140,7 +146,8 @@ const DevAIPage: React.FC = () => {
             subtitle: "The Foundation",
             description: "Scalable, maintainable, blazing-fast. We don't just build websites; we architect complex digital ecosystems capable of handling millions of concurrent operations without breaking a sweat.",
             deliverables: ["React / Next.js Architecture", "Scalable Node/Python Backends", "Custom API Development", "High-Availability Cloud Hosting"],
-            stripePriceId: 'price_mock_dev_web'
+            stripePriceId: 'price_mock_dev_web',
+            image: devAI1
         },
         {
             id: "02",
@@ -148,7 +155,8 @@ const DevAIPage: React.FC = () => {
             subtitle: "The Conversion Machine",
             description: "We engineer high-performance retail experiences. From custom headless commerce solutions to heavily optimized Shopify Plus builds, we design systems tailored purely for transaction volume and conversion.",
             deliverables: ["Headless Commerce Builds", "Custom Shopify Theme Dev", "Complex Inventory Syncing", "Conversion Rate Optimization"],
-            stripePriceId: 'price_mock_dev_ecommerce'
+            stripePriceId: 'price_mock_dev_ecommerce',
+            image: devAI2
         },
         {
             id: "03",
@@ -156,7 +164,8 @@ const DevAIPage: React.FC = () => {
             subtitle: "The Mobile Experience",
             description: "Deploy uncompromising performance directly to your users' hands. We build native-feeling, high-fidelity applications that bridge the gap between utility and obsession.",
             deliverables: ["React Native Development", "iOS/Android Deployment", "Offline-First Architecture", "App Store Optimization"],
-            stripePriceId: 'price_mock_dev_mobile'
+            stripePriceId: 'price_mock_dev_mobile',
+            image: devAI3
         },
         {
             id: "04",
@@ -164,52 +173,55 @@ const DevAIPage: React.FC = () => {
             subtitle: "The Force Multiplier",
             description: "Harness cognitive computation. We integrate cutting-edge machine learning protocols into your business, automating workflows and deploying intelligent predictive models that operate 24/7.",
             deliverables: ["Custom LLM Integration", "Automated Workflows", "Predictive Analytics Models", "Conversational AI Interfaces"],
-            stripePriceId: 'price_mock_dev_ai'
+            stripePriceId: 'price_mock_dev_ai',
+            image: devAI4
         },
     ];
 
     const processes = [
-        { num: "I", title: "THE ARCHITECTURE", desc: "We map the data relationships, API structures, and technological stack required to support your long-term operational scale." },
-        { num: "II", title: "THE COMPILATION", desc: "Our engineers write clean, typed, modular code. We build in isolated environments, ensuring no systemic failures affect the entire platform." },
-        { num: "III", title: "THE DEPLOYMENT", desc: "Rigorous QA, automated testing, and CI/CD pipelines guarantee a flawless rollout to the production environment." }
+        { num: "I", title: "STRUCTURAL DOMINATION", desc: "WE ARCHITECT THE DATA RELATIONSHIPS AND API INFRASTRUCTURE REQUIRED TO SUPPORT UNRELENTING OPERATIONAL SCALE. NO WEAK POINTS. NO OVERHEAD." },
+        { num: "II", title: "PURE COMPILATION", desc: "CLEAN, TYPED, MODULAR EXECUTION. WE BUILD IN ISOLATED ENVIRONMENTS, ENSURING SYSTEMIC INTEGRITY ACROSS THE ENTIRE PLATFORM ECOSYSTEM." },
+        { num: "III", title: "ABSOLUTE IGNITION", desc: "RIGOROUS QA AND CI/CD PIPELINES GUARANTEE A FLAWLESS ROLLOUT. WE DEPLOY SYSTEMS THAT DO NOT JUST RUN; THEY DOMINATE." }
     ];
 
     return (
         <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden bg-[#000000] text-[#FFFFFF]">
             
             {/* HER0 HEADER */}
-            <div className="relative pt-28 md:pt-32 pb-28 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" />
-                {/* Background Code Watermark — sits above bg image but behind text */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-[0.04] pointer-events-none select-none z-[5] flex items-start justify-center">
-                    <pre className="text-[#FF3E00] text-[10px] leading-relaxed font-mono w-full px-4 text-center">
-                        {`// ARSON_PROTOCOL - ENGINE_v4.0
-const buildTheFuture = () => ({
-    frontend: ['React', 'Next.js', 'TypeScript'],
-    backend: ['Node', 'Python', 'GraphQL'],
-    cloud: ['AWS', 'Vercel', 'Cloudflare'],
-});`.repeat(30)}
-                    </pre>
-                </div>
+            <div className="relative pt-36 md:pt-48 pb-32 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden h-screen flex flex-col justify-center" style={{ background: '#000000' }}>
+                <PageHeroBackground accentColor="#FF3E00" backgroundImage={devAIHero} />
                 <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="inline-block px-4 py-1 mb-8 border border-white/20">
-                    <span className="font-mono text-xs font-black uppercase tracking-[0.25em] text-white/40">Sector // Dev + AI</span>
-                    </div>
-                    <h1 className="hero-title text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.8] mb-8 text-white italic">
+                    <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight leading-[0.8] mb-10 text-white" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
                         DIGITAL <br />
                         <span className="text-[#FF3E00]">ARCHITECTURE</span>
                     </h1>
-                    <p className="hero-desc text-xl md:text-3xl font-syne font-medium text-white/50 max-w-4xl border-l-4 border-[#FF3E00] pl-6 uppercase tracking-tight">
-                        A beautiful flame needs a solid structure to sustain it. We build robust, scalable platforms powered by cutting-edge tech.
+                    <p className="hero-desc text-lg md:text-3xl font-mono text-white/50 max-w-5xl border-l-8 border-[#FF3E00] pl-10 uppercase font-bold">
+                        A BEAUTIFUL FLAME NEEDS A SOLID STRUCTURE TO SUSTAIN IT. WE ARCHITECT ROBUST, SCALABLE PLATFORMS POWERED BY ABSOLUTE ENGINEERING.
                     </p>
                 </div>
             </div>
-
-            {/* PHILOSOPHY SECTION */}
-            <div className="py-24 md:py-32 bg-[#000000] text-white relative z-10 border-t border-b border-white/5">
+            
+            {/* CONTENT START: BELOW HERO */}
+            <div className="relative overflow-visible">
+                {/* Continuous Page Texture / Small Mask Layer */}
+                <div 
+                    className="absolute inset-0 z-0 opacity-[0.12] pointer-events-none"
+                    style={{ 
+                        backgroundImage: `url(${brutalistBg})`, 
+                        backgroundSize: 'cover', 
+                        backgroundPosition: 'top center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundAttachment: 'fixed',
+                        filter: 'contrast(1.3) brightness(0.6)'
+                    }} 
+                />
+                
+                <div className="relative z-10">
+                    {/* PHILOSOPHY SECTION */}
+                    <div className="py-24 md:py-32 bg-transparent text-white relative z-10 border-t border-b border-white/5">
                 <div className="max-w-[90rem] mx-auto px-6 md:px-12">
                     <ScrollReveal staggerIndex={0}>
-                        <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-12 text-white/90">
+                        <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tight mb-12 text-white/90" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
                             SCALABILITY IS <span className="text-[#FF3E00]">NOT OPTIONAL.</span>
                         </h2>
                     </ScrollReveal>
@@ -231,9 +243,9 @@ const buildTheFuture = () => ({
             {/* CAPABILITIES DEEP DIVE */}
             <div className="py-32 px-6 md:px-12 max-w-[90rem] mx-auto relative z-10">
                 <ScrollReveal staggerIndex={0}>
-                    <div className="mb-24">
-                        <h2 className="text-sm font-mono font-black tracking-[0.4em] uppercase text-[#FF3E00] mb-4">Engineering Capabilities</h2>
-                        <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">Stack & Infrastructure</h3>
+                    <div className="mb-32">
+                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#FF3E00] mb-6">Engineering Capabilities</h2>
+                        <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tight" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>Stack & Infrastructure</h3>
                     </div>
                 </ScrollReveal>
 
@@ -242,13 +254,16 @@ const buildTheFuture = () => ({
                         <div key={cap.id} className={`capability-blade grid lg:grid-cols-12 gap-12 items-center w-full will-change-transform ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
                             
                             {/* Visual Abstract side */}
-                            <div className={`lg:col-span-5 h-[400px] border border-white/5 bg-[#050505] relative overflow-hidden flex items-center justify-center p-8 group w-full ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
-                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:1rem_1rem]"></div>
-                                <span className="text-[12rem] font-black text-white/5 font-mono select-none transition-transform duration-700 group-hover:scale-110">{cap.id}</span>
-                                
-                                {/* Tech scanner effect */}
-                                <div className="absolute inset-x-0 h-[1px] bg-[#FF3E00]/50 shadow-[0_0_10px_#FF3E00] animate-[scan_3s_linear_infinite]"></div>
-                            </div>
+                            {/* Visual Side */}
+                             <div className={`lg:col-span-5 h-[500px] border border-white/5 bg-[#050505] relative overflow-hidden flex items-center justify-center group w-full ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
+                                 <img 
+                                    src={cap.image}
+                                    alt={cap.title}
+                                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-105"
+                                 />
+                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
+                                 <div className="relative z-20 text-[12rem] font-black text-white/5 font-mono select-none transition-transform duration-1000 group-hover:scale-110">{cap.id}</div>
+                             </div>
 
                             {/* Content Side */}
                             <div className={`lg:col-span-7 flex flex-col w-full ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
@@ -256,13 +271,13 @@ const buildTheFuture = () => ({
                                     <span className="font-mono text-sm font-black text-[#FF3E00] tracking-widest">{`<${cap.id} />`}</span>
                                     <span className="font-mono text-[10px] tracking-[0.4em] uppercase opacity-30">{cap.subtitle}</span>
                                 </div>
-                                <h4 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-8 italic">{cap.title}</h4>
+                                 <h4 className="text-4xl md:text-6xl font-black uppercase tracking-tight mb-8" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>{cap.title}</h4>
                                 <p className="text-lg font-mono text-white/50 leading-relaxed mb-10 max-w-2xl uppercase tracking-wider text-xs">
                                     {cap.description}
                                 </p>
                                 
                                 <div className="mb-12">
-                                    <h5 className="font-black text-[10px] font-mono uppercase tracking-[0.3em] text-white/20 mb-6 border-b border-white/5 pb-3">Technical Deliverables:</h5>
+                                     <h5 className="font-black text-sm font-mono uppercase tracking-[0.3em] text-[#FF3E00] mb-6 border-b border-white/5 pb-3">Scope of Work:</h5>
                                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         {cap.deliverables.map((item, i) => (
                                             <li key={i} className="flex items-center space-x-3 text-[11px] font-mono text-white/40 uppercase tracking-widest">
@@ -287,48 +302,44 @@ const buildTheFuture = () => ({
                 </div>
             </div>
 
-            {/* METHODOLOGY SECTION */}
-            <div className="bg-[#000000] border-t border-white/5 py-32 px-6 md:px-12 overflow-hidden relative z-10">
-                <div className="max-w-[90rem] mx-auto">
-                    <ScrollReveal staggerIndex={0}>
-                        <div className="mb-20">
-                            <h2 className="text-sm font-mono font-black tracking-[0.4em] uppercase text-[#FF3E00] mb-4">The Methodology</h2>
-                            <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">Build Sequence</h3>
-                        </div>
-                    </ScrollReveal>
-
-                    <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
-                        <div className="hidden md:block absolute top-[40px] left-0 w-full h-[1px] border-t border-dashed border-white/10 -z-10"></div>
-                        {processes.map((step, index) => (
-                            <ScrollReveal key={step.num} staggerIndex={index + 1}>
-                                <div className="bg-[#050505] p-10 md:p-12 border border-white/5 hover:border-[#FF3E00]/40 transition-all duration-500 h-full flex flex-col group">
-                                    <div className="w-20 h-20 bg-[#FF3E00]/5 text-[#FF3E00] font-black font-mono flex items-center justify-center text-xl mb-10 border border-[#FF3E00]/10 group-hover:bg-[#FF3E00] group-hover:text-black transition-all duration-500">
-                                        {'/* ' + step.num + ' */'}
-                                    </div>
-                                    <h4 className="text-2xl font-black uppercase mb-6 tracking-tight italic">{step.title}</h4>
-                                    <p className="font-mono text-[11px] text-white/40 leading-relaxed uppercase tracking-widest flex-grow">
-                                        {step.desc}
-                                    </p>
+                    {/* METHODOLOGY SECTION */}
+                    <div className="py-24 md:py-32 bg-[#FF3E00] text-black relative z-10 border-t border-b border-black/10">
+                        <div className="max-w-[90rem] mx-auto px-6 md:px-12">
+                            <ScrollReveal staggerIndex={0}>
+                                <div className="mb-20">
+                                    <h2 className="text-sm font-mono font-black tracking-[0.4em] uppercase text-white/80 mb-4 inline-block border-b-2 border-white/20 pb-1">The Engine</h2>
+                                    <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-black">Beast Mode Protocols</h3>
                                 </div>
                             </ScrollReveal>
-                        ))}
+
+                            <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative">
+                                <div className="hidden md:block absolute top-[40px] left-0 w-full h-[1px] border-t border-dashed border-black/20 -z-10"></div>
+                                {processes.map((step, index) => (
+                                    <ScrollReveal key={step.num} staggerIndex={index + 1}>
+                                        <div className="bg-black/5 p-10 md:p-12 border border-black/10 hover:border-black/30 transition-all duration-500 h-full flex flex-col group">
+                                            <div className="w-20 h-20 bg-white text-black font-black font-mono flex items-center justify-center text-xl mb-10 border border-black/10 group-hover:bg-black group-hover:text-[#FF3E00] transition-all duration-500">
+                                                {'/* ' + step.num + ' */'}
+                                            </div>
+                                            <h4 className="text-2xl font-black uppercase mb-6 tracking-tight text-black">{step.title}</h4>
+                                            <p className="font-mono text-[11px] text-black/70 leading-relaxed uppercase tracking-widest flex-grow font-bold">
+                                                {step.desc}
+                                            </p>
+                                        </div>
+                                    </ScrollReveal>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* BOTTOM CTA */}
-            <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-32 pt-16 relative z-10">
-                <div ref={ctaRef} className="relative p-12 md:p-24 bg-[#FF3E00] overflow-hidden">
+            <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16 pt-16 relative z-30">
+                <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#FF3E00] overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
-                    
-                    <div className="absolute top-0 right-0 p-10 opacity-20">
-                    <pre className="font-mono text-[10px] text-black font-black uppercase tracking-widest">
-                            {'status: "WAITING_FOR_INPUT"\nlatency: "0ms"\nprotocol: "TERMINAL_AWAKE"'}
-                        </pre>
-                    </div>
 
                     <div className="relative z-10 max-w-2xl">
-                        <h3 className="text-4xl md:text-6xl font-black uppercase mb-8 text-black leading-[0.85] tracking-tighter italic">
+                        <h3 className="text-3xl md:text-5xl font-black uppercase mb-8 text-black leading-[0.85] tracking-tighter">
                             SYSTEMS ONLINE.
                         </h3>
                         <p className="text-black/80 font-syne font-bold text-xl mb-12 uppercase tracking-tight leading-tight">
@@ -341,14 +352,11 @@ const buildTheFuture = () => ({
                         </a>
                     </div>
                 </div>
-            </div>
 
-            <style>{`
-                @keyframes scan { 
-                    0% { transform: translateY(-200px); } 
-                    100% { transform: translateY(600px); } 
-                }
-            `}</style>
+                <style>{`
+                    .perspective-[2000px] { perspective: 2000px; }
+                `}</style>
+            </div>
         </section>
     );
 };

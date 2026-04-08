@@ -38,7 +38,7 @@ export const LegalPage = () => {
                     <span className="font-mono text-xs font-black tracking-[0.25em] uppercase text-[#FF3E00] block mb-6">
                         Sector 7G // Compliance Link
                     </span>
-                    <h1 className="font-syne font-black text-6xl md:text-9xl uppercase text-white leading-none tracking-tighter italic">
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white italic leading-none" style={{ fontFamily: 'Syne, sans-serif' }}>
                         Legal <br /> Protocols
                     </h1>
                 </div>

@@ -1,30 +1,34 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
-import { XMarkIcon, ArrowRightIcon, ShoppingBagIcon, SignalIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, ShoppingBagIcon, SignalIcon } from "@heroicons/react/24/outline";
 import { useCart } from "../context/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { useIgnition } from "./layout/IgnitionRuntime";
 
 // --- ASSETS ---
-import PLogo from './assets/p.png';
-
-// --- THEME CONFIGURATION ---
-// Site is now strictly 'Digital Monolith' (Absolute Black). Legacy light theme logic purged.
+import PLogo from './assets/p.webp';
+import FullLogo from './assets/p.webp';
 
 // --- Helpers ---
 const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(" ");
 
-// --- ICONS (Memoized) ---
-const MarketingIcon = memo(({ className }: { className?: string }) => (
+// --- HIGH-FIDELITY TECHNICAL ICONS (RECONSTRUCTED) ---
+const MarketingIcon = memo(({ className, scrolled }: { className?: string; scrolled?: boolean }) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden="true">
         <rect x="3" y="4" width="18" height="14" rx="2" vectorEffect="non-scaling-stroke" />
         <path d="M3 9h18" strokeOpacity="0.5" vectorEffect="non-scaling-stroke" />
-        <path d="M7 14l3 3l3-3l4 4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-        <path d="M17 14v4h-4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+        <path d="M7 14l3 3l3-3l4 4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" 
+            style={{ transform: !scrolled ? 'translateY(-3px)' : 'none', transition: 'transform 0.5s ease' }} 
+        />
+        <path d="M17 14v4h-4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke"
+            style={{ transform: !scrolled ? 'translateY(-3px)' : 'none', transition: 'transform 0.5s ease' }} 
+        />
     </svg>
 ));
 MarketingIcon.displayName = 'MarketingIcon';
 
-const BrandingIcon = memo(({ className }: { className?: string }) => (
+const BrandingIcon = memo(({ className, scrolled }: { className?: string; scrolled?: boolean }) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden="true">
         <path d="M5 8V5H8" strokeLinecap="square" vectorEffect="non-scaling-stroke" />
         <path d="M19 8V5H16" strokeLinecap="square" vectorEffect="non-scaling-stroke" />
@@ -36,7 +40,7 @@ const BrandingIcon = memo(({ className }: { className?: string }) => (
 ));
 BrandingIcon.displayName = 'BrandingIcon';
 
-const GamingIcon = memo(({ className }: { className?: string }) => (
+const GamingIcon = memo(({ className, scrolled }: { className?: string; scrolled?: boolean }) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden="true">
         <path d="M10 3H14V9H20V13H14V19H10V13H4V9H10V13H4V9H10V13H4V9H10V3Z" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         <circle cx="12" cy="11" r="1" className="opacity-40" fill="currentColor" stroke="none" />
@@ -44,7 +48,7 @@ const GamingIcon = memo(({ className }: { className?: string }) => (
 ));
 GamingIcon.displayName = 'GamingIcon';
 
-const DevAiIcon = memo(({ className }: { className?: string }) => (
+const DevAiIcon = memo(({ className, scrolled }: { className?: string; scrolled?: boolean }) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden="true">
         <path d="M7 8l-4 4l4 4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         <path d="M17 8l4 4l-4 4" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
@@ -55,7 +59,7 @@ const DevAiIcon = memo(({ className }: { className?: string }) => (
 ));
 DevAiIcon.displayName = 'DevAiIcon';
 
-const ShopIcon = memo(({ className }: { className?: string }) => (
+const ShopIcon = memo(({ className, scrolled }: { className?: string; scrolled?: boolean }) => (
     <ShoppingBagIcon className={className} strokeWidth={1.5} />
 ));
 ShopIcon.displayName = 'ShopIcon';
@@ -99,31 +103,184 @@ const ScrambleText = memo(({ text, active, className }: { text: string; active: 
 
     return <span className={className}>{display}</span>;
 });
-ScrambleText.displayName = 'ScrambleText';
 
-// --- NAV LINK COMPONENT ---
+// --- METADATA STREAM (SHUFFLING DATA NODES) ---
+const MetadataStream = memo(({ active }: { active: boolean }) => {
+    const [data, setData] = useState("0x000000");
+    useEffect(() => {
+        if (!active) return;
+        const interval = setInterval(() => {
+            const hex = Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0').toUpperCase();
+            setData(`0x${hex}`);
+        }, 100);
+        return () => clearInterval(interval);
+    }, [active]);
+    return <span className="font-mono text-[8px] tracking-[0.2em] opacity-40">{data}</span>;
+});
+MetadataStream.displayName = 'MetadataStream';
+
+// --- SECTOR SURVEILLANCE OVERLAY ---
+const SectorSurveillance = memo(({ active }: { active: boolean }) => {
+    return (
+        <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+            <motion.div 
+                animate={active ? { top: ["0%", "100%"] } : { top: ["0%", "0%"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                className="absolute left-0 w-full h-[1px] bg-[#FF3E00]/60 shadow-[0_0_15px_#FF3E00]"
+            />
+            <div className="absolute top-4 left-4 flex gap-1 animate-pulse">
+                <div className="w-1 h-3 bg-[#FF3E00]/40" />
+                <div className="w-4 h-[1px] bg-[#FF3E00]/40 self-center" />
+            </div>
+            <div className="absolute bottom-4 right-4 flex flex-col items-end opacity-20">
+                <span className="font-mono text-[8px]">FEED_ACTIVE // PORT_8080</span>
+                <div className="w-12 h-[1px] bg-[#FF3E00]" />
+            </div>
+        </div>
+    );
+});
+SectorSurveillance.displayName = 'SectorSurveillance';
+
+// --- SYSTEM HUD (CENTRAL DATA CORE) ---
+const SystemHUD = memo(({ active }: { active: boolean }) => {
+    const [status, setStatus] = useState("SYNC_STATUS: ACTIVE");
+    useEffect(() => {
+        const statuses = ["SYNC_STATUS: ACTIVE", "PROTOCOL: DIVISION_1", "ENCRYPTION: HIGH", "LATENCY: 12ms", "BUFFER: STABLE"];
+        const interval = setInterval(() => {
+            setStatus(statuses[Math.floor(Math.random() * statuses.length)]);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="hidden lg:flex flex-col items-center justify-center -translate-y-1">
+            <div className="font-mono text-[8px] tracking-[0.6em] text-[#FF3E00] uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,62,0,0.4)]">
+                {status}
+            </div>
+            <div className="flex items-center gap-1">
+                {[...Array(12)].map((_, i) => (
+                    <div key={i} className="w-1 h-[2px] bg-white opacity-20" />
+                ))}
+            </div>
+        </div>
+    );
+});
+SystemHUD.displayName = 'SystemHUD';
+
+// --- HIGH-FIDELITY ORGANIC INTERNAL FIRE (BONE-DEEP) ---
+const ArsonInternalBurn = memo(({ active, dissipating }: { active: boolean; dissipating: boolean }) => (
+    <AnimatePresence>
+        {(active || dissipating) && (
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={dissipating ? { 
+                    opacity: 0, scale: 1.2, filter: "blur(20px)",
+                    transition: { duration: 1.2, ease: "easeOut" }
+                } : { 
+                    opacity: 1, scale: 1,
+                    transition: { duration: 0.8 }
+                }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-[-20px] z-1 pointer-events-none"
+            >
+                <div 
+                    className="absolute inset-0"
+                    style={{ 
+                        background: 'linear-gradient(45deg, #FF3E00, #FFFFFF, #FF3E00)',
+                        backgroundSize: '200% 200%',
+                        animation: 'arson-burn 3s linear infinite',
+                        filter: 'url(#arson-fire-filter)',
+                        mixBlendMode: 'screen'
+                    }} 
+                />
+            </motion.div>
+        )}
+    </AnimatePresence>
+));
+
+const HeatRipple = memo(({ active }: { active: boolean }) => (
+  <AnimatePresence>
+    {active && (
+      <motion.div
+        initial={{ right: '-12vw', opacity: 0 }}
+        animate={{
+          right: '108vw',
+          opacity: [0, 0.35, 0.9, 0.55, 0],
+          scaleX: [0.8, 1, 1.08, 1.15],
+        }}
+        exit={{ opacity: 0 }}
+        transition={{
+          duration: 1.8,
+          ease: [0.22, 0.8, 0.22, 1],
+        }}
+        className="fixed top-0 h-20 z-[9997] pointer-events-none"
+      >
+        <div className="relative h-full w-[24vw] min-w-[240px] overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-l from-[#FF3E00]/0 via-[#FF3E00]/55 to-cyan-300/0 blur-2xl" />
+          <div className="absolute inset-y-0 left-1/2 w-[2px] bg-cyan-300/70 blur-[1px]" />
+          <div className="absolute inset-0 backdrop-blur-[10px] border-l border-cyan-300/30 border-r border-[#FF3E00]/40 skew-x-[-24deg]" />
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+));
+
+const ScanlineEffect = memo(() => (
+    <div className="absolute inset-0 pointer-events-none z-[99] opacity-[0.03]"
+        style={{
+            background: `linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))`,
+            backgroundSize: `100% 2px, 3px 100%`
+        }}
+    />
+));
+ScanlineEffect.displayName = 'ScanlineEffect';
+
+
+// --- NAV LINK COMPONENT (SECTOR HORIZON) ---
 const TopNavLink = memo(({ 
     label, href, icon: Icon, isActive, isHUDActive, hudIntensity,
-    cartCount = 0, onCartClick
+    scrolled, isHome, index,
+    cartCount = 0, onCartClick,
+    isArsonInfected = false,
+    isAshy = false,
+    arsonStatus = 'idle',
+    offsetX = 0,
+    offsetY = 0
 }: {
     label: string;
     href: string;
-    icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+    icon: React.ComponentType<{ className?: string; style?: React.CSSProperties; scrolled?: boolean }>;
     isActive: boolean;
     isHUDActive: boolean;
     hudIntensity: number;
+    scrolled: boolean;
+    isHome: boolean;
+    index: number;
     cartCount?: number;
     onCartClick?: (e: React.MouseEvent) => void;
+    isArsonInfected?: boolean;
+    isAshy?: boolean;
+    arsonStatus?: string;
+    offsetX?: number;
+    offsetY?: number;
 }) => {
     const [hovered, setHovered] = useState(false);
     const location = useLocation();
+
+    // ── CALC GHOST SCALE ────────────────────────────────────────────────────
+    // index 4 (Shop)    -> 1.8
+    // index 3 (Gaming)  -> 1.55
+    // index 2 (Market)  -> 1.3
+    // index 1 (Dev/AI)  -> 1.05
+    // index 0 (Brand)   -> 0.8
+    const ghostScale = 0.8 + (index * 0.25); 
 
     const handleMouseEnter = useCallback(() => setHovered(true), []);
     const handleMouseLeave = useCallback(() => setHovered(false), []);
 
     const isShop = label.toLowerCase() === 'shop';
     const hasItems = isShop && cartCount > 0;
-    const isRevealed = hovered || isActive || hasItems;
+    const isHeroState = location.pathname === '/' && !scrolled;
 
     const handleClick = (e: React.MouseEvent) => {
         if (isShop && location.pathname === '/shop' && onCartClick) {
@@ -136,74 +293,100 @@ const TopNavLink = memo(({
         <Link
             to={href}
             className={cn(
-                "group relative flex items-center justify-center gap-3 px-10 h-full transition-all duration-500 overflow-hidden pointer-events-auto",
-                "text-white"
+                "group relative flex flex-col items-center justify-center px-8 md:px-12 h-full transition-all duration-500 pointer-events-auto",
+                isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]" : "text-white",
+                isHeroState && "gap-1"
             )}
+            style={{ transform: `translate(${offsetX}px, ${offsetY}px)` }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
             aria-label={label}
         >
-            {/* Elegant Hover Glow / OS Scanline background */}
-            <div className={cn(
-                "absolute inset-0 bg-gradient-to-t from-[#FF3E00]/[0.15] to-transparent transition-opacity duration-700 ease-out",
-                isRevealed ? "opacity-100" : "opacity-0"
-            )}>
-                <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(0deg, transparent 50%, rgba(255,62,0,0.3) 50%)', backgroundSize: '100% 4px', mixBlendMode: 'overlay' }} />
-            </div>
-            
-            <div className={cn(
-                "relative z-10 flex items-center gap-2.5 transition-transform duration-500 will-change-transform",
-                isRevealed ? "-translate-y-0.5" : "translate-y-0"
-            )}>
-                <Icon className={cn(
-                    "w-[14px] h-[14px] transition-all duration-500",
-                    isRevealed ? "text-[#FF3E00] drop-shadow-[0_0_8px_rgba(255,62,0,1)] scale-110" : "text-white opacity-80 group-hover:opacity-100 group-hover:text-white"
-                )} />
-                <span className={cn(
-                    "font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] whitespace-nowrap transition-all duration-500 relative text-white",
-                    isRevealed ? "drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" : "opacity-100"
+            <AnimatePresence>
+                {isArsonInfected && (
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ 
+                            opacity: 0, 
+                            scale: [0.6, ghostScale, ghostScale * 1.1, ghostScale * 1.2],
+                            filter: ["blur(4px)", "blur(0px)", "blur(8px)", "blur(20px)"]
+                        }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute inset-[-40px] z-[5] pointer-events-none flex items-center justify-center"
+                    >
+                         <img 
+                            src={PLogo} 
+                            alt="" 
+                            className="w-full h-full object-contain mix-blend-screen brightness-0 invert" 
+                            style={{ opacity: 0.15 }}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {isHeroState && (
+                <motion.div 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={isArsonInfected ? { 
+                        opacity: 1, y: 0, scale: [1, 1.3, 1],
+                        rotate: [0, -5, 5, 0],
+                        filter: ["brightness(1)", "brightness(2)", "brightness(1)"],
+                        color: "#FF3E00"
+                    } : { opacity: 1, y: 0 }}
+                    className="flex flex-col items-center translate-y-[8px]"
+                >
+                    <Icon className={cn(
+                        "transition-all duration-700",
+                        isArsonInfected && 'opacity-100 drop-shadow-[0_0_18px_rgba(255,62,0,0.9)]',
+                        (label === 'Shop' && isHeroState) ? "w-[16px] h-[16px]" : "w-[24px] h-[24px]", 
+                        "text-white"
+                    )} 
+                    scrolled={scrolled}
+                    />
+                </motion.div>
+            )}
+
+            <motion.div 
+                whileHover={{ scale: 1.1, y: -5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className={cn(
+                    "relative flex items-center gap-2 transition-all duration-[175ms] px-2",
+                    isHeroState && "mt-0"
                 )}>
-                    <ScrambleText text={label} active={hovered} />
-                    
-                    {/* Micro data pip on hover */}
-                    {isRevealed && (
-                        <motion.span 
-                            initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }}
-                            className="absolute -top-3 -right-6 text-[6px] font-mono text-[#FF3E00] tracking-wider"
+                {!isHeroState && (
+                    <Icon className={cn(
+                        "transition-all duration-[175ms]",
+                        "w-[12px] h-[12px]",
+                        isActive ? "text-[#FF3E00] drop-shadow-[0_0_8px_rgba(255,62,0,0.6)]" : "text-white"
+                    )} 
+                    scrolled={scrolled}
+                />
+                )}
+                <span className={cn(
+                    "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap transition-all duration-[175ms] relative",
+                    isActive ? "text-[#FF3E00] drop-shadow-[0_0_5px_rgba(255,62,0,0.4)]" : 
+                    (label === 'Shop' && isHeroState) ? "text-[10px] text-white" : 
+                    (label === 'Branding' && isHeroState) ? "text-[10px] text-white" :
+                    (scrolled ? "text-[12px] text-white" : "text-[10px] text-white/90")
+                )}>
+                    {label}
+                    {isArsonInfected && (
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 1, 0] }}
+                            className="absolute inset-0 bg-[#FF3E00] blur-[2px] mix-blend-screen"
+                            style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}
                         >
-                            SYS_{String(label.length).padStart(2, '0')}
+                            {label}
                         </motion.span>
                     )}
                 </span>
-            </div>
-
-            {/* Hyper-Advanced Kinetic Brackets */}
-            <div className={cn(
-                "absolute top-1/2 -translate-y-1/2 left-3 w-[2px] h-4 bg-[#FF3E00] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] before:content-[''] before:absolute before:top-0 before:left-0 before:w-2 before:h-[2px] before:bg-[#FF3E00] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-2 after:h-[2px] after:bg-[#FF3E00]",
-                isRevealed ? "opacity-100 scale-100 drop-shadow-[0_0_8px_rgba(255,62,0,1)]" : "opacity-0 scale-[0.5] -translate-x-2"
-            )} />
-            <div className={cn(
-                "absolute top-1/2 -translate-y-1/2 right-3 w-[2px] h-4 bg-[#FF3E00] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] before:content-[''] before:absolute before:top-0 before:right-0 before:w-2 before:h-[2px] before:bg-[#FF3E00] after:content-[''] after:absolute after:bottom-0 after:right-0 after:w-2 after:h-[2px] after:bg-[#FF3E00]",
-                isRevealed ? "opacity-100 scale-100 drop-shadow-[0_0_8px_rgba(255,62,0,1)]" : "opacity-0 scale-[0.5] translate-x-2"
-            )} />
-
-            {/* Glowing Bottom Digital Scanner Line */}
-            <div className={cn(
-                "absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-[#FF3E00] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]",
-                isRevealed ? "w-full opacity-100 shadow-[0_0_20px_#FF3E00]" : "w-0 opacity-0"
-            )}>
-                 {isRevealed && (
-                    <motion.div 
-                        className="w-[10%] h-[2px] bg-white absolute top-0"
-                        animate={{ left: ['0%', '90%', '0%'] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-                    />
-                )}
-            </div>
+            </motion.div>
 
             {hasItems && (
-                 <span className="absolute top-1/2 -translate-y-[15px] right-2 bg-[#FF3E00] text-[#000000] px-1.5 py-0.5 text-[8px] font-black rounded-sm shadow-[0_0_10px_#FF3E00]">
+                <span className="absolute top-1/2 -translate-y-6 right-2 bg-[#FF3E00] text-[#000000] px-1 py-0.5 text-[7px] font-black rounded-sm shadow-[0_0_10px_#FF3E00]">
                     {cartCount}
                 </span>
             )}
@@ -212,115 +395,226 @@ const TopNavLink = memo(({
 });
 TopNavLink.displayName = 'TopNavLink';
 
-// --- QUANTUM LOGO ---
-const QuantumLogo = memo(({
-    scrolled,
-    isHUDActive,
-    hudIntensity
+
+// --- ORIGINAL LOGO (RESTRUCTURED FOR NATIVE DOM TRAVERSAL) ---
+const OriginalLogo = ({
+  scrolled,
+  arsonStatus = 'idle',
 }: {
-    scrolled: boolean;
-    isHUDActive: boolean;
-    hudIntensity: number;
+  scrolled: boolean;
+  isHUDActive: boolean;
+  hudIntensity: number;
+  arsonStatus?: string;
 }) => {
-    const [furnaceActive, setFurnaceActive] = useState(true);
+  const mountedIgnition =
+    arsonStatus === 'ghost_start' ||
+    arsonStatus === 'burst_start';
 
-    useEffect(() => {
-        let timer: ReturnType<typeof setTimeout>;
-        // Fallback for hot reloads or missing preloader
-        let initialFallbackTimer = setTimeout(() => setFurnaceActive(false), 8000); 
+  const mountedRight = arsonStatus === 'traveling_left';
 
-        const startTimer = () => {
-            clearTimeout(initialFallbackTimer);
-            // Preloader takes ~3100ms. We hold the animation for slightly longer, then let the 5s fade-out begin.
-            timer = setTimeout(() => setFurnaceActive(false), 4500);
-        };
-        
-        window.addEventListener('sessionInitiated', startTimer);
-        
-        return () => {
-            window.removeEventListener('sessionInitiated', startTimer);
-            clearTimeout(timer);
-            clearTimeout(initialFallbackTimer);
-        };
-    }, []);
+  const mountedLeft =
+    arsonStatus === 'teleporting_left' ||
+    arsonStatus === 'complete';
 
-    const primaryColor = '#FFFFFF';
-    const svgPaths = [
-        "M1.27,10.22c.84-1.69,1.99-2.99,3.45-3.9,1.45-.91,3.08-1.36,4.87-1.36,1.53,0,2.88.31,4.03.93,1.16.62,2.05,1.44,2.67,2.46v-3.08h6.66v21.75h-6.66v-3.08c-.65,1.01-1.55,1.83-2.71,2.45-1.16.62-2.5.94-4.03.94-1.77,0-3.38-.46-4.83-1.38-1.46-.92-2.61-2.23-3.45-3.94-.84-1.7-1.27-3.67-1.27-5.9s.42-4.2,1.27-5.88ZM14.91,12.21c-.92-.96-2.05-1.44-3.37-1.44s-2.45.47-3.37,1.42c-.92.95-1.38,2.25-1.38,3.92s.46,2.98,1.38,3.96c.92.97,2.05,1.46,3.37,1.46s2.45-.48,3.37-1.44,1.38-2.27,1.38-3.94-.46-2.97-1.38-3.94Z",
-        "M36.4,6.07c1.17-.69,2.47-1.03,3.9-1.03v7.05h-1.83c-1.66,0-2.91.36-3.74,1.07-.83.72-1.25,1.97-1.25,3.76v10.09h-6.66V5.28h6.66v3.62c.78-1.2,1.75-2.14,2.92-2.83Z",
-        "M46.3,26.36c-1.48-.65-2.65-1.54-3.51-2.67-.86-1.13-1.34-2.4-1.44-3.8h6.59c.08.75.43,1.36,1.05,1.83.62.47,1.39.7,2.3.7.83,0,1.47-.16,1.93-.49.45-.32.68-.75.68-1.27,0-.62-.33-1.08-.97-1.38-.65-.3-1.7-.63-3.16-.99-1.56-.36-2.86-.75-3.9-1.15-1.04-.4-1.94-1.04-2.69-1.91-.75-.87-1.13-2.05-1.13-3.53,0-1.25.34-2.38,1.03-3.41.69-1.03,1.7-1.84,3.04-2.44,1.34-.6,2.93-.9,4.77-.9,2.73,0,4.88.68,6.45,2.03,1.57,1.35,2.47,3.14,2.71,5.38h-6.16c-.1-.75-.44-1.35-.99-1.79-.56-.44-1.29-.66-2.2-.66-.78,0-1.38.15-1.79.45-.42.3-.62.71-.62,1.23,0,.62.33,1.09.99,1.4.66.31,1.7.62,3.1.94,1.61.42,2.92.82,3.94,1.23,1.01.4,1.9,1.05,2.67,1.95.77.9,1.16,2.1,1.19,3.6,0,1.27-.36,2.41-1.07,3.41s-1.74,1.79-3.08,2.36c-1.34.57-2.89.86-4.66.86-1.9,0-3.59-.32-5.07-.97Z",
-        "M67.44,25.97c-1.7-.91-3.04-2.21-4.01-3.9-.97-1.69-1.46-3.66-1.46-5.92s.49-4.2,1.48-5.9,2.34-3.01,4.05-3.92c1.71-.91,3.64-1.36,5.77-1.36s4.05.45,5.77,1.36c1.71.91,3.07,2.22,4.05,3.92.99,1.7,1.48,3.67,1.48,5.9s-.5,4.2-1.5,5.9c-1,1.7-2.36,3.01-4.09,3.92-1.73.91-3.66,1.36-5.79,1.36s-4.05-.45-5.75-1.36ZM76.44,20.16c.9-.94,1.34-2.27,1.34-4.01s-.43-3.08-1.31-4.01c-.87-.94-1.94-1.4-3.22-1.4s-2.38.46-3.23,1.38c-.86.92-1.29,2.27-1.29,4.03s.42,3.08,1.27,4.01c.84.94,1.9,1.4,3.18,1.4s2.36-.47,3.25-1.4Z",
-        "M106.49,7.52c1.52,1.65,2.28,3.92,2.28,6.8v12.7h-6.62v-11.81c0-1.45-.38-2.58-1.13-3.39-.75-.8-1.77-1.21-3.04-1.21s-2.29.4-3.04,1.21c-.75.81-1.13,1.94-1.13,3.39v11.81h-6.66V5.28h6.66v2.88c.68-.96,1.58-1.72,2.73-2.28,1.14-.56,2.43-.84,3.86-.84,2.55,0,4.58.83,6.1,2.47Z",
-        "M118.21,27.02V0h3.98v27.02h-3.98ZM121.73,18.65v-3.62h4.43c2.08,0,3.65-.52,4.71-1.55,1.06-1.03,1.59-2.55,1.59-4.54,0-1.74-.53-3.06-1.59-3.96-1.06-.9-2.63-1.35-4.71-1.35h-4.36V0h4.36c3.39,0,5.95.75,7.7,2.26,1.74,1.51,2.62,3.74,2.62,6.68,0,3.18-.87,5.6-2.62,7.24-1.74,1.64-4.31,2.46-7.7,2.46h-4.43Z",
-        "M138.59,27.02v-3.27h8.07v3.27h-8.07ZM139.73,11.75v-3.27h10.58v3.27h-10.58ZM148.16,5.54c-.77,0-1.44-.25-1.99-.76-.55-.51-.83-1.12-.83-1.83s.28-1.33.83-1.84c.55-.5,1.21-.75,1.99-.75s1.45.25,2,.75c.55.5.82,1.11.82,1.84s-.27,1.32-.82,1.83c-.55.51-1.21.76-2,.76ZM146.27,27.02V9.53h4.03v17.49h-4.03ZM149.93,27.02v-3.27h6.58v3.27h-6.58Z",
-        "M173.63,27.02l-6.11-8.71-8.11-11.46h4.59l6.18,9.06,8.03,11.11h-4.59ZM159.42,27.02l8.03-11.11,6.18-9.06h4.59l-8.34,11.46-5.88,8.71h-4.59Z",
-        "M192.43,27.4c-3.44,0-6.09-.9-7.96-2.71-1.87-1.81-2.81-4.41-2.81-7.79s.79-5.86,2.38-7.69,3.83-2.74,6.72-2.74c2.73,0,4.84.82,6.33,2.47,1.49,1.65,2.24,4.05,2.24,7.19,0,.93-.04,1.79-.11,2.59h-14.16v-3.08h10.6c0-1.81-.43-3.2-1.28-4.17s-2.05-1.45-3.57-1.45c-1.71,0-3.04.58-3.98,1.74s-1.41,2.81-1.41,4.94c0,2.33.65,4.11,1.94,5.32,1.29,1.21,3.14,1.82,5.54,1.82.84,0,1.66-.05,2.47-.14.81-.1,1.64-.22,2.47-.39l.49,3.56c-1.19.23-2.28.37-3.27.44s-1.86.1-2.63.1Z",
-        "M202.95,30.04l12.79-28.64h3.39l-12.79,28.64h-3.39Z",
-        "M220.22,11.17v-2.52l12.61-5.3v2.7l-9.51,3.75v.21l9.51,3.75v2.7l-12.61-5.3Z",
-        "M232.99,16.7l-.21-.09-12.71-5.34v-2.72l.09-.04,12.83-5.39v3.04l-9.51,3.75,9.51,3.75v3.04ZM220.38,11.06l12.31,5.17v-2.37l-9.51-3.75v-.42l9.51-3.75v-2.37l-12.31,5.17v2.31Z",
-        "M219.91,26.88l9.96-3.75v-.21l-9.96-3.75v-2.7l12.61,5.3v2.52l-12.61,5.3v-2.7Z",
-        "M219.75,29.81v-3.04l.1-.04,9.86-3.71-9.96-3.75v-3.04l.21.09,12.71,5.34v2.72l-.09.04-12.83,5.39ZM220.06,26.99v2.37l12.31-5.17v-2.31l-12.31-5.17v2.37l9.96,3.75v.42l-.1.04-9.86,3.71Z"
-    ];
+  const ignitionNode = (
+    <motion.div
+      key="arson-ignition"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-none"
+    >
+      <div className="relative h-[42px] w-[42px] md:h-[52px] md:w-[52px]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: [0.08, 0.45, 1, 0.7],
+            scale: [0.76, 0.92, 1.08, 1],
+            rotate: [-1.5, 0.5, -0.25, 0],
+            filter: [
+              'drop-shadow(0 0 6px rgba(255,62,0,0.4))',
+              'drop-shadow(0 0 12px rgba(255,62,0,0.7))',
+              'drop-shadow(0 0 24px rgba(255,62,0,1))',
+              'drop-shadow(0 0 12px rgba(255,62,0,0.65))',
+            ],
+          }}
+          transition={{
+            duration: 1.7,
+            ease: [0.2, 0.9, 0.25, 1],
+          }}
+          className="absolute inset-0"
+          style={{
+            WebkitMaskImage: `url(${FullLogo})`,
+            maskImage: `url(${FullLogo})`,
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'center',
+            WebkitMaskSize: 'contain',
+            background:
+              'linear-gradient(180deg,#FF3E00 0%,#ffffff 45%,#FF3E00 100%)',
+            filter:
+              'drop-shadow(0 0 18px rgba(255,62,0,0.9)) blur(0.5px)',
+          }}
+        >
+          <div className="absolute inset-0 animate-[arson-burn_0.9s_linear_infinite] bg-[length:100%_240%]" />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
 
-    return (
-        <div className="group relative flex items-start gap-1 select-none pr-1" style={{ scale: scrolled ? 0.82 : 1 }}>
-            <div className={cn(
-                "relative origin-left",
-                scrolled ? "h-[18px] w-[139.79px] opacity-80" : "h-[22px] md:h-[26px] w-[170px] md:w-[201px] opacity-100",
-                "group-hover:opacity-100",
-                furnaceActive ? "transition-none duration-[0ms]" : "transition-all duration-[5000ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-            )}
-                style={{
-                  filter: furnaceActive 
-                    ? 'drop-shadow(0 0 40px rgba(255,62,0,0.8)) drop-shadow(0 0 15px rgba(255,0,0,1)) brightness(1.5)' 
-                    : (isHUDActive ? `drop-shadow(0 0 10px rgba(255,62,0,${0.3 * hudIntensity}))` : 'none')
-                }}
-            >
-                {/* HUD Data Pip Layer */}
-                {isHUDActive && (
-                  <div className="absolute inset-x-0 -top-1 flex justify-between px-2 pt-1 pointer-events-none" style={{ opacity: hudIntensity * 0.5 }}>
-                    {[...Array(8)].map((_, i) => (
-                      <div key={i} className="w-[1px] h-1 bg-[#FF3E00] opacity-40 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
-                    ))}
-                  </div>
-                )}
+  const rightNode = (
+    <motion.div
+      key="arson-right"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: mountedRight ? 1 : 0 }}
+      exit={{ opacity: 0 }}
+      className="fixed top-[21.5px] right-6 md:right-12 z-[9999] pointer-events-none"
+    >
+      <div className="relative h-[48px] w-[48px] md:h-[64px] md:w-[64px]">
+        <AnimatePresence>
+          {arsonStatus === 'traveling_left' && (
+            <motion.img
+              key="right-logo-rammer"
+              src={FullLogo}
+              alt=""
+              initial={{ opacity: 0, scale: 0.4, filter: 'blur(8px)' }}
+              animate={{
+                opacity: 0,
+                scale: [0.4, 1.4, 1.2, 0.8],
+                x: [0, -12, -30],
+                filter: [
+                  'brightness(2) blur(8px)',
+                  'brightness(1.5) blur(0px)',
+                  'brightness(1) blur(0px)',
+                  'brightness(2) blur(8px)',
+                ],
+              }}
+              transition={{ duration: 1.1, times: [0, 0.25, 0.6, 1] }}
+              className="absolute inset-0 h-full w-full object-contain brightness-0 invert"
+            />
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
 
-                {/* Core Logo */}
-                <svg viewBox="0 0 232.99 30.04" className={cn("w-full h-full overflow-visible", furnaceActive && "animate-[furnace-flicker_0.1s_ease-in-out_infinite]")}>
-                    <g fill={furnaceActive ? '#FF4500' : (isHUDActive ? '#FF3E00' : 'white')} className="transition-colors duration-[5000ms] ease-out">
-                        {svgPaths.map((d, i) => <path key={`core-${i}`} d={d} />)}
-                    </g>
-                </svg>
-            </div>
-            
-            {/* R Singularity Icon */}
-            <div className={`relative flex items-center justify-center transition-all duration-500 -translate-y-[10px] -translate-x-[5px]
-                ${scrolled ? 'scale-[0.38]' : 'scale-[0.52]'}
-                ${isHUDActive ? 'rotate-[45deg]' : 'rotate-0'}`}
-            >
-                <div
-                    className="absolute inset-0 rounded-full opacity-80 transition-all duration-500"
-                    style={{
-                        width: '100%', height: '100%', left: '0%', top: '0%',
-                        borderWidth: isHUDActive ? '1px' : '3px',
-                        borderStyle: 'solid',
-                        borderColor: isHUDActive ? '#FF3E00' : primaryColor,
-                        animation: 'singularity-spin 8s linear infinite',
-                        boxShadow: isHUDActive ? '0 0 15px rgba(255,62,0,0.5)' : 'none'
+  const leftNode = (
+    <motion.div
+      key="arson-left"
+      initial={false}
+      animate={{ opacity: 1 }}
+      className={cn(
+        'fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto',
+        arsonStatus === 'complete' && 'transition-none'
+      )}
+    >
+      <motion.div
+        initial={
+          arsonStatus === 'teleporting_left'
+            ? {
+                opacity: 0,
+                x: 140,
+                scale: 0.8,
+                filter: 'blur(15px) brightness(2)',
+              }
+            : false
+        }
+        animate={{
+          opacity: [0, 1, 0.8, 1],
+          x: [160, -8, 0], // 'Lazy Recoil' (8px overshoot)
+          scale: [0.8, 1.15, 1],
+          filter: ['blur(15px) brightness(2)', 'blur(0px) brightness(1.5)', 'blur(0px) brightness(1)'],
+        }}
+        transition={{
+          x: { type: "spring", stiffness: 45, damping: 12, mass: 2.2, delay: 0.1 },
+          default: { duration: 6.4, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
+        }}
+        className="relative"
+      >
+        <AnimatePresence>
+            {arsonStatus === 'complete' && (
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ 
+                        opacity: [0, 0.25, 0], 
+                        scale: [1, 2.5, 3],
+                        filter: ["blur(0px)", "blur(10px)", "blur(30px)"]
                     }}
-                />
-                <svg width="24" height="24" viewBox="0 0 20 20" className="relative z-10">
-                    <text x="10" y="15" fontSize="14" fontWeight="400" textAnchor="middle" fontFamily="sans-serif" fill="currentColor"
-                        className={`${isHUDActive ? 'text-[#FF3E00]' : 'text-white'} transition-colors duration-300`}>R</text>
-                </svg>
-                <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[4px] h-[4px] rounded-full bg-[#FF3E00] blur-[2px] ${isHUDActive ? 'opacity-100' : 'opacity-0'}`} />
-            </div>
-        </div>
-    );
-});
-QuantumLogo.displayName = 'QuantumLogo';
+                    transition={{ duration: 3.5, delay: 0.2 }}
+                    className="absolute inset-0 pointer-events-none z-[-1]"
+                >
+                    <img src={PLogo} className="w-full h-full object-contain brightness-0 invert opacity-40" />
+                </motion.div>
+            )}
+        </AnimatePresence>
+        <Link
+          to="/"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="relative block group"
+        >
+          {/* Base White Logo */}
+          <img
+            src={FullLogo}
+            alt="Arson Pixelz"
+            className={cn(
+              'relative z-10 object-contain brightness-0 invert',
+              scrolled ? 'h-[24px]' : 'h-[32px]'
+            )}
+          />
 
-// --- MENU LINK COMPONENT ---
+          {/* Cinematic 'Orange Furnace' Emergence (Masked strictly to logo) */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ 
+                opacity: [0, 1, 1, 0.6, 0],
+                filter: [
+                    'drop-shadow(0 0 40px rgba(255,62,0,0.9)) brightness(2)',
+                    'drop-shadow(0 0 30px rgba(255,62,0,0.8)) brightness(1.8)',
+                    'drop-shadow(0 0 20px rgba(255,62,0,0.6)) brightness(1.5)',
+                    'drop-shadow(0 0 10px rgba(255,62,0,0.4)) brightness(1.2)',
+                    'drop-shadow(0 0 0px rgba(255,62,0,0)) brightness(1)'
+                ],
+                scale: [1, 1.02, 0.98, 1.01, 1], // Subtle furnace flicker (Pulse)
+            }}
+            transition={{ 
+                opacity: { duration: 6.8, times: [0, 0.1, 0.4, 0.8, 1], ease: "linear" },
+                filter: { duration: 6.8, times: [0, 0.1, 0.4, 0.8, 1], ease: "linear" },
+                scale: { duration: 0.15, repeat: 30, ease: "easeInOut" }, // Rapid micro-flicker during emergence
+                delay: 0.1
+            }}
+            className="absolute inset-0 z-20 pointer-events-none"
+            style={{
+                WebkitMaskImage: `url(${FullLogo})`,
+                maskImage: `url(${FullLogo})`,
+                WebkitMaskRepeat: 'no-repeat',
+                WebkitMaskPosition: 'center',
+                WebkitMaskSize: 'contain',
+                background: '#FF3E00', // Solid orange foundation for a 'burning' look
+            }}
+          />
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <>
+      <AnimatePresence mode="wait">
+        {mountedIgnition && ignitionNode}
+      </AnimatePresence>
+      <AnimatePresence mode="wait">
+        {mountedRight && rightNode}
+      </AnimatePresence>
+      {(mountedLeft || arsonStatus === 'complete') && leftNode}
+    </>,
+    document.body
+  );
+};
+OriginalLogo.displayName = 'OriginalLogo';
+
+
+// --- MENU LINK COMPONENT (NODE PROTOCOL) ---
 const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }: {
     label: string;
     href: string;
@@ -336,19 +630,39 @@ const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }
             onMouseEnter={() => onHoverChange(true)}
             onMouseLeave={() => onHoverChange(false)}
             className={cn(
-                "group flex flex-col justify-between p-8 border-b border-r border-white/5 transition-all duration-300 min-h-[160px] md:min-h-[180px]",
-                isHovered ? "bg-white text-[#000000]" : "hover:bg-white/5"
+                "group relative flex flex-col items-center justify-center p-12 text-center border-b border-white/5 transition-all duration-500 overflow-hidden",
+                isHovered ? "bg-white/5" : "hover:bg-white/[0.02]"
             )}
+            style={{ perspective: '1000px' }}
         >
-            <div className={cn(
-                "font-mono text-[10px] tracking-[0.3em] transition-colors",
-                isHovered ? "text-[#FF3E00]" : "text-white/40 group-hover:text-[#FF3E00]"
-            )}>
-                [{String(index + 1).padStart(2, '0')}]
-            </div>
-            <div className="font-syne font-black uppercase tracking-tight text-3xl md:text-5xl leading-none italic">
-                {label}
-            </div>
+            <motion.div 
+                animate={{ 
+                    rotateX: isHovered ? -15 : 0, 
+                    rotateY: isHovered ? 15 : 0,
+                    scale: isHovered ? 1.05 : 1,
+                    z: isHovered ? 50 : 0
+                }}
+                className="relative z-10 flex flex-col items-center"
+            >
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-8 h-[1px] bg-[#FF3E00]/40" />
+                </div>
+                <div 
+                    className={cn(
+                        "uppercase tracking-tighter text-4xl md:text-5xl lg:text-7xl transition-all duration-500 flex flex-col leading-[0.85]",
+                        isHovered ? "text-[#FF3E00] drop-shadow-[0_0_20px_rgba(255,62,0,0.6)]" : "text-white"
+                    )}
+                    style={{ fontFamily: 'Anton, sans-serif' }}
+                >
+                    {label.split(" ").map((word, i) => (
+                        <span key={i} className="block">{word}</span>
+                    ))}
+                </div>
+                <div className="flex items-center gap-3 mt-6">
+                    <div className="w-8 h-[1px] bg-white/10" />
+                </div>
+            </motion.div>
+            {isHovered && <div className="absolute inset-x-0 h-full w-full pointer-events-none bg-gradient-to-b from-transparent via-[#FF3E00]/5 to-transparent top-0 animate-[scan-down_1.5s_linear_infinite]" />}
         </Link>
     );
 });
@@ -356,15 +670,58 @@ MenuLink.displayName = 'MenuLink';
 
 
 // --- MAIN COMPONENT ---
-export const Navigation: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ isOpen, setIsOpen }) => {
+    const [scrolled, setScrolled] = React.useState(false);
     const [voidProgress, setVoidProgress] = useState(0);
     const [hoveredMenuIndex, setHoveredMenuIndex] = useState<number | null>(null);
+    const [arsonStatus, setArsonStatus] = useState<
+        | 'idle'
+        | 'ghost_start'
+        | 'burst_start'
+        | 'traveling_left'
+        | 'infecting_nodes'
+        | 'teleporting_left'
+        | 'complete'
+    >('idle');
+    const [infectedIndex, setInfectedIndex] = useState<number>(-1);
     const location = useLocation();
     const { setIsCartOpen, cartCount } = useCart();
+    const { lenis } = useIgnition();
 
-    // Listen to the global void progress (HUD state)
+    const navItems = useMemo(() => [
+        { label: "Branding", href: "/branding", icon: BrandingIcon },
+        { label: "Dev / AI", href: "/dev-ai", icon: DevAiIcon },
+        { label: "Marketing", href: "/marketing", icon: MarketingIcon },
+        { label: "Gaming", href: "/gaming", icon: GamingIcon },
+        { label: "Shop", href: "/shop", icon: ShopIcon },
+    ], []);
+
+    const menuLinks = useMemo(() => [
+        { label: "Brand Ignition",        href: "/branding",      image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=1600&q=80&auto=format" },
+        { label: "Digital Architecture",  href: "/dev-ai",        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&auto=format" },
+        { label: "Market Acceleration",   href: "/marketing",     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80&auto=format" },
+        { label: "Gaming Experiences",    href: "/gaming",        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=80&auto=format" },
+        { label: "The Construct",        href: "/about",         image: "https://images.unsplash.com/photo-1549451371-64aa98a6f660?w=1600&q=80&auto=format" },
+        { label: "Selected Works",        href: "/#work-section",  image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
+        { label: "Arson Store",            href: "/shop",          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80&auto=format" },
+        { label: "Initiate Protocol",     href: "/contact",       image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80&auto=format" },
+    ], []);
+
+    const socialLinks = useMemo(() => [
+        { name: "Instagram", url: "#instagram" },
+        { name: "Twitter/X", url: "#twitter" },
+        { name: "LinkedIn", url: "#linkedin" }
+    ], []);
+
+    useEffect(() => {
+        if (!lenis) return;
+        if (isOpen) {
+            lenis.stop();
+        } else {
+            lenis.start();
+        }
+    }, [isOpen, lenis]);
+
     useEffect(() => {
         const interval = setInterval(() => {
             const progress = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--void-progress') || '0');
@@ -376,7 +733,48 @@ export const Navigation: React.FC = () => {
     const isHUDActive = voidProgress > 0.3;
     const hudIntensity = Math.max(0, Math.min((voidProgress - 0.3) * 3, 1));
 
-    // Site is strictly 'Digital Monolith' Dark.
+    useEffect(() => {
+        let cancelled = false;
+        const timers: number[] = [];
+
+        const queue = (fn: () => void, delay: number) => {
+            const id = window.setTimeout(() => {
+                if (!cancelled) fn();
+            }, delay);
+            timers.push(id);
+        };
+
+        queue(() => {
+            setArsonStatus('ghost_start');
+            queue(() => {
+                setArsonStatus('burst_start');
+                queue(() => {
+                    setArsonStatus('traveling_left');
+                    queue(() => {
+                        setArsonStatus('infecting_nodes');
+                        let current = navItems.length; // Start with the Hamburger Menu (right)
+                        const infectionInterval = window.setInterval(() => {
+                            setInfectedIndex(current);
+                            current -= 1;
+                            if (current < -1) { // End once past all nav nodes
+                                window.clearInterval(infectionInterval);
+                                setArsonStatus('teleporting_left');
+                                queue(() => {
+                                    setArsonStatus('complete');
+                                }, 19200); // 19.2s Ultimate Drift (2x Slower)
+                            }
+                        }, 800); // Decelerated Cinematic Ramming (800ms)
+                        timers.push(infectionInterval);
+                    }, 50); // Instant ramming start
+                }, 100); // Instant travel
+            }, 100); // Instant burst
+        }, 800); // Accelerated start: 800ms delay (synchronous with Hero 'loaded' state)
+
+        return () => {
+            cancelled = true;
+            timers.forEach(clearTimeout);
+        };
+    }, [navItems.length]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -391,42 +789,13 @@ export const Navigation: React.FC = () => {
 
     useEffect(() => { setIsOpen(false); }, [location.pathname]);
 
-    const navItems = useMemo(() => [
-        { label: "Marketing", href: "/marketing", icon: MarketingIcon },
-        { label: "Branding", href: "/branding", icon: BrandingIcon },
-        { label: "Gaming", href: "/gaming", icon: GamingIcon },
-        { label: "Dev / AI", href: "/dev-ai", icon: DevAiIcon },
-        { label: "Shop", href: "/shop", icon: ShopIcon },
-        { label: "Network Traffic", href: "/transmissions", icon: TransmissionsIcon },
-    ], []);
-
-    const menuLinks = useMemo(() => [
-        { label: "The Construct",        href: "/about",         image: "https://images.unsplash.com/photo-1549451371-64aa98a6f660?w=1600&q=80&auto=format" },
-        { label: "Selected Works",        href: "/#work-section",  image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
-        { label: "Digital Architecture",  href: "/dev-ai",        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&auto=format" },
-        { label: "Brand Ignition",        href: "/branding",      image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=1600&q=80&auto=format" },
-        { label: "Market Acceleration",   href: "/marketing",     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80&auto=format" },
-        { label: "Gaming Experiences",    href: "/gaming",        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=80&auto=format" },
-        { label: "The Armory",            href: "/shop",          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80&auto=format" },
-        { label: "Network Traffic",         href: "/transmissions", image: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1600&q=80&auto=format" },
-        { label: "Initiate Protocol",     href: "/contact",       image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80&auto=format" },
-    ], []);
-
-    const socialLinks = useMemo(() => [
-        { name: "Instagram", url: "#instagram" },
-        { name: "Twitter/X", url: "#twitter" },
-        { name: "LinkedIn", url: "#linkedin" }
-    ], []);
-
     const toggleMenu = useCallback(() => setIsOpen(v => !v), []);
     const closeMenu = useCallback(() => setIsOpen(false), []);
 
     const handleMenuLinkClick = useCallback((e: React.MouseEvent, href: string) => {
         const isHash = href.includes('#');
-
         if (isHash) {
             const [path, hash] = href.split('#');
-            // If we are already on the target path, handle the scroll manually to be safe
             if (location.pathname === path || (path === '/' && location.pathname === '')) {
                 e.preventDefault();
                 setIsOpen(false);
@@ -437,194 +806,289 @@ export const Navigation: React.FC = () => {
                     }, 100);
                 }
             } else {
-                // Otherwise let the router take us there, and ScrollToTop will handle the hash on mount
                 setIsOpen(false);
             }
         } else {
             setIsOpen(false);
         }
     }, [location.pathname]);
+    
+    const isHeroState = location.pathname === '/' && !scrolled;
 
     return (
         <>
             <motion.header
-                initial={{ y: "-100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 1.5 }}
+                initial={{ y: -150, opacity: 0, filter: 'blur(20px)' }}
+                animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                transition={{ 
+                    duration: 1.6, 
+                    ease: [0.16, 1, 0.3, 1], 
+                    delay: 1.2 
+                }}
                 className={cn(
-                    "fixed top-0 left-0 w-full z-50 transition-all duration-700 h-16 pointer-events-none mix-blend-difference text-white"
+                    "fixed top-0 left-0 w-full z-50 transition-all duration-700 h-16 pointer-events-none text-white",
+                    !isHeroState && "mix-blend-difference"
                 )}
             >
-                <div className="max-w-[1920px] mx-auto h-full flex items-stretch">
-                    {/* Logo Section */}
-                    <div className="flex items-center px-6 md:px-12 h-full pointer-events-auto">
-                        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="relative block group">
-                            <QuantumLogo 
+                {/* The Header Root Container */}
+                <div className="max-w-[1920px] mx-auto h-full flex items-stretch px-6 md:px-12 relative">
+                    
+                    {/* NEW ARCHITECTURE: Absolute DOM Logo Node (Bypasses Frame Trap & Double-P Issue) */}
+                    {!isOpen && (
+                        location.pathname !== '/shop' ? (
+                            <OriginalLogo 
                                 scrolled={scrolled}
                                 isHUDActive={isHUDActive} 
                                 hudIntensity={hudIntensity}
+                                arsonStatus={arsonStatus}
                             />
-                        </Link>
-                    </div>
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto"
+                            >
+                                <Link
+                                    to="/"
+                                    className="font-black text-base md:text-lg uppercase tracking-tighter leading-none hover:opacity-80 transition-opacity"
+                                    style={{ fontFamily: 'Syne, sans-serif', color: '#FF3E00' }}
+                                >
+                                    ARSON<span className="text-white">_STORE</span>
+                                </Link>
+                            </motion.div>
+                        )
+                    )}
 
-                    {/* Nav Links */}
-                    <nav className="hidden lg:flex flex-1 overflow-hidden justify-center relative z-10" aria-label="Main navigation">
-                        {navItems.map((item, i) => (
-                            <TopNavLink 
-                                key={item.label}
-                                {...item} 
-                                isActive={location.pathname === item.href} 
-                                isHUDActive={isHUDActive}
-                                hudIntensity={hudIntensity}
-                                cartCount={item.label === 'Shop' ? cartCount : 0}
-                                onCartClick={item.label === 'Shop' ? (e) => { e.preventDefault(); setIsCartOpen(true); } : undefined}
-                            />
-                        ))}
-                    </nav>
+                    {/* Logo Slot Placeholder: Standardized at 110px to achieve perfect margin symmetry with the right-side hamburger pillar */}
+                    <div className="hidden md:flex flex-col items-center justify-center shrink-0 w-[110px] pointer-events-none" aria-hidden="true" />
 
-                    {/* Right UI Controls */}
-                    <div className="flex items-stretch ml-auto">
-                        {/* Advanced Weaponized Initiate CTA */}
-                        <Link 
-                            to="/contact" 
-                            className={cn(
-                                "relative hidden md:flex items-center justify-center px-14 font-sans text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-500 overflow-hidden group pointer-events-auto border-l border-white/20",
-                                "hover:bg-[#FF3E00] hover:text-white hover:border-[#FF3E00] hover:shadow-[0_0_30px_rgba(255,62,0,0.3)] text-white"
-                            )}
-                        >
-                            {/* Crosshairs & Alignment Marks */}
-                            <div className="absolute top-2 left-2 w-1.5 h-1.5 border-t border-l border-white/40 group-hover:opacity-0 transition-opacity" />
-                            <div className="absolute bottom-2 right-2 w-1.5 h-1.5 border-b border-r border-white/40 group-hover:opacity-0 transition-opacity" />
-                            
-                            <span className="relative z-10 transition-transform duration-500 group-hover:scale-[1.03]">
-                                Initiate
-                            </span>
-                        </Link>
+                    <motion.div 
+                        animate={{ y: isHeroState ? 7 : 0 }}
+                        className="flex items-center justify-center flex-1 transition-all duration-700"
+                    >
+                        {location.pathname !== '/shop' && (
+                            <nav className="flex-1 flex overflow-visible relative z-10 transition-all duration-700 items-center justify-center lg:flex gap-4 md:gap-8" aria-label="Main navigation">
+                                {navItems.map((item, i) => (
+                                    <motion.div
+                                        key={item.label}
+                                        initial={{ opacity: 0, y: 120, x: -50, scale: 0.2, rotateX: 90, filter: 'blur(30px) brightness(2)' }}
+                                        animate={{ 
+                                            opacity: 1,
+                                            y: isHeroState ? 0 : 0, 
+                                            x: "0vw",
+                                            rotateX: 0,
+                                            scale: 1,
+                                            filter: 'blur(0px) brightness(1)'
+                                        }}
+                                        transition={{ 
+                                            duration: 3.6, // Doubled for 2x system-wide deceleration
+                                            delay: 0.8 + (i * 0.1), // Synchronized with Hero entrance
+                                            ease: [0.16, 1, 0.3, 1] 
+                                        }}
+                                    >
+                                        <TopNavLink 
+                                            key={item.label}
+                                            {...item}
+                                            isActive={location.pathname === item.href}
+                                            isHUDActive={isHUDActive}
+                                            hudIntensity={hudIntensity}
+                                            scrolled={scrolled}
+                                            isHome={location.pathname === '/'}
+                                            index={i}
+                                            cartCount={cartCount}
+                                            onCartClick={() => setIsCartOpen(true)}
+                                            isArsonInfected={infectedIndex === i}
+                                            isAshy={ arsonStatus === 'infecting_nodes' && infectedIndex < i }
+                                            arsonStatus={arsonStatus}
+                                            offsetX={0}
+                                            offsetY={(item.label === 'Branding' && isHeroState) ? 8 : (item.label === 'Gaming' ? 4 : (item.label === 'Marketing' ? 2 : 0))}
+                                        />
+                                    </motion.div>
+                                ))}
+                            </nav>
+                        )}
+                    </motion.div>
 
-                        {/* Hamburger Menu Toggle */}
+                    <div className="flex items-stretch ml-auto justify-end w-[110px]">
                         <button
                             onClick={toggleMenu}
                             className={cn(
-                                "relative w-16 md:w-20 border-l border-white/20 flex items-center justify-center group focus:outline-none transition-colors pointer-events-auto",
-                                "hover:bg-[#FF3E00] text-white hover:text-white"
+                                "relative w-16 md:w-20 flex items-center justify-center group focus:outline-none transition-all duration-[175ms] pointer-events-auto",
+                                infectedIndex === navItems.length && "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]"
                             )}
                             aria-label={isOpen ? "Close menu" : "Open menu"}
                         >
-                            <div className={`relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black border border-white/10 transition-colors duration-500 overflow-hidden backdrop-blur-sm animate-[menu-breathe_3s_ease-in-out_infinite] group-hover:animate-none group-hover:bg-[#FF3E00]`}>
-                                <div
-                                    className="w-5 h-5 md:w-6 md:h-6 bg-white transition-all duration-500"
-                                    style={{
-                                        maskImage: `url(${PLogo})`,
-                                        WebkitMaskImage: `url(${PLogo})`,
-                                        maskSize: 'contain',
-                                        WebkitMaskSize: 'contain',
-                                        maskRepeat: 'no-repeat',
-                                        WebkitMaskRepeat: 'no-repeat',
-                                        maskPosition: 'center',
-                                        WebkitMaskPosition: 'center'
-                                    }}
-                                />
+                        <div className="flex flex-col items-center justify-center gap-[5px] w-6 h-6 relative">
+                            {/* Hamburger Ghost Strike (Biggest) */}
+                            <AnimatePresence>
+                                {infectedIndex === navItems.length && (
+                                    <motion.div 
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ 
+                                            opacity: 0, 
+                                            scale: [0.8, 2.2, 2.4, 2.6],
+                                            filter: ["blur(4px)", "blur(0px)", "blur(12px)", "blur(24px)"]
+                                        }}
+                                        transition={{ duration: 0.8 }}
+                                        className="absolute inset-[-40px] pointer-events-none flex items-center justify-center z-[5]"
+                                    >
+                                        <img src={PLogo} className="w-full h-full object-contain mix-blend-screen brightness-0 invert opacity-[0.15]" />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            <span className={cn(
+                                    "block h-[1.5px] bg-white transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
+                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px]" : "w-5",
+                                    isOpen ? "bg-white" : (infectedIndex === navItems.length ? "bg-[#FF3E00]" : "bg-white")
+                                )} />
+                                <span className={cn(
+                                    "block h-[1.5px] bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                                    isOpen ? "w-0 opacity-0" : "w-4 opacity-100",
+                                    isOpen ? "bg-white" : (infectedIndex === navItems.length ? "bg-[#FF3E00]" : "bg-white")
+                                )} />
+                                <span className={cn(
+                                    "block h-[1.5px] bg-white transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
+                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px]" : "w-3",
+                                    isOpen ? "bg-white" : (infectedIndex === navItems.length ? "bg-[#FF3E00]" : "bg-white")
+                                )} />
                             </div>
                         </button>
                     </div>
+
+                    {isHeroState && (
+                        <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/10 pointer-events-none" />
+                    )}
                 </div>
 
                 <style>{`
-                    @keyframes singularity-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                    @keyframes menu-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-                    @keyframes shimmer { 100% { transform: translateX(100%); } }
-                    @keyframes scan-vertical { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+                    @keyframes arson-burn { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
                     @keyframes scan-down { 0% { top: 0; } 100% { top: 100%; } }
-                    @keyframes furnace-flicker { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.01); } 100% { opacity: 1; transform: scale(1); } }
+                    .no-scrollbar::-webkit-scrollbar { display: none; }
+                    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+                    .command-scrollbar::-webkit-scrollbar { width: 4px; }
+                    .command-scrollbar::-webkit-scrollbar-thumb { background: white; border-radius: 0; }
+                    .command-scrollbar::-webkit-scrollbar-track { background: transparent; }
                 `}</style>
+                <svg className="absolute w-0 h-0 invisible" aria-hidden="true">
+                    <defs>
+                        <filter id="arson-fire-filter">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.08" numOctaves="3" seed="1">
+                                <animate attributeName="baseFrequency" dur="5s" values="0.015 0.08; 0.015 0.15; 0.015 0.08" repeatCount="indefinite" />
+                            </feTurbulence>
+                            <feDisplacementMap in="SourceGraphic" scale="25" />
+                        </filter>
+                    </defs>
+                </svg>
             </motion.header>
 
-            {/* Terminal Menu Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: "-100%" }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: "-100%" }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-[100] bg-[#000000] text-white flex flex-col overflow-hidden"
+                        initial={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="fixed inset-0 z-[100] bg-black text-white flex flex-col overflow-hidden"
                     >
-                        {/* Menu Top Bar */}
-                        <div className="flex items-stretch h-16 border-b border-white/5 shrink-0">
-                            <div className="flex items-center px-8 border-r border-white/5 flex-1 font-mono text-[10px] tracking-[0.4em] text-white/40 uppercase">
-                                <span className={cn("inline-block w-2 h-2 rounded-full mr-4 bg-[#FF3E00] animate-pulse")} />
-                                SYS.NAV.OVERRIDE // SECTOR_01
+
+                        <div className="relative z-30 flex items-stretch h-20 border-b border-white/5 bg-[#000000]/40 backdrop-blur-sm shrink-0">
+                            {/* Strengthened P Logo Branding */}
+                            <div className="flex items-center px-8 md:px-12 border-r border-white/5">
+                                <Link to="/" onClick={closeMenu} className="flex items-center group">
+                                    <img src={PLogo} alt="Arson Pixelz" className="h-8 md:h-10 w-auto object-contain brightness-0 invert group-hover:opacity-80 transition-opacity" />
+                                </Link>
                             </div>
-                            <button onClick={closeMenu} className="w-16 md:w-20 flex items-center justify-center border-l border-white/5 hover:bg-[#FF3E00] hover:text-white transition-all duration-300">
-                                <XMarkIcon className="w-6 h-6" />
+                            
+                            <div className="flex-1 px-8 md:px-12" />
+                            <button onClick={closeMenu} className="w-20 md:w-24 flex items-center justify-center border-l border-white/5 hover:bg-[#FF3E00] hover:text-white transition-all duration-500 group">
+                                <XMarkIcon className="w-8 h-8 transition-transform duration-500 group-hover:rotate-90" />
                             </button>
                         </div>
 
-                        {/* Layout: Links Grid & Info Panel */}
-                        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-                            {/* Left: Scrollable Links Grid */}
-                            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 border-r border-white/5 overflow-y-auto no-scrollbar content-start">
-                                {menuLinks.map((item, idx) => (
-                                    <MenuLink 
-                                        key={item.label} 
-                                        label={item.label} 
-                                        href={item.href} 
-                                        index={idx} 
-                                        onClick={(e) => handleMenuLinkClick(e, item.href)} 
-                                        isHovered={hoveredMenuIndex === idx}
-                                        onHoverChange={(h) => setHoveredMenuIndex(h ? idx : null)}
-                                    />
-                                ))}
-                            </div>
-
-                            {/* Right: Dynamic Info Panel (Desktop) */}
-                            <div className="hidden md:flex w-1/3 flex-col relative bg-white/[0.02] shrink-0 overflow-hidden">
-                                <AnimatePresence mode="wait">
-                                    {hoveredMenuIndex !== null && (
-                                        <motion.div 
-                                            key={hoveredMenuIndex}
-                                            initial={{ opacity: 0, scale: 1.05 }}
-                                            animate={{ opacity: 0.4, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 1.1 }}
-                                            transition={{ duration: 0.4 }}
-                                            className="absolute inset-0"
-                                        >
-                                            <img src={menuLinks[hoveredMenuIndex].image} alt="" className="w-full h-full object-cover grayscale mix-blend-overlay" />
-                                            <div className="absolute inset-0 bg-[#000000]/60" />
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-
-                                <div className="absolute top-10 right-10 w-12 h-12 border-t border-r border-[#FF3E00]/40 pointer-events-none" />
-                                <div className="absolute bottom-40 left-10 w-12 h-12 border-b border-l border-[#FF3E00]/40 pointer-events-none" />
-
-                                <div className="mt-auto p-10 relative z-10 border-t border-white/5 bg-[#000000]/90 backdrop-blur-xl font-mono text-[10px] text-white/30 tracking-[0.2em] space-y-4">
-                                    <div className="flex justify-between border-b border-white/5 pb-4">
-                                        <span>TARGET_DIR:</span>
-                                        <span className="text-white/80">{hoveredMenuIndex !== null ? menuLinks[hoveredMenuIndex].href : "AWAITING_INPUT"}</span>
+                        <div className="flex-1 flex flex-col md:flex-row relative z-20 overflow-hidden">
+                            <div className="flex-1 border-r border-white/5 flex flex-col relative">
+                                <div className="py-8 md:py-12 border-b border-white/5 flex items-center justify-center shrink-0">
+                                    <div className="font-mono text-[#FF3E00] text-[11px] md:text-[13px] tracking-[0.7em] uppercase animate-pulse">
+                                        COMMAND CENTRE
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span>SYS_STATUS:</span>
-                                        <span className={cn(hoveredMenuIndex !== null ? "text-[#FF3E00] animate-pulse" : "text-white/20")}>
-                                            {hoveredMenuIndex !== null ? "ROUTING..." : "IDLE"}
+                                </div>
+                                <div 
+                                    className="flex-1 overflow-y-auto command-scrollbar py-6 md:py-10 pointer-events-auto"
+                                    data-lenis-prevent
+                                >
+                                    <div className="grid grid-cols-1 md:grid-cols-2">
+                                        {menuLinks.map((item, idx) => (
+                                            <MenuLink 
+                                                key={item.label} 
+                                                label={item.label} 
+                                                href={item.href} 
+                                                index={idx} 
+                                                onClick={(e) => handleMenuLinkClick(e, item.href)} 
+                                                isHovered={hoveredMenuIndex === idx}
+                                                onHoverChange={(h) => setHoveredMenuIndex(h ? idx : null)}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                                
+                                {/* Centralized Scroll Indicator */}
+                                <div className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center pointer-events-none z-30">
+                                    <div className="flex flex-col items-center gap-1">
+                                        <span className="font-mono text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase animate-pulse mb-[-2px]">
+                                            SCROLL
                                         </span>
-                                    </div>
-                                    <div className="pt-6 border-t border-white/5 mt-6">
-                                        <div className="text-[8px] mb-2 opacity-50">PROJECT_SPOTLIGHT // 2024</div>
-                                        <div className="text-white/70 tracking-widest leading-relaxed uppercase">PROJECT TITAN: REARCHITECTING THE DIGITAL FRONTIER THROUGH INDUSTRIAL-GRADE IT STRATEGY.</div>
+                                        <svg className="w-4 h-4 text-[#FF3E00] opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="hidden md:flex w-2/5 flex-col sticky top-0 h-[calc(100vh-80px-48px)] bg-black shrink-0 overflow-hidden">
+                                <AnimatePresence mode="wait">
+                                    {hoveredMenuIndex !== null ? (
+                                        <motion.div 
+                                            key={hoveredMenuIndex}
+                                            initial={{ opacity: 0, scale: 1.1 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 1.1 }}
+                                            transition={{ duration: 0.6, ease: "easeOut" }}
+                                            className="absolute inset-0"
+                                        >
+                                            <img src={menuLinks[hoveredMenuIndex].image} alt="" className="w-full h-full object-cover relative z-50 brightness-100" />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div 
+                                            key="awaiting-input"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="absolute inset-0 bg-[#050505] z-0 flex items-center justify-center p-12"
+                                        >
+                                            <div className="flex flex-col items-center gap-4">
+                                                <div className="font-mono text-[#FF3E00] text-[10px] md:text-[12px] tracking-[0.8em] uppercase animate-pulse text-center">
+                                                    AWAITING INPUT...
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </div>
 
-                        {/* Menu Footer */}
-                        <div className="flex items-stretch h-12 border-t border-white/5 font-mono text-[9px] text-white/20 uppercase tracking-[0.4em] shrink-0">
-                            <div className="flex items-center px-8 border-r border-white/5">
-                                ARSON PIXELS © {new Date().getFullYear()}
+                        <div className="relative z-30 flex items-stretch h-12 border-t border-white/5 bg-[#000000] font-mono text-[9px] tracking-[0.4em] shrink-0">
+                            <div className="flex-1 flex items-center px-12 border-r border-white/5 text-white/20">
                             </div>
-                            <div className="flex-1 flex items-center px-8 gap-10">
+                            <div className="hidden md:flex w-2/5 items-center justify-between px-12">
                                 {socialLinks.map((social) => (
-                                    <a key={social.name} href={social.url} className="hover:text-white transition-colors">{social.name}</a>
+                                    <a 
+                                        key={social.name} 
+                                        href={social.url} 
+                                        className="text-white/40 hover:text-[#FF3E00] transition-colors uppercase"
+                                    >
+                                        {social.name}
+                                    </a>
                                 ))}
                             </div>
                         </div>

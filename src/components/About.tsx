@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
-import VoidBg from './assets/void_bg.png';
+import VoidBg from './assets/void_bg.webp';
 
 interface Stat {
     value: string;

@@ -7,10 +7,11 @@ import { PageTransition } from "./components/fx/PageTransition";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import { ClothTear } from "./components/fx/ClothTear";
 import { Navigation } from "./components/Navigation";
-import { UnifiedVoidSystem } from "./components/fx/UnifiedVoidSystem";
+import { Hero } from "./components/Hero";
 import { Services } from "./components/Services";
 import { Work } from "./components/Work";
 import { Footer } from "./components/Footer";
+import { ArsBot } from "./components/ArsBot";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { CartProvider } from './context/CartContext';
@@ -44,7 +45,7 @@ const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage").then(module
 const HomePage = () => {
   return (
     <>
-      <UnifiedVoidSystem />
+      <Hero />
       {/* 
         Phase 2 Fix: Unifying horizontal and work sections within a persistent 
         dark background container to mask the transparent .pin-spacers 
@@ -65,14 +66,10 @@ const FooterWrapper = () => {
     return <Footer />;
 };
 
-// Hide global nav/cart on shop (shop has its own navbar)
-const GlobalShell = () => {
-    const loc = useLocation();
-    const isShop = loc.pathname === '/shop';
-    if (isShop) return null;
+const GlobalShell = ({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     return (
         <>
-            <Navigation />
+            <Navigation isOpen={isOpen} setIsOpen={setIsOpen} />
             <CartDrawer />
         </>
     );
@@ -144,7 +141,16 @@ const App = () => {
 
     // ONLY true on the very first time the user opens/refreshes the tab. 
     // Remains false on all subsequent internal navigations via React Router.
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isInitialLoad, setIsInitialLoad] = React.useState(false);
+    const [botLoaded, setBotLoaded] = React.useState(false);
+
+    React.useEffect(() => {
+        if (!isInitialLoad) {
+            const timer = setTimeout(() => setBotLoaded(true), 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [isInitialLoad]);
 
     const handlePreloaderComplete = () => {
         setIsInitialLoad(false);
@@ -165,7 +171,7 @@ const App = () => {
                         <>
                             <CodeWatermark />
                             <MagneticCursor />
-                            <GlobalShell />
+                            <GlobalShell isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
                             <ScrollToTop />
 
                             <div className="flex-grow z-10"> {/* Added z-10 to ensure content sits above watermark */}
@@ -177,6 +183,7 @@ const App = () => {
                             </div>
 
                             <FooterWrapper />
+                            <ArsBot loaded={botLoaded} isMenuOpen={isMenuOpen} />
                         </>
                     )}
                 </div>

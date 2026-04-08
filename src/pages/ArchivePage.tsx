@@ -1,500 +1,923 @@
-import React, { useMemo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PremiumArchiveGallery } from '../components/archive/PremiumArchiveGallery';
-import gsap from 'gsap';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+
+// --- IMPORT ASSETS ---
+import EatalyImg from '../components/assets/Eataly.webp';
+import PunoImg from '../components/assets/Puno.webp';
+import TonyThompsonClean from '../components/assets/TonyThompsonClean.webp';
+import ScreenImg from '../assets/screen.webp';
+import FullSvg from '../components/assets/full.webp';
+import LogoImg from '../components/assets/p.webp';
 
 // ── Archive Data ──────────────────────────────────────────────────────────────
-const archiveData = {
+const archiveData: Record<string, ProjectRecord> = {
     'tt-01': {
+        id: 'tt-01',
         title: 'TONY THOMPSON',
-        headline: 'KEYNOTE SPEAKER\n& COACH',
-        category: 'BRAND & DIGITAL PLATFORM',
+        subtitle: 'INDUSTRIAL LEADERSHIP AT SCALE',
+        category: 'CONSULTANCY / STRATEGIC ARCHITECTURE',
+        year: '2024',
+        location: 'GLOBAL',
         accent: '#FF3E00',
-        image: '/images/archive1/Screenshot 2026-03-19 014514.png',
-        bio: 'Tony Thompson is a globally recognized keynote speaker, leadership coach, and author who has transformed thousands of professionals across multiple industries. Known for his electrifying "Missing Piece" framework, Tony bridges the gap between ambition and execution, equipping leaders with the clarity and firepower needed to dominate their respective fields.',
-        testimonial: {
-            quote: 'ArsonPixelz didn\'t build us a website — they built us an empire. The platform they engineered captures exactly who we are and converts like nothing we\'ve ever seen. It\'s not just a brand, it\'s a statement.',
-            name: 'TONY THOMPSON',
-            title: 'Keynote Speaker, The Missing Piece',
-        },
-        deliverables: ['Brand Identity System', 'Digital Platform Architecture', 'Conversion-Flow Engineering', 'Content Ecosystem Strategy'],
+        heroImage: '/images/archive1/Screenshot 2026-03-19 014514.webp',
+        referenceImage: '/images/archive1/Screenshot 2026-03-19 014606.webp',
+        sideImage: '/images/archive1/Screenshot 2026-03-19 014652.webp',
+        galleryImages: [
+            '/images/archive1/Screenshot 2026-03-19 014726.webp',
+            '/images/archive1/Screenshot 2026-03-19 014751.webp',
+            '/images/archive1/Screenshot 2026-03-19 014815.webp',
+            '/images/archive1/Screenshot 2026-03-19 014840.webp',
+            '/images/archive1/Screenshot 2026-03-19 014901.webp',
+            '/images/archive1/Screenshot 2026-03-19 014940.webp'
+        ],
+        manifesto: 'NOT A WEBSITE — A DIGITAL LEGACY MONOLITH.',
+        manifestoAuthor: 'T. THOMPSON',
+        manifestoTitle: 'CORE_DIRECTOR',
+        bio: 'Tony Thompson is the human-led missing piece for organizations facing $750M joint venture quality failures and cultural silos. We deconstructed his high-stakes facilitation process into a creative monolith that commands attention from the C-Suite.',
+        voidText: 'THE PROBLEM: PROFESSIONAL DISSONANCE. Tony\'s offline impact—saving manufacturing timelines and rebuilding project morale—was invisible. His vision was trapped in a generic, static web existence that failed to reflect the intensity of his "Missing Piece" blueprint.',
+        chaosText: 'THE EXECUTION: SYSTEMATIC INTENSITY. We built a deconstructivist environment that mirrors Tony\'s facilitation sessions. This is not a page; it’s a manifesto of 300+ evaluated causes and architectural artifacts. We replaced the conventional with the tactile.',
+        dissolveText: 'THE BOUNDARY BETWEEN ARCHITECT AND OUTCOME HAS DISSOLVED. WE ARE NO LONGER BUILDING SITES; WE ARE TRANSCRIBING HUMAN IMPACT.',
+        stats: [{ value: '300+', label: 'CAUSES EVALUATED' }, { value: '$750M', label: 'REVENUE PROTECTED' }, { value: '14', label: 'STRATEGIC ARTIFACTS' }],
+        deliverables: ['Strategic Narrative Blueprint', 'Conversion Flow Engineering', 'Tactile Interaction System', 'Digital Monolith Architecture'],
+        coordinates: '51.5074_N_0.1278_W',
     },
-    'evo-1': {
-        title: 'STRATEGY ARCHIVE',
-        headline: 'STRATEGY\n& ARCHITECTURE',
-        category: 'SYSTEMIC GROWTH',
+    'ea-42': {
+        id: 'ea-42',
+        title: 'EATALY',
+        subtitle: 'RETAIL GOLIATH // TASTE_ARCHITECTURE',
+        category: 'RETAIL / DIGITAL EXPERIENCE',
+        year: '2024',
+        location: 'MILAN_IT',
         accent: '#FF3E00',
-        image: '/images/archive_static.png',
-        bio: 'A deep-dive into the strategic foundations that power enterprise-level systems. We deconstructed noise from systemic value, building blueprints for long-term scalability.',
-        testimonial: null,
-        deliverables: ['Systemic Growth Audit', 'UX Logic Mapping', 'Performance Strategy', 'Tech-Stack Alignment'],
+        heroImage: '/images/eataly/eataly_02.webp',
+        referenceImage: '/images/eataly/eataly_01.webp',
+        sideImage: '/images/eataly/eataly_03.webp',
+        galleryImages: [
+            '/images/eataly/eataly_04.webp',
+            '/images/eataly/eataly_05.webp',
+            '/images/eataly/eataly_06.webp',
+            '/images/eataly/eataly_07.webp'
+        ],
+        manifesto: 'WE DO NOT SELL FOOD. WE SELL THE SOUL OF A NATION.',
+        manifestoAuthor: 'EATALY CORE',
+        manifestoTitle: 'BRAND_DIRECTOR',
+        bio: 'Synthesizing heritage with the digital frontier. A total architectural reconstruction of the Eataly shopping experience, focused on tactile interaction within a technical framework.',
+        voidText: 'THE PROBLEM: PHYSICAL FRAGMENTATION. Eataly\'s global presence was unmatched offline, but their digital footprint lacked the sensory intensity of their marketplaces. The goal was to translate "Taste" into "Interface".',
+        chaosText: 'THE EXECUTION: CULINARY ARCHITECTURE. We treated every product as a cultural artifact. We replaced the generic "Add to Cart" flow with a high-stakes artifact acquisition system that mirrors the intensity of a Milanese market.',
+        dissolveText: 'WHERE PHYSICAL RETAIL AND DIGITAL LUXURY COLLIDE, THE BRAND BECOMES A GLOBAL FREQUENCY.',
+        stats: [{ value: '+142%', label: 'ENGAGEMENT_SURGE' }, { value: '12', label: 'GLOBAL_MARKETS' }, { value: '22', label: 'ARTIFACT_SYSTEMS' }],
+        deliverables: ['E-Commerce Architecture', 'Visual Brand Overhaul', 'UX Flow Engineering', 'Heritage-to-Digital Transition'],
+        coordinates: '45.4654_N_9.1859_E',
     },
-    'evo-2': {
-        title: 'IDENTITY ARCHIVE',
-        headline: 'CINEMATIC\nDISRUPTION',
-        category: 'BRANDING / IDENTITY',
-        accent: '#00E5C3',
-        image: '/images/archive_social.png',
-        bio: 'High-fidelity creative that cuts through the void. We engineer visual voices that are as visceral as they are precise.',
-        testimonial: null,
-        deliverables: ['Visual DNA Architecture', 'Cinematic Asset Design', 'Motion Brand Systems', 'Interactive Aesthetics'],
-    },
-    'evo-3': {
-        title: 'ENGINEERING ARCHIVE',
-        headline: 'INDUSTRIAL\nPERFORMANCE',
-        category: 'FULL-STACK ENGINEERING',
-        accent: '#B794F4',
-        image: '/images/web_3.png',
-        bio: 'We don\'t just write code; we engineer ecosystems. Full-stack industrial-grade development designed for extreme scale and frictionless user interaction.',
-        testimonial: null,
-        deliverables: ['Full-Stack Ecosystems', 'Scalable API Fabric', 'Cloud Infrastructure', 'Performance Optimization'],
-    },
-    'evo-4': {
-        title: 'INTELLIGENCE ARCHIVE',
-        headline: 'AUTONOMOUS\nLOGIC',
-        category: 'AI & MACHINE LEARNING',
+    'pn-88': {
+        id: 'pn-88',
+        title: 'PUNO',
+        subtitle: 'ARCHITECTURAL_AGRONOMY // YIELD_INTEL',
+        category: 'AGRICULTURE / SYSTEMS DESIGN',
+        year: '2024',
+        location: 'BERLIN_DE',
         accent: '#FF3E00',
-        image: '/images/sentient_archive.png',
-        bio: 'The future is self-evolving. We integrate advanced AI and machine learning logic to create interfaces that anticipate user needs and adapt in real-time.',
-        testimonial: null,
-        deliverables: ['AI Integration Layer', 'LLM Orchestration', 'Predictive UI Systems', 'Neural Feedback Loops'],
+        heroImage: '/images/puno/puno_01.webp',
+        referenceImage: '/images/puno/puno_02.webp',
+        sideImage: '/images/puno/puno_03.webp',
+        galleryImages: [
+            '/images/puno/puno_04.webp',
+            '/images/puno/puno_05.webp',
+            '/images/puno/puno_06.webp',
+            '/images/puno/puno_07.webp',
+            '/images/puno/puno_08.webp',
+            '/images/puno/puno_09.webp',
+            '/images/puno/puno_10.webp'
+        ],
+        manifesto: 'THE EARTH IS PREDICTABLE. THE DATA IS THE SEED.',
+        manifestoAuthor: 'PUNO SYSTEMS',
+        manifestoTitle: 'CHIEF_AGRONOMIST',
+        bio: 'Bypassing traditional agricultural input methods to achieve zero-latency immersion in competitive large-scale farming environments.',
+        voidText: 'THE PROBLEM: SYSTEMIC OBSOLESCENCE. Agriculture is the oldest industry, yet it remains the most disconnected from pure digital signal. Puno needed a bridge between the soil and the cloud.',
+        chaosText: 'THE EXECUTION: EARTHED_LOGISTICS. We built a deconstructivist dashboard that mirrors the chaotic but structured nature of growth. Every pixel represents a hectare. Every transition represents a seasonal shift.',
+        dissolveText: 'THE BOUNDARY BETWEEN DECISION AND EXECUTION HAS BEEN COLLAPSED INTO THE SOIL.',
+        stats: [{ value: '34k', label: 'HECTARES_MAPPED' }, { value: '92%', label: 'YIELD_PRECISION' }, { value: '4M+', label: 'SIGNALS_PROCESSED' }],
+        deliverables: ['UI Systems Architecture', 'Interaction Protocol Design', 'Real-time Data Rendering', 'Behavioral Analytics Integration'],
+        coordinates: '52.5200_N_13.4050_E',
+    },
+    'lr-11': {
+        id: 'lr-11',
+        title: 'LA RADICE',
+        subtitle: 'STRUCTURAL_SOUL // FURNITURE_ARCHITECTURE',
+        category: 'FURNITURE / INDUSTRIAL DESIGN',
+        year: '2025',
+        location: 'VENICE_IT',
+        accent: '#FF3E00',
+        heroImage: '/images/laradice/laradice_01.webp',
+        referenceImage: '/images/laradice/laradice_02.webp',
+        sideImage: '/images/laradice/laradice_03.webp',
+        galleryImages: [
+            '/images/laradice/laradice_04.webp'
+        ],
+        manifesto: 'WOOD IS NOT A MATERIAL. IT IS A GEOMETRIC LEGACY.',
+        manifestoAuthor: 'M. RADICE',
+        manifestoTitle: 'MASTER_CRAFTSMAN',
+        bio: 'Digitizing structured furniture architecture into visually responsive design signals. A synesthetic platform translating pure artisanal values into physical resonance.',
+        voidText: 'THE PROBLEM: MASS-PRODUCED NOISE. Furniture has lost its structural soul in the age of global scaling. La Radice needed a monolith to showcase the intensity of a single joint.',
+        chaosText: 'THE EXECUTION: MATERIAL_HIERARCHY. We engineered a spatial environment that treats every stool and table as a monument. This is not a catalog; it is an architectural archive of physical structure.',
+        dissolveText: 'WHEN THE SIGNAL IS PURE, THE STRUCTURE DISAPPEARS. ONLY THE ARTIFCAT REMAINS.',
+        stats: [{ value: '11', label: 'STRUCTURAL_JOINTS' }, { value: '24k', label: 'MAN_HOURS' }, { value: '∞', label: 'MATERIAL_LIFE' }],
+        deliverables: ['Signal Identity Architecture', 'Multi-Platform Brand Systems', 'Frequency Analytics', 'Visual Language Protocol'],
+        coordinates: '45.4408_N_12.3155_E',
+    },
+    'or-07': {
+        id: 'or-07',
+        title: 'ORBIT',
+        subtitle: 'AI INTERFACE SYSTEM',
+        category: 'AI / GENERATIVE DESIGN',
+        year: '2025',
+        location: 'TOKYO_JP',
+        accent: '#FF3E00',
+        heroImage: FullSvg,
+        referenceImage: ScreenImg,
+        sideImage: LogoImg,
+        manifesto: 'THE INTERFACE IS THE INTELLIGENCE.',
+        manifestoAuthor: 'ORBIT_LABS',
+        manifestoTitle: 'SYSTEM_ARCHITECT',
+        bio: 'A generative spatial environment powered by neural networks. Redefining the boundaries between physical structures and digital voids through algorithmic design.',
+        voidText: 'ORBIT IS NOT A PRODUCT. IT IS A LIVING SYSTEM. EVERY INTERACTION TRAINS THE NEXT ITERATION. THE INTERFACE EVOLVES WITH EACH USE.',
+        chaosText: 'WE STOPPED DESIGNING SCREENS AND STARTED DESIGNING BEHAVIORS. THE RESULT IS AN ENVIRONMENT THAT ANTICIPATES YOUR PRESENCE BEFORE YOU ARRIVE.',
+        dissolveText: 'THE DISTINCTION BETWEEN USER AND SYSTEM HAS BEEN DISSOLVED. ORBIT ADAPTS. ORBIT LEARNS. ORBIT BECOMES.',
+        stats: [{ value: '∞', label: 'GENERATIVE_STATES' }, { value: '99', label: 'ACCURACY_VECTOR' }, { value: '0.01s', label: 'NEURAL_LATENCY' }],
+        deliverables: ['Generative UI Architecture', 'Neural Interaction Mapping', 'Adaptive Spatial Design', 'AI Training Pipeline Integration'],
+        coordinates: '35.6762_N_139.6503_E',
+    },
+    'nx-99': {
+        id: 'nx-99',
+        title: 'NEXUS',
+        subtitle: 'IDENTITY PROTOCOL',
+        category: 'IDENTITY / BRAND SYSTEMS',
+        year: '2025',
+        location: 'LONDON_UK',
+        accent: '#FF3E00',
+        heroImage: LogoImg,
+        referenceImage: ScreenImg,
+        sideImage: FullSvg,
+        manifesto: 'IDENTITY AS FREQUENCY. BRAND AS SIGNAL.',
+        manifestoAuthor: 'NEXUS_CORE',
+        manifestoTitle: 'SIGNAL_DIRECTOR',
+        bio: 'Digitizing structured architecture into visually responsive design signals. A synesthetic platform translating pure branding into frequency dynamics.',
+        voidText: 'WE DO NOT BUILD LOGOS. WE ENGINEER SIGNALS. NEXUS IS THE PLATFORM THAT CONVERTS ABSTRACT BRAND VALUES INTO MEASURABLE RESONANCE.',
+        chaosText: 'EVERY BRAND HAS A FREQUENCY. MOST AGENCIES NEVER FIND IT. WE BUILT A SYSTEM TO LOCATE, AMPLIFY, AND BROADCAST IT AT SCALE. THE RESULT IS NOT A REBRAND. IT IS A TRANSMISSION.',
+        dissolveText: 'WHEN THE SIGNAL IS PURE, THE NOISE DISAPPEARS. ONLY THE BRAND REMAINS — EVERYWHERE, ALWAYS.',
+        stats: [{ value: '+95', label: 'BRAND_RESONANCE' }, { value: '24', label: 'SIGNAL_CHANNELS' }, { value: '7M+', label: 'FREQUENCY_REACH' }],
+        deliverables: ['Signal Identity Architecture', 'Multi-Platform Brand Systems', 'Frequency Analytics', 'Visual Language Protocol'],
+        coordinates: '51.5074_N_0.1278_W',
     },
 };
 
-// ── Other Projects for the bottom list ───────────────────────────────────────
-const otherProjects = [
-    { id: 'tt-01', label: 'TONY THOMPSON', service: 'BRAND / DIGITAL PLATFORM', year: '2024' },
-    { id: 'evo-2', label: 'IDENTITY ARCHIVE', service: 'BRANDING / IDENTITY', year: '2024' },
-    { id: 'evo-3', label: 'ENGINEERING ARCHIVE', service: 'FULL-STACK ENGINEERING', year: '2024' },
-    { id: 'evo-4', label: 'INTELLIGENCE ARCHIVE', service: 'AI / MACHINE LEARNING', year: '2025' },
-    { id: 'evo-1', label: 'STRATEGY ARCHIVE', service: 'STRATEGY / ARCHITECTURE', year: '2024' },
-];
+interface ProjectRecord {
+    id: string;
+    title: string;
+    subtitle: string;
+    category: string;
+    year: string;
+    location: string;
+    accent: string;
+    heroImage: string;
+    referenceImage: string;
+    sideImage: string;
+    galleryImages?: string[];
+    manifesto: string;
+    manifestoAuthor: string;
+    manifestoTitle: string;
+    bio: string;
+    voidText: string;
+    chaosText: string;
+    dissolveText: string;
+    stats: { value: string; label: string }[];
+    deliverables: string[];
+    coordinates: string;
+}
 
-// ── Component ─────────────────────────────────────────────────────────────────
-const ArchivePage = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const data = useMemo(() => archiveData[id as keyof typeof archiveData] || archiveData['tt-01'], [id]);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+// ── Stagger animation variants ────────────────────────────────────────────────
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.12, delayChildren: 0.2 },
+    },
+};
 
-    useEffect(() => {
-        window.scrollTo({ top: 0 });
-        const ctx = gsap.context(() => {
-            if (containerRef.current) {
-                gsap.from(containerRef.current, {
-                    opacity: 0,
-                    filter: 'blur(12px)',
-                    scale: 1.02,
-                    duration: 1.2,
-                    ease: 'power3.out',
-                    clearProps: 'filter,scale',
-                });
-            }
-        });
-        return () => ctx.revert();
-    }, [id]);
+const itemVariants = {
+    hidden: { opacity: 0, y: 40, filter: 'blur(8px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+};
 
-    const filteredProjects = otherProjects.filter(p => p.id !== id);
-
-    return (
+// ── GlitchImage Component ─────────────────────────────────────────────────────
+const GlitchImage: React.FC<{ src: string; alt: string; className?: string; style?: React.CSSProperties; priority?: boolean }> = ({
+    src, alt, className = '', style, priority = false
+}) => (
+    <div className={`relative overflow-hidden ${className}`} style={style}>
+        <img 
+            src={src} 
+            alt={alt} 
+            loading={priority ? "eager" : "lazy"}
+            className="w-full h-full object-cover" 
+        />
+        {/* Scanlines */}
         <div
-            ref={containerRef}
-            className="min-h-screen bg-[#000000] text-[#FFFFFF] selection:bg-[#FF3E00] selection:text-black overflow-x-hidden"
-            style={{ fontFamily: 'Syne, sans-serif' }}
+            className="absolute inset-0 pointer-events-none z-10"
+            style={{
+                background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 62, 0, 0.04) 3px)',
+            }}
+        />
+        {/* Orange left border accent */}
+        <div className="absolute inset-y-0 left-0 w-2 bg-[#FF3E00]" />
+    </div>
+);
+const MemoizedGlitchImage = React.memo(GlitchImage);
+
+// ── Manifesto Block ───────────────────────────────────────────────────────────
+const ManifestoBlock = React.memo(({ quote, author, title }: { quote: string; author: string; title: string }) => (
+    <motion.div
+        variants={itemVariants}
+        className="relative py-32 px-8 overflow-hidden"
+        style={{ background: 'transparent', contentVisibility: 'auto', containIntrinsicHeight: '600px' }}
+    >
+        {/* Large faded word watermark */}
+        <div
+            className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none"
+            aria-hidden="true"
         >
-            {/* ── Fixed Background ─────────────────────────────────────────── */}
-            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-                <motion.img
-                    key={`${id}-bg`}
-                    initial={{ scale: 1.08, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.08 }}
-                    transition={{ duration: 2.5, ease: 'easeOut' }}
-                    src={data.image}
-                    alt=""
-                    className="w-full h-full object-cover grayscale mix-blend-overlay"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/80 to-transparent" />
-
-                {/* Hovered project BG reveal */}
-                <AnimatePresence>
-                    {hoveredProject && hoveredProject !== id && (
-                        <motion.div
-                            key={hoveredProject}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.12 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="absolute inset-0"
-                        >
-                            <img
-                                src={archiveData[hoveredProject as keyof typeof archiveData]?.image}
-                                alt=""
-                                className="w-full h-full object-cover grayscale mix-blend-overlay"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/60 to-transparent" />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-
-            {/* Grain overlay */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.04] z-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
-
-            {/* Scanline */}
-            <motion.div
-                className="fixed inset-0 pointer-events-none z-10 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)]"
-                animate={{ y: ['-100%', '100%'] }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-            />
-
-            <div className="fixed inset-0 pointer-events-none border-[12px] md:border-[20px] border-[#000000] z-50 overflow-hidden">
-                <div className="absolute top-8 right-8 flex gap-1 items-end opacity-10">
-                    {[...Array(8)].map((_, i) => (
-                        <div key={i} className="w-[2px] bg-white" style={{ height: `${(i + i) * 3 + 4}px` }} />
-                    ))}
-                </div>
-                <div className="absolute bottom-8 right-8 font-mono text-[9px] uppercase tracking-[0.5em] text-white/20">
-                    ARSON_PROTOCOL_v4.0
-                </div>
-            </div>
-
-            {/* ── Content ───────────────────────────────────────────────────── */}
-            <div className="relative z-20 w-full">
-
-                {/* TOP NAV BAR */}
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-12 pb-8 flex justify-between items-center">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="flex items-center gap-3"
-                    >
-                        <span className="font-mono text-[9px] uppercase tracking-[0.5em] text-white/20">
-                            {id?.toUpperCase()} // ARCHIVE
-                        </span>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <div
-                            className="group cursor-pointer font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-[#FF3E00] transition-all duration-300 flex items-center gap-4 bg-white/5 px-6 py-3 rounded-none border border-white/5 backdrop-blur-md"
-                            onClick={() => navigate('/#work-section')}
-                        >
-                            <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
-                            <span>Back to SELECTED WORKS</span>
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* ── HERO HEADLINE ─────────────────────────────────────────── */}
-                <div className="w-full max-w-[1400px] mx-auto px-6 pt-12 pb-8 border-b border-white/5">
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: data.accent }} />
-                            <span className="font-mono text-[9px] uppercase tracking-[0.5em]" style={{ color: data.accent }}>
-                                {data.category}
-                            </span>
-                        </div>
-                        <h1
-                            className="text-[14vw] md:text-[10vw] font-black uppercase leading-none tracking-tighter"
-                            style={{ fontFamily: 'Syne, sans-serif' }}
-                        >
-                            {data.headline.split('\n').map((line, i) => (
-                                <span key={i} className={`block ${i === 1 ? 'text-transparent' : ''}`}
-                                    style={i === 1 ? { WebkitTextStroke: `1.5px ${data.accent}` } : {}}>
-                                    {line}
-                                </span>
-                            ))}
-                        </h1>
-                    </motion.div>
-                </div>
-
-                {/* ── BIO + IMAGE (tt-01 specific) ─────────────────────────── */}
-                {id === 'tt-01' && (
-                    <div className="w-full max-w-[1400px] mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-12 gap-16 border-b border-white/5">
-                        {/* Left: Bio copy */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.9 }}
-                            className="lg:col-span-6 flex flex-col justify-center gap-8"
-                        >
-                            <p className="text-2xl md:text-3xl font-light text-white/70 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-                                {data.bio}
-                            </p>
-                            <div className="flex flex-wrap gap-3 mt-4">
-                                {data.deliverables.map((d, i) => (
-                                    <span
-                                        key={i}
-                                        className="font-mono text-[9px] uppercase tracking-[0.4em] px-4 py-2 border border-white/10 text-white/40 hover:border-[#FF3E00]/40 hover:text-[#FF3E00] transition-all duration-500"
-                                    >
-                                        {d}
-                                    </span>
-                                ))}
-                            </div>
-                        </motion.div>
-
-                        {/* Right: Tony Image */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 1.04 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="lg:col-span-6 relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/5 shadow-[0_50px_100px_rgba(0,0,0,0.9)]"
-                        >
-                            <img
-                                src="/images/archive1/Screenshot 2026-03-19 014514.png"
-                                alt="Tony Thompson"
-                                className="w-full h-full object-cover object-center opacity-80"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent" />
-                            {/* Corner decoration */}
-                            <div className="absolute top-6 left-6 w-10 h-10 border-t border-l border-white/20" />
-                            <div className="absolute bottom-6 right-6 w-10 h-10 border-b border-r border-white/20" />
-                        </motion.div>
-                    </div>
-                )}
-
-                {/* ── GALLERY ───────────────────────────────────────────────── */}
-                <div className="w-full px-6 pt-24 pb-40 flex justify-center">
-                    <PremiumArchiveGallery accentColor={data.accent} />
-                </div>
-
-                {/* ── TESTIMONIAL (tt-01 specific) ────────────────────────── */}
-                {id === 'tt-01' && data.testimonial && (
-                    <div className="w-full py-0 mt-12 mb-4">
-                        <motion.div
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                            className="relative w-full bg-[#0d0d0d] border-y border-white/5 overflow-hidden"
-                        >
-                            {/* Cinematic BG layer */}
-                            <div className="absolute inset-0 pointer-events-none">
-                                <img
-                                    src="/images/archive1/Screenshot 2026-03-19 014514.png"
-                                    alt=""
-                                    className="absolute right-0 top-0 h-full w-1/2 object-cover object-left opacity-10 grayscale"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/90 to-transparent" />
-                                {/* Accent glow */}
-                                <div
-                                    className="absolute -bottom-20 left-20 w-[600px] h-[400px] rounded-full blur-[120px] opacity-20 pointer-events-none"
-                                    style={{ backgroundColor: data.accent }}
-                                />
-                            </div>
-
-                            {/* Quote content */}
-                            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-16 py-24 md:py-32 flex flex-col gap-12">
-                                {/* Opening mark */}
-                                <div className="flex items-start gap-8">
-                                    <div
-                                        className="text-[140px] leading-none font-black select-none -mt-6 opacity-20"
-                                        style={{ color: data.accent, fontFamily: 'Georgia, serif', lineHeight: 1 }}
-                                    >
-                                        "
-                                    </div>
-                                    <div className="flex flex-col gap-10 pt-2 flex-1">
-                                        <p
-                                            className="text-2xl md:text-3xl lg:text-4xl text-white/90 leading-[1.5] font-light max-w-4xl"
-                                            style={{ fontFamily: 'Inter, ui-sans-serif, sans-serif' }}
-                                        >
-                                            {data.testimonial.quote}
-                                        </p>
-
-                                        {/* Attribution */}
-                                        <div className="flex items-center gap-6 pt-4 border-t border-white/10 max-w-4xl">
-                                            {/* Avatar accent */}
-                                            <div
-                                                className="w-14 h-14 rounded-full flex-shrink-0 border-2 overflow-hidden"
-                                                style={{ borderColor: data.accent }}
-                                            >
-                                                <img
-                                                    src="/images/archive1/Screenshot 2026-03-19 014514.png"
-                                                    alt="Tony Thompson"
-                                                    className="w-full h-full object-cover object-top scale-150"
-                                                />
-                                            </div>
-                                            <div className="flex flex-col gap-1">
-                                                <span
-                                                    className="text-sm font-black uppercase tracking-[0.3em]"
-                                                    style={{ color: data.accent, fontFamily: 'Inter, sans-serif' }}
-                                                >
-                                                    {data.testimonial.name}
-                                                </span>
-                                                <span
-                                                    className="text-xs text-white/40 uppercase tracking-[0.25em] font-normal"
-                                                    style={{ fontFamily: 'Inter, sans-serif' }}
-                                                >
-                                                    {data.testimonial.title}
-                                                </span>
-                                            </div>
-                                            <div className="ml-auto hidden md:flex items-center gap-3 opacity-40">
-                                                {[1, 2, 3, 4, 5].map(s => (
-                                                    <svg key={s} className="w-4 h-4" viewBox="0 0 20 20" fill={data.accent}>
-                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                                    </svg>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-
-
-                {/* ── PROJECT INSIGHTS ─────────────────────────────────────── */}
-                {id === 'tt-01' && (
-                    <div className="w-full max-w-[1400px] mx-auto px-6 py-24 border-t border-white/5">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-                            <div className="lg:col-span-5 flex flex-col gap-8">
-                                <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    className="flex items-center gap-3"
-                                >
-                                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: data.accent }} />
-                                    <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold">PROJECT_INSIGHTS</span>
-                                </motion.div>
-                                <h2 className="text-4xl md:text-6xl font-black uppercase leading-none tracking-tighter">
-                                    Bridging the{' '}
-                                    <span className="text-transparent" style={{ WebkitTextStroke: `1px ${data.accent}` }}>
-                                        Missing Piece
-                                    </span>
-                                </h2>
-                                <p className="text-lg font-light text-white/60 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
-                                    Tony Thompson required more than just a website; he needed a{' '}
-                                    <span className="text-white font-medium">Digital Growth Ecosystem</span>. We engineered a platform that
-                                    captures the raw intensity of his high-performance coaching while providing the technical stability
-                                    for global business scalability.
-                                </p>
-                            </div>
-                            <div className="lg:col-span-1" />
-                            <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-10 pt-8">
-                                {[
-                                    { num: '01', title: 'BRANDING AUTHORITY', desc: 'Defining the visual DNA that resonates with world-class leaders. High-fidelity creative combined with systemic brand logic.' },
-                                    { num: '02', title: 'DIGITAL ARCHITECTURE', desc: 'A conversion-centric platform designed for frictionless interaction across programs, podcasts, and community systems.' },
-                                    { num: '03', title: 'GROWTH LOGIC', desc: 'Integrating complex user flows that transition cold traffic into lifelong community members through strategic data points.' },
-                                    { num: '04', title: 'ECOSYSTEM SYNC', desc: 'Unifying various sub-brands into a single, cohesive digital voice that maintains authority across all touchpoints.' },
-                                ].map((item, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: i * 0.1 }}
-                                        className="flex flex-col gap-4 border-l-2 border-white/5 pl-8 hover:border-[#D16D6A] transition-colors duration-500"
-                                    >
-                                        <span className="font-mono text-[9px] uppercase tracking-[0.3em] font-bold" style={{ color: data.accent }}>
-                                            {item.num} // {item.title}
-                                        </span>
-                                        <p className="text-xs text-white/40 font-mono tracking-wider leading-relaxed uppercase">{item.desc}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* ── OTHER SELECTED WORKS (Reference-style list) ──────────── */}
-                <div className="w-full border-t border-white/10 relative">
-                    {/* Section label */}
-                    <div className="w-full max-w-[1400px] mx-auto px-6 pt-20 pb-12">
-                        <div className="flex items-center gap-4">
-                            <div className="w-2 h-2 rounded-full bg-white/20" />
-                            <span className="font-mono text-[9px] uppercase tracking-[0.5em] text-white/30">
-                                MORE SELECTED WORKS
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Project rows */}
-                    <div className="flex flex-col">
-                        {filteredProjects.map((project, index) => (
-                            <Link
-                                key={project.id}
-                                to={`/archive/${project.id}`}
-                                className="group relative border-b border-white/10 cursor-pointer overflow-hidden block"
-                                onMouseEnter={() => setHoveredProject(project.id)}
-                                onMouseLeave={() => setHoveredProject(null)}
-                            >
-                                {/* Hover fill */}
-                                <div
-                                    className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-                                    style={{ backgroundColor: project.id === 'evo-2' ? '#00E5C3' : (project.id === 'evo-3' ? '#B794F4' : '#FF3E00') }}
-                                />
-
-                                <div className="px-6 py-10 md:py-14 max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-                                    {/* Index + Title */}
-                                    <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-10 w-full md:w-2/3">
-                                        <span
-                                            className="font-mono font-bold text-xl md:text-2xl transition-colors duration-500 group-hover:text-black/50"
-                                            style={{ color: project.id === 'evo-2' ? '#00E5C3' : (project.id === 'evo-3' ? '#B794F4' : '#FF3E00') }}
-                                        >
-                                            {String(index + 1).padStart(2, '0')}/
-                                        </span>
-                                        <h2
-                                            className="font-black text-4xl md:text-6xl lg:text-7xl leading-none tracking-tighter uppercase transition-all duration-500 text-transparent group-hover:text-black"
-                                            style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}
-                                        >
-                                            {project.label}
-                                        </h2>
-                                    </div>
-
-                                    {/* Metadata + Arrow */}
-                                    <div className="flex items-center justify-between md:justify-end gap-8 w-full md:w-1/3">
-                                        <div className="flex flex-col gap-1 md:opacity-0 md:-translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">
-                                            <p className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 group-hover:text-black/60">
-                                                {project.year}
-                                            </p>
-                                            <p className="font-mono text-xs text-white/70 group-hover:text-black font-medium uppercase tracking-wider">
-                                                {project.service}
-                                            </p>
-                                        </div>
-
-                                        <div className="w-12 h-12 rounded-full border border-white/20 group-hover:border-black flex items-center justify-center transition-all duration-500 shrink-0 group-hover:bg-black/10">
-                                            <svg
-                                                className="w-5 h-5 text-white group-hover:text-black transition-all duration-500 -rotate-45 group-hover:rotate-0"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                            >
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-
-                    {/* Bottom CTA */}
-                    <div className="w-full max-w-[1400px] mx-auto px-6 py-20 flex justify-between items-center border-t border-white/5">
-                        <div
-                            className="group cursor-pointer font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 hover:text-[#FF3E00] transition-all duration-300 flex items-center gap-4 bg-white/5 px-6 py-3 rounded-none border border-white/5 backdrop-blur-md"
-                            onClick={() => navigate('/#work-section')}
-                        >
-                            <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
-                            <span>Back to SELECTED WORKS</span>
-                        </div>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/20">
-                            ARSON_PROTOCOL_WORKS
-                        </span>
-                    </div>
-                </div>
+            <span
+                className="uppercase whitespace-nowrap font-black leading-none"
+                style={{
+                    fontFamily: 'Anton, sans-serif',
+                    fontSize: 'clamp(80px, 18vw, 260px)',
+                    color: 'rgba(255,62,0,0.04)',
+                    letterSpacing: '-0.02em',
+                }}
+            >
+                MANIFESTO
+            </span>
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4">
+            <span
+                className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 opacity-40"
+                style={{ fontFamily: 'IBM Plex Mono, monospace', color: '#FF3E00' }}
+            >
+                THE_VOICE_OF_THE_ARCHITECT
+            </span>
+            <blockquote
+                className="text-white uppercase leading-[0.9] -rotate-1"
+                style={{
+                    fontFamily: 'Anton, sans-serif',
+                    fontSize: 'clamp(32px, 6vw, 100px)',
+                    letterSpacing: '-0.01em',
+                }}
+            >
+                "{quote.includes(' ') ? (
+                    <>
+                        {quote.split(' ').map((word, i) =>
+                            word === 'WEBSITE' || word === 'LEGACY' ? (
+                                <span key={i} style={{ color: '#FF3E00' }}> {word}</span>
+                            ) : ` ${word}`
+                        )}
+                    </>
+                ) : quote}"
+            </blockquote>
+            <div className="mt-12 flex items-baseline gap-4">
+                <div className="w-12 h-1 bg-[#FF3E00] flex-shrink-0" />
+                <cite className="not-italic">
+                    <span
+                        className="block text-white uppercase font-black text-2xl"
+                        style={{ fontFamily: 'Anton, sans-serif' }}
+                    >{author}</span>
+                    <span
+                        className="block text-[10px] tracking-widest text-[#FF3E00] uppercase opacity-60 mt-1"
+                        style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                    >{title}</span>
+                </cite>
             </div>
         </div>
+    </motion.div>
+));
+
+// ── Main Archive Page ─────────────────────────────────────────────────────────
+const ArchivePage: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+    const project = id ? archiveData[id] : null;
+
+    const [isGlitching, setIsGlitching] = useState(false);
+    const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+
+    // Lock body scroll and set global modal state
+    useEffect(() => {
+        if (activeModalIndex !== null) {
+            document.body.style.overflow = 'hidden';
+            document.body.setAttribute('data-archive-modal-active', 'true');
+        } else {
+            document.body.style.overflow = '';
+            document.body.removeAttribute('data-archive-modal-active');
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.body.removeAttribute('data-archive-modal-active');
+        };
+    }, [activeModalIndex]);
+
+    // Aggregate all images for the modal
+    const allProjectImages = project
+        ? [project.heroImage, project.referenceImage, project.sideImage, ...(project.galleryImages || [])]
+        : [];
+
+    // Glitch effect trigger
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsGlitching(true);
+            setTimeout(() => setIsGlitching(false), 200);
+        }, 8000);
+        return () => clearInterval(interval);
+    }, []);
+
+    if (!project) {
+        return (
+            <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white font-mono">
+                <div className="text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase mb-4">RECORD_NOT_FOUND</div>
+                <div
+                    className="text-white uppercase mb-12"
+                    style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(48px, 8vw, 120px)' }}
+                >
+                    NULL_ARCHIVE
+                </div>
+                <Link
+                    to="/#work-section"
+                    className="border border-white/20 px-8 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-[#FF3E00] hover:border-[#FF3E00] transition-colors"
+                >
+                    RETURN_TO_WORKS
+                </Link>
+            </div>
+        );
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, filter: 'blur(20px)' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative min-h-screen bg-[#131313] text-white overflow-x-hidden"
+        >
+            {/* === GRAIN OVERLAY === */}
+            <div
+                className="pointer-events-none fixed inset-0 z-[99] opacity-[0.12] mix-blend-overlay"
+                aria-hidden="true"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'repeat',
+                    backgroundSize: '256px 256px',
+                }}
+            />
+
+            {/* === GLOBAL SCANLINES === */}
+            <div
+                className="pointer-events-none fixed inset-0 z-[98]"
+                aria-hidden="true"
+                style={{
+                    background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 3px)',
+                }}
+            />
+
+
+            {/* === HERO SECTION === */}
+            <section className="relative min-h-screen pt-36 pb-24 px-6 md:px-10 overflow-hidden">
+
+                {/* Title — massive, offset */}
+                <motion.div
+                    initial={{ opacity: 0, y: 60, filter: 'blur(20px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative z-10 mb-8"
+                >
+                    <h1
+                        className="uppercase leading-[0.82] tracking-tighter text-white mix-blend-difference"
+                        style={{
+                            fontFamily: 'Anton, sans-serif',
+                            fontSize: 'clamp(72px, 15vw, 240px)',
+                        }}
+                    >
+                        {project.title}
+                    </h1>
+                </motion.div>
+
+                {/* Subtitle rotated card */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4, duration: 0.7 }}
+                    className="relative z-10 inline-block mb-16"
+                    style={{ transform: 'rotate(2deg)' }}
+                >
+                    <div
+                        className="bg-[#FF3E00] px-6 py-4 text-black font-bold uppercase leading-tight"
+                        style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: 'clamp(11px, 1.5vw, 15px)' }}
+                    >
+                        DECONSTRUCTING THE MONOLITH.<br />
+                        {project.subtitle}
+                    </div>
+                </motion.div>
+
+                {/* Hero Image — full-bleed, glitched */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.01 }}
+                    onClick={() => setActiveModalIndex(0)}
+                    transition={{ delay: 0.2, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative z-10 h-[55vw] max-h-[680px] min-h-[320px] cursor-pointer group"
+                    style={{ transform: 'translateX(-0.5%)' }}
+                >
+                    <MemoizedGlitchImage
+                        src={project.heroImage}
+                        alt={project.title}
+                        priority={true}
+                        className="w-full h-full transition-all duration-700 group-hover:brightness-110"
+                        style={{
+                            filter: isGlitching ? 'brightness(1.4) contrast(1.2) hue-rotate(10deg)' : 'brightness(0.85) contrast(1.1)',
+                            transition: 'filter 0.1s ease',
+                        }}
+                    />
+                    {/* View overlay */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                         <div className="bg-[#FF3E00] px-10 py-5 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 shadow-[0_20px_50px_rgba(255,62,0,0.3)]">
+                            <span className="text-black text-2xl tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                         </div>
+                    </div>
+                    {/* Vertical coordinate tag */}
+                    <div
+                        className="absolute top-10 -left-6 text-[10px] tracking-[1.2em] text-[#FF3E00]/60 pointer-events-none"
+                        style={{
+                            fontFamily: 'IBM Plex Mono, monospace',
+                            writingMode: 'vertical-rl',
+                        }}
+                    >
+                        COORDINATES_{project.coordinates}
+                    </div>
+                </motion.div>
+            </section>
+
+            {/* === THE VOID SECTION === */}
+            <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={containerVariants}
+                className="py-32 px-6 md:px-10 relative overflow-hidden bg-[#0e0e0e]"
+            >
+                <div className="mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+                    {/* Left: The Void text block */}
+                    <motion.div variants={itemVariants} className="md:col-span-5 space-y-10 relative z-20">
+                        <div
+                            className="p-8 border bg-[#131313]"
+                            style={{ borderColor: 'rgba(255,62,0,0.25)', transform: 'rotate(-1deg)' }}
+                        >
+                            <h2
+                                className="uppercase mb-8 leading-none text-white"
+                                style={{
+                                    fontFamily: 'Anton, sans-serif',
+                                    fontSize: 'clamp(48px, 6vw, 80px)',
+                                }}
+                            >
+                                THE<br />VOID
+                            </h2>
+                            <p
+                                className="text-white/50 text-sm leading-relaxed"
+                                style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                            >
+                                {project.voidText}
+                            </p>
+                        </div>
+                        <div className="w-full h-px" style={{ background: 'rgba(255,62,0,0.2)' }} />
+                    </motion.div>
+
+                    {/* Right: Chaos text, offset + rotated */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="md:col-span-7 md:pt-32 relative z-10"
+                    >
+                        {/* Decorative rotating square */}
+                        <div
+                            className="absolute -top-20 -left-20 w-64 h-64 border border-white/5 pointer-events-none"
+                            style={{ transform: 'rotate(45deg)' }}
+                        />
+                        <div
+                            className="p-10 bg-[#FF3E00] text-black relative z-10"
+                            style={{ transform: 'rotate(1deg)' }}
+                        >
+                            <h2
+                                className="uppercase mb-6 leading-none"
+                                style={{
+                                    fontFamily: 'Anton, sans-serif',
+                                    fontSize: 'clamp(36px, 5vw, 72px)',
+                                }}
+                            >
+                                SYNTHESIS<br />OF CHAOS
+                            </h2>
+                            <p
+                                className="text-sm leading-relaxed font-bold uppercase opacity-80"
+                                style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                            >
+                                {project.chaosText}
+                            </p>
+                        </div>
+                    </motion.div>
+                </div>
+            </motion.section>
+
+            {/* === FRACTURED GALLERY SECTION === */}
+            <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.15 }}
+                variants={containerVariants}
+                className="py-24 px-4 md:px-10 bg-[#131313] relative overflow-hidden"
+            >
+                <div className="grid grid-cols-12 gap-6 md:gap-4 items-end">
+                    {/* Large hero image, hovers right */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="col-span-12 md:col-span-7 relative group cursor-pointer"
+                        style={{ transition: 'transform 0.5s ease' }}
+                        whileHover={{ x: 16 }}
+                        onClick={() => setActiveModalIndex(1)}
+                    >
+                        <div
+                            className="absolute inset-0 -m-4 pointer-events-none"
+                            style={{ background: 'rgba(255,62,0,0.06)' }}
+                        />
+                        <MemoizedGlitchImage
+                            src={project.referenceImage}
+                            alt="structural reference"
+                            className="w-full h-[500px] grayscale group-hover:grayscale-0 transition-all duration-700"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                             <div className="bg-[#FF3E00] px-8 py-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                <span className="text-black text-xl tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                             </div>
+                        </div>
+                        <div
+                            className="absolute bottom-4 left-4 bg-[#131313] px-4 py-2 border border-white/10"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px' }}
+                        >
+                            VISUAL_INDEX_{project.id.toUpperCase()}
+                        </div>
+                    </motion.div>
+
+                    {/* Right column: info + small image */}
+                    <motion.div variants={itemVariants} className="col-span-12 md:col-span-5 relative z-20 mt-10 md:mt-0">
+                        <div
+                            className="bg-[#1f1f1f] p-8 mb-4 border-r-8 border-[#FF3E00]"
+                            style={{ transform: 'rotate(-2deg)' }}
+                        >
+                            <h3
+                                className="text-white uppercase mb-4"
+                                style={{
+                                    fontFamily: 'Anton, sans-serif',
+                                    fontSize: 'clamp(28px, 4vw, 52px)',
+                                }}
+                            >
+                                INDUSTRIAL_MANIFESTO
+                            </h3>
+                            <p
+                                className="text-white/50 text-xs"
+                                style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                            >
+                                ARCHITECTURAL SCALE EXECUTED AT HUMAN INTENSITY. THE VISION IS LIVE.
+                            </p>
+                        </div>
+                        <div 
+                            className="relative overflow-hidden h-[420px] cursor-pointer group"
+                            onClick={() => setActiveModalIndex(2)}
+                        >
+                            <img
+                                src={project.sideImage}
+                                alt="side detail"
+                                loading="lazy"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                style={{ filter: 'brightness(0.7) contrast(1.1)', contentVisibility: 'auto' }}
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                                <div className="bg-[#FF3E00] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span className="text-black text-lg tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* NEW: Expanded Gallery Section */}
+                    {project.galleryImages && project.galleryImages.length > 0 && (
+                        <div className="col-span-12 grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
+                            {project.galleryImages.map((img, i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={itemVariants}
+                                    whileHover={{ y: -10 }}
+                                    onClick={() => setActiveModalIndex(i + 3)}
+                                    className={`relative overflow-hidden group cursor-pointer ${i % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'}`}
+                                    style={{ contentVisibility: 'auto' }}
+                                >
+                                    <img
+                                        src={img}
+                                        alt={`Gallery image ${i}`}
+                                        loading="lazy"
+                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                                        <div className="bg-[#FF3E00] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <span className="text-black text-lg tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                                        </div>
+                                    </div>
+                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 pointer-events-none group-hover:opacity-0 transition-opacity">
+                                        <div className="flex flex-col gap-2">
+                                            <span className="font-mono text-[10px] tracking-widest text-[#FF3E00]">
+                                                MANIFESTO_VISUAL_{String(i + 1).padStart(2, '0')}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Full-width dissolve text block */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="col-span-12 md:col-span-8 p-12 bg-[#1a1a1a] border border-white/5 flex flex-col justify-end relative mt-6"
+                    >
+                        <h3
+                            className="uppercase text-white/5 leading-none absolute -top-8 left-0 pointer-events-none select-none"
+                            style={{
+                                fontFamily: 'Anton, sans-serif',
+                                fontSize: 'clamp(48px, 10vw, 140px)',
+                            }}
+                        >
+                            DISSOLUTION
+                        </h3>
+                        <p
+                            className="text-white/70 text-xl max-w-lg relative z-10"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                        >
+                            {project.dissolveText}
+                        </p>
+                    </motion.div>
+                </div>
+            </motion.section>
+
+            {/* === STATS SECTION === */}
+            <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={containerVariants}
+                className="bg-[#0e0e0e] py-32 px-8 border-y border-white/5 relative"
+            >
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20">
+                    {project.stats.map((stat, i) => (
+                        <motion.div
+                            key={stat.label}
+                            variants={itemVariants}
+                            className="relative group"
+                            style={{ paddingTop: `${i * 4}rem` }}
+                        >
+                            {/* Hover aura */}
+                            <div className="absolute -inset-8 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500"
+                                style={{ background: 'rgba(255,62,0,0.05)' }} />
+                            <div className="relative z-10 flex flex-col">
+                                <span
+                                    className="leading-none"
+                                    style={{
+                                        fontFamily: 'Anton, sans-serif',
+                                        fontSize: 'clamp(64px, 10vw, 120px)',
+                                        color: i === 0 ? '#FF3E00' : '#ffffff',
+                                    }}
+                                >
+                                    {stat.value}
+                                </span>
+                                <span
+                                    className="text-xs tracking-[0.5em] text-white/40 uppercase mt-4"
+                                    style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                                >
+                                    {stat.label}
+                                </span>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.section>
+
+            {/* === MANIFESTO QUOTE === */}
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={containerVariants}
+                className="relative bg-[#131313]"
+            >
+                {/* Skewed accent panel */}
+                <div
+                    className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
+                    style={{
+                        background: '#0e0e0e',
+                        transform: 'skewX(12deg) translateX(24px)',
+                    }}
+                />
+                <ManifestoBlock
+                    quote={project.manifesto}
+                    author={project.manifestoAuthor}
+                    title={project.manifestoTitle}
+                />
+            </motion.div>
+
+            {/* === PROJECT DETAILS === */}
+            <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={containerVariants}
+                className="bg-[#0e0e0e] py-20 px-6 md:px-10 border-t border-white/5"
+            >
+                <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+                    {/* Bio */}
+                    <motion.div variants={itemVariants}>
+                        <div
+                            className="text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase mb-6"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                        >
+                            PROJECT_CONTEXT
+                        </div>
+                        <p
+                            className="text-white/60 leading-relaxed text-sm"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                        >
+                            {project.bio}
+                        </p>
+                        <div className="mt-8 grid grid-cols-2 gap-3 text-[10px]"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                        >
+                            <div><span className="text-white/30">YEAR_</span><span className="text-white">{project.year}</span></div>
+                            <div><span className="text-white/30">LOCATION_</span><span className="text-white">{project.location}</span></div>
+                            <div><span className="text-white/30">TYPE_</span><span className="text-[#FF3E00]">{project.category}</span></div>
+                            <div><span className="text-white/30">ID_</span><span className="text-white/50">{project.id.toUpperCase()}</span></div>
+                        </div>
+                    </motion.div>
+
+                    {/* Deliverables */}
+                    <motion.div variants={itemVariants}>
+                        <div
+                            className="text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase mb-6"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                        >
+                            DELIVERABLES_INDEX
+                        </div>
+                        <div className="space-y-3">
+                            {project.deliverables.map((d, i) => (
+                                <div
+                                    key={d}
+                                    className="flex items-center gap-4 border-b border-white/5 pb-3 text-sm text-white/60"
+                                    style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                                >
+                                    <span className="text-[#FF3E00] text-[10px] shrink-0">
+                                        {String(i + 1).padStart(2, '0')}
+                                    </span>
+                                    <span>{d.toUpperCase()}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
+            </motion.section>
+
+            {/* === PROJECT CTA SECTION === */}
+            <motion.section
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={containerVariants}
+                className="relative bg-[#FF3E00] py-40 px-8 overflow-hidden group"
+            >
+                {/* Massive background watermark text */}
+                <div className="absolute inset-0 opacity-10 flex items-center justify-center overflow-hidden pointer-events-none select-none">
+                    <span
+                        className="whitespace-nowrap uppercase font-black text-black"
+                        style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(80px, 25vw, 400px)' }}
+                    >
+                        INITIATE_PROJECT
+                    </span>
+                </div>
+                <motion.div variants={itemVariants} className="relative z-10 flex flex-col items-center text-center">
+                    <h2
+                        className="text-black uppercase tracking-tighter leading-none mb-16"
+                        style={{
+                            fontFamily: 'Anton, sans-serif',
+                            fontSize: 'clamp(48px, 10vw, 160px)',
+                        }}
+                    >
+                        COLLAPSE THE<br />FUTURE_
+                    </h2>
+                    <Link
+                        to="/contact"
+                        className="bg-black text-white px-20 py-8 font-black text-2xl uppercase tracking-[0.3em] hover:scale-105 hover:-rotate-1 transition-all active:scale-95 border-4 border-transparent hover:border-white block"
+                        style={{ fontFamily: 'Anton, sans-serif' }}
+                    >
+                        START_PROCESS
+                    </Link>
+                </motion.div>
+            </motion.section>
+
+            {/* === IMAGE MODAL CAROUSEL === */}
+            <AnimatePresence>
+                {activeModalIndex !== null && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/100 backdrop-blur-3xl"
+                        onClick={() => setActiveModalIndex(null)}
+                    >
+                        {/* Minimalist Backdrop */}
+                        <div className="absolute inset-0 bg-black/100 z-0" />
+
+                        {/* Navigation Arrows - Scaled Down */}
+                        <div className="absolute inset-y-0 inset-x-4 md:inset-x-8 flex justify-between items-center z-[110] pointer-events-none">
+                            <motion.button
+                                whileHover={{ scale: 1.1, x: -5 }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveModalIndex(prev => (prev! === 0 ? allProjectImages.length - 1 : prev! - 1));
+                                }}
+                                className="pointer-events-auto bg-white/5 hover:bg-[#FF3E00]/20 p-6 group transition-colors border border-white/5"
+                            >
+                                <ArrowLeftIcon className="w-6 h-6 text-white group-hover:text-[#FF3E00] transition-colors" />
+                            </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.1, x: 5 }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveModalIndex(prev => (prev! === allProjectImages.length - 1 ? 0 : prev! + 1));
+                                }}
+                                className="pointer-events-auto bg-white/5 hover:bg-[#FF3E00]/20 p-6 group transition-colors border border-white/5"
+                            >
+                                <ArrowRightIcon className="w-6 h-6 text-white group-hover:text-[#FF3E00] transition-colors" />
+                            </motion.button>
+                        </div>
+
+                        {/* Main Image Container */}
+                        <div className="relative w-full h-full max-w-7xl max-h-[80vh] flex items-center justify-center px-6 md:px-20 overflow-visible z-10" onClick={(e) => e.stopPropagation()}>
+                            
+                            {/* Close Button: Pure Orange 'X' */}
+                            <motion.button
+                                whileHover={{ scale: 1.2, rotate: 90 }}
+                                onClick={(e) => { e.stopPropagation(); setActiveModalIndex(null); }}
+                                className="absolute -top-10 -right-6 md:-right-10 z-[1100] p-4 group cursor-pointer"
+                            >
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF3E00" strokeWidth="2.5" strokeLinecap="square">
+                                    <path d="M18 6L6 18M6 6l12 12" />
+                                </svg>
+                            </motion.button>
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeModalIndex}
+                                    initial={{ opacity: 0, scale: 0.95, filter: 'blur(20px)' }}
+                                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                                    exit={{ opacity: 0, scale: 1.05, filter: 'blur(20px)' }}
+                                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                    className="relative w-full h-full flex items-center justify-center"
+                                >
+                                    <img
+                                        src={allProjectImages[activeModalIndex]}
+                                        alt="Blueprint view"
+                                        className="max-w-full max-h-full object-contain border-4 border-white/5"
+                                    />
+                                    
+                                    {/* HUD - Purged in favor of Monolithic Simplicity */}
+
+                                    {/* Index Indicator */}
+                                    <div className="absolute bottom-[-60px] md:bottom-[-80px] left-1/2 -translate-x-1/2 flex items-baseline gap-4">
+                                        <span className="text-[#FF3E00] font-anton text-6xl leading-none">
+                                            {String(activeModalIndex + 1).padStart(2, '0')}
+                                        </span>
+                                        <div className="w-16 h-[2px] bg-white/10" />
+                                        <span className="text-white/20 font-black text-2xl leading-none">
+                                            {String(allProjectImages.length).padStart(2, '0')}
+                                        </span>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+        </motion.div>
     );
 };
 

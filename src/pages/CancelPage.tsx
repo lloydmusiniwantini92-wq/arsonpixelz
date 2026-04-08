@@ -7,7 +7,7 @@ const CancelPage: React.FC = () => {
         <div className="min-h-screen bg-[#0F0F0F] flex items-center justify-center p-6">
             <div className="max-w-md w-full text-center">
                 <XCircleIcon className="w-24 h-24 text-gray-500 mx-auto mb-6" />
-                <h1 className="text-3xl font-black text-white uppercase mb-4 font-mono">
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
                     Sequence Aborted
                 </h1>
                 <p className="text-gray-400 font-mono mb-8">

@@ -210,3 +210,10 @@
     left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%);
   }
 }
+
+/* Global Navigation and Interface Suppression */
+body[data-archive-modal-active="true"] header,
+body[data-archive-modal-active="true"] .ars-bot-ui,
+body[data-shop-active="true"] .ars-bot-ui {
+  display: none !important;
+}

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HeroContent } from '../Hero';
-import { AboutContent } from '../About';
 import { NavigationContext } from '../../App';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -62,7 +61,7 @@ export const UnifiedVoidSystem: React.FC = () => {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: 'top top',
-                    end: 'bottom bottom', // End when the entire system is scrolled
+                    end: 'bottom top', // End when the hero has scrolled completely out of view
                     scrub: 2.0, // Viscous cinematic paint feel
                     invalidateOnRefresh: true,
                     onUpdate: (self) => {
@@ -71,34 +70,8 @@ export const UnifiedVoidSystem: React.FC = () => {
                 }
             });
 
-            // 3. Staggered Content Animations
-            // We only need to trigger these once, they will affect both layers 
-            // because they share the same class names and are triggered by the same ScrollTrigger
-            gsap.from('.animate-title', {
-                y: 80,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power4.out',
-                scrollTrigger: {
-                    trigger: '#about-section',
-                    start: 'top 85%',
-                },
-            });
-
-            gsap.utils.toArray('.stat-grid').forEach((grid: any) => {
-                gsap.from(grid.querySelectorAll('.stat-item'), {
-                    y: 40,
-                    opacity: 0,
-                    duration: 0.8,
-                    stagger: 0.12,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '#about-section',
-                        start: 'top 80%',
-                    },
-                });
-            });
-
+            // 3. Staggered Content Animations (Removed About section animations)
+            
         }, containerRef);
 
         return () => ctx.revert();
@@ -114,10 +87,7 @@ export const UnifiedVoidSystem: React.FC = () => {
             {/* ========================================================= */}
             <div className="relative z-10 w-full">
                 <section id="hero-section">
-                    <HeroContent theme="light" loaded={loaded} />
-                </section>
-                <section id="about-section">
-                    <AboutContent theme="light" />
+                    <HeroContent loaded={loaded} />
                 </section>
             </div>
 
@@ -134,8 +104,7 @@ export const UnifiedVoidSystem: React.FC = () => {
             >
                 {/* Visual Elements stacked traditionally */}
                 <div className="relative w-full flex flex-col">
-                    <HeroContent theme="dark" loaded={loaded} />
-                    <AboutContent theme="dark" />
+                    <HeroContent loaded={loaded} />
                 </div>
 
                 {/* The Blackhole Singularity Pip (stays with the expanding dark layer) */}

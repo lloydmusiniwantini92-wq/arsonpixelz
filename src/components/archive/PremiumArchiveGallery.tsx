@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const archiveImages = [
-    '/images/archive1/Screenshot 2026-03-19 014514.png',
-    '/images/archive1/Screenshot 2026-03-19 014606.png',
-    '/images/archive1/Screenshot 2026-03-19 014652.png',
-    '/images/archive1/Screenshot 2026-03-19 014726.png',
-    '/images/archive1/Screenshot 2026-03-19 014751.png',
-    '/images/archive1/Screenshot 2026-03-19 014815.png',
-    '/images/archive1/Screenshot 2026-03-19 014840.png',
-    '/images/archive1/Screenshot 2026-03-19 014901.png',
-    '/images/archive1/Screenshot 2026-03-19 014940.png',
-    '/images/archive1/Screenshot 2026-03-19 015005.png',
-    '/images/archive1/Screenshot 2026-03-19 015111.png',
-    '/images/archive1/Screenshot 2026-03-19 015229.png',
-    '/images/archive1/Screenshot 2026-03-19 015258.png',
-    '/images/archive1/Screenshot 2026-03-19 015328.png',
-    '/images/archive1/Screenshot 2026-03-19 015345.png',
+    '/images/archive1/Screenshot 2026-03-19 014514.webp',
+    '/images/archive1/Screenshot 2026-03-19 014606.webp',
+    '/images/archive1/Screenshot 2026-03-19 014652.webp',
+    '/images/archive1/Screenshot 2026-03-19 014726.webp',
+    '/images/archive1/Screenshot 2026-03-19 014751.webp',
+    '/images/archive1/Screenshot 2026-03-19 014815.webp',
+    '/images/archive1/Screenshot 2026-03-19 014840.webp',
+    '/images/archive1/Screenshot 2026-03-19 014901.webp',
+    '/images/archive1/Screenshot 2026-03-19 014940.webp',
+    '/images/archive1/Screenshot 2026-03-19 015005.webp',
+    '/images/archive1/Screenshot 2026-03-19 015111.webp',
+    '/images/archive1/Screenshot 2026-03-19 015229.webp',
+    '/images/archive1/Screenshot 2026-03-19 015258.webp',
+    '/images/archive1/Screenshot 2026-03-19 015328.webp',
+    '/images/archive1/Screenshot 2026-03-19 015345.webp',
 ];
 
 const archiveDescs = [

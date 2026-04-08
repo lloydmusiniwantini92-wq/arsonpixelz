@@ -89,9 +89,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                         >
                             <div className="font-mono text-[9px] md:text-[10px] tracking-[0.4em] text-white/40 uppercase flex items-center gap-3">
-                                <span className="text-white font-black bg-white/5 px-2 py-1">ARSON_MONOLITH</span> 
-                                <span className="text-white/10">//</span> 
-                                SYSTEM_CORE_ACTIVE
+                                <span className="text-white font-black bg-white/5 px-2 py-1 uppercase tracking-[0.2em]">Ignition Sequence</span> 
                             </div>
                         </motion.div>
 
@@ -102,7 +100,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                             <div className="font-mono text-[9px] md:text-[10px] tracking-[0.4em] text-white/40 uppercase flex items-center gap-3">
                                 <span className="text-white/20">STATUS:</span>
                                 <motion.span animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="text-[#FF3E00] font-black flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF3E00] animate-pulse block shadow-[0_0_10px_#FF3E00]"></span> OPERATIONAL
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF3E00] shadow-[0_0_10px_#FF3E00]"></span> ONLINE
                                 </motion.span>
                             </div>
                         </motion.div>
@@ -141,10 +139,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                                 <p className="text-xs md:text-sm font-mono font-black text-white/40 text-center max-w-2xl tracking-[0.3em] uppercase leading-loose">
                                     Architecting high-impact digital infrastructures through brutalist industrial strategy and kinetic brand ignition.
                                 </p>
-                                
-                                <div className="flex items-center gap-4">
+                                                                <div className="flex items-center gap-4">
                                     <div className="w-12 h-px bg-white/10" />
-                                    <div className="font-mono text-[10px] text-[#FF3E00] tracking-[1em] pl-[1em]">SYS_STANDBY_01</div>
                                     <div className="w-12 h-px bg-white/10" />
                                 </div>
                             </motion.div>
@@ -158,7 +154,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                             >
                                 <button className="relative px-12 py-6 bg-white text-black font-syne font-black uppercase tracking-[0.4em] text-[11px] overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95">
                                     <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-                                        Initiate Protocol
+                                        Enter
                                     </span>
                                     <div className="absolute inset-0 bg-[#FF3E00] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]" />
                                 </button>
@@ -178,34 +174,17 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                     </main>
 
                     {/* --- BOTTOM HUD ELEMENTS --- */}
-                    <div className="absolute bottom-0 left-0 right-0 flex justify-between px-6 py-6 md:px-12 md:py-10 z-20 pointer-events-none font-mono text-[8px] tracking-[0.4em] text-white/20">
+                     <div className="absolute bottom-0 left-0 right-0 flex justify-between px-6 py-6 md:px-12 md:py-10 z-20 pointer-events-none font-mono text-[8px] tracking-[0.4em] text-white/20">
                         <div className="flex items-center gap-4">
                             <span className="text-[#FF3E00]">01</span>
-                            <div className="w-24 h-px bg-white/5">
-                                <motion.div 
-                                    animate={{ width: ['0%', '100%', '0%'] }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                    className="h-full bg-[#FF3E00]/40"
-                                />
-                            </div>
-                            <span>COORD_45.98 // 23.11</span>
+                            <div className="w-24 h-px bg-white/5" />
                         </div>
 
                         <div className="flex items-center gap-6">
-                            <span>BPM_LOADING</span>
-                            <div className="flex gap-1">
-                                {[...Array(3)].map((_, i) => (
-                                    <motion.div 
-                                        key={i} 
-                                        animate={{ height: [4, 12, 4] }} 
-                                        transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
-                                        className="w-px bg-[#FF3E00]/60" 
-                                    />
-                                ))}
-                            </div>
                             <span className="text-white/40">© {new Date().getFullYear()}</span>
                         </div>
                     </div>
+
 
                 </motion.div>
             )}
