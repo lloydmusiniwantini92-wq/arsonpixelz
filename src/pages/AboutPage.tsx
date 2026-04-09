@@ -141,30 +141,39 @@ export const AboutPage = () => {
         <div ref={containerRef} className="relative min-h-screen bg-[#000000] pt-48 md:pt-60 pb-40 px-6 md:px-12 overflow-hidden text-[#FFFFFF]">
             
             {/* Background Narrative Layers */}
-            <div className="fixed inset-0 z-0 pointer-events-none select-none">
+            <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-30" />
-                <img 
-                    src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1920&q=60&auto=format&fit=crop" 
-                    alt="" 
-                    className="bg-parallax absolute inset-0 w-full h-[130%] object-cover grayscale opacity-[0.35] mix-blend-screen" 
-                />
+                
+                {/* Image Wrapper for static offset */}
+                <div className="absolute inset-x-0 -top-[200px] h-[calc(100%+200px)]">
+                    <img 
+                        src="/images/arsonic.webp" 
+                        alt="" 
+                        className="bg-parallax absolute inset-0 w-full h-full object-cover grayscale opacity-[0.35] mix-blend-screen" 
+                    />
+                </div>
+
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
             </div>
             
-            <div className="relative z-10 max-w-[1920px] mx-auto hero-content-parallax">
-                <div ref={heroContentRef} className="flex flex-col space-y-2 md:space-y-4">
-                    <div className="hero-line overflow-hidden">
-                        <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold uppercase tracking-tight leading-[0.85]" style={{ fontFamily: 'Anton, sans-serif' }}>
+            <div className="relative z-10 max-w-[1920px] mx-auto hero-content-parallax text-center">
+                <div className="core-item mb-8 flex justify-center">
+                    <div className="h-[2px] w-24 bg-[#FF3E00]" />
+                </div>
+
+                <div ref={heroContentRef} className="flex flex-col items-center">
+                    <div className="hero-line overflow-hidden w-full">
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase tracking-[-0.05em] leading-[0.8] text-white" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
                             We Build
                         </h1>
                     </div>
-                    <div className="hero-line overflow-hidden">
-                        <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold uppercase tracking-tight leading-[0.85] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3E00] to-[#E63900]" style={{ fontFamily: 'Anton, sans-serif' }}>
+                    <div className="hero-line overflow-hidden w-full">
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase tracking-[-0.05em] leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3E00] to-[#E63900]" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
                             Empires
                         </h1>
                     </div>
-                    <div className="hero-line overflow-hidden">
-                        <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold uppercase tracking-tight leading-[0.85]" style={{ fontFamily: 'Anton, sans-serif' }}>
+                    <div className="hero-line overflow-hidden w-full">
+                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase tracking-[-0.05em] leading-[0.8] text-white" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
                             Not Pages.
                         </h1>
                     </div>
@@ -215,7 +224,7 @@ export const AboutPage = () => {
                 <div className="construct-container aspect-video w-full bg-[#050505] rounded-2xl overflow-hidden relative group border border-white/5 shadow-2xl">
                     <ScanlineOverlay />
                     <img
-                        src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&q=60&auto=format&fit=crop"
+                        src="/images/web_1.webp"
                         alt="The Lab"
                         className="team-img-parallax w-full h-[120%] object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-1000 ease-in-out"
                     />
