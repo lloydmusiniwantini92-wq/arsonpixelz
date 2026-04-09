@@ -82,7 +82,7 @@ export const ShopHero = () => {
                     <div className="core-item pt-8 flex justify-center">
                         <button 
                             onClick={() => document.getElementById('agency-capabilities')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="px-20 py-6 bg-[#FF3E00] text-black font-['Space_Grotesk'] font-black uppercase tracking-[0.4em] text-xs hover:bg-white transition-all transform active:scale-95 duration-500"
+                            className="px-20 py-6 bg-white text-black font-['Space_Grotesk'] font-black uppercase tracking-[0.4em] text-xs hover:bg-[#FF3E00] hover:text-white transition-all transform active:scale-95 duration-500"
                         >
                             GET_STARTED
                         </button>
