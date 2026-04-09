@@ -30,7 +30,7 @@ const MarketingPage = React.lazy(() => import("./pages/MarketingPage"));
 const BrandingPage = React.lazy(() => import("./pages/BrandingPage"));
 const GamingPage = React.lazy(() => import("./pages/GamingPage"));
 const DevAIPage = React.lazy(() => import("./pages/DevAIPage"));
-const TierListPage = React.lazy(() => import("./pages/TierListPage"));
+
 const ShopPage = React.lazy(() => import("./pages/ShopPage"));
 const TestimonialsPage = React.lazy(() => import("./pages/TestimonialsPage").then(module => ({ default: module.TestimonialsPage })));
 const SuccessPage = React.lazy(() => import("./pages/SuccessPage"));
@@ -90,7 +90,7 @@ const AnimatedRoutes = () => {
                 <Route path="/gaming" element={<PageTransition><GamingPage /></PageTransition>} />
                 <Route path="/dev-ai" element={<PageTransition><DevAIPage /></PageTransition>} />
                 <Route path="/shop" element={<PageTransition><ShopPage /></PageTransition>} />
-                <Route path="/tier-list" element={<PageTransition><TierListPage /></PageTransition>} />
+
                 <Route path="/transmissions" element={<PageTransition><TestimonialsPage /></PageTransition>} />
                 <Route path="/success" element={<PageTransition><SuccessPage /></PageTransition>} />
                 <Route path="/cancel" element={<PageTransition><CancelPage /></PageTransition>} />
@@ -169,7 +169,7 @@ const App = () => {
                     
                     {!isInitialLoad && (
                         <>
-                            <CodeWatermark />
+                            {/* <CodeWatermark /> */}
                             <MagneticCursor />
                             <GlobalShell isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
                             <ScrollToTop />

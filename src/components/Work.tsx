@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { useIgnition } from './layout/IgnitionRuntime';
 
 import TonyThompsonClean from './assets/TonyThompsonClean.webp';
 
@@ -43,7 +44,7 @@ const PROJECTS: Project[] = [
         mainImageAlt: "Tony Thompson digital platform snapshot",
         description: "A comprehensive digital brand execution engineered for a high-velocity creator.",
         uxProtocol: "98%",
-        metadataLabel: "SYSTEMS_MONOLITH",
+        metadataLabel: "SYSTEMS_ARCH",
         coordinates: "51.5074_N_0.1278_W",
         techStack: ["REACT", "MOTION", "TYPESCRIPT"],
         status: "OPERATIONAL",
@@ -55,7 +56,7 @@ const PROJECTS: Project[] = [
         location: "MILAN_IT",
         year: "2024",
         title1: "EATALY",
-        title2: "MONOLITH",
+        title2: "STRUCTURE",
         number: "02",
         mainImage: "/images/eataly/b1cbbd148768185.62dafea48505f.webp",
         secondaryImage: "/images/eataly/eataly_05.webp",
@@ -109,6 +110,8 @@ const PROJECTS: Project[] = [
 ];
 
 export const Work: React.FC = () => {
+  const { lenis } = useIgnition();
+  const { hash } = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
   const navigate = useNavigate();
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -135,8 +138,23 @@ export const Work: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  // New: Robust hash-to-anchor scroll handling with Lenis
+  useEffect(() => {
+    if (hash === '#work-section' && lenis) {
+      // Small timeout to allow the AnimatePresence and layout to settle
+      const timeout = setTimeout(() => {
+        lenis.scrollTo('#work-section', {
+          duration: 1.8,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          offset: -50 // Adjusting to show header clearly
+        });
+      }, 600);
+      return () => clearTimeout(timeout);
+    }
+  }, [hash, lenis]);
+
   return (
-    <section className="relative w-full bg-[#050505] border-y border-white/5 font-sans selection:bg-[#FF3E00] selection:text-white">
+    <section id="work-section" className="relative w-full bg-[#050505] border-y border-white/5 font-sans selection:bg-[#FF3E00] selection:text-white">
       <div className="flex flex-col lg:flex-row items-stretch">
         
         {/* ========================================== */}
@@ -185,8 +203,8 @@ export const Work: React.FC = () => {
         {/* ========================================== */}
         <div className="relative w-full lg:w-1/2 lg:sticky lg:top-0 h-auto bg-black overflow-hidden z-10 flex flex-col border-l border-white/5">
           
-          {/* TOP IMAGE (2/3 HEIGHT) */}
-          <div className="relative h-[66.6vh] lg:h-[66.6%] w-full bg-[#0a0a0a] overflow-hidden">
+          {/* MAIN VISUAL (EXPANDED) */}
+          <div className="relative h-[85vh] w-full bg-[#0a0a0a] overflow-hidden group/visual">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`main-img-${activeProject.id}`}
@@ -199,56 +217,35 @@ export const Work: React.FC = () => {
                 <img
                   src={activeProject.mainImage}
                   alt={activeProject.mainImageAlt}
-                  className="w-full h-full object-cover filter brightness-90 contrast-110"
+                  className="w-full h-full object-cover filter brightness-90 contrast-110 group-hover/visual:scale-105 transition-transform duration-[2s] ease-out"
                 />
-
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+                
+                {/* Commentary (Description) - Moved back onto the image */}
+                <div className="absolute bottom-10 left-10 z-20 max-w-sm">
+                   <p className="font-mono text-[11px] text-white/70 leading-relaxed uppercase tracking-widest drop-shadow-lg">
+                      {activeProject.description}
+                   </p>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* BOTTOM IMAGE (STRETCHES TO FILL) */}
-          <div className="relative flex-1 w-full min-h-[33.4vh] lg:min-h-0 bg-[#050505] overflow-hidden border-t border-white/10 flex flex-col">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`sec-img-${activeProject.id}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.05 }}
-                className="absolute inset-0 h-full w-full"
-              >
-                <img
-                  src={activeProject.secondaryImage}
-                  alt="Detail view"
-                  className="w-full h-full object-cover filter brightness-75 contrast-125 saturate-50 grayscale hover:grayscale-0 transition-all duration-1000"
-                />
-                <div className="absolute inset-0 bg-black/40" />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Description Overlay */}
-            <div className="absolute bottom-10 left-10 z-20 max-w-sm">
-               <p className="font-mono text-[10px] text-white/50 leading-relaxed uppercase tracking-wider">
-                  {activeProject.description}
-               </p>
+          {/* FULL-WIDTH INTERACTIVE ACCESS BAR (CENTRALIZED) */}
+          <button 
+            onClick={() => navigate(activeProject.link)}
+            className="group relative flex-1 w-full flex items-center justify-center bg-white text-black hover:bg-[#FF3E00] hover:text-white transition-all duration-700 overflow-hidden"
+          >
+            {/* Action Label (Bigger & Centralized) */}
+            <div className="relative z-10 flex items-center gap-12">
+              <span className="font-black uppercase tracking-[0.8em] text-[16px] md:text-[18px]">Access File</span>
+              <ArrowRightIcon className="w-8 h-8 transform group-hover:translate-x-4 group-hover:-rotate-45 transition-all duration-500" />
             </div>
-          </div>
 
-          {/* ACCESS FILE BUTTON: CENTERED ON THE DATUM */}
-          <div className="absolute top-[66.6%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
-            <button 
-              onClick={() => navigate(activeProject.link)}
-              className="group flex items-center bg-white text-black px-8 py-5 hover:bg-[#FF3E00] hover:text-white transition-all duration-500 border border-black/10 hover:scale-105 active:scale-95 shadow-2xl"
-            >
-              <span className="font-black uppercase tracking-[0.4em] text-[10px] mr-6">Access File</span>
-              <div className="w-10 h-[1.5px] bg-black group-hover:bg-white transition-colors" />
-              <ArrowRightIcon className="w-5 h-5 ml-4 transform group-hover:-rotate-45 transition-transform duration-500" />
-            </button>
-          </div>
+            {/* Subtle separator glow */}
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-black/5 group-hover:bg-white/20" />
+          </button>
 
-          {/* Minimalist Global CRT Grid Overlay */}
-          <div className="pointer-events-none absolute inset-0 z-50 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:32px_32px]" />
         </div>
       </div>
     </section>

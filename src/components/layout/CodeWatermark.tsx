@@ -6,9 +6,11 @@ const LIGHT_BACKGROUND_ROUTES = ['/', '/marketing', '/branding', '/contact', '/a
 export const CodeWatermark = () => {
   const location = useLocation();
   const isLightMode = LIGHT_BACKGROUND_ROUTES.includes(location.pathname);
+  const isArchivePage = location.pathname.startsWith('/archive/');
 
   // Z-Index: 40 (Overlaying content for visibility, but subtle)
-  // Style: "Marketing" Original (Red, text-xs) - NO BLEND MODE for consistency
+  // Style: "Archive" visibility boost
+  const baseOpacity = isArchivePage ? 'opacity-[0.06]' : (isLightMode ? 'opacity-[0.02]' : 'opacity-[0.035]');
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1] flex select-none">
@@ -22,7 +24,7 @@ export const CodeWatermark = () => {
       />
 
       {/* Code Wall - 5 Columns (No Gaps) */}
-      <div className={`w-full h-full grid grid-cols-5 gap-0 p-0 transition-opacity duration-1000 ${isLightMode ? 'opacity-[0.02]' : 'opacity-[0.035]'}`}>
+      <div className={`w-full h-full grid grid-cols-5 gap-0 p-0 transition-opacity duration-1000 ${baseOpacity}`}>
 
         {[1, 2, 3, 4, 5].map((col) => {
           let codeSnippet = '';

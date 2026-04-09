@@ -49,7 +49,7 @@ export const products: Product[] = [
     },
     {
         id: 'tmpl-002',
-        title: 'VOID // E-COMMERCE',
+        title: 'NUCLEUS // E-COMMERCE',
         description: 'Dark-mode first e-commerce experiential layer. Shopify headless integration ready. Zero-load transitions.',
         price: '$299',
         priceValue: 299,
@@ -61,7 +61,7 @@ export const products: Product[] = [
     {
         id: 'infra-001',
         title: 'CHRONICLE // SYSTEMS',
-        description: 'Unified editorial operations system for high-velocity content production and strategic brand distribution across monolithic platforms.',
+        description: 'Unified editorial operations system for high-velocity content production and strategic brand distribution across global platforms.',
         price: '$199',
         priceValue: 199,
         category: 'workflow',

@@ -127,7 +127,7 @@ export const services: ServiceCategory[] = [
                 title: 'The Foundational Framework',
                 price: '$1,500 – $3,500',
                 description: 'Core strategic interfaces for expanding digital influence.',
-                vibe: 'Monolithic, immediate, and kinetic.',
+                vibe: 'Immediate, structured, and kinetic.',
                 included: ['High-Fidelity UI Interface', 'Strategic System Integration', 'Curated Data Capture', 'Human-Led Flow'],
                 turnaround: '1–2 weeks',
                 stripePriceId: 'price_ai_frontline'
@@ -136,13 +136,13 @@ export const services: ServiceCategory[] = [
                 title: 'The Strategic Infrastructure',
                 price: '$5,000 – $10,000',
                 description: 'Deep-layer orchestration for institutional-scale influence.',
-                vibe: 'Invisible, efficient, and monolithically stable.',
+                vibe: 'Invisible, efficient, and structurally stable.',
                 included: ['Private Knowledge Architecture', 'Structural API Orchestration', 'Autonomous Operational Engines'],
                 turnaround: '3–5 weeks',
                 stripePriceId: 'price_ai_brain'
             },
             {
-                title: 'The Executive Monolith',
+                title: 'The Executive Foundation',
                 price: '$20,000 – $50,000+',
                 description: 'Autonomous Ecosystems for global entities and market leaders.',
                 vibe: 'Limitless, deeply integrated, and self-executing.',

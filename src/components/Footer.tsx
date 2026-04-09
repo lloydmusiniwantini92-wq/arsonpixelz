@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
 
     const location = useLocation();
 
-    // Contextual Page Data Map - Strictly Monolith
+    // Contextual Page Data Map
     const getFooterContent = () => {
         const baseTheme = {
             bg: '#000000',
@@ -122,7 +122,7 @@ export const Footer: React.FC = () => {
                 marquee: "AESTHETICS OVER EVERYTHING // BRAND IS BATTLE //",
                 heading: <>Bland Is A <span className="text-[#FF3E00]">Death Sentence.</span></>,
                 paragraph: "In a saturated digital landscape, safety is your greatest liability. We engineer identities that cut through the noise.",
-                directive: "Branding Monolith",
+                directive: "Branding Architecture",
                 footerImage: BrandingBG
             },
             '/marketing': {
@@ -135,7 +135,7 @@ export const Footer: React.FC = () => {
             '/dev-ai': {
                 marquee: "ARCHITECTURAL INTEGRITY // SCALABILITY IS MANDATORY //",
                 heading: <>The <span className="text-[#FF3E00]">Core Engine.</span></>,
-                paragraph: "Structure without soul is a cage. Soul without structure is chaos. We weave both into the architectural core.",
+                paragraph: "Structure without soul is a cage. Soul without structure is noise. We weave both into the architectural core.",
                 directive: "Digital Infrastructure",
                 footerImage: DevAiBG
             },
@@ -153,13 +153,20 @@ export const Footer: React.FC = () => {
                 directive: "Archive Acquisition",
                 footerImage: ShopBG
             },
+            '/about': {
+                marquee: "WE BUILD EMPIRES NOT PAGES // TECTONIC SHIFT //",
+                heading: <>Build The <span className="text-[#FF3E00]">Empire.</span></>,
+                paragraph: "Arson Pixelz wasn't founded to make 'pretty websites.' We exist to burn down the boring, the safe, and the templated.",
+                directive: "Studio Foundation",
+                footerImage: DefaultBG
+            },
         };
 
         const pageContent = pages[location.pathname] || {
             marquee: "DESIGN IS WARFARE // AESTHETICS AS DEFENSE //",
             heading: <>Don't Just Exist. <span className="text-[#FF3E00]">Claim</span> Your Space.</>,
             paragraph: "Attention isn't passive currency — it is agency, leverage, and revolt. We craft digital systems that cannot be ignored.",
-            directive: "Studio Monolith",
+            directive: "Studio Foundation",
             footerImage: DefaultBG
         };
 
@@ -172,7 +179,7 @@ export const Footer: React.FC = () => {
         { title: 'Studio', href: '/' },
         { title: 'The Armory', href: '/shop' },
         { title: 'Intelligence', href: '/dev-ai' },
-        { title: 'Protocol', href: '/tier-list' },
+        { title: 'START DOMINANCE', href: '/shop#agency-capabilities' },
     ];
 
     const socialLinks = [

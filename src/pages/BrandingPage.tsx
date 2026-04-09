@@ -255,7 +255,7 @@ const BrandingPage: React.FC = () => {
 
             {/* PHILOSOPHY SECTION (MONUMENTAL BLEND) */}
             <div ref={philosophyRef} className="min-h-screen w-full bg-[#050505] text-[#FFFFFF] flex flex-col items-center justify-center relative overflow-hidden transition-colors duration-1000">
-                {/* Background Layer 1: Death Sentence (Void Monolith) */}
+                {/* Background Layer 1: Death Sentence */}
                 <div 
                     ref={bg1Ref}
                     className="absolute inset-0 z-0 opacity-10 transition-opacity duration-700"
@@ -270,7 +270,7 @@ const BrandingPage: React.FC = () => {
                 {/* Light Grid Overlay */}
                 <div className="absolute inset-0 z-[1] opacity-[0.03] pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`, backgroundSize: '4rem 4rem' }} />
 
-                {/* Huge scalable text - MONOLITH STYLE */}
+                {/* Huge scalable text */}
                 <h2 
                     ref={philosophyTextRef}
                     className="font-black uppercase tracking-tight text-white text-center leading-[0.85] absolute z-30 font-anton"
@@ -300,7 +300,7 @@ const BrandingPage: React.FC = () => {
                         <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>CHAOS BY <br/>DESIGN.</h3>
                             <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed uppercase">
-                                WE DO NOT FOLLOW TRENDS; WE CRASH THEM. BY INJECTING HIGH-FIDELITY DISRUPTION INTO EVERY TOUCHPOINT, WE ENSURE YOUR BRAND IS THE ONLY CONSTANT IN THE VOID.
+                                WE DO NOT FOLLOW TRENDS; WE CRASH THEM. BY INJECTING HIGH-FIDELITY DISRUPTION INTO EVERY TOUCHPOINT, WE ENSURE YOUR BRAND IS THE ONLY CONSTANT IN THE MARKET.
                             </p>
                         </div>
                     </div>
@@ -321,7 +321,7 @@ const BrandingPage: React.FC = () => {
                         <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>APEX <br/>PREDATOR.</h3>
                             <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed uppercase">
-                                WE DO NOT PERFORM REFLIFTS. WE PERFORM MOLECULAR RECONSTRUCTION. IF YOU SEEK GENTLE REFINEMENT, LEAVE NOW. IF YOU SEEK DOMINANCE IN YOUR SECTOR, INITIATE.
+                                WE DO NOT PERFORM REFLIFTS. WE PERFORM MOLECULAR RECONSTRUCTION. IF YOU SEEK GENTLE REFINEMENT, LEAVE NOW. IF YOU SEEK ABSOLUTE DOMINANCE IN YOUR SECTOR, INITIATE.
                             </p>
                         </div>
                     </div>

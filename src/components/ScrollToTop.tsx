@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useIgnition } from './layout/IgnitionRuntime';
 
 // A persistent map of pathname -> scroll position, lives for the whole session
 const scrollMemory = new Map<string, number>();
 
 export const ScrollToTop = () => {
     const { pathname, hash } = useLocation();
+    const { lenis } = useIgnition();
     const isPopNavigation = useRef(false);
 
     useEffect(() => {
@@ -32,15 +34,20 @@ export const ScrollToTop = () => {
                 const id = window.location.hash.replace('#', '');
                 setTimeout(() => {
                     const element = document.getElementById(id);
-                    if (element) {
+                    if (element && lenis) {
+                        lenis.scrollTo(`#${id}`, { 
+                            duration: 1.2, 
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+                        });
+                    } else if (element) {
                         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
-                }, 400);
+                }, 500);
             } else {
                 window.scrollTo(0, 0);
             }
         }
-    }, [pathname, hash]);
+    }, [pathname, hash, lenis]);
 
     // Continuously save the current scroll position for the current route
     useEffect(() => {

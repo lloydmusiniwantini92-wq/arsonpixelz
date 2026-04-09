@@ -18,7 +18,7 @@ const SIGNAL_COLORS: Record<string, { primary: string; glow: string; rgb: string
 };
 
 const SIGNAL_STRENGTH = [87, 94, 76, 91, 83]; // per card
-const ENCRYPT_LEVELS  = ['AES-∞', 'QUANT-7', 'VOID-X', 'NEO-13', 'DEEP-0'];
+const ENCRYPT_LEVELS  = ['AES-∞', 'QUANT-7', 'CORE-X', 'NEO-13', 'DEEP-0'];
 
 const TestimonialCard: React.FC<{ item: Testimonial; index: number; cardRef: (el: HTMLDivElement | null) => void }> = ({ item, index, cardRef }) => {
     const sig = SIGNAL_COLORS[item.id] ?? SIGNAL_COLORS['trans-01'];

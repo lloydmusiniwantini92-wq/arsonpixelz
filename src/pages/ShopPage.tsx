@@ -49,7 +49,7 @@ const ShopPage = () => {
             style={{ background: '#000000', fontFamily: 'Inter, sans-serif' }}
         >
 
-            {/* ── HERO: DIGITAL MONOLITH ── */}
+            {/* ── HERO: DIGITAL INFRASTRUCTURE ── */}
             <ShopHero />
 
             {/* ── SERVICE MATRIX ── */}

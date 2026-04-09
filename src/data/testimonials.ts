@@ -18,7 +18,7 @@ export const testimonials: Testimonial[] = [
     {
         id: 'trans-01',
         alias: 'KAELTHAS',
-        role: 'VOID ARCHITECT',
+        role: 'SYSTEM ARCHITECT',
         location: 'SECTOR 04',
         transmission: "Arson Pixelz didn't just build a brand; they constructed a digital religion. The 'Construct' framework rewired our entire aquisition channel. Revenue has gone kinetic.",
         image: Architect,

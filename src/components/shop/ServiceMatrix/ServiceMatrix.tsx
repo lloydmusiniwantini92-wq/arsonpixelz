@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { services } from '../../../data/services';
 import { ServiceTierCard } from './ServiceTierCard';
+import { ChooseYourTier } from './ChooseYourTier';
 
 export const ServiceMatrix = () => {
     const [activeCategory, setActiveCategory] = useState(services[0].id);
@@ -26,8 +27,8 @@ export const ServiceMatrix = () => {
             <div className="max-w-[1600px] mx-auto px-6 md:px-12 relative z-10">
                 {/* ── CENTRALIZED SERVICE HEADER (Offset by Sidebar Width to Center over Grid) ── */}
                 <div className="mb-20 text-center w-full">
-                    <h3 className="font-space font-bold text-5xl md:text-7xl text-white uppercase tracking-tighter inline-block relative px-4">
-                         AGENCY CAPABILITIES
+                    <h3 className="font-space font-bold text-5xl md:text-7xl text-white uppercase tracking-tighter inline-block relative px-4 text-center">
+                         AGENCY CAPABILITIES <br className="md:hidden" /> AND PRODUCT RANKING
                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-[#FF3E00]" />
                     </h3>
                 </div>
@@ -90,6 +91,9 @@ export const ServiceMatrix = () => {
                         </AnimatePresence>
                     </div>
                 </div>
+
+                {/* ── CHOOSE YOUR TIER CTA ── */}
+                <ChooseYourTier />
             </div>
         </section>
     );

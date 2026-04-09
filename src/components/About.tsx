@@ -57,7 +57,7 @@ export const AboutContent: React.FC = () => {
             <div className="flex items-center gap-4 mb-10 opacity-60">
                 <div className="w-2 h-2 rounded-full bg-[#FF3E00] animate-pulse shadow-[0_0_10px_#FF3E00]" />
                 <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-white font-black">
-                    Sector_02 // Monolith_Core
+                    Sector_02 // Studio_Core
                 </span>
                 <div className="h-px flex-1 max-w-[6rem] bg-[#FF3E00]/40" />
             </div>

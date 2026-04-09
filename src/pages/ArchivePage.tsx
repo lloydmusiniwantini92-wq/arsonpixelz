@@ -32,21 +32,22 @@ const archiveData: Record<string, ProjectRecord> = {
             '/images/archive1/Screenshot 2026-03-19 014901.webp',
             '/images/archive1/Screenshot 2026-03-19 014940.webp'
         ],
-        manifesto: 'NOT A WEBSITE — A DIGITAL LEGACY MONOLITH.',
+        manifesto: 'NOT A WEBSITE — A DIGITAL LEGACY ARCHIVE.',
         manifestoAuthor: 'T. THOMPSON',
         manifestoTitle: 'CORE_DIRECTOR',
-        bio: 'Tony Thompson is the human-led missing piece for organizations facing $750M joint venture quality failures and cultural silos. We deconstructed his high-stakes facilitation process into a creative monolith that commands attention from the C-Suite.',
+        bio: 'Tony Thompson is the human-led missing piece for organizations facing $750M joint venture quality failures and cultural silos. We deconstructed his high-stakes facilitation process into a creative infrastructure that commands attention from the C-Suite.',
         voidText: 'THE PROBLEM: PROFESSIONAL DISSONANCE. Tony\'s offline impact—saving manufacturing timelines and rebuilding project morale—was invisible. His vision was trapped in a generic, static web existence that failed to reflect the intensity of his "Missing Piece" blueprint.',
-        chaosText: 'THE EXECUTION: SYSTEMATIC INTENSITY. We built a deconstructivist environment that mirrors Tony\'s facilitation sessions. This is not a page; it’s a manifesto of 300+ evaluated causes and architectural artifacts. We replaced the conventional with the tactile.',
+        chaosText: 'THE EXECUTION: SYSTEMATIC INTENSITY. We built a structured environment that mirrors Tony\'s facilitation sessions. This is not a page; it’s an archive of 300+ evaluated causes and architectural artifacts. We replaced the conventional with the tactile.',
         dissolveText: 'THE BOUNDARY BETWEEN ARCHITECT AND OUTCOME HAS DISSOLVED. WE ARE NO LONGER BUILDING SITES; WE ARE TRANSCRIBING HUMAN IMPACT.',
         stats: [{ value: '300+', label: 'CAUSES EVALUATED' }, { value: '$750M', label: 'REVENUE PROTECTED' }, { value: '14', label: 'STRATEGIC ARTIFACTS' }],
-        deliverables: ['Strategic Narrative Blueprint', 'Conversion Flow Engineering', 'Tactile Interaction System', 'Digital Monolith Architecture'],
+        deliverables: ['Strategic Narrative Blueprint', 'Conversion Flow Engineering', 'Tactile Interaction System', 'Digital Systems Architecture'],
         coordinates: '51.5074_N_0.1278_W',
+        heroSlogan: 'STRATEGIC_IMPACT // HUMAN_ENGINEERING',
     },
     'ea-42': {
         id: 'ea-42',
         title: 'EATALY',
-        subtitle: 'RETAIL GOLIATH // TASTE_ARCHITECTURE',
+        subtitle: 'RETAIL GOLIATH',
         category: 'RETAIL / DIGITAL EXPERIENCE',
         year: '2024',
         location: 'MILAN_IT',
@@ -70,11 +71,12 @@ const archiveData: Record<string, ProjectRecord> = {
         stats: [{ value: '+142%', label: 'ENGAGEMENT_SURGE' }, { value: '12', label: 'GLOBAL_MARKETS' }, { value: '22', label: 'ARTIFACT_SYSTEMS' }],
         deliverables: ['E-Commerce Architecture', 'Visual Brand Overhaul', 'UX Flow Engineering', 'Heritage-to-Digital Transition'],
         coordinates: '45.4654_N_9.1859_E',
+        heroSlogan: 'TASTE_ARCHITECTURE // HERITAGE_SYNC',
     },
     'pn-88': {
         id: 'pn-88',
         title: 'PUNO',
-        subtitle: 'ARCHITECTURAL_AGRONOMY // YIELD_INTEL',
+        subtitle: 'ARCHITECTURAL_AGRONOMY',
         category: 'AGRICULTURE / SYSTEMS DESIGN',
         year: '2024',
         location: 'BERLIN_DE',
@@ -96,16 +98,17 @@ const archiveData: Record<string, ProjectRecord> = {
         manifestoTitle: 'CHIEF_AGRONOMIST',
         bio: 'Bypassing traditional agricultural input methods to achieve zero-latency immersion in competitive large-scale farming environments.',
         voidText: 'THE PROBLEM: SYSTEMIC OBSOLESCENCE. Agriculture is the oldest industry, yet it remains the most disconnected from pure digital signal. Puno needed a bridge between the soil and the cloud.',
-        chaosText: 'THE EXECUTION: EARTHED_LOGISTICS. We built a deconstructivist dashboard that mirrors the chaotic but structured nature of growth. Every pixel represents a hectare. Every transition represents a seasonal shift.',
+        chaosText: 'THE EXECUTION: DATA_LOGISTICS. We built a structured dashboard that mirrors the complex nature of growth. Every pixel represents a hectare. Every transition represents a seasonal shift.',
         dissolveText: 'THE BOUNDARY BETWEEN DECISION AND EXECUTION HAS BEEN COLLAPSED INTO THE SOIL.',
         stats: [{ value: '34k', label: 'HECTARES_MAPPED' }, { value: '92%', label: 'YIELD_PRECISION' }, { value: '4M+', label: 'SIGNALS_PROCESSED' }],
         deliverables: ['UI Systems Architecture', 'Interaction Protocol Design', 'Real-time Data Rendering', 'Behavioral Analytics Integration'],
         coordinates: '52.5200_N_13.4050_E',
+        heroSlogan: 'BIOLOGICAL_PROTOCOL // EARTH_CONNECTED',
     },
     'lr-11': {
         id: 'lr-11',
         title: 'LA RADICE',
-        subtitle: 'STRUCTURAL_SOUL // FURNITURE_ARCHITECTURE',
+        subtitle: 'STRUCTURAL_SOUL',
         category: 'FURNITURE / INDUSTRIAL DESIGN',
         year: '2025',
         location: 'VENICE_IT',
@@ -120,12 +123,13 @@ const archiveData: Record<string, ProjectRecord> = {
         manifestoAuthor: 'M. RADICE',
         manifestoTitle: 'MASTER_CRAFTSMAN',
         bio: 'Digitizing structured furniture architecture into visually responsive design signals. A synesthetic platform translating pure artisanal values into physical resonance.',
-        voidText: 'THE PROBLEM: MASS-PRODUCED NOISE. Furniture has lost its structural soul in the age of global scaling. La Radice needed a monolith to showcase the intensity of a single joint.',
+        voidText: 'THE PROBLEM: MASS-PRODUCED NOISE. Furniture has lost its structural soul in the age of global scaling. La Radice needed a dedicated site to showcase the intensity of a single joint.',
         chaosText: 'THE EXECUTION: MATERIAL_HIERARCHY. We engineered a spatial environment that treats every stool and table as a monument. This is not a catalog; it is an architectural archive of physical structure.',
         dissolveText: 'WHEN THE SIGNAL IS PURE, THE STRUCTURE DISAPPEARS. ONLY THE ARTIFCAT REMAINS.',
         stats: [{ value: '11', label: 'STRUCTURAL_JOINTS' }, { value: '24k', label: 'MAN_HOURS' }, { value: '∞', label: 'MATERIAL_LIFE' }],
         deliverables: ['Signal Identity Architecture', 'Multi-Platform Brand Systems', 'Frequency Analytics', 'Visual Language Protocol'],
         coordinates: '45.4408_N_12.3155_E',
+        heroSlogan: 'STRUCTURAL_SOUL // MATERIAL_LEGACY',
     },
     'or-07': {
         id: 'or-07',
@@ -141,13 +145,14 @@ const archiveData: Record<string, ProjectRecord> = {
         manifesto: 'THE INTERFACE IS THE INTELLIGENCE.',
         manifestoAuthor: 'ORBIT_LABS',
         manifestoTitle: 'SYSTEM_ARCHITECT',
-        bio: 'A generative spatial environment powered by neural networks. Redefining the boundaries between physical structures and digital voids through algorithmic design.',
+        bio: 'A generative spatial environment powered by neural networks. Redefining the boundaries between physical structures and digital interfaces through algorithmic design.',
         voidText: 'ORBIT IS NOT A PRODUCT. IT IS A LIVING SYSTEM. EVERY INTERACTION TRAINS THE NEXT ITERATION. THE INTERFACE EVOLVES WITH EACH USE.',
         chaosText: 'WE STOPPED DESIGNING SCREENS AND STARTED DESIGNING BEHAVIORS. THE RESULT IS AN ENVIRONMENT THAT ANTICIPATES YOUR PRESENCE BEFORE YOU ARRIVE.',
         dissolveText: 'THE DISTINCTION BETWEEN USER AND SYSTEM HAS BEEN DISSOLVED. ORBIT ADAPTS. ORBIT LEARNS. ORBIT BECOMES.',
         stats: [{ value: '∞', label: 'GENERATIVE_STATES' }, { value: '99', label: 'ACCURACY_VECTOR' }, { value: '0.01s', label: 'NEURAL_LATENCY' }],
         deliverables: ['Generative UI Architecture', 'Neural Interaction Mapping', 'Adaptive Spatial Design', 'AI Training Pipeline Integration'],
         coordinates: '35.6762_N_139.6503_E',
+        heroSlogan: 'INTERFACE_INTELLIGENCE // NEURAL_SPATIAL',
     },
     'nx-99': {
         id: 'nx-99',
@@ -170,6 +175,7 @@ const archiveData: Record<string, ProjectRecord> = {
         stats: [{ value: '+95', label: 'BRAND_RESONANCE' }, { value: '24', label: 'SIGNAL_CHANNELS' }, { value: '7M+', label: 'FREQUENCY_REACH' }],
         deliverables: ['Signal Identity Architecture', 'Multi-Platform Brand Systems', 'Frequency Analytics', 'Visual Language Protocol'],
         coordinates: '51.5074_N_0.1278_W',
+        heroSlogan: 'IDENTITY_FREQUENCY // BRAND_SIGNAL',
     },
 };
 
@@ -195,6 +201,7 @@ interface ProjectRecord {
     stats: { value: string; label: string }[];
     deliverables: string[];
     coordinates: string;
+    heroSlogan: string;
 }
 
 // ── Stagger animation variants ────────────────────────────────────────────────
@@ -252,7 +259,7 @@ const ManifestoBlock = React.memo(({ quote, author, title }: { quote: string; au
                 style={{
                     fontFamily: 'Anton, sans-serif',
                     fontSize: 'clamp(80px, 18vw, 260px)',
-                    color: 'rgba(255,62,0,0.04)',
+                    color: 'rgba(255,62,0,0.12)',
                     letterSpacing: '-0.02em',
                 }}
             >
@@ -264,7 +271,7 @@ const ManifestoBlock = React.memo(({ quote, author, title }: { quote: string; au
                 className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 opacity-40"
                 style={{ fontFamily: 'IBM Plex Mono, monospace', color: '#FF3E00' }}
             >
-                THE_VOICE_OF_THE_ARCHITECT
+                PROJECT_NARRATIVE
             </span>
             <blockquote
                 className="text-white uppercase leading-[0.9] -rotate-1"
@@ -365,7 +372,7 @@ const ArchivePage: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, filter: 'blur(20px)' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative min-h-screen bg-[#131313] text-white overflow-x-hidden"
+            className="relative min-h-screen bg-transparent text-white overflow-x-hidden"
         >
             {/* === GRAIN OVERLAY === */}
             <div
@@ -378,50 +385,86 @@ const ArchivePage: React.FC = () => {
                 }}
             />
 
-            {/* === GLOBAL SCANLINES === */}
-            <div
-                className="pointer-events-none fixed inset-0 z-[98]"
-                aria-hidden="true"
-                style={{
-                    background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 3px)',
-                }}
-            />
+            {/* === GLOBAL SCANLINES REMOVED AS PER USER REQUEST === */}
 
 
             {/* === HERO SECTION === */}
-            <section className="relative min-h-screen pt-36 pb-24 px-6 md:px-10 overflow-hidden">
+            <section className="relative min-h-screen pt-36 pb-24 px-6 md:px-10 overflow-hidden bg-[#E6E4DD]">
 
-                {/* Title — massive, offset */}
-                <motion.div
-                    initial={{ opacity: 0, y: 60, filter: 'blur(20px)' }}
-                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mb-8"
-                >
-                    <h1
-                        className="uppercase leading-[0.82] tracking-tighter text-white mix-blend-difference"
-                        style={{
-                            fontFamily: 'Anton, sans-serif',
-                            fontSize: 'clamp(72px, 15vw, 240px)',
-                        }}
+                {/* Navigation Header */}
+                <div className="relative z-50 flex items-center justify-between mb-12">
+                    <Link 
+                        to="/#work-section"
+                        className="group flex items-center gap-0 hover:gap-4 bg-black px-6 py-3 border border-black/10 hover:bg-[#FF3E00] hover:border-[#FF3E00] transition-all duration-500"
                     >
-                        {project.title}
-                    </h1>
-                </motion.div>
+                        <div className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500">
+                             <ArrowLeftIcon className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="text-[10px] tracking-[0.4em] uppercase text-white group-hover:text-black transition-colors font-bold">BACK TO SELECTED WORKS</span>
+                    </Link>
+                </div>
+
+                {/* Massive Centralized Project Watermark (Fluid / Custom Stack Logic) */}
+                <div className="absolute inset-0 flex items-start justify-center opacity-[0.08] pointer-events-none select-none z-0 overflow-hidden pt-[20vh] px-4">
+                    <span 
+                        className={`font-space font-bold leading-[0.8] uppercase text-black text-center tracking-tighter ${project.id === 'tt-01' ? 'flex flex-col items-center' : 'whitespace-nowrap'}`}
+                        style={{ fontSize: project.id === 'tt-01' ? 'clamp(140px, 19vw, 450px)' : `clamp(100px, ${Math.min(28, 190 / Math.max(project.title.length, 6))}vw, 400px)` }}
+                    >
+                        {project.id === 'tt-01' ? (
+                            <>
+                                <span>TONY</span>
+                                <span>THOMPSON</span>
+                            </>
+                        ) : project.title}
+                    </span>
+                </div>
+
+                {/* Monolithic Typography Stack */}
+                <div className="relative z-10 flex flex-col items-start gap-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 60, filter: 'blur(20px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <h1
+                            className="uppercase leading-[0.8] tracking-tighter text-black -rotate-1"
+                            style={{
+                                fontFamily: 'Anton, sans-serif',
+                                fontSize: 'clamp(80px, 15vw, 240px)',
+                            }}
+                        >
+                            {project.title}
+                        </h1>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: -40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        className="max-w-4xl"
+                    >
+                        <h2 
+                            className="font-anton text-black uppercase leading-[0.8] tracking-tighter -rotate-1"
+                            style={{ fontSize: 'clamp(32px, 6vw, 110px)' }}
+                        >
+                            "{project.heroSlogan.replace(' // ', ' ')}"
+                        </h2>
+                    </motion.div>
+                </div>
 
                 {/* Subtitle rotated card */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.7 }}
-                    className="relative z-10 inline-block mb-16"
+                    className="relative z-10 inline-block mb-16 mt-12"
                     style={{ transform: 'rotate(2deg)' }}
                 >
                     <div
                         className="bg-[#FF3E00] px-6 py-4 text-black font-bold uppercase leading-tight"
                         style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: 'clamp(11px, 1.5vw, 15px)' }}
                     >
-                        DECONSTRUCTING THE MONOLITH.<br />
+                        DECONSTRUCTING THE VISION.<br />
                         {project.subtitle}
                     </div>
                 </motion.div>
@@ -452,16 +495,6 @@ const ArchivePage: React.FC = () => {
                             <span className="text-black text-2xl tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
                          </div>
                     </div>
-                    {/* Vertical coordinate tag */}
-                    <div
-                        className="absolute top-10 -left-6 text-[10px] tracking-[1.2em] text-[#FF3E00]/60 pointer-events-none"
-                        style={{
-                            fontFamily: 'IBM Plex Mono, monospace',
-                            writingMode: 'vertical-rl',
-                        }}
-                    >
-                        COORDINATES_{project.coordinates}
-                    </div>
                 </motion.div>
             </section>
 
@@ -469,35 +502,41 @@ const ArchivePage: React.FC = () => {
             <motion.section
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="py-32 px-6 md:px-10 relative overflow-hidden bg-[#0e0e0e]"
+                className="py-40 px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a]"
             >
-                <div className="mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
-                    {/* Left: The Void text block */}
+                {/* Avant-Garde Beige Slab (Subtle Background Anchor) */}
+                <div 
+                    className="absolute -top-20 -left-40 w-[60%] h-[120%] bg-[#E6E4DD] opacity-[0.02] -rotate-12 pointer-events-none"
+                    aria-hidden="true"
+                />
+
+                <div className="mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 max-w-7xl relative z-10">
+                    {/* Left: The Void text block (Inverted to Beige) */}
                     <motion.div variants={itemVariants} className="md:col-span-5 space-y-10 relative z-20">
                         <div
-                            className="p-8 border bg-[#131313]"
-                            style={{ borderColor: 'rgba(255,62,0,0.25)', transform: 'rotate(-1deg)' }}
+                            className="p-10 bg-[#E6E4DD] text-black shadow-[20px_20px_0px_rgba(255,62,0,1)]"
+                            style={{ transform: 'rotate(-1.5deg)' }}
                         >
                             <h2
-                                className="uppercase mb-8 leading-none text-white"
+                                className="uppercase mb-8 leading-[0.85] tracking-tighter"
                                 style={{
                                     fontFamily: 'Anton, sans-serif',
-                                    fontSize: 'clamp(48px, 6vw, 80px)',
+                                    fontSize: 'clamp(48px, 6vw, 90px)',
                                 }}
                             >
-                                THE<br />VOID
+                                THE<br />PROBLEM
                             </h2>
                             <p
-                                className="text-white/50 text-sm leading-relaxed"
+                                className="text-black leading-relaxed font-bold uppercase text-xs opacity-80"
                                 style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                             >
                                 {project.voidText}
                             </p>
                         </div>
-                        <div className="w-full h-px" style={{ background: 'rgba(255,62,0,0.2)' }} />
                     </motion.div>
+
 
                     {/* Right: Chaos text, offset + rotated */}
                     <motion.div
@@ -520,7 +559,7 @@ const ArchivePage: React.FC = () => {
                                     fontSize: 'clamp(36px, 5vw, 72px)',
                                 }}
                             >
-                                SYNTHESIS<br />OF CHAOS
+                                THE<br />EXECUTION
                             </h2>
                             <p
                                 className="text-sm leading-relaxed font-bold uppercase opacity-80"
@@ -639,7 +678,7 @@ const ArchivePage: React.FC = () => {
                                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 pointer-events-none group-hover:opacity-0 transition-opacity">
                                         <div className="flex flex-col gap-2">
                                             <span className="font-mono text-[10px] tracking-widest text-[#FF3E00]">
-                                                MANIFESTO_VISUAL_{String(i + 1).padStart(2, '0')}
+                                                VISUAL_RECORD_{String(i + 1).padStart(2, '0')}
                                             </span>
                                         </div>
                                     </div>
@@ -678,20 +717,19 @@ const ArchivePage: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="bg-[#0e0e0e] py-32 px-8 border-y border-white/5 relative"
+                className="bg-[#0e0e0e]/40 py-32 px-8 border-y border-white/5 relative"
             >
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20">
                     {project.stats.map((stat, i) => (
                         <motion.div
                             key={stat.label}
                             variants={itemVariants}
-                            className="relative group"
-                            style={{ paddingTop: `${i * 4}rem` }}
+                            className="relative group flex flex-col items-center text-center"
                         >
                             {/* Hover aura */}
                             <div className="absolute -inset-8 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500"
                                 style={{ background: 'rgba(255,62,0,0.05)' }} />
-                            <div className="relative z-10 flex flex-col">
+                            <div className="relative z-10 flex flex-col items-center text-center">
                                 <span
                                     className="leading-none"
                                     style={{
@@ -737,62 +775,85 @@ const ArchivePage: React.FC = () => {
                 />
             </motion.div>
 
-            {/* === PROJECT DETAILS === */}
+            {/* === TACTICAL CANVAS PROJECT SPEC (REDESIGN) === */}
             <motion.section
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.1 }}
                 variants={containerVariants}
-                className="bg-[#0e0e0e] py-20 px-6 md:px-10 border-t border-white/5"
+                className="relative bg-[#E6E4DD] py-32 md:py-48 px-6 md:px-12 border-t-[24px] border-[#FF3E00] overflow-hidden"
             >
-                <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
-                    {/* Bio */}
-                    <motion.div variants={itemVariants}>
-                        <div
-                            className="text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase mb-6"
-                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
-                        >
-                            PROJECT_CONTEXT
-                        </div>
-                        <p
-                            className="text-white/60 leading-relaxed text-sm"
-                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
-                        >
-                            {project.bio}
-                        </p>
-                        <div className="mt-8 grid grid-cols-2 gap-3 text-[10px]"
-                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
-                        >
-                            <div><span className="text-white/30">YEAR_</span><span className="text-white">{project.year}</span></div>
-                            <div><span className="text-white/30">LOCATION_</span><span className="text-white">{project.location}</span></div>
-                            <div><span className="text-white/30">TYPE_</span><span className="text-[#FF3E00]">{project.category}</span></div>
-                            <div><span className="text-white/30">ID_</span><span className="text-white/50">{project.id.toUpperCase()}</span></div>
-                        </div>
-                    </motion.div>
+                {/* Background Watermark Displacement (Now in Dark) */}
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+                    <span
+                        className="uppercase whitespace-nowrap font-black leading-none opacity-[0.12]"
+                        style={{
+                            fontFamily: 'Anton, sans-serif',
+                            fontSize: 'clamp(100px, 20vw, 300px)',
+                            color: 'black',
+                            letterSpacing: '-0.02em',
+                        }}
+                    >
+                        {project.id.toUpperCase()}
+                    </span>
+                </div>
 
-                    {/* Deliverables */}
-                    <motion.div variants={itemVariants}>
-                        <div
-                            className="text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase mb-6"
-                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
-                        >
-                            DELIVERABLES_INDEX
-                        </div>
-                        <div className="space-y-3">
-                            {project.deliverables.map((d, i) => (
-                                <div
-                                    key={d}
-                                    className="flex items-center gap-4 border-b border-white/5 pb-3 text-sm text-white/60"
-                                    style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                <div className="max-w-[1700px] mx-auto relative z-10">
+                    <div className="flex flex-col xl:flex-row gap-20 items-start">
+                        
+                        {/* LEFT: THE STATEMENT (NOW THE PRIMARY HEADER) */}
+                        <div className="flex-1">
+                            <motion.div variants={itemVariants} className="relative">
+                                <h2 
+                                    className="text-black uppercase leading-[0.9] -rotate-1 max-w-4xl"
+                                    style={{ 
+                                        fontFamily: 'Anton, sans-serif',
+                                        fontSize: 'clamp(40px, 7vw, 110px)',
+                                        letterSpacing: '-0.02em'
+                                    }}
                                 >
-                                    <span className="text-[#FF3E00] text-[10px] shrink-0">
-                                        {String(i + 1).padStart(2, '0')}
-                                    </span>
-                                    <span>{d.toUpperCase()}</span>
-                                </div>
-                            ))}
+                                    {project.id === 'pn-88' ? "Bypassing traditional agricultural input methods" : project.bio}
+                                </h2>
+                            </motion.div>
                         </div>
-                    </motion.div>
+
+                        {/* RIGHT: THE DELIVERABLES COLUMN (INVERTED MONOLITH) */}
+                        <motion.div 
+                            variants={itemVariants} 
+                            className="w-full xl:w-[450px] bg-black text-white p-8 md:p-10 flex flex-col justify-between -rotate-1 shadow-[15px_15px_0px_rgba(255,62,0,1)] self-start"
+                        >
+                            <div>
+                                <h3 
+                                    className="font-anton uppercase tracking-tighter leading-[0.8] mb-10 text-[#FF3E00]"
+                                    style={{ fontSize: '3rem', letterSpacing: '-0.02em' }}
+                                >
+                                    DELIVERABLES_
+                                </h3>
+                                <div className="space-y-4">
+                                    {project.deliverables.map((d, i) => (
+                                        <div key={d} className="flex items-start gap-4 border-b border-white/10 pb-4 last:border-0">
+                                            <span className="font-anton text-xl leading-none pt-0.5 text-white/40">
+                                                0{i+1}
+                                            </span>
+                                            <span 
+                                                className="font-anton uppercase leading-[0.9] tracking-tighter text-base"
+                                            >
+                                                {d}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mt-12 pt-6 border-t-2 border-white/10 text-white flex justify-between items-end">
+                                <span className="font-anton text-4xl leading-none opacity-20">{project.id.toUpperCase()}</span>
+                                <div className="w-8 h-8 bg-[#FF3E00] flex items-center justify-center">
+                                   <div className="w-2 h-2 bg-black" />
+                                </div>
+                            </div>
+                        </motion.div>
+
+                    </div>
                 </div>
             </motion.section>
 

@@ -32,6 +32,29 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
 
     const isPremium = index === 1;
 
+    const rankConfigs = [
+        {
+            rank: 'B',
+            label: 'FLAME',
+            gradient: 'from-white/20 to-white/5',
+            color: '#FFFFFF'
+        },
+        {
+            rank: 'A',
+            label: 'BLAZE',
+            gradient: 'from-[#FF3E00]/50 to-[#E63900]/30',
+            color: '#FF3E00'
+        },
+        {
+            rank: 'S',
+            label: 'INFERNO',
+            gradient: 'from-[#FF3E00] to-[#E63900]',
+            color: '#FF3E00'
+        }
+    ];
+
+    const config = rankConfigs[index] || rankConfigs[2];
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -69,10 +92,32 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                     <div className="w-3 h-3 rounded-none border border-[#FF3E00]/20" />
                 </div>
                 
-                <h3 className="font-space font-black text-4xl md:text-5xl mb-4 text-white uppercase tracking-tighter leading-[0.85]">
-                    {tier.title.replace('The ', '')}
-                </h3>
-                <div className="font-inter font-mono text-[9px] text-[#FF3E00] mb-12 uppercase tracking-[0.5em] font-black opacity-80">
+                {/* Ranking Badge */}
+                <div className="flex items-center gap-4 mb-8">
+                    <div className={`
+                        relative w-16 md:w-20 flex-shrink-0 flex flex-col items-center justify-center
+                        rounded-lg bg-gradient-to-br ${config.gradient} p-[2px] overflow-hidden
+                        shadow-[0_0_20px_rgba(255,62,0,0.2)]
+                    `}>
+                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                        <div className="relative z-10 text-center py-1">
+                            <div className="text-3xl md:text-4xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                                {config.rank}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-[#FF3E00]/60 uppercase">
+                            RANKED_TIER
+                        </span>
+                        <h3 className="font-space font-black text-2xl md:text-3xl text-white uppercase tracking-tighter leading-none">
+                            {config.label}
+                        </h3>
+                    </div>
+                </div>
+
+                <div className="font-inter font-mono text-[9px] text-[#FF3E00] mb-8 uppercase tracking-[0.5em] font-black opacity-80 uppercase block">
                     {tier.vibe}
                 </div>
 
@@ -114,7 +159,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                             : 'bg-transparent border border-[#FF3E00] text-[#FF3E00] hover:bg-[#FF3E00] hover:text-black'}
                     `}
                 >
-                    SECURE_ALIGNMENT
+                    ESTABLISH_HEGEMONY
                 </button>
             </div>
 

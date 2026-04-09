@@ -701,7 +701,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
         { label: "Digital Architecture",  href: "/dev-ai",        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&auto=format" },
         { label: "Market Acceleration",   href: "/marketing",     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80&auto=format" },
         { label: "Gaming Experiences",    href: "/gaming",        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=80&auto=format" },
-        { label: "The Construct",        href: "/about",         image: "https://images.unsplash.com/photo-1549451371-64aa98a6f660?w=1600&q=80&auto=format" },
+        { label: "Studio Core",        href: "/about",         image: "https://images.unsplash.com/photo-1549451371-64aa98a6f660?w=1600&q=80&auto=format" },
         { label: "Selected Works",        href: "/#work-section",  image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
         { label: "Arson Store",            href: "/shop",          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80&auto=format" },
         { label: "Initiate Protocol",     href: "/contact",       image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80&auto=format" },

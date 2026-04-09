@@ -20,11 +20,11 @@ const archiveImages = [
 ];
 
 const archiveDescs = [
-    "A fragmented memory of the first protocol ignition. The grid holds the logic of the static void.",
-    "Data streams in the era of social chaos. Connecting the unconnectable through algorithmic pulse.",
+    "A fragmented memory of the first protocol ignition. The grid holds the logic of the static field.",
+    "Data streams in the era of social dynamics. Connecting the unconnectable through algorithmic pulse.",
     "Decentralized proof of identity. Ownership is now code, and code is law.",
     "Biological logic synthesis. The interface reacts to the observer with sentience.",
-    "The silence of the void. A time before the first pixel was ignited.",
+    "The silence of the field. A time before the first pixel was ignited.",
     "Neural bypass fragments. The mind is the new cursor.",
     "Global decentralized compute. The network is alive, breathing with cryptographic proof.",
     "Static logic in a dynamic world. Legacy protocols holding the line.",

@@ -35,7 +35,7 @@ export const NotFoundPage = () => {
                     System Failure // Path Not Found
                 </p>
                 <h2 className="font-syne font-black text-white text-2xl md:text-5xl max-w-2xl mx-auto mb-14 uppercase leading-tight tracking-tighter">
-                    You have drifted into the void. This sector does not exist.
+                    You have drifted into uncharted territory. This sector does not exist.
                 </h2>
 
                 <Link

@@ -64,7 +64,7 @@ const SchematicStack = () => (
                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border border-white animate-ping" />
             </div>
         </div>
-        <div className="absolute bottom-4 font-mono text-[8px] tracking-[0.6em] text-white/40 font-black uppercase">MONOLITH_ARCH // STABLE</div>
+        <div className="absolute bottom-4 font-mono text-[8px] tracking-[0.6em] text-white/40 font-black uppercase">CORE_ARCH // STABLE</div>
     </div>
 );
 
@@ -162,7 +162,7 @@ export const Services: React.FC = () => {
     return (
         <section ref={sectionRef} className="relative w-full bg-[#000000] text-white overflow-hidden">
             
-            {/* --- 1. MONOLITHIC BACKGROUND STAGE (40% MASKED IMAGES) --- */}
+            {/* --- 1. GLOBAL BACKGROUND STAGE (40% MASKED IMAGES) --- */}
             <div className="absolute inset-0 z-0">
                 <AnimatePresence mode="wait">
                     <motion.div
@@ -193,7 +193,7 @@ export const Services: React.FC = () => {
                 {/* HUD: SECTOR TRACKER */}
 
 
-                {/* THE MONOLITHIC TITLE (PORTAL) */}
+                {/* THE GLOBAL TITLE (PORTAL) Purchasing our products. */}
                 <div className="relative w-full max-w-[140rem] px-12 pb-[180px] flex flex-col items-center justify-center pointer-events-auto">
                     <AnimatePresence mode="wait">
                         <motion.div
