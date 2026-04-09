@@ -36,6 +36,12 @@ const archiveData: Record<string, ProjectRecord> = {
         manifestoAuthor: 'T. THOMPSON',
         manifestoTitle: 'CORE_DIRECTOR',
         bio: 'Strategic brand execution for high-velocity creators.',
+        voidText: 'THE PROBLEM: INVISIBLE IMPACT. Tony\'s offline successes were invisible. His vision was trapped in a generic existence.',
+        chaosText: 'THE EXECUTION: SYSTEMATIC INTENSITY. A structured environment mirroring Tony\'s facilitation. 300+ evaluated causes and artifacts.',
+        dissolveText: 'THE BOUNDARY BETWEEN ARCHITECT AND OUTCOME HAS DISSOLVED. WE ARE TRANSCRIBING HUMAN IMPACT.',
+        stats: [{ value: '300+', label: 'CAUSES EVALUATED' }, { value: '$750M', label: 'REVENUE PROTECTED' }, { value: '14', label: 'STRATEGIC ARTIFACTS' }],
+        deliverables: ['Strategic Narrative Blueprint', 'Conversion Flow Engineering', 'Tactile Interaction System', 'Digital Systems Architecture'],
+        coordinates: '51.5074_N_0.1278_W',
         heroSlogan: 'ARCHIVE PROTOCOL.',
     },
     'ea-42': {
@@ -59,6 +65,12 @@ const archiveData: Record<string, ProjectRecord> = {
         manifestoAuthor: 'EATALY CORE',
         manifestoTitle: 'BRAND_DIRECTOR',
         bio: 'Reconstructing heritage retail via tactile interface.',
+        voidText: 'THE PROBLEM: PHYSICAL FRAGMENTATION. Eataly\'s global retail lacked sensory intensity online. Translate "Taste" into "Interface".',
+        chaosText: 'THE EXECUTION: CULINARY ARCHITECTURE. Artifact acquisition system mirroring a Milanese market.',
+        dissolveText: 'WHERE PHYSICAL RETAIL AND DIGITAL LUXURY COLLIDE, THE BRAND BECOMES A GLOBAL FREQUENCY.',
+        stats: [{ value: '+142%', label: 'ENGAGEMENT_SURGE' }, { value: '12', label: 'GLOBAL_MARKETS' }, { value: '22', label: 'ARTIFACT_SYSTEMS' }],
+        deliverables: ['E-Commerce Architecture', 'Visual Brand Overhaul', 'UX Flow Engineering', 'Heritage-to-Digital Transition'],
+        coordinates: '45.4654_N_9.1859_E',
         heroSlogan: 'SYNTHESIZING HERITAGE.',
     },
     'pn-88': {
@@ -85,6 +97,12 @@ const archiveData: Record<string, ProjectRecord> = {
         manifestoAuthor: 'PUNO SYSTEMS',
         manifestoTitle: 'CHIEF_AGRONOMIST',
         bio: 'Bypassing traditional agricultural input methods.',
+        voidText: 'THE PROBLEM: SYSTEMIC OBSOLESCENCE. Agriculture remains disconnected from pure digital signal. A bridge between soil and cloud.',
+        chaosText: 'THE EXECUTION: DATA_LOGISTICS. A structured dashboard mirroring the complex nature of growth.',
+        dissolveText: 'THE BOUNDARY BETWEEN DECISION AND EXECUTION HAS BEEN COLLAPSED INTO THE SOIL.',
+        stats: [{ value: '34k', label: 'HECTARES_MAPPED' }, { value: '92%', label: 'YIELD_PRECISION' }, { value: '4M+', label: 'SIGNALS_PROCESSED' }],
+        deliverables: ['UI Systems Architecture', 'Interaction Protocol Design', 'Real-time Data Rendering', 'Behavioral Analytics Integration'],
+        coordinates: '52.5200_N_13.4050_E',
         heroSlogan: 'BIOLOGICAL PROTOCOL.',
     },
     'lr-11': {
@@ -105,6 +123,12 @@ const archiveData: Record<string, ProjectRecord> = {
         manifestoAuthor: 'M. RADICE',
         manifestoTitle: 'MASTER_CRAFTSMAN',
         bio: 'Digitizing structured furniture architecture.',
+        voidText: 'THE PROBLEM: MASS-PRODUCED NOISE. Furniture has lost its structural soul. Showcasing single-joint intensity.',
+        chaosText: 'THE EXECUTION: MATERIAL_HIERARCHY. A spatial environment treating every piece as a monument.',
+        dissolveText: 'WHEN THE SIGNAL IS PURE, THE STRUCTURE DISAPPEARS. ONLY THE ARTIFCAT REMAINS.',
+        stats: [{ value: '11', label: 'STRUCTURAL_JOINTS' }, { value: '24k', label: 'MAN_HOURS' }, { value: '∞', label: 'MATERIAL_LIFE' }],
+        deliverables: ['Signal Identity Architecture', 'Multi-Platform Brand Systems', 'Frequency Analytics', 'Visual Language Protocol'],
+        coordinates: '45.4408_N_12.3155_E',
         heroSlogan: 'STRUCTURAL SOUL.',
     },
 };
@@ -861,19 +885,19 @@ const ArchivePage: React.FC = () => {
                             </motion.button>
                         </div>
 
+                        {/* Close Button: Pure Orange 'X' positioned to match logo symmetry */}
+                        <motion.button
+                            whileHover={{ scale: 1.2, rotate: 90 }}
+                            onClick={(e) => { e.stopPropagation(); setActiveModalIndex(null); }}
+                            className="fixed top-[21.5px] right-[45px] md:right-[70px] z-[1100] group cursor-pointer"
+                        >
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF3E00" strokeWidth="2.5" strokeLinecap="square">
+                                <path d="M18 6L6 18M6 6l12 12" />
+                            </svg>
+                        </motion.button>
+
                         {/* Main Image Container */}
                         <div className="relative w-full h-full max-w-7xl max-h-[80vh] flex items-center justify-center px-6 md:px-20 overflow-visible z-10" onClick={(e) => e.stopPropagation()}>
-                            
-                            {/* Close Button: Pure Orange 'X' */}
-                            <motion.button
-                                whileHover={{ scale: 1.2, rotate: 90 }}
-                                onClick={(e) => { e.stopPropagation(); setActiveModalIndex(null); }}
-                                className="absolute -top-10 -right-6 md:-right-10 z-[1100] p-4 group cursor-pointer"
-                            >
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF3E00" strokeWidth="2.5" strokeLinecap="square">
-                                    <path d="M18 6L6 18M6 6l12 12" />
-                                </svg>
-                            </motion.button>
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeModalIndex}

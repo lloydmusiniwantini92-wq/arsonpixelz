@@ -556,8 +556,8 @@ const OriginalLogo = ({
             src={FullLogo}
             alt="Arson Pixelz"
             className={cn(
-              'relative z-10 object-contain brightness-0 invert',
-              scrolled ? 'h-[24px]' : 'h-[32px]'
+              'relative z-10 object-contain brightness-0 invert transition-all duration-300',
+              scrolled ? 'h-[20px] md:h-[24px]' : 'h-[22px] md:h-[32px]'
             )}
           />
 
@@ -864,10 +864,10 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
 
                     <motion.div 
                         animate={{ y: isHeroState ? 7 : 0 }}
-                        className="flex items-center justify-center flex-1 transition-all duration-700"
+                        className="hidden md:flex items-center justify-center flex-1 transition-all duration-700"
                     >
                         {location.pathname !== '/shop' && (
-                            <nav className="flex-1 flex overflow-visible relative z-10 transition-all duration-700 items-center justify-center lg:flex gap-4 md:gap-8" aria-label="Main navigation">
+                            <nav className="flex-1 flex overflow-visible relative z-10 transition-all duration-700 items-center justify-center gap-4 md:gap-8" aria-label="Main navigation">
                                 {navItems.map((item, i) => (
                                     <motion.div
                                         key={item.label}
@@ -1006,15 +1006,16 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                             </button>
                         </div>
 
-                        <div className="flex-1 flex flex-col md:flex-row relative z-20 overflow-hidden">
-                            <div className="flex-1 border-r border-white/5 flex flex-col relative">
+                        <div className="flex-1 flex flex-col md:flex-row relative z-20 overflow-hidden min-h-0">
+                            <div className="flex-1 border-r border-white/5 flex flex-col relative min-h-0">
                                 <div className="py-8 md:py-12 border-b border-white/5 flex items-center justify-center shrink-0">
                                     <div className="font-mono text-[#FF3E00] text-[11px] md:text-[13px] tracking-[0.7em] uppercase animate-pulse">
                                         COMMAND CENTRE
                                     </div>
                                 </div>
                                 <div 
-                                    className="flex-1 overflow-y-auto command-scrollbar py-6 md:py-10 pointer-events-auto"
+                                    className="flex-1 overflow-y-auto command-scrollbar py-6 md:py-10 pointer-events-auto touch-pan-y"
+                                    style={{ WebkitOverflowScrolling: 'touch' }}
                                     data-lenis-prevent
                                 >
                                     <div className="grid grid-cols-1 md:grid-cols-2">

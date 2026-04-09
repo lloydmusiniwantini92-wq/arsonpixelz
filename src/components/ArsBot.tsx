@@ -197,8 +197,8 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
     // ── Positioning ─────────────────────────────────────────────────────────────
     // renderedFixed drives the CSS class — it only flips when the bot is invisible.
     const positionClasses = renderedFixed
-        ? "fixed bottom-8 right-6 md:bottom-12 md:right-12 z-[10001] flex-row-reverse"
-        : "fixed bottom-8 left-6 md:bottom-12 md:left-12 z-[10001] flex-row";
+        ? "fixed bottom-6 right-4 md:bottom-12 md:right-12 z-[10001] flex-row-reverse"
+        : "fixed bottom-6 left-4 md:bottom-12 md:left-12 z-[10001] flex-row";
 
     // ── Apparition Styles ──────────────────────────────────────────────────────
     // Each phase gets specific CSS properties. CSS transitions handle the animation.
@@ -253,7 +253,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 12, scale: 0.95 }}
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className={`absolute bottom-full mb-4 ${renderedFixed ? 'right-0' : 'left-0'} w-[320px] md:w-[380px] bg-[#000000] border-2 border-[#FF3E00]/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[10001] flex flex-col overflow-hidden`}
+                        className={`absolute bottom-full mb-4 ${renderedFixed ? 'right-0' : 'left-0'} w-[280px] md:w-[380px] bg-[#000000] border-2 border-[#FF3E00]/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[10001] flex flex-col overflow-hidden`}
                         style={{ borderRadius: 2 }}
                     >
                         {/* Chat header */}
@@ -369,7 +369,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
 
                     {/* Bot Avatar */}
                     <div className={`
-                        relative w-12 h-12 md:w-14 md:h-14 rounded-full
+                        relative w-10 h-10 md:w-14 md:h-14 rounded-full
                         bg-[#FF3E00] border-2
                         flex items-center justify-center
                         transition-all duration-500 shadow-[0_0_24px_rgba(255,62,0,0.4)]
@@ -380,7 +380,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                             <div className="absolute inset-x-0 h-[1px] bg-white/20 animate-[scanline_3s_linear_infinite]" />
                         </div>
-                        <img src={PLogo} alt="ArsonBot" className="h-10 md:h-12 w-auto invert object-contain px-2" />
+                        <img src={PLogo} alt="ArsonBot" className="h-8 md:h-12 w-auto invert object-contain px-2" />
                         {isIdle && !isScrolling && (
                             <span className="absolute inset-0 rounded-full border-2 border-[#FF3E00] animate-ping opacity-40 pointer-events-none" />
                         )}

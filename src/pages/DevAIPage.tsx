@@ -346,9 +346,10 @@ const DevAIPage: React.FC = () => {
                             Stop patching broken legacy systems. Architect the future of your platform today.
                         </p>
                         <a href="mailto:hello@arsonpixels.com?subject=Dev%20Project%20Inquiry"
-                           className="inline-block px-12 py-6 bg-black text-white font-syne font-black uppercase text-[12px] tracking-[0.4em] hover:bg-white hover:text-black transition-all duration-500 hover:scale-105"
+                           className="inline-flex flex-col md:flex-row items-center justify-center px-10 py-5 md:px-12 md:py-6 bg-black text-white font-syne font-black uppercase text-[12px] tracking-[0.4em] hover:bg-white hover:text-black transition-all duration-500 hover:scale-105 text-center gap-1 md:gap-2"
                         >
-                            Open Terminal
+                            <span>Open</span>
+                            <span>Terminal</span>
                         </a>
                     </div>
                 </div>

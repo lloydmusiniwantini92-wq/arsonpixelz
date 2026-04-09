@@ -62,8 +62,9 @@ const ContactPage: React.FC = () => {
                 className="max-w-4xl w-full relative z-10"
             >
                 <div className="text-center mb-16 md:mb-20">
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]" style={{ fontFamily: 'Syne, sans-serif' }}>
-                        START YOUR<br /><span className="text-[#FF3E00]">PROJECT</span>
+                    <h1 className="font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]" style={{ fontFamily: 'Syne, sans-serif' }}>
+                        <span className="text-6xl md:text-8xl lg:text-9xl relative md:-left-[0.15em]">START YOUR</span><br />
+                        <span className="text-5xl md:text-8xl lg:text-9xl text-[#FF3E00] relative -left-[0.33em] md:-left-[0.55em]">PROJECT</span>
                     </h1>
                     <p className="font-mono text-white/50 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed uppercase tracking-[0.2em] italic font-bold">
                         Define the scope. We architect high-performance digital systems that incinerate mediocrity and dominate market sectors.
@@ -72,7 +73,7 @@ const ContactPage: React.FC = () => {
 
                 <form onSubmit={handleSubmit} className="bg-white p-8 md:p-16 rounded-none shadow-[0_0_100px_rgba(0,0,0,1)] border-4 border-black relative">
                     {/* Industrial Accent Lines */}
-                    <div className="absolute top-0 right-0 w-24 h-24 border-r-4 border-t-4 border-[#FF3E00] -translate-y-4 translate-x-4 pointer-events-none" />
+
                     <div className="absolute bottom-0 left-0 w-24 h-24 border-l-4 border-b-4 border-black translate-y-4 -translate-x-4 pointer-events-none" />
                     
                     <div className="grid md:grid-cols-2 gap-10 mb-10">
@@ -117,7 +118,7 @@ const ContactPage: React.FC = () => {
                                     name="projectType"
                                     value={formData.projectType}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-tighter"
+                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-[14px] md:text-[16px] text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-normal"
                                 >
                                     <option value="" disabled className="bg-white">SELECT TYPE</option>
                                     <option value="branding" className="bg-white">Brand Ignition</option>
@@ -139,7 +140,7 @@ const ContactPage: React.FC = () => {
                                     name="budget"
                                     value={formData.budget}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-tighter"
+                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-[14px] md:text-[16px] text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-normal"
                                 >
                                     <option value="" disabled className="bg-white">SELECT BUDGET</option>
                                     <option value="1k-5k" className="bg-white">1K - 5K USD</option>
@@ -171,9 +172,10 @@ const ContactPage: React.FC = () => {
                     <div className="flex justify-center md:justify-end">
                         <button
                             type="submit"
-                            className="group relative px-16 py-7 bg-black text-white font-syne font-black uppercase text-[12px] tracking-[0.6em] overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                            style={{ fontFamily: 'Anton, sans-serif' }}
+                            className="group relative w-full md:w-auto px-10 md:px-16 py-7 bg-black text-white uppercase text-[20px] tracking-[0.1em] md:tracking-[0.25em] overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
                         >
-                            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">SUBMIT_INQUIRY</span>
+                            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">SUBMIT INQUIRY</span>
                             <div className="absolute inset-0 bg-[#FF3E00] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                         </button>
                     </div>

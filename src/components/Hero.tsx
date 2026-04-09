@@ -204,8 +204,8 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
             </div>
         </div>
 
-        {/* Start Project CTA (Right) — Unified Rubbery Fly-In (2x Slower) */}
-        <div className="absolute bottom-8 md:bottom-12 right-6 md:right-12 z-[1000] pointer-events-auto overflow-visible flex items-end justify-end">
+        {/* Start Project CTA (Center Mobile / Right Desktop) — Unified Rubbery Fly-In (2x Slower) */}
+        <div className="absolute bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 md:left-auto md:right-12 md:translate-x-0 z-[1000] pointer-events-auto overflow-visible flex items-center justify-center md:items-end md:justify-end w-full md:w-auto">
           <motion.div 
               initial={{ opacity: 0, y: 120, x: -50, scale: 0.2, rotateX: 90, filter: 'blur(30px) brightness(2)' }}
               animate={loaded ? { opacity: 1, y: 0, x: 0, scale: 1, rotateX: 0, filter: 'blur(0px) brightness(1)' } : {}}
@@ -216,7 +216,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
               }}
           >
               <MagneticButton onClick={() => navigate('/contact')}>
-              <button className="group relative px-8 py-3 md:px-12 md:py-4 bg-white text-[#FF3E00] font-sans font-extrabold uppercase tracking-[0.15em] text-[clamp(0.9rem,1.2vw,1.1rem)] rounded-full hover:bg-[#FF3E00] transition-all duration-300 shadow-[0_10px_30px_rgba(255,255,255,0.1)] overflow-hidden">
+              <button className="group relative px-10 py-4 md:px-12 md:py-4 bg-white text-[#FF3E00] font-sans font-extrabold uppercase tracking-[0.15em] text-[clamp(0.9rem,1.2vw,1.1rem)] rounded-full hover:bg-[#FF3E00] transition-all duration-300 shadow-[0_10px_30px_rgba(255,255,255,0.1)] overflow-hidden">
                   <span className="relative z-10 transition-colors duration-300 group-hover:text-white">START PROJECT</span>
               </button>
               </MagneticButton>
