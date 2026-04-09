@@ -3,13 +3,20 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 const SuccessPage: React.FC = () => {
+    const { lenis } = useIgnition();
     const { clearCart } = useCart();
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
         // Clear the cart upon successful payment
         clearCart();
-    }, [clearCart]);
+    }, [clearCart, lenis]);
 
     return (
         <div className="min-h-screen bg-[#000000] flex items-center justify-center p-6">

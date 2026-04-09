@@ -13,17 +13,23 @@ import brutalistBg from '../assets/images/DevAI/contact_brutalist_bg.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 const DevAIPage: React.FC = () => {
+    const { lenis } = useIgnition();
     const [loaded, setLoaded] = useState(false);
     const containerRef = useRef<HTMLElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
     const capabilitiesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
         window.scrollTo(0, 0);
         const timer = setTimeout(() => setLoaded(true), 100);
         return () => clearTimeout(timer);
-    }, []);
+    }, [lenis]);
 
     useEffect(() => {
         // ── CINEMATIC TRANSITIONS ───────────────────────────────────────────────

@@ -13,13 +13,20 @@ const ScanlineOverlay = () => (
     </div>
 );
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 export const AboutPage = () => {
+    const { lenis } = useIgnition();
     const containerRef = useRef<HTMLDivElement>(null);
     const constructTextRef = useRef<HTMLSpanElement>(null);
     const heroContentRef = useRef<HTMLDivElement>(null);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
         const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
         setLoaded(true);
 

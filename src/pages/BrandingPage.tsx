@@ -12,7 +12,10 @@ import { RevealText } from '../components/fx/RevealText';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 const BrandingPage: React.FC = () => {
+    const { lenis } = useIgnition();
     const [loaded, setLoaded] = useState(false);
     const containerRef = useRef<HTMLElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
@@ -24,6 +27,9 @@ const BrandingPage: React.FC = () => {
     const bg2Ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
         window.scrollTo(0, 0);
         const timer = setTimeout(() => setLoaded(true), 100);
         return () => clearTimeout(timer);

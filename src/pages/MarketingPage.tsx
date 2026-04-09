@@ -11,7 +11,10 @@ import MarketingImg3 from '../assets/images/marketing/marketing3.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 const MarketingPage: React.FC = () => {
+    const { lenis } = useIgnition();
     const [loaded, setLoaded] = useState(false);
     const containerRef = useRef<HTMLElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
@@ -21,6 +24,9 @@ const MarketingPage: React.FC = () => {
     const philosophyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
         window.scrollTo(0, 0);
         const timer = setTimeout(() => setLoaded(true), 100);
         return () => clearTimeout(timer);

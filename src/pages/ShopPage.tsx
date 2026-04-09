@@ -34,14 +34,20 @@ const Linkedin = ({ size = 24, ...props }) => (
 
 
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 const ShopPage = () => {
+    const { lenis } = useIgnition();
     useEffect(() => { 
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
         window.scrollTo(0, 0); 
         document.body.setAttribute('data-shop-active', 'true');
         return () => {
             document.body.removeAttribute('data-shop-active');
         }
-    }, []);
+    }, [lenis]);
 
     return (
         <div

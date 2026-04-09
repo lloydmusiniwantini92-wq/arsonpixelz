@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { XCircleIcon } from '@heroicons/react/24/outline';
+import { useIgnition } from '../components/layout/IgnitionRuntime';
 
 const CancelPage: React.FC = () => {
+    const { lenis } = useIgnition();
+
+    useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
+    }, [lenis]);
+
     return (
         <div className="min-h-screen bg-[#0F0F0F] flex items-center justify-center p-6">
             <div className="max-w-md w-full text-center">

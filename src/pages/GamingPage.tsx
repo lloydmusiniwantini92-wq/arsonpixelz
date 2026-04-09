@@ -5,10 +5,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 import GamingHeroBg from '../assets/images/mg.webp';
+import { useIgnition } from '../components/layout/IgnitionRuntime';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const GamingPage: React.FC = () => {
+    const { lenis } = useIgnition();
     const [loaded, setLoaded] = useState(false);
 
     const containerRef = React.useRef<HTMLElement>(null);
@@ -23,6 +25,15 @@ const GamingPage: React.FC = () => {
     // ── CINEMATIC TRANSITIONS (from cinematic_transitions skill) ──────────────
     // Custom expensive-feeling cubic-bezier: [0.76, 0, 0.24, 1]
     const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+
+    useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
+        const timer = setTimeout(() => setLoaded(true), 100);
+        return () => clearTimeout(timer);
+    }, [lenis]);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -214,12 +225,6 @@ const GamingPage: React.FC = () => {
 
         }, containerRef);
         return () => ctx.revert();
-    }, []);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        const timer = setTimeout(() => setLoaded(true), 100);
-        return () => clearTimeout(timer);
     }, []);
 
     const handleCheckout = async (priceId: string | undefined) => {

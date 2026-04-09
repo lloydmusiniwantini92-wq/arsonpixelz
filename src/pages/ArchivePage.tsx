@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { useIgnition } from '../components/layout/IgnitionRuntime';
 
 // --- IMPORT ASSETS ---
 import EatalyImg from '../components/assets/Eataly.webp';
@@ -268,8 +269,18 @@ const ArchivePage: React.FC = () => {
     const navigate = useNavigate();
     const project = id ? archiveData[id] : null;
 
+    const { lenis } = useIgnition();
+
     const [isGlitching, setIsGlitching] = useState(false);
     const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+
+    // Reset scroll position on route change
+    useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
+        window.scrollTo(0, 0);
+    }, [id, lenis]);
 
     // Lock body scroll and set global modal state
     useEffect(() => {

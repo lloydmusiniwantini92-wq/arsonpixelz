@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 export const LegalPage = () => {
+    const { lenis } = useIgnition();
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
         window.scrollTo(0, 0);
         const ctx = gsap.context(() => {
             if (containerRef.current) {

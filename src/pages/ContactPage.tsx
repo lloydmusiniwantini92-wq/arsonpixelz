@@ -3,7 +3,10 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import ContactBg from '../assets/images/contact_brutalist_bg.webp';
 
+import { useIgnition } from '../components/layout/IgnitionRuntime';
+
 const ContactPage: React.FC = () => {
+    const { lenis } = useIgnition();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -14,6 +17,9 @@ const ContactPage: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (lenis) {
+            lenis.scrollTo(0, { immediate: true });
+        }
         window.scrollTo(0, 0);
         const ctx = gsap.context(() => {
             if (containerRef.current) {
