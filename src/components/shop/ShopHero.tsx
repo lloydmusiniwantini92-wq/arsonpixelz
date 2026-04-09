@@ -73,9 +73,9 @@ export const ShopHero = () => {
                     <div className="h-[2px] w-24 bg-[#FF3E00] mx-auto mb-4" />
                 </div>
 
-                <h1 className="core-item text-[12vw] md:text-[8rem] lg:text-[10rem] font-black leading-[0.8] tracking-[-0.05em] uppercase text-[#FF3E00] mb-16 font-['Space_Grotesk']">
+                <h1 className="core-item text-[12vw] md:text-[8rem] lg:text-[10rem] font-black leading-[0.8] tracking-[-0.05em] uppercase text-white mb-16 font-['Space_Grotesk']">
                     THE ARCHITECTURE OF<br/>
-                    <span className="text-white">DIGITAL DOMINANCE.</span>
+                    <span className="text-[#FF3E00]">DIGITAL DOMINANCE.</span>
                 </h1>
 
                 <div className="core-item max-w-3xl mx-auto">
