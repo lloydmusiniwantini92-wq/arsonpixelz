@@ -184,13 +184,13 @@ export const Footer: React.FC = () => {
                     
                     {/* TOP SECTOR: WHITE COMMAND (HEADING) as a SLANTED CARD */}
                     <div 
-                        className="bg-white p-8 md:p-16 border-4 border-black relative overflow-hidden shadow-[20px_20px_0px_rgba(255,62,0,1)] z-20"
+                        className="bg-[#FF3E00] p-8 md:p-16 border-4 border-black relative overflow-hidden shadow-[20px_20px_0px_white] z-20"
                         style={{ transform: 'rotate(-2deg)' }}
                     >
                         {/* BRUTALIST WATERMARK */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none select-none z-0">
                             <span 
-                                className="font-anton uppercase leading-none whitespace-nowrap"
+                                className="font-anton uppercase leading-none whitespace-nowrap text-black"
                                 style={{ fontSize: '15vw', letterSpacing: '-0.05em' }}
                             >
                                 MANIFESTO
@@ -199,7 +199,7 @@ export const Footer: React.FC = () => {
 
                         <div className="relative z-10">
                             <h2 
-                                className="text-black uppercase leading-[0.8]"
+                                className="text-white uppercase leading-[0.8] [&_span]:text-black"
                                 style={{ 
                                     fontFamily: 'Anton, sans-serif', 
                                     fontSize: 'clamp(3.5rem, 10vw, 12rem)',
