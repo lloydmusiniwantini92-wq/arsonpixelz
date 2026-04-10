@@ -325,22 +325,23 @@ export const Work: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* PERSISTENT BRUTALIST BUTTON */}
-            <motion.div 
-                initial={{ opacity: 0, scale: 0, rotate: -45 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.8, type: 'spring', bounce: 0.6 }}
-                className="absolute bottom-10 right-10 pointer-events-auto"
-            >
-               <BrutalistButton 
-                   label="OPEN GALLERY"
-                   onClick={() => navigate(activeProject.link)}
-                   variant="orange"
-                   size="lg"
-               />
-            </motion.div>
           </div>
+
+          {/* BRUTALIST CTA ANCHOR (CENTERED BOTTOM) */}
+          <motion.div 
+              initial={{ opacity: 0, scale: 0, rotate: -45 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.8, type: 'spring', bounce: 0.6 }}
+              className="absolute bottom-32 left-1/2 -translate-x-1/2 z-[60] pointer-events-auto"
+          >
+             <BrutalistButton 
+                 label="OPEN GALLERY"
+                 onClick={() => navigate(activeProject.link)}
+                 variant="orange"
+                 size="lg"
+             />
+          </motion.div>
         </div>
       </div>
     </section>
