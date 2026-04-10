@@ -152,7 +152,7 @@ export const Footer: React.FC = () => {
 
         const pageContent = pages[location.pathname] || {
             marquee: "DESIGN IS WARFARE // AESTHETICS AS DEFENSE //",
-            heading: <>Don't Just Exist. <span className="text-[#FF3E00]">Claim</span> Your Space.</>,
+            heading: <>Don't Just <span>Exist.</span> <span className="text-[#FF3E00]">Claim</span> Your Space.</>,
             paragraph: "Attention isn't passive currency — it is agency, leverage, and revolt. We craft digital systems that cannot be ignored.",
             directive: "Studio Foundation",
         };
