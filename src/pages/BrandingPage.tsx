@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
+import { BrutalistButton } from '../components/common/BrutalistButton';
 import PhilosophyWhiteBg from '../assets/images/branding/branding4.jpg';
 import branding1 from '../assets/images/branding/branding1.jpg';
 import brandingHero from '../assets/images/branding/brandinghero.jpg';
@@ -247,7 +248,7 @@ const BrandingPage: React.FC = () => {
             
             {/* HER0 HEADER */}
             <div className="relative pt-36 md:pt-48 pb-32 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden h-screen flex flex-col justify-center" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage={brandingHero} />
+                <PageHeroBackground accentColor="#FF3E00" backgroundImage={brandingHero} offsetY={-200} brightness={0.55} showGrid={false} />
                 <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight leading-[0.8] mb-10 text-white" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.005em' }}>
                         IGNITE <br />
@@ -388,12 +389,12 @@ const BrandingPage: React.FC = () => {
                                         </ul>
                                     </div>
 
-                                    <button 
+                                    <BrutalistButton 
+                                        label="Initiate Protocol"
                                         onClick={() => handleCheckout(cap.stripePriceId)}
-                                        className="inline-flex items-center justify-center px-10 py-5 bg-[#FF3E00] text-white font-mono text-sm font-black uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all w-max shadow-[10px_10px_0px_white] hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
-                                    >
-                                        Initiate Protocol
-                                    </button>
+                                        variant="orange"
+                                        size="md"
+                                    />
                                 </ScrollReveal>
                             </div>
                         </div>
@@ -448,11 +449,12 @@ const BrandingPage: React.FC = () => {
                         <p className="text-white/90 font-mono text-lg mb-10">
                             Stop blending in. Let's create an identity that dictates the rules of your market.
                         </p>
-                        <a href="mailto:hello@arsonpixels.com?subject=Brand%20Ignition%20Inquiry"
-                           className="inline-block px-10 py-5 bg-black text-white font-mono font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
-                        >
-                            Open Comms
-                        </a>
+                        <BrutalistButton 
+                            label="Open Comms"
+                            href="mailto:hello@arsonpixels.com?subject=Brand%20Ignition%20Inquiry"
+                            variant="black"
+                            size="md"
+                        />
                     </div>
                 </div>
             </div>

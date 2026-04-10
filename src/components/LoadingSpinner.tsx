@@ -13,11 +13,6 @@ export const LoadingSpinner = () => (
             </div>
             {/* Center Dot */}
             <div className="absolute inset-[45%] bg-[#FF3E00] rounded-full animate-pulse shadow-[0_0_20px_#FF3E00]"></div>
-            
-            {/* Tech Text */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 font-mono text-[8px] tracking-[0.4em] text-white/30 uppercase whitespace-nowrap">
-                INIT_PROTOCOL // LOADING
-            </div>
         </div>
     </div>
 );

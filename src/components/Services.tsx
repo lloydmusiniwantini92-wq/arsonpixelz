@@ -10,6 +10,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { ScrollReveal } from './fx/ScrollReveal';
+import { BrutalistButton } from './common/BrutalistButton';
 
 // --- HIGH-FIDELITY VISUAL 1: THE TURBINE (Branding) ---
 const SchematicTurbine = () => (
@@ -101,9 +102,9 @@ const SchematicRadar = () => (
     </div>
 );
 
-import brandingBg from '../assets/blueprint/branding_background_brutalist_1775334234691.webp';
-import devBg from '../assets/blueprint/development_background_binary_brutalist_1775334249859.webp';
-import marketingBg from '../assets/blueprint/marketing_background_velocity_brutalist_1775334266276.webp';
+import brandingBg from '../assets/images/branding/brandinghero.jpg';
+import devBg from '../assets/images/DevAI/DEVAIhero.jpg';
+import marketingBg from '../assets/images/tim.webp';
 
 export const Services: React.FC = () => {
     const [activeService, setActiveService] = useState(0);
@@ -178,6 +179,13 @@ export const Services: React.FC = () => {
                             src={services[activeService].bgImage} 
                             alt={services[activeService].title}
                             className="absolute inset-0 w-full h-full object-cover" 
+                            style={{ 
+                                objectPosition: activeService === 0 
+                                    ? 'calc(50% - 100px) calc(50% - 200px)' 
+                                    : activeService === 1 
+                                    ? 'center center'
+                                    : 'center center'
+                            }}
                         />
                     </motion.div>
                 </AnimatePresence>
@@ -225,7 +233,7 @@ export const Services: React.FC = () => {
                 </div>
 
                 {/* THE CTA BUTTON (ALIGNED TO BOT DATUM) */}
-                <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
+                <div className="absolute bottom-16 md:bottom-24 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeService}
@@ -233,11 +241,14 @@ export const Services: React.FC = () => {
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -20, opacity: 0 }}
                             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex items-center gap-6 py-5 px-14 bg-white text-black font-anton text-2xl uppercase tracking-tighter hover:bg-[#FF3E00] hover:text-white transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer"
-                            onClick={() => handlePortalEntry(activeService)}
                         >
-                            Open Sector Specification
-                            <ArrowRightIcon className="w-6 h-6 -rotate-45" />
+                            <BrutalistButton 
+                                label="VISIT PAGE"
+                                onClick={() => handlePortalEntry(activeService)}
+                                variant="white"
+                                size="xl"
+                                icon={<ArrowRightIcon className="w-6 h-6 -rotate-45" />}
+                            />
                         </motion.div>
                     </AnimatePresence>
                 </div>

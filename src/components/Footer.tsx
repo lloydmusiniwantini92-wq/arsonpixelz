@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { BrutalistButton } from './common/BrutalistButton';
 import {
     ArrowRightIcon,
     ArrowUpRightIcon,
@@ -7,13 +8,6 @@ import {
     CpuChipIcon
 } from '@heroicons/react/24/outline';
 
-// --- FOOTER ASSETS ---
-import BrandingBG from '@/components/assets/footers/branding.webp';
-import MarketingBG from '@/components/assets/footers/marketing.webp';
-import DevAiBG from '@/components/assets/footers/devai.webp';
-import GamingBG from '@/components/assets/footers/gaming.webp';
-import ShopBG from '@/components/assets/footers/shop.webp';
-import DefaultBG from '@/components/assets/footers/default.webp';
 
 // --- CUSTOM BRUTALIST SOCIAL ICONS (Division 1 Fidelity) ---
 const InstagramIcon = () => (
@@ -123,42 +117,36 @@ export const Footer: React.FC = () => {
                 heading: <>Bland Is A <span className="text-[#FF3E00]">Death Sentence.</span></>,
                 paragraph: "In a saturated digital landscape, safety is your greatest liability. We engineer identities that cut through the noise.",
                 directive: "Branding Architecture",
-                footerImage: BrandingBG
             },
             '/marketing': {
                 marquee: "SCALE UNFAIRLY // DOMINATE THE ATTENTION ECONOMY //",
                 heading: <>Force <span className="text-[#FF3E00]">Multiplier.</span></>,
                 paragraph: "Burning venture capital is a choice. We accelerate growth through pure creative leverage.",
                 directive: "Growth Architecture",
-                footerImage: MarketingBG
             },
             '/dev-ai': {
                 marquee: "ARCHITECTURAL INTEGRITY // SCALABILITY IS MANDATORY //",
                 heading: <>The <span className="text-[#FF3E00]">Core Engine.</span></>,
                 paragraph: "Structure without soul is a cage. Soul without structure is noise. We weave both into the architectural core.",
                 directive: "Digital Infrastructure",
-                footerImage: DevAiBG
             },
             '/gaming': {
                 marquee: "PIXEL PERFECT // VIRTUAL WORLDS // PURE INTERACTION //",
                 heading: <>Enter The <span className="text-[#FF3E00]">Arena.</span></>,
                 paragraph: "Bridging the gap between interactive entertainment and high-fidelity digital archives.",
                 directive: "Interactive Media",
-                footerImage: GamingBG
             },
             '/shop': {
                 marquee: "THE ARMORY // PHYSICAL ARTIFACTS // GEAR UP //",
                 heading: <>Equip The <span className="text-[#FF3E00]">Vision.</span></>,
                 paragraph: "Physical artifacts and digital tools engineered for the modern creative practitioner.",
                 directive: "Archive Acquisition",
-                footerImage: ShopBG
             },
             '/about': {
                 marquee: "WE BUILD EMPIRES NOT PAGES // TECTONIC SHIFT //",
                 heading: <>Build The <span className="text-[#FF3E00]">Empire.</span></>,
                 paragraph: "Arson Pixelz wasn't founded to make 'pretty websites.' We exist to burn down the boring, the safe, and the templated.",
                 directive: "Studio Foundation",
-                footerImage: DefaultBG
             },
         };
 
@@ -167,7 +155,6 @@ export const Footer: React.FC = () => {
             heading: <>Don't Just Exist. <span className="text-[#FF3E00]">Claim</span> Your Space.</>,
             paragraph: "Attention isn't passive currency — it is agency, leverage, and revolt. We craft digital systems that cannot be ignored.",
             directive: "Studio Foundation",
-            footerImage: DefaultBG
         };
 
         return { ...pageContent, theme: baseTheme };
@@ -192,78 +179,84 @@ export const Footer: React.FC = () => {
         <footer className="relative flex flex-col transition-colors duration-700 bg-[#000000] text-white">
             {/* 2. MAIN GRID CONTENT */}
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 min-h-[400px] border-b border-white/5">
-                {/* Left Col: Brand & Statement */}
-                <div className="lg:col-span-8 flex flex-col justify-between p-6 md:p-12 relative group border-r border-white/5 overflow-hidden">
-                    {/* Cinematic Background Image Overlay */}
-                    {content.footerImage && (
-                        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                            <img 
-                                src={content.footerImage} 
-                                alt="" 
-                                className="w-full h-full object-cover" 
-                                style={{ 
-                                    maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-                                    WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-                                }}
-                            />
+                {/* Left Col: Brand & Statement (HYBRID TECTONIC SPLIT) */}
+                <div className="lg:col-span-8 flex flex-col relative group border-r border-white/5 bg-[#050505] p-4 md:p-12">
+                    
+                    {/* TOP SECTOR: WHITE COMMAND (HEADING) as a SLANTED CARD */}
+                    <div 
+                        className="bg-white p-8 md:p-16 border-4 border-black relative overflow-hidden shadow-[20px_20px_0px_rgba(255,62,0,1)] z-20"
+                        style={{ transform: 'rotate(-2deg)' }}
+                    >
+                        {/* BRUTALIST WATERMARK */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none select-none z-0">
+                            <span 
+                                className="font-anton uppercase leading-none whitespace-nowrap"
+                                style={{ fontSize: '15vw', letterSpacing: '-0.05em' }}
+                            >
+                                MANIFESTO
+                            </span>
                         </div>
-                    )}
 
-                    <div className="relative z-10">
-                        <h2 
-                            className="text-white uppercase leading-[0.8] mb-16"
-                            style={{ 
-                                fontFamily: 'Anton, sans-serif', 
-                                fontSize: 'clamp(4rem, 10vw, 12rem)',
-                                letterSpacing: '-0.04em'
-                            }}
-                        >
-                            {content.heading}
-                        </h2>
+                        <div className="relative z-10">
+                            <h2 
+                                className="text-black uppercase leading-[0.8]"
+                                style={{ 
+                                    fontFamily: 'Anton, sans-serif', 
+                                    fontSize: 'clamp(3.5rem, 10vw, 12rem)',
+                                    letterSpacing: '-0.04em'
+                                }}
+                            >
+                                {content.heading}
+                            </h2>
+                        </div>
                     </div>
 
-                    <div className="relative z-10 mt-auto pt-16">
-                        <p className="font-sans text-lg md:text-xl font-bold leading-tight max-w-3xl text-white tracking-tight uppercase decoration-[#FF3E00] decoration-4 underline underline-offset-8">
-                            {content.paragraph}
-                        </p>
+                    {/* BOTTOM SECTOR: DARK INTELLIGENCE (PARAGRAPH) matched to HERO SLOGAN style */}
+                    <div className="flex-grow flex flex-col justify-end p-6 md:p-12 relative pt-20">
+                        <div className="flex items-stretch gap-0">
+                            {/* Signature Hero-style vertical bar */}
+                            <div className="w-[2px] bg-[#FF3E00] mr-6 shrink-0" />
+                            
+                            <div className="max-w-xl">
+                                <p 
+                                    className="text-[13px] text-white/50 leading-[1.85] uppercase"
+                                    style={{ fontFamily: 'IBM Plex Mono, monospace', letterSpacing: '0.1em' }}
+                                >
+                                    {content.paragraph}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Right Col: Interaction Area */}
                 <div className="lg:col-span-4 flex flex-col bg-white/[0.01]">
                     {/* Subscription Module */}
-                    <div className="p-6 md:p-12 flex-grow flex flex-col justify-center border-b border-white/5 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 font-syne font-black text-[200px] text-white/[0.03] leading-none -translate-y-1/2 translate-x-1/4 select-none pointer-events-none group-hover:text-[#FF3E00]/[0.08] transition-colors duration-1000 italic">01</div>
-                        
-                        <label className="uppercase tracking-tighter mb-8 block text-white" style={{ fontFamily: 'Anton, sans-serif', fontSize: '2.5rem' }}>
-                            JOIN THE <span className="text-[#FF3E00]">MANIFESTO</span>
-                        </label>
+                        <div className="p-4 md:p-8 flex-grow flex flex-col justify-center border-b border-white/5 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 font-syne font-black text-[150px] text-white/[0.03] leading-none -translate-y-1/3 translate-x-1/4 select-none pointer-events-none group-hover:text-[#FF3E00]/[0.08] transition-colors duration-1000 italic">01</div>
+                            
+                            <label className="uppercase tracking-tighter mb-4 block text-white" style={{ fontFamily: 'Anton, sans-serif', fontSize: '2rem' }}>
+                                JOIN THE <span className="text-[#FF3E00]">MANIFESTO</span>
+                            </label>
 
-                        <form onSubmit={handleSubmit} className="relative group/form">
-                            <input
-                                type="email"
-                                placeholder={status === 'SUCCESS' ? "SUBMISSION_SECURED" : "USER@ARSONPIXELZ.COM"}
-                                disabled={status !== 'IDLE'}
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-white/5 p-10 font-anton text-xl outline-none transition-all uppercase focus:bg-[#FF3E00] text-white focus:text-black placeholder:text-white/20 tracking-tighter italic"
-                            />
-                            <button
-                                type="submit"
-                                disabled={status !== 'IDLE'}
-                                className={`absolute right-4 top-4 bottom-4 aspect-square flex items-center justify-center transition-all duration-500
-                                ${status === 'SUCCESS' ? 'bg-green-500 text-white' : 'bg-[#FF3E00] text-white hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,62,0,0.5)] border-2 border-white'}`}
-                            >
-                                {status === 'PROCESSING' ? (
-                                    <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin" />
-                                ) : status === 'SUCCESS' ? (
-                                    <span className="text-2xl font-black">✓</span>
-                                ) : (
-                                    <ArrowRightIcon className="w-8 h-8" strokeWidth={4} />
-                                )}
-                            </button>
-                        </form>
-                    </div>
+                            <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                                <input
+                                    type="email"
+                                    placeholder={status === 'SUCCESS' ? "SUBMISSION_SECURED" : "USER@ARSONPIXELZ.COM"}
+                                    disabled={status !== 'IDLE'}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="w-full bg-white/5 p-6 font-anton text-lg outline-none transition-all uppercase focus:bg-[#FF3E00] text-white focus:text-black placeholder:text-white/20 tracking-tighter italic border border-white/10"
+                                />
+                                <BrutalistButton
+                                    type="submit"
+                                    label={status === 'PROCESSING' ? 'WAIT...' : status === 'SUCCESS' ? 'SECURED' : 'JOIN'}
+                                    variant={status === 'SUCCESS' ? 'white' : 'orange'}
+                                    size="md"
+                                    icon={status === 'PROCESSING' ? null : status === 'SUCCESS' ? <span>✓</span> : <ArrowRightIcon className="w-5 h-5" />}
+                                />
+                            </form>
+                        </div>
 
                     {/* Navigation Grid */}
                     <div className="grid grid-cols-2 h-full">

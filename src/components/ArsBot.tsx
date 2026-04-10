@@ -154,9 +154,9 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
         };
     }, [handleScroll]);
 
-    // ── Arm Visibility ─────────────────────────────────────────────────────────
-    const showInitialArm = !hasScrolled && initialDelayComplete && !isScrolling;
-    const finalArmVisible = !isScrolling && (isHovered || (hasScrolled ? isIdle : showInitialArm));
+    // Arm is NEVER auto-triggered on the homepage hero.
+    // It only unfurls on hover, or when the user has scrolled away and gone idle.
+    const finalArmVisible = !isScrolling && (isHovered || (hasScrolled && isIdle));
 
     // ── Prompt Cycling ──────────────────────────────────────────────────────────
     useEffect(() => {
@@ -377,9 +377,6 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         ${isOpen ? 'ring-2 ring-white/30' : ''}
                         ${isIdle && !isHovered ? 'animate-[bot-idle-pulse_2s_ease-in-out_infinite]' : ''}
                     `}>
-                        <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                            <div className="absolute inset-x-0 h-[1px] bg-white/20 animate-[scanline_3s_linear_infinite]" />
-                        </div>
                         <img src={PLogo} alt="ArsonBot" className="h-8 md:h-12 w-auto invert object-contain px-2" />
                         {isIdle && !isScrolling && (
                             <span className="absolute inset-0 rounded-full border-2 border-[#FF3E00] animate-ping opacity-40 pointer-events-none" />
@@ -389,7 +386,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
 
                 {/* Prompt pill */}
                 <AnimatePresence>
-                    {(!isScrolling && ((!hasScrolled && initialDelayComplete) || (hasScrolled && isIdle) || isHovered)) && (
+                    {(!isScrolling && (isHovered || (hasScrolled && isIdle))) && (
                         <motion.div
                             initial={{ opacity: 0, x: renderedFixed ? 8 : -8, width: 0 }}
                             animate={{ opacity: 1, x: 0, width: 'auto' }}

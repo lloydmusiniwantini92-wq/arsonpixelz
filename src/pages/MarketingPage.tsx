@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
+import { BrutalistButton } from '../components/common/BrutalistButton';
 import MarketingHeroBg from '../assets/images/tim.webp';
 import MarketingImg1 from '../assets/images/marketing/marketing1.jpg';
 import MarketingImg2 from '../assets/images/marketing/marketing2.jpg';
@@ -400,12 +401,12 @@ const MarketingPage: React.FC = () => {
                                         </ul>
                                     </div>
 
-                                    <button 
+                                    <BrutalistButton 
+                                        label="Execute Campaign"
                                         onClick={() => handleCheckout(cap.stripePriceId)}
-                                        className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-mono text-xs font-bold uppercase tracking-widest hover:bg-[#FF3E00] hover:text-white transition-colors w-max"
-                                    >
-                                        Execute Campaign
-                                    </button>
+                                        variant="white"
+                                        size="md"
+                                    />
                                 
                             </div>
                         </div>
@@ -467,11 +468,12 @@ const MarketingPage: React.FC = () => {
                             Stop burning venture capital on inefficient ad spend. Start accelerating.
                         </p>
                     </div>
-                    <a href="mailto:hello@arsonpixels.com?subject=Marketing%20Project%20Inquiry"
-                       className="relative z-10 inline-block px-12 py-6 bg-[#FF3E00] text-white font-mono font-bold text-lg uppercase tracking-widest hover:bg-white hover:text-black transition-colors shadow-[8px_8px_0px_white] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0px_white] whitespace-nowrap"
-                    >
-                        Force Multiplier
-                    </a>
+                    <BrutalistButton 
+                        label="Force Multiplier"
+                        href="mailto:hello@arsonpixels.com?subject=Marketing%20Project%20Inquiry"
+                        variant="orange"
+                        size="lg"
+                    />
                 </div>
             </div>
         </section>

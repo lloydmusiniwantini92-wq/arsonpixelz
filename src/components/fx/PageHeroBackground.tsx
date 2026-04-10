@@ -39,11 +39,12 @@ export const PageHeroBackground: React.FC<PageHeroBackgroundProps> = ({
                 alt=""
                 aria-hidden="true"
                 className="absolute inset-0 w-full h-full object-cover"
-                initial={{ scale: 1.05, filter: `blur(15px) brightness(${brightness * 0.5})`, opacity: 0, y: offsetY }}
-                animate={{ scale: 1, filter: `blur(0px) brightness(${brightness})`, opacity: 1, y: offsetY }}
+                initial={{ scale: 1.05, filter: `blur(15px) brightness(${brightness * 0.5})`, opacity: 0 }}
+                animate={{ scale: 1, filter: `blur(0px) brightness(${brightness})`, opacity: 1 }}
                 transition={{ duration: 1.8, ease: 'easeOut' }}
                 style={{ 
                     animation: 'page-hero-drift 25s ease-in-out infinite alternate',
+                    objectPosition: offsetY !== 0 ? `center calc(50% + ${offsetY}px)` : 'center center',
                 }}
             />
 

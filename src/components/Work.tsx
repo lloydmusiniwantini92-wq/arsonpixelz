@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useIgnition } from './layout/IgnitionRuntime';
+import { BrutalistButton } from './common/BrutalistButton';
 
 import TonyThompsonClean from './assets/TonyThompsonClean.webp';
 
@@ -142,7 +143,7 @@ export const Work: React.FC = () => {
       <div className="lg:hidden flex flex-col w-full bg-[#050505]">
         <div className="px-6 pt-20 pb-10 border-b border-white/5 text-center bg-[#050505]">
           <h2 className="uppercase text-white leading-[0.8] tracking-tighter inline-block" style={{ fontFamily: 'Anton, sans-serif', fontSize: '18vw' }}>
-            Selected<br />Works
+            SELECTED<br />WORKS
           </h2>
         </div>
 
@@ -180,13 +181,13 @@ export const Work: React.FC = () => {
                 {project.description}
               </p>
 
-              <button
+              <BrutalistButton 
+                label="Access File_"
                 onClick={() => navigate(project.link)}
-                className="group relative w-full py-6 flex items-center justify-center bg-white text-black font-black uppercase tracking-[0.4em] text-sm overflow-hidden"
-              >
-                <span className="relative z-10">Access File_</span>
-                <div className="absolute inset-0 bg-[#FF3E00] translate-y-full group-active:translate-y-0 transition-transform duration-300" />
-              </button>
+                variant="white"
+                className="w-full"
+                size="md"
+              />
             </div>
 
             {/* Aesthetic Grid Mask */}
@@ -205,10 +206,17 @@ export const Work: React.FC = () => {
         {/* LEFT COLUMN: THE ROSTER (DARK TERMINAL) */}
         <aside className="relative w-1/2 bg-[#050505] z-30 border-r border-white/5 flex flex-col">
           {/* Header */}
-          <div className="sticky top-0 z-40 bg-[#050505]/95 backdrop-blur-xl border-b border-white/5 px-6 md:px-12 pt-16 md:pt-20 pb-6 md:pb-8 text-center">
-            <h2 className="uppercase text-white leading-[0.8] tracking-tighter inline-block mx-auto" style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(4rem, 9vw, 12rem)' }}>
-              Selected Works
-            </h2>
+          <div className="sticky top-0 z-40 bg-gradient-to-b from-[#050505] via-[#050505]/90 to-transparent px-6 md:px-12 pt-16 md:pt-20 pb-12 text-center pointer-events-none">
+            <motion.h2 
+                initial={{ opacity: 0, y: -100, rotate: -5 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, type: 'spring', bounce: 0.3 }}
+                className="uppercase text-white leading-[0.8] tracking-tighter inline-block mx-auto pointer-events-auto" 
+                style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(60px, 13vw, 300px)' }}
+            >
+              SELECTED
+            </motion.h2>
           </div>
 
           {/* Scrollable List */}
@@ -216,35 +224,49 @@ export const Work: React.FC = () => {
             {PROJECTS.map((project, index) => {
               const isActive = activeIndex === index;
               return (
-                <div
+                <motion.div
                   key={`desktop-${project.id}`}
                   ref={el => { itemRefs.current[index] = el; }}
                   data-project-id={project.id}
                   onClick={() => setActiveIndex(index)}
-                  className={`group relative px-12 py-8 border-b border-white/5 cursor-pointer transition-all duration-500 overflow-hidden ${isActive ? 'bg-white/[0.02]' : 'hover:bg-white/[0.01]'}`}
+                  initial={{ opacity: 0, x: -100, rotateX: -90 }}
+                  whileInView={{ opacity: 1, x: 0, rotateX: 0 }}
+                  viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                  transition={{ duration: 0.8, delay: index * 0.15, type: 'spring', bounce: 0.4 }}
+                  className={`group relative px-12 py-10 border-b border-white/5 cursor-pointer transition-all duration-500 overflow-hidden ${isActive ? 'bg-white/[0.02]' : 'hover:bg-white/[0.01]'}`}
+                  style={{ transformOrigin: 'top' }}
                 >
                   {/* Tracking Line */}
                   <div className={`absolute left-0 top-0 h-full w-1 transition-all duration-500 ${isActive ? 'bg-[#FF3E00]' : 'bg-transparent'}`} />
 
-                  <div className={`transition-transform duration-500 ${isActive ? 'scale-105' : 'scale-100'} flex flex-col items-center text-center`}>
-                    <div className="flex items-center gap-4 font-mono text-[9px] uppercase tracking-wider mb-2">
-                      <span className={isActive ? 'text-[#FF3E00]' : 'text-white/40'}>{project.number} // {project.type}</span>
+                  <div className={`transition-transform duration-500 ${isActive ? 'scale-105' : 'scale-100'}`}>
+                    <div className="flex justify-between items-center w-full mb-3">
+                        <span className={`font-mono text-[10px] uppercase tracking-[0.3em] font-bold ${isActive ? 'text-[#FF3E00]' : 'text-white/40'}`}>
+                            {project.number} // {project.type}
+                        </span>
                     </div>
 
-                    <h3 className={`uppercase leading-[0.85] tracking-tighter transition-colors duration-500 ${isActive ? 'text-[#FF3E00]' : 'text-white/80 group-hover:text-white'}`} style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(3rem, 5vw, 6rem)' }}>
+                    <h3 className={`uppercase leading-[0.85] tracking-tighter transition-colors duration-500 ${isActive ? 'text-white' : 'text-white/40 group-hover:text-white/70'}`} style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(3rem, 5vw, 6rem)' }}>
                       {project.title1} {project.title2}
                     </h3>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </aside>
 
         {/* RIGHT COLUMN: THE VIEWPORT (STRICT STRUCTURAL GRID) */}
-        <div className="relative w-1/2 flex flex-col border-l border-white/5 bg-[#0a0a0a]">
-          {/* MAIN VISUAL (STICKY AT TOP) */}
-          <div className="sticky top-0 h-[85vh] w-full bg-[#0a0a0a] overflow-hidden group/visual">
+        <div className="relative w-1/2 flex flex-col border-l border-white/5 bg-[#0a0a0a] group/visual">
+          
+          {/* MAIN VISUAL (FULL SECTION HEIGHT STRETCH) */}
+          <motion.div 
+            initial={{ opacity: 0, filter: 'blur(30px)', scale: 1.3 }}
+            whileInView={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+            viewport={{ once: true, margin: "0px 0px -200px 0px" }}
+            transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 w-full h-full bg-[#0a0a0a] overflow-hidden"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={`main-img-${activeProject.id}`}
@@ -257,69 +279,68 @@ export const Work: React.FC = () => {
                 <img
                   src={activeProject.mainImage}
                   alt={activeProject.mainImageAlt}
-                  className="w-full h-full object-cover filter brightness-90 contrast-110 group-hover/visual:scale-105 transition-transform duration-[2s] ease-out"
+                  className="w-full h-full object-cover filter brightness-75 contrast-110 group-hover/visual:scale-105 transition-transform duration-[20s] ease-out origin-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
-
-                {/* Commentary (Description) */}
-                <div className="absolute bottom-10 left-10 z-20 max-w-sm">
-                  <p className="font-mono text-[11px] text-white/70 leading-relaxed uppercase tracking-widest drop-shadow-lg">
-                    {activeProject.description}
-                  </p>
-                </div>
+                <div className="absolute inset-0 bg-[#FF3E00]/10 mix-blend-multiply group-hover/visual:bg-black/20 transition-all duration-700 pointer-events-none" />
               </motion.div>
             </AnimatePresence>
-          </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none z-10" />
+          </motion.div>
 
-          {/* THE THICKEST CTA IN THE WORLD (MONOLITHIC VERTICAL COLUMN) */}
-          <button
-            onClick={() => navigate(activeProject.link)}
-            className="group relative flex-1 w-full bg-[#FF3E00] text-white hover:bg-white hover:text-[#FF3E00] transition-all duration-700"
-          >
-            {/* NESTED SECONDARY IMAGE (STICKY & BLENDED) */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
-                <AnimatePresence mode="wait">
-                    <motion.img
-                        key={`sec-img-${activeProject.id}`}
-                        src={activeProject.secondaryImage}
-                        alt="Project detail"
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 0.3, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.1 }}
-                        transition={{ duration: 0.8 }}
-                        className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000"
-                    />
-                </AnimatePresence>
-                {/* Dynamic Color Mask */}
-                <div className="absolute inset-0 bg-[#FF3E00]/40 mix-blend-multiply group-hover:bg-white/20 group-hover:mix-blend-overlay transition-all duration-[0.8s]" />
+          {/* VIEWPORT PERSISTENT UI OVERLAY (STICKY TO SCREEN) */}
+          <div className="sticky top-0 h-screen w-full pointer-events-none z-50">
+            
+            {/* WORKS Header inside the image section */}
+            <div className="absolute top-16 md:top-20 left-0 w-full flex justify-center mix-blend-overlay">
+              <motion.h2 
+                initial={{ opacity: 0, y: 150, rotate: 8, scale: 0.8 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.4, delay: 0.3, type: 'spring', bounce: 0.35 }}
+                className="uppercase text-white/80 leading-[0.8] tracking-tighter text-center" 
+                style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(60px, 13vw, 300px)' }}
+              >
+                WORKS
+              </motion.h2>
             </div>
-
-            {/* STICKY CTA LABEL */}
-            <div className="sticky top-[85vh] h-[15vh] w-full flex flex-col items-center justify-center z-10 pointer-events-none px-12 transition-colors duration-700">
-              <div className="flex flex-col items-center text-center">
-                <span 
-                    className="uppercase leading-none tracking-normal" 
-                    style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(3rem, 6vw, 10rem)' }}
-                >
-                    Access
-                </span>
-                <span 
-                    className="uppercase leading-none tracking-normal group-hover:translate-y-1 transition-transform duration-700" 
-                    style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(3rem, 6vw, 10rem)' }}
-                >
-                    File
-                </span>
+            
+            {/* Aesthetic Grid Mask */}
+            <div className="absolute top-4 right-4 opacity-20">
+              <div className="flex flex-col items-end gap-1">
+                <div className="w-12 h-[1px] bg-white" />
+                <div className="w-8 h-[1px] bg-[#FF3E00]" />
               </div>
             </div>
 
-            {/* Cinematic Arrow Indicator (Horizontal to Angled) */}
-            <div className="sticky top-[85vh] h-[15vh] w-full flex items-center justify-end pr-10 md:pr-20 z-10 pointer-events-none">
-                <ArrowRightIcon className="w-16 h-16 md:w-24 md:h-24 opacity-40 group-hover:opacity-100 transition-all duration-700 rotate-0 group-hover:-rotate-45" />
-            </div>
+            {/* Commentary (Description) */}
+            <motion.div 
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.6, type: 'spring', bounce: 0.3 }}
+                className="absolute bottom-12 left-12 max-w-sm pointer-events-auto"
+            >
+              <p className="font-mono text-[12px] font-bold text-white/70 leading-relaxed uppercase tracking-[0.2em] border-l border-[#FF3E00] pl-4 drop-shadow-xl">
+                {activeProject.description}
+              </p>
+            </motion.div>
 
-            {/* Kinetic Border Edge */}
-            <div className="absolute bottom-0 left-0 w-full h-2 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 origin-left" />
-          </button>
+            {/* PERSISTENT BRUTALIST BUTTON */}
+            <motion.div 
+                initial={{ opacity: 0, scale: 0, rotate: -45 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.8, type: 'spring', bounce: 0.6 }}
+                className="absolute bottom-10 right-10 pointer-events-auto"
+            >
+               <BrutalistButton 
+                   label="OPEN GALLERY"
+                   onClick={() => navigate(activeProject.link)}
+                   variant="orange"
+                   size="lg"
+               />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

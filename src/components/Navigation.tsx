@@ -330,18 +330,14 @@ const TopNavLink = memo(({
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
                     animate={isArsonInfected ? { 
-                        opacity: 1, y: 0, scale: [1, 1.3, 1],
-                        rotate: [0, -5, 5, 0],
-                        filter: ["brightness(1)", "brightness(2)", "brightness(1)"],
-                        color: "#FF3E00"
+                        opacity: 1, y: 0,
                     } : { opacity: 1, y: 0 }}
                     className="flex flex-col items-center translate-y-[8px]"
                 >
                     <Icon className={cn(
-                        "transition-all duration-700",
-                        isArsonInfected && 'opacity-100 drop-shadow-[0_0_18px_rgba(255,62,0,0.9)]',
-                        (label === 'Shop' && isHeroState) ? "w-[16px] h-[16px]" : "w-[24px] h-[24px]", 
-                        "text-white"
+                        isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                        isArsonInfected ? 'text-[#FF3E00] opacity-100 drop-shadow-[0_0_18px_rgba(255,62,0,1)]' : 'text-white',
+                        (label === 'Shop' && isHeroState) ? "w-[16px] h-[16px]" : "w-[24px] h-[24px]"
                     )} 
                     scrolled={scrolled}
                     />
@@ -357,31 +353,23 @@ const TopNavLink = memo(({
                 )}>
                 {!isHeroState && (
                     <Icon className={cn(
-                        "transition-all duration-[175ms]",
                         "w-[12px] h-[12px]",
-                        isActive ? "text-[#FF3E00] drop-shadow-[0_0_8px_rgba(255,62,0,0.6)]" : "text-white"
+                        isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                        isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,1)]" : (isActive ? "text-[#FF3E00] drop-shadow-[0_0_8px_rgba(255,62,0,0.6)]" : "text-white")
                     )} 
                     scrolled={scrolled}
                 />
                 )}
                 <span className={cn(
-                    "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap transition-all duration-[175ms] relative",
-                    isActive ? "text-[#FF3E00] drop-shadow-[0_0_5px_rgba(255,62,0,0.4)]" : 
-                    (label === 'Shop' && isHeroState) ? "text-[10px] text-white" : 
-                    (label === 'Branding' && isHeroState) ? "text-[10px] text-white" :
-                    (scrolled ? "text-[12px] text-white" : "text-[10px] text-white/90")
+                    "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap relative",
+                    isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    // Lock structural size independently
+                    scrolled ? "text-[12px]" : "text-[10px]",
+                    // Apply dynamic color mapping
+                    isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,1)]" :
+                    (isActive ? "text-[#FF3E00] drop-shadow-[0_0_5px_rgba(255,62,0,0.4)]" : "text-white/90")
                 )}>
                     {label}
-                    {isArsonInfected && (
-                        <motion.span
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: [0, 1, 0] }}
-                            className="absolute inset-0 bg-[#FF3E00] blur-[2px] mix-blend-screen"
-                            style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}
-                        >
-                            {label}
-                        </motion.span>
-                    )}
                 </span>
             </motion.div>
 
@@ -478,17 +466,17 @@ const OriginalLogo = ({
               alt=""
               initial={{ opacity: 0, scale: 0.4, filter: 'blur(8px)' }}
               animate={{
-                opacity: 0,
+                opacity: [0, 1, 1, 0],
                 scale: [0.4, 1.4, 1.2, 0.8],
-                x: [0, -12, -30],
+                x: [0, -20, -50],
                 filter: [
                   'brightness(2) blur(8px)',
                   'brightness(1.5) blur(0px)',
                   'brightness(1) blur(0px)',
-                  'brightness(2) blur(8px)',
+                  'brightness(2) blur(12px)',
                 ],
               }}
-              transition={{ duration: 1.1, times: [0, 0.25, 0.6, 1] }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0 h-full w-full object-contain brightness-0 invert"
             />
           )}
@@ -520,7 +508,7 @@ const OriginalLogo = ({
         }
         animate={{
           opacity: [0, 1, 0.8, 1],
-          x: [160, -8, 0], // 'Lazy Recoil' (8px overshoot)
+          x: [200, -8, 0], // 'Lazy Recoil'
           scale: [0.8, 1.15, 1],
           filter: ['blur(15px) brightness(2)', 'blur(0px) brightness(1.5)', 'blur(0px) brightness(1)'],
         }}
@@ -551,35 +539,30 @@ const OriginalLogo = ({
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="relative block group"
         >
-          {/* Base White Logo */}
-          <img
+          {/* Base White Logo - Hides under the orange glow initially, blooming gracefully */}
+          <motion.img
             src={FullLogo}
             alt="Arson Pixelz"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 4.2, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
             className={cn(
-              'relative z-10 object-contain brightness-0 invert transition-all duration-300',
+              'relative z-10 object-contain brightness-0 invert transition-[height] duration-300',
               scrolled ? 'h-[20px] md:h-[24px]' : 'h-[22px] md:h-[32px]'
             )}
           />
 
-          {/* Cinematic 'Orange Furnace' Emergence (Masked strictly to logo) */}
+          {/* Cinematic 'Orange Furnace' Emergence (Solid orange mask retained until movement settles) */}
           <motion.div 
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1, filter: 'drop-shadow(0 0 40px rgba(255,62,0,1)) brightness(2)' }}
             animate={{ 
-                opacity: [0, 1, 1, 0.6, 0],
-                filter: [
-                    'drop-shadow(0 0 40px rgba(255,62,0,0.9)) brightness(2)',
-                    'drop-shadow(0 0 30px rgba(255,62,0,0.8)) brightness(1.8)',
-                    'drop-shadow(0 0 20px rgba(255,62,0,0.6)) brightness(1.5)',
-                    'drop-shadow(0 0 10px rgba(255,62,0,0.4)) brightness(1.2)',
-                    'drop-shadow(0 0 0px rgba(255,62,0,0)) brightness(1)'
-                ],
-                scale: [1, 1.02, 0.98, 1.01, 1], // Subtle furnace flicker (Pulse)
+                opacity: 0,
+                filter: 'drop-shadow(0 0 0px rgba(255,62,0,0)) brightness(1)',
             }}
             transition={{ 
-                opacity: { duration: 6.8, times: [0, 0.1, 0.4, 0.8, 1], ease: "linear" },
-                filter: { duration: 6.8, times: [0, 0.1, 0.4, 0.8, 1], ease: "linear" },
-                scale: { duration: 0.15, repeat: 30, ease: "easeInOut" }, // Rapid micro-flicker during emergence
-                delay: 0.1
+                duration: 4.5, 
+                ease: [0.16, 1, 0.3, 1], // Cinematic slow dissipation
+                delay: 1.8 // Holds pure orange state intact for 1.8s while it exits the Branding path
             }}
             className="absolute inset-0 z-20 pointer-events-none"
             style={{
@@ -702,7 +685,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
         { label: "Market Acceleration",   href: "/marketing",     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80&auto=format" },
         { label: "Gaming Experiences",    href: "/gaming",        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=80&auto=format" },
         { label: "Studio Core",        href: "/about",         image: "https://images.unsplash.com/photo-1549451371-64aa98a6f660?w=1600&q=80&auto=format" },
-        { label: "Selected Works",        href: "/#work-section",  image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
+        { label: "Proof Projects",        href: "/#work-section",  image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
         { label: "Arson Store",            href: "/shop",          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80&auto=format" },
         { label: "Initiate Protocol",     href: "/contact",       image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80&auto=format" },
     ], []);
@@ -763,12 +746,12 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                     setArsonStatus('complete');
                                 }, 19200); // 19.2s Ultimate Drift (2x Slower)
                             }
-                        }, 800); // Decelerated Cinematic Ramming (800ms)
+                        }, 480); // Sweeps deliberately at 480ms per item
                         timers.push(infectionInterval);
                     }, 50); // Instant ramming start
                 }, 100); // Instant travel
             }, 100); // Instant burst
-        }, 800); // Accelerated start: 800ms delay (synchronous with Hero 'loaded' state)
+        }, 3000); // Starts at exactly 3 seconds to align perfectly with Hamburger
 
         return () => {
             cancelled = true;
@@ -937,20 +920,20 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 )}
                             </AnimatePresence>
 
-                            <span className={cn(
-                                    "block h-[1.5px] bg-white transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
-                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px]" : "w-5",
-                                    isOpen ? "bg-white" : (infectedIndex === navItems.length ? "bg-[#FF3E00]" : "bg-white")
+                                <span className={cn(
+                                    "block h-[1.5px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
+                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px] bg-white" : "w-5 !bg-[#FF3E00]",
+                                    infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                                 <span className={cn(
-                                    "block h-[1.5px] bg-white transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                                    isOpen ? "w-0 opacity-0" : "w-4 opacity-100",
-                                    isOpen ? "bg-white" : (infectedIndex === navItems.length ? "bg-[#FF3E00]" : "bg-white")
+                                    "block h-[1.5px] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                                    isOpen ? "w-0 opacity-0 bg-white" : "w-4 opacity-100 !bg-[#FF3E00]",
+                                    infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                                 <span className={cn(
-                                    "block h-[1.5px] bg-white transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
-                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px]" : "w-3",
-                                    isOpen ? "bg-white" : (infectedIndex === navItems.length ? "bg-[#FF3E00]" : "bg-white")
+                                    "block h-[1.5px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
+                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px] bg-white" : "w-3 !bg-[#FF3E00]",
+                                    infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                             </div>
                         </button>

@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
+import { BrutalistButton } from '../components/common/BrutalistButton';
 import devAIHero from '../assets/images/DevAI/DEVAIhero.jpg';
 import devAI1 from '../assets/images/DevAI/Dev1.jpg';
 import devAI2 from '../assets/images/DevAI/Dev2.jpg';
@@ -296,12 +297,12 @@ const DevAIPage: React.FC = () => {
                                     </ul>
                                 </div>
                                 
-                                <button 
+                                <BrutalistButton 
+                                    label="Initialize Stack"
                                     onClick={() => handleCheckout(cap.stripePriceId)}
-                                    className="inline-flex items-center justify-center px-10 py-5 bg-white text-black font-syne font-black text-[11px] uppercase tracking-[0.3em] hover:bg-[#FF3E00] transition-colors w-max"
-                                >
-                                    Initialize Stack
-                                </button>
+                                    variant="white"
+                                    size="md"
+                                />
                             </div>
                         </div>
                     ))}
@@ -351,12 +352,12 @@ const DevAIPage: React.FC = () => {
                         <p className="text-black/80 font-syne font-bold text-xl mb-12 uppercase tracking-tight leading-tight">
                             Stop patching broken legacy systems. Architect the future of your platform today.
                         </p>
-                        <a href="mailto:hello@arsonpixels.com?subject=Dev%20Project%20Inquiry"
-                           className="inline-flex flex-col md:flex-row items-center justify-center px-10 py-5 md:px-12 md:py-6 bg-black text-white font-syne font-black uppercase text-[12px] tracking-[0.4em] hover:bg-white hover:text-black transition-all duration-500 hover:scale-105 text-center gap-1 md:gap-2"
-                        >
-                            <span>Open</span>
-                            <span>Terminal</span>
-                        </a>
+                        <BrutalistButton 
+                            label="Open Terminal"
+                            href="mailto:hello@arsonpixels.com?subject=Dev%20Project%20Inquiry"
+                            variant="black"
+                            size="lg"
+                        />
                     </div>
                 </div>
 

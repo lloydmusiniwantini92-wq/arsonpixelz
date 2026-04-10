@@ -1,326 +1,365 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollReveal } from '../components/fx/ScrollReveal';
-import { RevealText } from '../components/fx/RevealText';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const ScanlineOverlay = () => (
-    <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none" />
-        <div className="absolute inset-0 animate-scanline bg-gradient-to-b from-transparent via-[#FF3E00]/5 to-transparent h-20 w-full opacity-20 pointer-events-none" />
-    </div>
-);
-
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useIgnition } from '../components/layout/IgnitionRuntime';
+import { BrutalistButton } from '../components/common/BrutalistButton';
+
+// ── Shared Animation Config ──────────────────────────────────────────────────
+const ease = [0.16, 1, 0.3, 1];
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 50, filter: 'blur(10px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 1, ease } },
+};
+
+// ── Grain Overlay ─────────────────────────────────────────────────────────────
+const GrainOverlay = () => (
+    <div
+        className="pointer-events-none fixed inset-0 z-[99] opacity-[0.14] mix-blend-overlay"
+        aria-hidden="true"
+        style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '256px 256px',
+        }}
+    />
+);
 
 export const AboutPage = () => {
     const { lenis } = useIgnition();
-    const containerRef = useRef<HTMLDivElement>(null);
-    const constructTextRef = useRef<HTMLSpanElement>(null);
-    const heroContentRef = useRef<HTMLDivElement>(null);
-    const [loaded, setLoaded] = useState(false);
+    const { scrollYProgress } = useScroll();
+    
+    // Parallax values
+    const yHeroImg = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+    const ySection2 = useTransform(scrollYProgress, [0, 1], ['0%', '-15%']);
 
     useEffect(() => {
-        if (lenis) {
-            lenis.scrollTo(0, { immediate: true });
-        }
+        if (lenis) lenis.scrollTo(0, { immediate: true });
         window.scrollTo(0, 0);
-        const CINEMATIC_EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
-        setLoaded(true);
-
-        const ctx = gsap.context(() => {
-            if (!containerRef.current) return;
-
-            // 1. Cinematic Page Entrance
-            gsap.from(containerRef.current, {
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power2.inOut'
-            });
-
-            // 2. Specialized Hero Reveal
-            if (heroContentRef.current) {
-                const lines = heroContentRef.current.querySelectorAll('.hero-line');
-                gsap.from(lines, {
-                    opacity: 0,
-                    y: 60,
-                    filter: 'blur(15px)',
-                    rotateX: -20,
-                    stagger: 0.15,
-                    duration: 1.4,
-                    ease: CINEMATIC_EASE,
-                    clearProps: 'all'
-                });
-            }
-
-            // 3. Parallax Effects
-            const parallaxItems = [
-                { selector: '.hero-content-parallax', y: '-10%' },
-                { selector: '.bg-parallax', y: '15%' }
-            ];
-
-            parallaxItems.forEach(item => {
-                const el = containerRef.current?.querySelector(item.selector);
-                if (el) {
-                    gsap.to(el, {
-                        y: item.y,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 1
-                        }
-                    });
-                }
-            });
-
-            // 4. Image Parallax (Studio Core)
-            const teamImg = containerRef.current.querySelector('.team-img-parallax');
-            if (teamImg) {
-                gsap.fromTo(teamImg, 
-                    { y: '-10%', scale: 1.05 },
-                    { 
-                        y: '10%',
-                        scale: 1,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: teamImg.parentElement,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: true
-                        }
-                    }
-                );
-            }
-
-            // 5. Magnetic Text Effect for "STUDIO CORE"
-            if (constructTextRef.current) {
-                const text = constructTextRef.current;
-                const onMouseMove = (e: MouseEvent) => {
-                    const { clientX, clientY } = e;
-                    const { left, top, width, height } = text.getBoundingClientRect();
-                    const x = (clientX - (left + width / 2)) * 0.15;
-                    const y = (clientY - (top + height / 2)) * 0.15;
-                    
-                    gsap.to(text, {
-                        x: x,
-                        y: y,
-                        duration: 0.6,
-                        ease: 'power2.out'
-                    });
-                };
-
-                const onMouseLeave = () => {
-                    gsap.to(text, {
-                        x: 0,
-                        y: 0,
-                        duration: 0.8,
-                        ease: 'elastic.out(1, 0.3)'
-                    });
-                };
-
-                const parent = text.closest('.construct-container');
-                if (parent) {
-                    parent.addEventListener('mousemove', onMouseMove as any);
-                    parent.addEventListener('mouseleave', onMouseLeave);
-                    return () => {
-                        parent.removeEventListener('mousemove', onMouseMove as any);
-                        parent.removeEventListener('mouseleave', onMouseLeave);
-                    };
-                }
-            }
-
-        }, containerRef);
-        return () => ctx.revert();
-    }, []);
+    }, [lenis]);
 
     return (
-        <div ref={containerRef} className="relative min-h-screen bg-[#000000] pt-48 md:pt-60 pb-40 px-6 md:px-12 overflow-hidden text-[#FFFFFF]">
-            
-            {/* Background Narrative Layers */}
-            <div className="fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] opacity-30" />
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, filter: 'blur(20px)' }}
+            transition={{ duration: 0.8, ease }}
+            className="relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-[#FF3E00] selection:text-black"
+        >
+            <GrainOverlay />
+
+            {/* ═══════════════════════════════════════════════════════════════
+                HERO — AVANT-GARDE TYPOGRAPHY
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="relative min-h-[110vh] bg-[#E6E4DD] text-black overflow-hidden flex flex-col justify-end pb-32 pt-40 px-6 md:px-12">
                 
-                {/* Image Wrapper for static offset */}
-                <div className="absolute inset-x-0 -top-[200px] h-[calc(100%+200px)]">
-                    <img 
-                        src="/images/arsonic.webp" 
-                        alt="" 
-                        className="bg-parallax absolute inset-0 w-full h-full object-cover grayscale opacity-[0.35] mix-blend-screen" 
-                    />
+                {/* Abstract Image Positioning */}
+                <motion.div 
+                    style={{ y: yHeroImg }} 
+                    className="absolute top-0 right-[10%] w-full max-w-[600px] h-[80vh] opacity-20 md:opacity-40 pointer-events-none mix-blend-multiply grayscale"
+                >
+                    <img src="/images/arsonic.webp" alt="Arsonic" className="w-full h-full object-cover object-top" />
+                </motion.div>
+
+                {/* Vertical Decorative Label */}
+                <div 
+                    className="absolute top-40 left-6 md:left-12 origin-top-left -rotate-90 text-[10px] uppercase font-bold tracking-[0.4em] opacity-40 text-black border-l border-black/30 pl-4"
+                    style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                >
+                    AGENCY_ORIGIN_FILE // CLASSIFIED
                 </div>
 
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-            </div>
-            
-            <div className="relative z-10 max-w-[1920px] mx-auto hero-content-parallax text-center">
-                <div className="core-item mb-8 flex justify-center">
-                    <div className="h-[2px] w-24 bg-[#FF3E00]" />
+                <div className="relative z-10 w-full max-w-[1900px] mx-auto">
+                    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-start leading-[0.8] tracking-tighter uppercase font-black" style={{ fontFamily: 'Anton, sans-serif' }}>
+                        
+                        <motion.div variants={itemVariants} className="overflow-hidden">
+                            <h1 className="text-[clamp(60px,16vw,300px)] text-black mb-0">WE BUILD</h1>
+                        </motion.div>
+                        
+                        <motion.div variants={itemVariants} className="overflow-hidden mix-blend-difference ml-[5vw] md:ml-[15vw]">
+                            <h1 className="text-[clamp(60px,16vw,300px)] text-[#FF3E00] mb-0">EMPIRES_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT PAGES.</span></h1>
+                        </motion.div>
+                        
+                        <motion.div variants={itemVariants} className="mt-10 md:mt-20 ml-[10vw]">
+                            <div className="flex items-stretch gap-0">
+                                {/* Orange accent bar */}
+                                <div className="w-[2px] bg-[#FF3E00] mr-5 shrink-0" />
+                                <div className="flex flex-col gap-2 max-w-[280px] md:max-w-xs">
+                                    <p
+                                        className="text-[13px] text-black/50 leading-[1.85]"
+                                        style={{ fontFamily: 'IBM Plex Mono, monospace', maxWidth: '240px' }}
+                                    >
+                                        Full-spectrum creative agency. Engineered for enterprises that measure success not by presence — but by dominance.
+                                    </p>
+                                    <div className="flex items-center gap-2 mt-2">
+                                        <div className="w-4 h-[1px] bg-[#FF3E00]" />
+                                        <span
+                                            className="text-[9px] text-[#FF3E00] uppercase tracking-[0.35em] font-bold"
+                                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                                        >
+                                            ARSON PIXELZ
+                                        </span>
+                                        <motion.span
+                                            animate={{ opacity: [1, 0, 1] }}
+                                            transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
+                                            className="inline-block w-[5px] h-[10px] bg-[#FF3E00] ml-1"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
+            </section>
 
-                <div ref={heroContentRef} className="flex flex-col items-center">
-                    <div className="hero-line overflow-hidden w-full">
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase tracking-[-0.05em] leading-[0.8] text-white" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
-                            We Build
-                        </h1>
-                    </div>
-                    <div className="hero-line overflow-hidden w-full">
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase tracking-[-0.05em] leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-[#FF3E00] to-[#E63900]" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
-                            Empires
-                        </h1>
-                    </div>
-                    <div className="hero-line overflow-hidden w-full">
-                        <h1 className="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase tracking-[-0.05em] leading-[0.8] text-white" style={{ fontFamily: '"Space Grotesk", sans-serif' }}>
-                            Not Pages.
-                        </h1>
-                    </div>
-                </div>
-
-                <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-                    <div className="lg:col-span-8">
-                        <ScrollReveal delay={0.6} className="text-xl md:text-3xl font-medium leading-relaxed text-[#FFFFFF]/80 max-w-4xl space-y-8">
-                            <p>
-                                Arson Pixelz wasn't founded to make "pretty websites." We exist to burn down the boring, the safe, and the templated.
-                            </p>
-                            <p>
-                                We are a collective of rogue architects, aesthetic hardliners, and growth engineers. We believe that in a saturated digital ocean, the only way to survive is to be a tsunami.
-                            </p>
-                        </ScrollReveal>
-                    </div>
-
-                    <div className="lg:col-span-4 flex flex-col justify-end space-y-12">
-                        <ScrollReveal staggerIndex={1} className="border-t border-white/20 pt-8 group cursor-default">
-                            <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[#FF3E00] block mb-4 group-hover:translate-x-2 transition-transform">
-                                Directive 01
-                            </span>
-                            <h3 className="font-anton font-bold text-2xl uppercase text-[#FFFFFF]" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                Scorched Earth Policy
-                            </h3>
-                            <p className="mt-4 text-white/50 font-mono text-sm leading-relaxed">
-                                We don't iterate on your competitors. We erase them. Our designs are built to dominate attention spans and monopolize market share.
-                            </p>
-                        </ScrollReveal>
-
-                        <ScrollReveal staggerIndex={2} className="border-t border-white/20 pt-8 group cursor-default">
-                            <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[#FF3E00] block mb-4 group-hover:translate-x-2 transition-transform">
-                                Directive 02
-                            </span>
-                            <h3 className="font-anton font-bold text-2xl uppercase text-[#FFFFFF]" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                Speed is Safety
-                            </h3>
-                            <p className="mt-4 text-white/50 font-mono text-sm leading-relaxed">
-                                Slow is dead. We build on hyper-optimized stacks (Vite, React, Rust-based tooling) to ensure your empire loads before they can blink.
-                            </p>
-                        </ScrollReveal>
-                    </div>
-                </div>
-            </div>
-
-            {/* Team / Image Section: STUDIO CORE */}
-            <ScrollReveal amount={0.1} className="mt-40 max-w-[1920px] mx-auto">
-                <div className="construct-container aspect-video w-full bg-[#050505] rounded-2xl overflow-hidden relative group border border-white/5 shadow-2xl">
-                    <ScanlineOverlay />
-                    <img
-                        src="/images/web_1.webp"
-                        alt="The Lab"
-                        className="team-img-parallax w-full h-[120%] object-cover opacity-75 group-hover:opacity-100 transition-opacity duration-1000 ease-in-out"
-                    />
+            {/* ═══════════════════════════════════════════════════════════════
+                MANIFESTO BLOCK — THE VOID
+            ═══════════════════════════════════════════════════════════════ */}
+            <motion.section 
+                style={{ y: ySection2 }}
+                className="relative z-20 -mt-20 bg-[#0a0a0a] pt-40 pb-32 px-6 md:px-12"
+            >
+                <div className="max-w-[1900px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
                     
-                    {/* Centered Holographic Text */}
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <span 
-                            ref={constructTextRef}
-                            className={`
-                                font-anton font-black text-white/40 uppercase select-none tracking-[0.2em] z-10 
-                                transition-all duration-300 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]
-                                text-[6vw] lg:text-[4vw]
-                            `}
-                            style={{ fontFamily: 'Anton, sans-serif' }}
+                    {/* Left: The Doctrine */}
+                    <div className="lg:col-span-5 lg:col-start-2 relative">
+                        <motion.div 
+                            initial="hidden" 
+                            whileInView="visible" 
+                            viewport={{ once: true, amount: 0.3 }} 
+                            variants={containerVariants}
                         >
-                            Studio Core
-                        </span>
+                            <motion.span 
+                                variants={itemVariants}
+                                className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#FF3E00]"
+                                style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                            >
+                                THE_DOCTRINE
+                            </motion.span>
+                            
+                            <motion.h2 
+                                variants={itemVariants}
+                                className="uppercase leading-[0.85] tracking-tighter text-white mb-12"
+                                style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(48px, 8vw, 120px)' }}
+                            >
+                                SCORCHED<br/>
+                                <span className="text-white/20">EARTH</span><br/>
+                                POLICY.
+                            </motion.h2>
+                            
+                            <motion.p 
+                                variants={itemVariants}
+                                className="text-white/60 font-mono text-sm tracking-widest uppercase leading-loose border-l border-[#FF3E00] pl-6"
+                            >
+                                We don't iterate on your competitors. We erase them. Traditional agencies play it safe, they A/B test until the soul is sanded off. We deploy high-contrast, hyper-optimized frameworks built to dominate attention spans and monopolize your market share.
+                            </motion.p>
+                        </motion.div>
+                    </div>
+
+                    {/* Right: The Visage */}
+                    <div className="lg:col-span-5 relative mt-20 lg:mt-0">
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
+                            whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.2, ease }}
+                            className="aspect-[3/4] relative overflow-hidden bg-[#111]"
+                        >
+                            <img src="/images/web_1.webp" alt="Studio Core" className="w-full h-full object-cover grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-700" />
+                            <div className="absolute inset-0 border-[12px] border-[#0a0a0a] pointer-events-none" />
+                            
+                            <div className="absolute top-4 left-4 right-4 flex justify-between uppercase font-mono text-[10px] tracking-[0.4em] text-white/50">
+                                <span>REC</span>
+                                <span>10:04:22</span>
+                            </div>
+                        </motion.div>
+                        
+                        {/* Overlapping Text Label */}
+                        <div 
+                            className="absolute -bottom-10 -left-10 lg:-left-32 uppercase font-black tracking-tighter text-[#FF3E00] mix-blend-screen pointer-events-none"
+                            style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(60px, 12vw, 180px)', lineHeight: 0.8 }}
+                        >
+                            STUDIO
+                        </div>
                     </div>
                 </div>
-            </ScrollReveal>
+            </motion.section>
 
-            {/* EXPANDED CONTENT: METHODOLOGY */}
-            <div className="mt-60 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 max-w-[1920px] mx-auto">
-                <ScrollReveal>
-                    <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[#FF3E00] block mb-6">
-                        Operational Doctrine
-                    </span>
-                    <h2 className="font-anton font-black text-5xl md:text-7xl uppercase text-[#FFFFFF] leading-none mb-8" style={{ fontFamily: 'Anton, sans-serif' }}>
-                        Burn <br /> the <br /> Handbook.
-                    </h2>
-                </ScrollReveal>
-                <div className="space-y-12">
-                    <ScrollReveal delay={0.2}>
-                        <p className="text-xl md:text-2xl font-medium leading-relaxed text-[#FFFFFF]/80 border-l-2 border-[#FF3E00] pl-8">
-                            Traditional agencies play it safe. They iterate. They A/B test until the soul is sanded off.
-                            We don't do that. We deploy "scorched earth" creativity—stripping away the noise until only the raw, undeniable signal remains.
-                        </p>
-                    </ScrollReveal>
+            {/* ═══════════════════════════════════════════════════════════════
+                METHODOLOGY — INDUSTRIAL DATA TABLE
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="py-32 px-6 md:px-12 bg-[#FF3E00] text-black">
+                <div className="max-w-[1900px] mx-auto">
+                    <motion.div 
+                        initial="hidden" 
+                        whileInView="visible" 
+                        viewport={{ once: true, amount: 0.2 }} 
+                        variants={containerVariants}
+                        className="mb-24 flex flex-col md:flex-row justify-between items-end gap-10"
+                    >
+                        <motion.h2 
+                            variants={itemVariants}
+                            className="uppercase leading-[0.8] tracking-tighter text-black w-full md:w-auto"
+                            style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(60px, 10vw, 150px)' }}
+                        >
+                            PROCESS_<br/>
+                            <span className="text-white">ARCHITECTURE</span>
+                        </motion.h2>
+                        <motion.p 
+                            variants={itemVariants}
+                            className="text-black font-bold text-sm tracking-[0.3em] uppercase w-full md:w-1/3 leading-loose"
+                            style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                        >
+                            OUR METHODOLOGY IS NOT A GUIDELINE. IT IS A RIGID FRAMEWORK ENGINEERED FOR ABSOLUTE DIGITAL EXCELLENCE.
+                        </motion.p>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 border-t-8 border-black">
                         {[
-                            { title: "Injection", desc: "We infiltrate your brand's core. We audit every pixel, every line of copy, every user interaction. We find the weak points." },
-                            { title: "Ignition", desc: "We light the match. Visual overhaul, architectural restructuring, and aggressive positioning updates." },
-                            { title: "Accelerant", desc: "Launch is just the start. We pour gasoline on what works using high-velocity feedback loops and AI-driven analytics." },
-                            { title: "Dominion", desc: "Your brand becomes the standard. Competitors are forced to adapt or die." }
-                        ].map((item, i) => (
-                            <ScrollReveal key={i} staggerIndex={i} className="group">
-                                <h4 className="font-anton font-bold text-xl uppercase mb-2 text-[#FF3E00] group-hover:translate-x-1 transition-transform inline-block" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                    {item.title}
-                                </h4>
-                                <p className="font-mono text-xs leading-relaxed text-white/50 group-hover:text-white/80 transition-colors">
-                                    {item.desc}
-                                </p>
-                            </ScrollReveal>
+                            { step: '01', title: 'INJECTION', desc: 'Infiltrating the brand core. Auditing functionality, finding weaknesses, planning the override.' },
+                            { step: '02', title: 'IGNITION', desc: 'Visual overhaul and architectural restructuring. Speed, performance, and aesthetic dominance.' },
+                            { step: '03', title: 'ACCELERANT', desc: 'High-velocity feedback loops and AI-driven workflows to scale the framework aggressively.' },
+                            { step: '04', title: 'DOMINION', desc: 'Deploying the final build. The new standard is set. Competitors are rendered obsolete.' },
+                        ].map((phase, idx) => (
+                            <motion.div 
+                                key={idx}
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, amount: 0.5 }}
+                                transition={{ duration: 0.8, delay: idx * 0.1, ease }}
+                                className="group relative border-b-2 border-black/20 flex flex-col lg:flex-row items-start lg:items-center py-12 lg:py-16 hover:bg-black transition-colors duration-500 overflow-hidden"
+                            >
+                                <div className="absolute inset-x-0 bottom-0 h-0 bg-white group-hover:h-full transition-all duration-700 ease-out z-0" />
+                                
+                                <div className="relative z-10 w-full lg:w-[15%] px-6">
+                                    <span className="font-anton text-4xl lg:text-6xl text-black group-hover:text-[#FF3E00] transition-colors">{phase.step}</span>
+                                </div>
+                                <div className="relative z-10 w-full lg:w-[40%] px-6 mt-4 lg:mt-0">
+                                    <h3 
+                                        className="text-black group-hover:text-black uppercase text-3xl lg:text-5xl tracking-tighter"
+                                        style={{ fontFamily: 'Anton, sans-serif' }}
+                                    >
+                                        {phase.title}
+                                    </h3>
+                                </div>
+                                <div className="relative z-10 w-full lg:w-[45%] px-6 mt-4 lg:mt-0">
+                                    <p 
+                                        className="text-black/70 group-hover:text-black text-xs lg:text-sm font-bold tracking-[0.3em] uppercase leading-loose"
+                                        style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                                    >
+                                        {phase.desc}
+                                    </p>
+                                </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* SECTOR LOG */}
-            <div className="mt-60 border-t border-white/10 pt-24 max-w-[1920px] mx-auto">
-                <ScrollReveal className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20">
-                    <h2 className="font-anton font-black text-5xl md:text-7xl uppercase text-[#FFFFFF]" style={{ fontFamily: 'Anton, sans-serif' }}>
-                        Sector Log
-                    </h2>
-                    <p className="font-mono text-sm tracking-widest uppercase text-white/30 mt-4 md:mt-0">
-                        Archive: 2020 - Present
-                    </p>
-                </ScrollReveal>
+            {/* ═══════════════════════════════════════════════════════════════
+                SECTOR LOG — OMINOUS ARCHIVE
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="py-40 bg-[#0a0a0a] text-white px-6 md:px-12 border-t border-white/10">
+                <div className="max-w-[1900px] mx-auto">
+                    <div className="mb-20 flex justify-between items-end">
+                        <h2 
+                            className="uppercase leading-[0.8] tracking-tighter text-white"
+                            style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(50px, 8vw, 120px)' }}
+                        >
+                            SECTOR LOG
+                        </h2>
+                        <span className="font-mono text-[10px] tracking-[0.5em] text-[#FF3E00] uppercase hidden md:block">
+                            [ ARCHIVE_2020-PRESENT ]
+                        </span>
+                    </div>
 
-                <div className="space-y-0 relative">
-                    <div className="absolute left-1 md:left-2 bottom-0 w-[1px] bg-white/10 hidden md:block" style={{ top: '2rem' }} />
-                    {[
-                        { year: "2024", event: "The Singularity", desc: "Arson Pixelz fully integrates Generative AI into all workflows. Production speed increases by 400%." },
-                        { year: "2023", event: "Global Expansion", desc: "Remote command nodes established in Tokyo, London, and Berlin. Client base exceeds 50 enterprise accounts." },
-                        { year: "2022", event: "Protocol: Breach", desc: "First major award win for 'Cyber-Brutalism' utility site. The industry takes notice." },
-                        { year: "2020", event: "Genesis", desc: "Founded in a basement server room. Two laptops, too much caffeine, and a refusal to compromise." }
-                    ].map((item, idx) => (
-                        <ScrollReveal key={idx} staggerIndex={idx} yOffset={20}>
-                            <div className="sector-log-item group border-b border-white/10 py-12 flex flex-col md:flex-row gap-8 md:gap-24 items-start hover:bg-white/5 transition-all duration-500 -mx-6 px-6 md:-mx-12 md:px-12 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#FF3E00]/0 to-[#FF3E00]/0 group-hover:to-[#FF3E00]/5 transition-all duration-700" />
-                                <span className="relative z-10 font-mono text-3xl md:text-5xl font-bold text-[#FF3E00]/20 group-hover:text-[#FF3E00] transition-colors">
-                                    {item.year}
-                                </span>
-                                <div className="relative z-10 flex-1">
-                                    <h3 className="font-anton font-bold text-3xl uppercase text-[#FFFFFF] mb-2" style={{ fontFamily: 'Anton, sans-serif' }}>{item.event}</h3>
-                                    <p className="font-mono text-sm text-white/50 max-w-lg group-hover:text-white/80 transition-colors">{item.desc}</p>
+                    <div className="space-y-6">
+                        {[
+                            { year: "2024", event: "THE SINGULARITY", desc: "Arson Pixelz fully integrates Generative AI. Production velocity scales by 400%." },
+                            { year: "2023", event: "GLOBAL EXPANSION", desc: "Remote command nodes established. Client base exceeds 50 enterprise sectors." },
+                            { year: "2022", event: "PROTOCOL: BREACH", desc: "Industry recognition achieved. The cyber-brutalism aesthetic becomes our signature." },
+                            { year: "2020", event: "GENESIS", desc: "Founded in the void. Two laptops, infinite caffeine, refusal to conform." }
+                        ].map((log, i) => (
+                            <motion.div 
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.5 }}
+                                transition={{ duration: 0.8, delay: i * 0.1, ease }}
+                                className="grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline border-t border-white/5 pt-8 hover:px-6 transition-all duration-500 cursor-default"
+                            >
+                                <div className="md:col-span-2">
+                                    <span 
+                                        className="text-[#FF3E00] text-3xl font-black"
+                                        style={{ fontFamily: 'Anton, sans-serif' }}
+                                    >
+                                        {log.year}
+                                    </span>
                                 </div>
-                            </div>
-                        </ScrollReveal>
-                    ))}
+                                <div className="md:col-span-4">
+                                    <h3 
+                                        className="text-white uppercase text-2xl tracking-tight"
+                                        style={{ fontFamily: 'Anton, sans-serif' }}
+                                    >
+                                        {log.event}
+                                    </h3>
+                                </div>
+                                <div className="md:col-span-6">
+                                    <p className="font-mono text-xs text-white/40 tracking-[0.2em] uppercase leading-relaxed">
+                                        {log.desc}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </div>
+            </section>
+
+            {/* ═══════════════════════════════════════════════════════════════
+                FINAL CALL — BRUTALIST
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="min-h-[70vh] bg-[#E6E4DD] text-black flex items-center justify-center relative overflow-hidden px-6">
+                {/* Massive watermark */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                    <span 
+                        className="font-anton uppercase tracking-tighter text-black whitespace-nowrap"
+                        style={{ fontSize: '150vh', lineHeight: 0.8 }}
+                    >
+                        END
+                    </span>
+                </div>
+
+                <div className="relative z-10 text-center flex flex-col items-center">
+                    <span 
+                        className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#FF3E00]"
+                        style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                    >
+                        INITIATE SEQUENCE
+                    </span>
+                    <h2 
+                        className="uppercase leading-[0.85] tracking-tighter text-black mb-16 -rotate-1"
+                        style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(50px, 10vw, 150px)' }}
+                    >
+                        PREPARE FOR<br/>
+                        <span className="text-[#FF3E00]">IGNITION.</span>
+                    </h2>
+                    
+                    <BrutalistButton 
+                        label="START PROJECT"
+                        to="/contact"
+                        variant="black"
+                        size="xl"
+                    />
+                </div>
+            </section>
+
+        </motion.div>
     );
 };
-
 
 export default AboutPage;

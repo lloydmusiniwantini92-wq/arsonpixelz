@@ -36,18 +36,21 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
         {
             rank: 'B',
             label: 'FLAME',
+            subLabel: 'ESSENTIAL',
             gradient: 'from-white/20 to-white/5',
             color: '#FFFFFF'
         },
         {
             rank: 'A',
             label: 'BLAZE',
+            subLabel: 'MOST POPULAR',
             gradient: 'from-[#FF3E00]/50 to-[#E63900]/30',
             color: '#FF3E00'
         },
         {
             rank: 'S',
             label: 'INFERNO',
+            subLabel: 'BEST VALUE',
             gradient: 'from-[#FF3E00] to-[#E63900]',
             color: '#FF3E00'
         }
@@ -71,7 +74,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`group relative flex flex-col p-8 transition-colors duration-500 overflow-hidden border-0 rounded-none cursor-pointer
+            className={`group relative flex flex-col pt-4 px-8 pb-8 transition-colors duration-500 overflow-hidden border-0 rounded-none cursor-pointer
                 ${isPremium 
                     ? 'bg-[#1b1b1b] shadow-[0_40px_80px_rgba(255,62,0,0.25)] ring-2 ring-[#FF3E00]' 
                     : 'bg-[#131313] hover:bg-[#1b1b1b] ring-1 ring-white/5 hover:ring-[#FF3E00]/40 shadow-xl hover:shadow-[0_30px_60px_rgba(255,62,0,0.2)]'}
@@ -86,42 +89,39 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             )}
 
             {/* Card Header */}
-            <div className="relative z-10 mb-10">
-                <div className="flex justify-between items-center mb-10">
+            <div className="relative z-10 mb-6">
+                <div className="flex justify-between items-center mb-0">
                     <div className="w-12 h-[1px] bg-[#FF3E00]/40" />
-                    <div className="w-3 h-3 rounded-none border border-[#FF3E00]/20" />
+                </div>
+
+                {/* ESSENTIAL / MOST POPULAR / BEST VALUE - Aligned with Tier Name */}
+                <div className="flex justify-start mb-1 md:ml-[9.5rem] ml-[7.5rem]">
+                    <span className="text-base font-mono font-black tracking-[0.5em] text-[#FF3E00] uppercase">
+                        {config.subLabel}
+                    </span>
                 </div>
                 
-                {/* Ranking Badge */}
-                <div className="flex items-center gap-4 mb-8">
+                {/* Ranking Badge & Title Group - Restored to Original Alignment & Scaling */}
+                <div className="flex items-center gap-6 mb-2">
                     <div className={`
-                        relative w-16 md:w-20 flex-shrink-0 flex flex-col items-center justify-center
+                        relative w-24 md:w-32 flex-shrink-0 flex flex-col items-center justify-center
                         rounded-lg bg-gradient-to-br ${config.gradient} p-[2px] overflow-hidden
                         shadow-[0_0_20px_rgba(255,62,0,0.2)]
                     `}>
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
-                        <div className="relative z-10 text-center py-1">
-                            <div className="text-3xl md:text-4xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
+                        <div className="relative z-10 text-center py-2">
+                            <div className="text-6xl md:text-8xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {config.rank}
                             </div>
                         </div>
                     </div>
                     
-                    <div className="flex flex-col">
-                        <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-[#FF3E00]/60 uppercase">
-                            RANKED_TIER
-                        </span>
-                        <h3 className="font-space font-black text-2xl md:text-3xl text-white uppercase tracking-tighter leading-none">
-                            {config.label}
-                        </h3>
-                    </div>
+                    <h3 className="text-5xl md:text-7xl text-white uppercase tracking-[-0.02em] leading-none" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '-0.01em' }}>
+                        {config.label}
+                    </h3>
                 </div>
 
-                <div className="font-inter font-mono text-[9px] text-[#FF3E00] mb-8 uppercase tracking-[0.5em] font-black opacity-80 uppercase block">
-                    {tier.vibe}
-                </div>
-
-                <p className="text-white/50 font-inter text-sm leading-relaxed tracking-tight mb-12 italic">
+                <p className="text-white/70 text-base uppercase leading-relaxed tracking-wider mb-8 mt-4" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 500 }}>
                     {tier.description}
                 </p>
             </div>
@@ -153,13 +153,13 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                 
                 <button
                     onClick={handleAcquire}
-                    className={`w-full py-4 font-space font-bold uppercase text-[11px] tracking-[0.4em] transition-all duration-300 rounded-none shadow-2xl
+                    className={`w-full py-6 font-['Anton'] font-bold uppercase text-lg md:text-xl tracking-[0.2em] transition-all transform active:scale-95 duration-500 rounded-none shadow-2xl
                         ${isPremium 
-                            ? 'bg-[#FF3E00] text-black hover:brightness-125 shadow-[0_0_30px_rgba(255,62,0,0.4)]' 
-                            : 'bg-transparent border border-[#FF3E00] text-[#FF3E00] hover:bg-[#FF3E00] hover:text-black'}
+                            ? 'bg-[#FF3E00] text-white hover:bg-white hover:text-black shadow-[0_0_30px_rgba(255,62,0,0.4)]' 
+                            : 'bg-transparent border border-[#FF3E00] text-[#FF3E00] hover:bg-white hover:text-black hover:border-white'}
                     `}
                 >
-                    ESTABLISH_HEGEMONY
+                    SECURE DOMINANCE
                 </button>
             </div>
 

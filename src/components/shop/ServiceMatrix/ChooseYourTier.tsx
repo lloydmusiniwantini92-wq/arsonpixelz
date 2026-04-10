@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BrutalistButton } from '../../common/BrutalistButton';
 
 /**
  * ChooseYourTier component for the Shop page.
@@ -14,39 +14,40 @@ export const ChooseYourTier: React.FC = () => {
     };
 
     return (
-        <div className="mt-20 md:mt-32 relative p-12 md:p-16 rounded-2xl bg-gradient-to-br from-[#FF3E00] to-[#E63900] overflow-hidden">
-            {/* Noise Overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+        <div className="mt-20 md:mt-32 relative pt-32 pb-40 px-6 md:px-10 bg-[#FF3E00] overflow-hidden border-t-4 border-b-4 border-black">
+            {/* Noise overlay */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] mix-blend-overlay pointer-events-none" />
 
-            {/* Animated Scanlines */}
-            <div className="absolute inset-0 bg-[linear-gradient(transparent_0%,rgba(0,0,0,0.05)_50%,transparent_100%)] bg-[length:100%_4px] animate-pulse pointer-events-none" />
+            <div className="relative z-10 flex flex-col items-center text-center max-w-[1700px] mx-auto">
+                {/* Technical Title Label */}
+                <span 
+                    className="block text-sm md:text-lg font-bold tracking-[1.5em] uppercase mb-16 text-white/60"
+                    style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+                >
+                    ANALYSIS REQUIRED
+                </span>
 
-            <div className="relative z-10 text-center max-w-3xl mx-auto">
-                <h3 className="text-3xl md:text-5xl font-black uppercase mb-6 text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
-                    CHOOSE YOUR TIER
+                <h3 
+                    className="text-black uppercase leading-[0.8] mb-16 tracking-tighter w-full" 
+                    style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(80px, 18vw, 300px)' }}
+                >
+                    UNCERTAIN<span className="text-white">?</span>
                 </h3>
-                <p className="text-white/90 font-mono text-base md:text-lg mb-8 leading-relaxed">
-                    Not sure which tier fits your vision? Let's talk. We'll analyze your goals,
-                    match you with the perfect ignition level, and get your fire started.
-                </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link
+                <div className="flex flex-col lg:flex-row gap-8 justify-center items-center mt-8">
+                    <BrutalistButton
                         to="/contact"
-                        className="group px-8 py-4 bg-white text-[#FF3E00] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-[#0a0a0a] hover:text-white transition-all duration-300 inline-flex items-center justify-center gap-2 border-2 border-white hover:border-[#0a0a0a]"
-                    >
-                        START CONVERSATION
-                        <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </Link>
+                        label="OPEN COMMS"
+                        variant="black"
+                        size="xl"
+                    />
 
-                    <button
+                    <BrutalistButton
                         onClick={scrollToServices}
-                        className="px-8 py-4 bg-transparent text-white rounded-full font-mono font-bold uppercase tracking-wider hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white"
-                    >
-                        VIEW ALL SERVICES
-                    </button>
+                        label="ALL SERVICES"
+                        variant="white"
+                        size="xl"
+                    />
                 </div>
             </div>
         </div>
