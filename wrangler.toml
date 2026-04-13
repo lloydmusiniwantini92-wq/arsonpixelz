@@ -1,6 +1,6 @@
 name = "arsonpixelz"
+pages_build_output_dir = "dist"
 compatibility_date = "2024-04-03"
-node_compat = true
 
-[site]
-bucket = "./dist"
+[node_compat]
+enabled = true
