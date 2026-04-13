@@ -1,6 +1,4 @@
 name = "arsonpixelz"
 pages_build_output_dir = "dist"
 compatibility_date = "2024-04-03"
-
-[node_compat]
-enabled = true
+node_compat = true
