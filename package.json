@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "pages:dev": "wrangler pages dev ./dist",
     "build": "vite build",
     "preview": "vite preview",
     "start-api": "node server.js"
