@@ -1,0 +1,6 @@
+name = "arsonpixelz"
+compatibility_date = "2024-04-03"
+node_compat = true
+
+[site]
+bucket = "./dist"
