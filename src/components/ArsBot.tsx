@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useIntelligence } from '../context/IntelligenceContext';
 import PLogo from './assets/p.webp';
 
-// Contextual on-brand questions the bot cycles through
-const BOT_PROMPTS = [
+const DEFAULT_PROMPTS = [
     "READY TO IGNITE?",
     "CLAIM YOUR SECTOR.",
     "DEFINE THE TIMELINE.",
@@ -19,25 +19,16 @@ interface ChatMessage {
     text: string;
 }
 
-const BOT_RESPONSES: Record<string, string> = {
-    default: "Understood. Our team will get you the intel you need. →",
-    brand: "Identity engineered for dominance. Let's build yours.",
-    timeline: "We move fast. Most ignitions complete in 2-4 weeks.",
-    vision: "One word is all it takes to start a revolution.",
-    sector: "Every sector has a void. We help you fill it — loudly.",
-};
-
 interface BotInterfaceProps {
     loaded: boolean;
     isMenuOpen: boolean;
 }
 
-// How long (ms) since last scroll before arm re-unfurls
 const IDLE_THRESHOLD = 10_000;
-// How long the dissolve-out phase lasts before teleporting
 const DISSOLVE_MS = 300;
 
 export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
+    const { currentTarget, timeOnPage } = useIntelligence();
     const [promptIndex, setPromptIndex] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [inputVal, setInputVal] = useState('');
@@ -48,22 +39,13 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [initialDelayComplete, setInitialDelayComplete] = useState(false);
 
-    // ── Scroll & Idle State ────────────────────────────────────────────────────
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
     const [isIdle, setIsIdle] = useState(false);
-    const [isFixed, setIsFixed] = useState(false); // true = right side, false = left side (hero)
+    const [isFixed, setIsFixed] = useState(false);
 
-    // ── Apparition State ───────────────────────────────────────────────────────
-    // 'visible'    → fully materialized, no transition override
-    // 'dissolving' → fading/shrinking/blurring out (still at OLD position)
-    // 'ghost'      → invisible, class has flipped to NEW position
-    // 'appearing'  → materializing in the new position (elastic overshoot)
     type ApparitionPhase = 'visible' | 'dissolving' | 'ghost' | 'appearing';
     const [phase, setPhase] = useState<ApparitionPhase>('visible');
-
-    // We track the "rendered" position separately so the DOM class only flips
-    // AFTER the dissolve is complete, never during.
     const [renderedFixed, setRenderedFixed] = useState(false);
 
     const apparitionTimerA = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -75,7 +57,33 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
     const initialDelayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // ── Initial Delay ──────────────────────────────────────────────────────────
+    // Dynamic Prompts based on Intelligence
+    const currentPrompts = useMemo(() => {
+        if (!currentTarget) return DEFAULT_PROMPTS;
+        if (currentTarget.type === 'service') {
+            return [
+                `INTERESTED IN ${currentTarget.name.toUpperCase()}?`,
+                `SECURE THE SYSTEM.`,
+                `WE BUILD ARCHITECTURE.`,
+            ];
+        }
+        if (currentTarget.type === 'product') {
+            return [
+                `ACQUIRE ${currentTarget.name.toUpperCase()}?`,
+                `DOWNLOAD THE FRAMEWORK.`,
+                `BUY ONCE. USE FOREVER.`,
+            ];
+        }
+        if (currentTarget.type === 'project') {
+            return [
+                `ANALYZING ${currentTarget.name.toUpperCase()}.`,
+                `ARCHIVE SECURED.`,
+                `SEE THE EXECUTION.`,
+            ];
+        }
+        return DEFAULT_PROMPTS;
+    }, [currentTarget]);
+
     useEffect(() => {
         if (loaded) {
             initialDelayTimerRef.current = setTimeout(() => {
@@ -87,43 +95,30 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
         };
     }, [loaded]);
 
-    // ── Apparition Trigger ─────────────────────────────────────────────────────
-    // Runs whenever isFixed changes. Orchestrates the 3-phase teleport.
     useEffect(() => {
-        // Skip on mount (renderedFixed already matches isFixed)
         if (renderedFixed === isFixed) return;
 
-        // Abort any in-flight sequence
         [apparitionTimerA, apparitionTimerB, apparitionTimerC].forEach(r => {
             if (r.current) clearTimeout(r.current);
         });
 
-        // Phase 1 — Dissolve out at CURRENT position
         setPhase('dissolving');
 
-        // Phase 2 — teleport: flip the class while invisible
         apparitionTimerA.current = setTimeout(() => {
             setPhase('ghost');
-            setRenderedFixed(isFixed); // class flips here — bot is invisible, nobody sees it
+            setRenderedFixed(isFixed);
 
-            // Phase 3 — materialize at NEW position (tiny delay lets browser repaint first)
             apparitionTimerB.current = setTimeout(() => {
                 setPhase('appearing');
-
-                // Phase 4 — settle to fully visible
                 apparitionTimerC.current = setTimeout(() => {
                     setPhase('visible');
                 }, 450);
             }, 40);
         }, DISSOLVE_MS);
+    }, [isFixed, renderedFixed]);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFixed]);
-
-    // ── Scroll Handler ─────────────────────────────────────────────────────────
     const handleScroll = useCallback(() => {
         const scrollY = window.scrollY;
-
         setIsFixed(scrollY > 0);
         setHasScrolled(scrollY > 0);
         setIsScrolling(true);
@@ -139,7 +134,6 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
     }, []);
 
     useEffect(() => {
-        // Sync on mount
         const scrollY = window.scrollY;
         const fixed = scrollY > 0;
         setIsFixed(fixed);
@@ -154,25 +148,21 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
         };
     }, [handleScroll]);
 
-    // Arm is NEVER auto-triggered on the homepage hero.
-    // It only unfurls on hover, or when the user has scrolled away and gone idle.
     const finalArmVisible = !isScrolling && (isHovered || (hasScrolled && isIdle));
 
-    // ── Prompt Cycling ──────────────────────────────────────────────────────────
     useEffect(() => {
         if (isOpen) return;
         const timer = setInterval(() => {
-            setPromptIndex(i => (i + 1) % BOT_PROMPTS.length);
+            setPromptIndex(i => (i + 1) % currentPrompts.length);
         }, 4000);
         return () => clearInterval(timer);
-    }, [isOpen]);
+    }, [isOpen, currentPrompts]);
 
-    // Auto-scroll chat
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    const handleSend = () => {
+    const handleSend = async () => {
         const trimmed = inputVal.trim();
         if (!trimmed) return;
 
@@ -181,27 +171,87 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
         setInputVal('');
         setIsTyping(true);
 
-        const lower = trimmed.toLowerCase();
-        let response = BOT_RESPONSES.default;
-        if (lower.includes('brand') || lower.includes('identity')) response = BOT_RESPONSES.brand;
-        else if (lower.includes('time') || lower.includes('week') || lower.includes('when')) response = BOT_RESPONSES.timeline;
-        else if (lower.includes('vision') || lower.includes('word')) response = BOT_RESPONSES.vision;
-        else if (lower.includes('sector') || lower.includes('industry') || lower.includes('niche')) response = BOT_RESPONSES.sector;
+        // Provision a blank bot message for streaming
+        const botMsgId = Date.now() + 1;
+        setMessages(prev => [...prev, { id: botMsgId, from: 'bot', text: '' }]);
 
-        setTimeout(() => {
+        try {
+            const response = await fetch('/api/arson-intel', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    messages: messages.concat(userMsg),
+                    context: currentTarget
+                })
+            });
+
+            if (!response.ok) {
+                const contentType = response.headers.get('content-type');
+                let errMessage = 'OFFLINE_PROTOCOL_ENGAGED';
+                
+                if (contentType && contentType.includes('application/json')) {
+                    const errData = await response.json();
+                    errMessage = errData.error || errMessage;
+                } else {
+                    errMessage = await response.text() || errMessage;
+                }
+                throw new Error(errMessage);
+            }
+
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+            let accumulatedText = '';
+            let buffer = '';
+
+            if (reader) {
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    
+                    // Keep the last partial line in the buffer
+                    buffer = lines.pop() || '';
+                    
+                    for (const line of lines) {
+                        const trimmedLine = line.trim();
+                        if (trimmedLine.startsWith('data: ')) {
+                            try {
+                                const data = JSON.parse(trimmedLine.slice(6));
+                                if (data.text) {
+                                    accumulatedText += data.text;
+                                    setMessages(prev => prev.map(m => 
+                                        m.id === botMsgId ? { ...m, text: accumulatedText } : m
+                                    ));
+                                } else if (data.error) {
+                                    throw new Error(data.error);
+                                }
+                            } catch (e) {
+                                console.error("Stream parse error:", e, trimmedLine);
+                            }
+                        }
+                    }
+                }
+            }
+
             setIsTyping(false);
-            setMessages(prev => [...prev, { id: Date.now() + 1, from: 'bot', text: response }]);
-        }, 1200);
+
+        } catch (error: any) {
+            console.error("AI Error:", error);
+            setIsTyping(false);
+            setMessages(prev => prev.map(m => 
+                m.id === botMsgId 
+                    ? { ...m, text: error.message || 'SYSTEM OVERLOAD. CONNECTION SEVERED.' } 
+                    : m
+            ));
+        }
     };
 
-    // ── Positioning ─────────────────────────────────────────────────────────────
-    // renderedFixed drives the CSS class — it only flips when the bot is invisible.
     const positionClasses = renderedFixed
         ? "fixed bottom-6 right-4 md:bottom-12 md:right-12 z-[10001] flex-row-reverse"
         : "fixed bottom-6 left-4 md:bottom-12 md:left-12 z-[10001] flex-row";
 
-    // ── Apparition Styles ──────────────────────────────────────────────────────
-    // Each phase gets specific CSS properties. CSS transitions handle the animation.
     const getApparitionStyle = (): React.CSSProperties => {
         switch (phase) {
             case 'dissolving':
@@ -216,12 +266,12 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                     opacity: 0,
                     transform: 'scale(0.4)',
                     filter: 'blur(10px)',
-                    transition: 'none', // no transition during position flip
+                    transition: 'none',
                 };
             case 'appearing':
                 return {
                     opacity: 1,
-                    transform: 'scale(1.12)', // overshoot for arrival punch
+                    transform: 'scale(1.12)',
                     filter: 'blur(0px)',
                     transition: 'opacity 0.25s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease',
                 };
@@ -245,7 +295,6 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            {/* ── Chat Dropdown Panel ── */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -256,7 +305,6 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         className={`absolute bottom-full mb-4 ${renderedFixed ? 'right-0' : 'left-0'} w-[280px] md:w-[380px] bg-[#000000] border-2 border-[#FF3E00]/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[10001] flex flex-col overflow-hidden`}
                         style={{ borderRadius: 2 }}
                     >
-                        {/* Chat header */}
                         <div className="flex items-center gap-3 px-4 py-3 border-b border-[#FF3E00]/20 bg-[#0A0A0A]">
                             <div className="w-12 h-12 rounded-full bg-[#FF3E00] flex items-center justify-center overflow-hidden shrink-0 px-2">
                                 <img src={PLogo} alt="Bot" className="h-8 w-auto invert object-contain" />
@@ -265,7 +313,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                                 <p className="font-syne text-[10px] font-black uppercase tracking-[0.2em] text-white">ARSON_INTERFACE</p>
                                 <div className="flex items-center gap-1.5 mt-0.5">
                                     <div className="w-1.5 h-1.5 rounded-full bg-[#FF3E00] animate-pulse" />
-                                    <span className="font-mono text-[8px] uppercase tracking-widest text-[#FF3E00]">Active</span>
+                                    <span className="font-mono text-[8px] uppercase tracking-widest text-[#FF3E00]">Active Intelligence</span>
                                 </div>
                             </div>
                             <button
@@ -274,11 +322,10 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                             >×</button>
                         </div>
 
-                        {/* Messages */}
-                        <div className="flex-1 overflow-y-auto max-h-[220px] px-4 py-3 space-y-3 no-scrollbar">
+                        <div className="flex-1 overflow-y-auto max-h-[300px] min-h-[220px] px-4 py-3 space-y-3 no-scrollbar" style={{ scrollbarWidth: 'none' }}>
                             {messages.map(msg => (
                                 <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-[80%] px-3 py-2 font-mono text-[11px] leading-relaxed ${
+                                    <div className={`max-w-[85%] px-3 py-2 font-mono text-[11px] leading-relaxed whitespace-pre-wrap ${
                                         msg.from === 'bot'
                                             ? 'bg-white/5 text-white/80 border-l-2 border-[#FF3E00]'
                                             : 'bg-[#FF3E00] text-black font-bold'
@@ -299,21 +346,20 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                             <div ref={messagesEndRef} />
                         </div>
 
-                        {/* Input */}
-                        <div className="border-t border-white/5 flex items-center px-3 py-2 gap-2">
+                        <div className="border-t border-white/5 flex items-center px-3 py-2 gap-2 bg-[#050505]">
                             <input
                                 type="text"
                                 value={inputVal}
                                 onChange={e => setInputVal(e.target.value)}
                                 onKeyDown={e => e.key === 'Enter' && handleSend()}
-                                placeholder="Type your message..."
-                                className="flex-1 bg-transparent font-mono text-[11px] text-white placeholder:text-white/20 outline-none uppercase tracking-wider"
+                                placeholder="TYPE YOUR MESSAGE..."
+                                className="flex-1 bg-transparent font-mono text-[11px] text-white placeholder:text-white/20 outline-none uppercase tracking-wider h-8"
                             />
                             <button
                                 onClick={handleSend}
-                                className="w-7 h-7 rounded-full bg-[#FF3E00] flex items-center justify-center hover:scale-110 transition-transform"
+                                className="w-8 h-8 rounded-full bg-[#FF3E00] flex items-center justify-center hover:scale-110 transition-transform shrink-0"
                             >
-                                <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5 text-black">
+                                <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-black">
                                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                                 </svg>
                             </button>
@@ -322,15 +368,11 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                 )}
             </AnimatePresence>
 
-            {/* ── Main Bot Widget (Avatar + Prompt Bar) ── */}
             <div
                 className="relative flex items-center cursor-pointer"
                 onClick={() => setIsOpen(v => !v)}
             >
-                {/* Arm container */}
                 <div className="relative" style={{ overflow: 'visible' }}>
-
-                    {/* Animated arm — direction flips with renderedFixed */}
                     <svg
                         className={`absolute top-1/2 -translate-y-1/2 pointer-events-none ${renderedFixed ? 'right-full' : 'left-full'}`}
                         style={{
@@ -367,7 +409,6 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         />
                     </svg>
 
-                    {/* Bot Avatar */}
                     <div className={`
                         relative w-10 h-10 md:w-14 md:h-14 rounded-full
                         bg-[#FF3E00] border-2
@@ -384,7 +425,6 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                     </div>
                 </div>
 
-                {/* Prompt pill */}
                 <AnimatePresence>
                     {(!isScrolling && (isHovered || (hasScrolled && isIdle))) && (
                         <motion.div
@@ -412,7 +452,11 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                                     className="font-sans font-bold text-[11px] md:text-[12px] uppercase tracking-wide text-black/80"
                                 >
-                                    {BOT_PROMPTS[promptIndex]}
+                                    {currentTarget ? (
+                                        <span className="text-[#FF3E00]">{currentPrompts[promptIndex]}</span>
+                                    ) : (
+                                        currentPrompts[promptIndex]
+                                    )}
                                 </motion.span>
                             </AnimatePresence>
                         </motion.div>

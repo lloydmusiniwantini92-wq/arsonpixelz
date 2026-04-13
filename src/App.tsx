@@ -15,6 +15,7 @@ import { ArsBot } from "./components/ArsBot";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { CartProvider } from './context/CartContext';
+import { IntelligenceProvider } from './context/IntelligenceContext';
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import { CodeWatermark } from "./components/layout/CodeWatermark";
 import { HorizontalScrollSection } from "./components/fx/HorizontalScrollSection";
@@ -162,6 +163,7 @@ const App = () => {
 
     return (
         <NavigationContext.Provider value={{ isInitialLoad }}>
+        <IntelligenceProvider>
         <CartProvider>
             <Router>
                 <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#000000] text-[#FFFFFF]">
@@ -189,6 +191,7 @@ const App = () => {
                 </div>
             </Router>
         </CartProvider>
+        </IntelligenceProvider>
         </NavigationContext.Provider>
     );
 };

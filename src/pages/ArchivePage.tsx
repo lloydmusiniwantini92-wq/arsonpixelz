@@ -7,7 +7,7 @@ import { useIgnition } from '../components/layout/IgnitionRuntime';
 // --- IMPORT ASSETS ---
 import EatalyImg from '../components/assets/Eataly.webp';
 import PunoImg from '../components/assets/Puno.webp';
-import TonyThompsonClean from '../components/assets/TonyThompsonClean.webp';
+import TonyThompsonClean from '../assets/t1.jpg';
 import ScreenImg from '../assets/screen.webp';
 import FullSvg from '../components/assets/full.webp';
 import LogoImg from '../components/assets/p.webp';

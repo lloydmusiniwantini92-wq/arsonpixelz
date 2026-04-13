@@ -8,8 +8,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useIgnition } from './layout/IgnitionRuntime';
 import { BrutalistButton } from './common/BrutalistButton';
+import { useIntelligence } from '../context/IntelligenceContext';
 
-import TonyThompsonClean from './assets/TonyThompsonClean.webp';
+import TonyThompsonClean from '../assets/t1.jpg';
 
 interface Project {
   id: string;
@@ -112,6 +113,7 @@ const PROJECTS: Project[] = [
 
 export const Work: React.FC = () => {
   const { lenis } = useIgnition();
+  const { setHoverTarget } = useIntelligence();
   const { hash } = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
   const navigate = useNavigate();
@@ -229,6 +231,14 @@ export const Work: React.FC = () => {
                   ref={el => { itemRefs.current[index] = el; }}
                   data-project-id={project.id}
                   onClick={() => setActiveIndex(index)}
+                  onMouseEnter={() => setHoverTarget({
+                      id: project.id,
+                      type: 'project',
+                      name: `${project.title1} ${project.title2}`,
+                      description: project.description,
+                      level: 'high'
+                  })}
+                  onMouseLeave={() => setHoverTarget(null)}
                   initial={{ opacity: 0, x: -100, rotateX: -90 }}
                   whileInView={{ opacity: 1, x: 0, rotateX: 0 }}
                   viewport={{ once: true, margin: "0px 0px -100px 0px" }}

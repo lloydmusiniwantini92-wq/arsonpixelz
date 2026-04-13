@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PricingTier } from '../../../data/services';
 import { useCart } from '../../../context/CartContext';
+import { useIntelligence } from '../../../context/IntelligenceContext';
 
 interface ServiceTierCardProps {
     tier: PricingTier;
@@ -11,6 +12,7 @@ interface ServiceTierCardProps {
 
 export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, categoryId }) => {
     const { addToCart } = useCart();
+    const { setHoverTarget } = useIntelligence();
     const [isHovered, setIsHovered] = useState(false);
 
 
@@ -72,8 +74,20 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                 transition: { type: "spring", stiffness: 400, damping: 25 }
             }}
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => {
+                setIsHovered(true);
+                setHoverTarget({
+                    id: `${categoryId}-${index}`,
+                    type: 'service',
+                    name: tier.title,
+                    description: tier.description,
+                    level: 'high' // Assumed high intent if hovering a price card
+                });
+            }}
+            onMouseLeave={() => {
+                setIsHovered(false);
+                setHoverTarget(null);
+            }}
             className={`group relative flex flex-col pt-4 px-8 pb-8 transition-colors duration-500 overflow-hidden border-0 rounded-none cursor-pointer
                 ${isPremium 
                     ? 'bg-[#1b1b1b] shadow-[0_40px_80px_rgba(255,62,0,0.25)] ring-2 ring-[#FF3E00]' 
