@@ -46,7 +46,7 @@ export const services: ServiceCategory[] = [
                 vibe: 'Limitless, kinetic, and industry-leading.',
                 included: ['Lottie animations & 3D models', 'Packaging dielines', 'Multiple concurrent requests', 'Dedicated Art Director'],
                 turnaround: 'Priority queueing',
-                stripePriceId: 'price_design_immersive'
+                stripePriceId: 'price_1TM8BO2NRAQRhNmZFF0Zm62B'
             }
         ]
     },
