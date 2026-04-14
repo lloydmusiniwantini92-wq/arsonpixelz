@@ -31,7 +31,15 @@ const archiveData: Record<string, ProjectRecord> = {
             '/site-static/archive1/Screenshot 2026-03-19 014815.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014840.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014901.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 014940.webp'
+            '/site-static/archive1/Screenshot 2026-03-19 014940.webp',
+            '/site-static/archive1/tt_brand_1.webp',
+            '/site-static/archive1/tt_brand_2.webp',
+            '/site-static/archive1/tt_brand_3.webp',
+            '/site-static/archive1/tt_brand_4.webp',
+            '/site-static/archive1/tt_brand_5.webp',
+            '/site-static/archive1/tt_brand_6.webp',
+            '/site-static/archive1/tt_brand_7.webp',
+            '/site-static/archive1/tt_brand_8.webp'
         ],
         manifesto: 'NOT A WEBSITE — A DIGITAL LEGACY ARCHIVE.',
         manifestoAuthor: 'T. THOMPSON',
