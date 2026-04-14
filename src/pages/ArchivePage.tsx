@@ -22,18 +22,18 @@ const archiveData: Record<string, ProjectRecord> = {
         year: '2024',
         location: 'GLOBAL',
         accent: '#FF3E00',
-        heroImage: '/site-static/archive1/Screenshot 2026-03-19 014514.webp',
-        referenceImage: '/site-static/archive1/Screenshot 2026-03-19 014606.webp',
-        sideImage: '/site-static/archive1/Screenshot 2026-03-19 014652.webp',
+        heroImage: '/site-static/archive1/tt_brand_4.webp',
+        referenceImage: '/site-static/archive1/tt_brand_1.webp',
+        sideImage: '/site-static/archive1/tt_brand_7.webp',
         galleryImages: [
-            '/site-static/archive1/tt_brand_1.webp',
             '/site-static/archive1/tt_brand_2.webp',
             '/site-static/archive1/tt_brand_3.webp',
-            '/site-static/archive1/tt_brand_4.webp',
             '/site-static/archive1/tt_brand_5.webp',
             '/site-static/archive1/tt_brand_6.webp',
-            '/site-static/archive1/tt_brand_7.webp',
             '/site-static/archive1/tt_brand_8.webp',
+            '/site-static/archive1/Screenshot 2026-03-19 014514.webp',
+            '/site-static/archive1/Screenshot 2026-03-19 014606.webp',
+            '/site-static/archive1/Screenshot 2026-03-19 014652.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014726.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014751.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014815.webp',
@@ -640,8 +640,7 @@ const ArchivePage: React.FC = () => {
                                     variants={itemVariants}
                                     whileHover={{ y: -10 }}
                                     onClick={() => setActiveModalIndex(i + 3)}
-                                    className={`relative overflow-hidden group cursor-pointer ${i % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'}`}
-                                    style={{ contentVisibility: 'auto' }}
+                                    className={`relative overflow-hidden group cursor-pointer aspect-video md:aspect-auto md:h-[400px]`}
                                 >
                                     <img
                                         src={img}
