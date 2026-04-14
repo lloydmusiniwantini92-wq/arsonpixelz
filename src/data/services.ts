@@ -37,7 +37,7 @@ export const services: ServiceCategory[] = [
                 vibe: 'Conversion-driven, pixel-perfect, and iterative.',
                 included: ['Custom vector illustrations', 'UI mockups', 'Pitch decks & Brand guidelines', '2 active requests'],
                 turnaround: '24–48 hours / req',
-                stripePriceId: 'price_design_canvas'
+                stripePriceId: 'price_1TM8Ah2NRAQRhNmZppoVJ2LE'
             },
             {
                 title: 'The Immersive Aesthetic',
