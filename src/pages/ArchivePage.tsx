@@ -486,12 +486,9 @@ const ArchivePage: React.FC = () => {
             </section>
 
             {/* === THE VOID SECTION === */}
-            <motion.section
-                initial="hidden"
-                whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={containerVariants}
-                className="py-24 px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a]"
+                className={`px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a] ${project.id === 'tt-01' ? 'py-24' : 'py-40'}`}
             >
                 {/* Avant-Garde Beige Slab (Subtle Background Anchor) */}
                 <div 
@@ -567,7 +564,7 @@ const ArchivePage: React.FC = () => {
                 variants={containerVariants}
                 className="py-24 px-4 md:px-10 bg-[#131313] relative overflow-hidden"
             >
-                <div className="grid grid-cols-12 gap-6 md:gap-4 items-start">
+                <div className={`grid grid-cols-12 gap-6 md:gap-4 ${project.id === 'tt-01' ? 'items-start' : 'items-end'}`}>
                     {/* Large hero image, hovers right */}
                     <motion.div
                         variants={itemVariants}
@@ -663,8 +660,8 @@ const ArchivePage: React.FC = () => {
                 </div>
             </motion.section>
 
-            {/* === EXPANDED BRANDING GALLERY (HARMONIZED LOGIC) === */}
-            {project.galleryImages && project.galleryImages.length > 0 && (
+            {/* === EXPANDED BRANDING GALLERY (ISOLATED TO TONY THOMPSON) === */}
+            {project.id === 'tt-01' && project.galleryImages && project.galleryImages.length > 0 && (
                 <motion.section
                     initial="hidden"
                     whileInView="visible"
@@ -673,32 +670,45 @@ const ArchivePage: React.FC = () => {
                     className="py-12 md:py-24 px-4 md:px-10 bg-[#0e0e0e] border-t border-white/5"
                 >
                     <div className="max-w-[1700px] mx-auto">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {project.galleryImages.map((img, i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={itemVariants}
-                                    whileHover={{ y: -10 }}
-                                    onClick={() => setActiveModalIndex(i + 3)}
-                                    className="relative overflow-hidden group cursor-pointer aspect-square bg-[#1a1a1a] shadow-2xl"
-                                >
-                                    <img
-                                        src={img}
-                                        alt={`Branding asset ${i}`}
-                                        loading="lazy"
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <span className="text-[10px] font-mono text-[#FF3E00]">RECORD_{String(i + 1).padStart(2, '0')}</span>
-                                    </div>
-                                    <div className="absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
-                                        <div className="bg-[#FF3E00] px-6 py-3">
-                                            <span className="text-black text-sm font-anton uppercase">VIEW IN FULL</span>
+                        <div className="grid grid-cols-12 gap-8">
+                            {project.galleryImages.map((img, i) => {
+                                // Brutalist Spans for tt-01
+                                const spans = [
+                                    'col-span-12', 
+                                    'col-span-12 md:col-span-7', 
+                                    'col-span-12 md:col-span-5',
+                                    'col-span-12 md:col-span-4',
+                                    'col-span-12 md:col-span-8',
+                                    'col-span-12'
+                                ];
+                                const spanClass = spans[i % spans.length];
+
+                                return (
+                                    <motion.div
+                                        key={i}
+                                        variants={itemVariants}
+                                        whileHover={{ y: -10 }}
+                                        onClick={() => setActiveModalIndex(i + 3)}
+                                        className={`relative overflow-hidden group cursor-pointer bg-[#1a1a1a] shadow-2xl ${spanClass} ${i % 2 === 0 ? 'aspect-video' : 'aspect-square md:aspect-auto md:h-[600px]'}`}
+                                    >
+                                        <img
+                                            src={img}
+                                            alt={`Branding asset ${i}`}
+                                            loading="lazy"
+                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                        <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <span className="text-[10px] font-mono text-[#FF3E00]">RECORD_{String(i + 1).padStart(2, '0')}</span>
                                         </div>
-                                    </div>
-                                </motion.div>
-                            ))}
+                                        <div className="absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
+                                            <div className="bg-[#FF3E00] px-6 py-3">
+                                                <span className="text-black text-sm font-anton uppercase">VIEW IN FULL</span>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
                 </motion.section>
