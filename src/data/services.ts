@@ -28,7 +28,7 @@ export const services: ServiceCategory[] = [
                 vibe: 'Fast, sharp, and flawlessly on-brand.',
                 included: ['Print & Digital marketing assets', 'Social carousels', '1 active request at a time'],
                 turnaround: '48 hours / req',
-                stripePriceId: 'price_design_drop'
+                stripePriceId: 'price_1TM89h2NRAQRhNmZWIDkNyCA'
             },
             {
                 title: 'The Digital Canvas',
