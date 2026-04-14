@@ -146,7 +146,7 @@ export const HologramCarousel: React.FC<HologramCarouselProps> = ({ projects }) 
                             {/* ─── HI-TECH ARCHITECTURE ─── */}
                             <div className="absolute inset-0 z-0 select-none">
                                 {/* Texture Layer (Blueprint Grid) */}
-                                <div className="absolute inset-0 opacity-[0.07] mix-blend-screen bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+                                <div className="absolute inset-0 opacity-[0.07] mix-blend-screen bg-[url('/site-static/noise.svg')] bg-repeat" />
                                 <div className="absolute inset-0 opacity-20 mix-blend-overlay bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
                                 
                                 {/* Project Content */}

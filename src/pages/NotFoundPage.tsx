@@ -24,7 +24,7 @@ export const NotFoundPage = () => {
     return (
         <div ref={containerRef} className="min-h-screen bg-[#000000] flex flex-col items-center justify-center px-6 relative overflow-hidden">
             {/* Background Glitch */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-10 mix-blend-overlay"></div>
 
             <h1 className="font-syne font-black text-[#FF3E00] text-[20vw] leading-none opacity-40 select-none tracking-tighter italic">
                 404

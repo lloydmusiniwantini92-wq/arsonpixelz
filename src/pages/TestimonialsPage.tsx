@@ -270,7 +270,7 @@ export const TestimonialsPage: React.FC = () => {
             
             {/* Unified Stark-Tech Background */}
             <KineticBackground progress={progress} className="opacity-20" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
             
             {/* ── BACKGROUND HEADER PANEL ── */}
             <div 

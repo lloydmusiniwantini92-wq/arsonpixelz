@@ -343,7 +343,7 @@ const DevAIPage: React.FC = () => {
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16 pt-16 relative z-30">
                 <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#FF3E00] overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-20 mix-blend-overlay" />
 
                     <div className="relative z-10 max-w-2xl">
                         <h3 className="text-3xl md:text-5xl font-black uppercase mb-8 text-black leading-[0.85] tracking-tighter">

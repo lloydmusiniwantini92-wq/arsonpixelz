@@ -70,7 +70,7 @@ export const PageHeroBackground: React.FC<PageHeroBackgroundProps> = ({
             {/* Film grain noise */}
             <div
                 className="absolute inset-0 pointer-events-none z-10 opacity-[0.05]"
-                style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}
+                style={{ backgroundImage: "url('/site-static/noise.svg')" }}
             />
 
             {/* Radial accent bloom — top right */}

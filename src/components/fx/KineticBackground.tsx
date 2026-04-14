@@ -90,7 +90,7 @@ export const KineticBackground: React.FC<KineticBackgroundProps> = ({ progress =
             />
             
             {/* Ambient Noise */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-overlay bg-[url('/site-static/noise.svg')]"></div>
         </div>
     );
 };

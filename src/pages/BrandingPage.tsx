@@ -434,7 +434,7 @@ const BrandingPage: React.FC = () => {
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16">
                 <div ref={ctaRef} className="relative p-8 md:p-14 bg-gradient-to-br from-[#FF3E00] to-[#E63900] overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-20 mix-blend-overlay" />
                     <div className="absolute top-0 right-0 p-8 opacity-10">
                         <svg className="w-32 h-32 text-white animate-spin-slow" viewBox="0 0 100 100">
                             <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="10 5" />

@@ -16,7 +16,7 @@ export const ChooseYourTier: React.FC = () => {
     return (
         <div className="mt-20 md:mt-32 relative pt-32 pb-40 px-6 md:px-10 bg-[#FF3E00] overflow-hidden border-t-4 border-b-4 border-black">
             {/* Noise overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-[0.2] mix-blend-overlay pointer-events-none" />
 
             <div className="relative z-10 flex flex-col items-center text-center max-w-[1700px] mx-auto">
                 {/* Technical Title Label */}

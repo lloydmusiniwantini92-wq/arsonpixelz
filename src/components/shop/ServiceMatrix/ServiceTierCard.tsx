@@ -122,7 +122,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                         rounded-lg bg-gradient-to-br ${config.gradient} p-[2px] overflow-hidden
                         shadow-[0_0_20px_rgba(255,62,0,0.2)]
                     `}>
-                        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-20 mix-blend-overlay" />
                         <div className="relative z-10 text-center py-2">
                             <div className="text-6xl md:text-8xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {config.rank}

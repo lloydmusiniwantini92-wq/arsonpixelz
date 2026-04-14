@@ -170,7 +170,7 @@ export const HorizontalScrollSection = () => {
             <KineticBackground progress={progress} className="opacity-40" />
 
             {/* Ambient Noise Background */}
-            <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay bg-[url('/site-static/noise.svg')]"></div>
 
             <div
                 ref={wrapperRef}

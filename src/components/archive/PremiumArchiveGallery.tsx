@@ -139,7 +139,7 @@ export const PremiumArchiveGallery: React.FC<PremiumArchiveGalleryProps> = ({
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] opacity-60" />
                     
                     {/* Scanning Noise */}
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-[0.03] mix-blend-overlay" />
                 </div>
 
                 {/* Ambient Background Glow (Matching Project Accent) */}

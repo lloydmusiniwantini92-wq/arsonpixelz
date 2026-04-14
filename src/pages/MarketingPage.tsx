@@ -439,7 +439,7 @@ const MarketingPage: React.FC = () => {
                                 style={{ zIndex: index + 1 }}
                             >
                                 {/* Noise texture */}
-                                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
+                                <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
                                 {/* Static scan-line atmosphere */}
                                 <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)] pointer-events-none" />
                                 {/* Scanline sweep — animated by GSAP on flip */}
@@ -459,7 +459,7 @@ const MarketingPage: React.FC = () => {
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16 pt-16 relative z-10">
                 <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#000000] border border-white/10 shadow-[20px_20px_0px_#FF3E00] overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
+                    <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
                     <div className="relative z-10 max-w-2xl">
                         <h3 className="text-3xl md:text-5xl lg:text-6xl font-black uppercase mb-6 text-white leading-[0.9]">
                             SCALE UNFAIRLY.
