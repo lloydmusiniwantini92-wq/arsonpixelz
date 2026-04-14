@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HeroContent } from '../Hero';
-import { NavigationContext } from '../../App';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,25 +17,24 @@ export const UnifiedVoidSystem: React.FC = () => {
     const [loaded, setLoaded] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const darkLayerRef = useRef<HTMLDivElement>(null);
-    const { isInitialLoad } = useContext(NavigationContext);
 
     useEffect(() => {
-        const delay = isInitialLoad ? 3000 : 500;
+        const delay = 500;
         const timer = setTimeout(() => setLoaded(true), delay);
         return () => clearTimeout(timer);
-    }, [isInitialLoad]);
+    }, []);
 
     useEffect(() => {
         if (!loaded || !darkLayerRef.current || !containerRef.current) return;
 
         const isMobile = window.innerWidth < 768;
         const centerX = isMobile ? '50%' : '100%';
-        const centerY = isMobile ? '80vh' : '85vh'; // Absolute unit to ensure button alignment
+        const centerY = isMobile ? '80vh' : '85vh';
 
         const ctx = gsap.context(() => {
-            // 1. Initial Blackhole Birth (The Orb appears)
+            // Initial Blackhole Birth
             const r = isMobile ? 120 : 175;
-            const entranceDelay = isInitialLoad ? 1.3 : 0.5;
+            const entranceDelay = 0.5;
 
             gsap.set(darkLayerRef.current, { 
                 clipPath: `circle(0px at ${centerX} ${centerY})` 

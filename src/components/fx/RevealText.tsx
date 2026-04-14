@@ -1,6 +1,5 @@
-import React, { useRef, useMemo, useContext } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { NavigationContext } from '../../App';
 
 interface RevealTextProps {
     text: string;
@@ -9,10 +8,9 @@ interface RevealTextProps {
     style?: React.CSSProperties;
     delay?: number;
     stagger?: number;
-    startAnimation?: boolean; // Used to wait for preloader to finish
+    startAnimation?: boolean;
 }
 
-// Simple pseudo-random generator consistent between renders so letters don't jump around
 const seededRandom = (seed: number) => {
     const x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
@@ -30,10 +28,9 @@ export const RevealText: React.FC<RevealTextProps> = ({
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "10%" });
     
-    // Read from the root level context so it is resilient against Preloader unmount timing issues
-    const { isInitialLoad } = useContext(NavigationContext);
-    const activeDuration = !isInitialLoad ? 1.5 : 3.5;
-    const activeStagger = !isInitialLoad ? 0.02 : stagger;
+    // Standardized timings for consistent reveal
+    const activeDuration = 1.5;
+    const activeStagger = 0.02;
 
     const characters = text.split('');
 

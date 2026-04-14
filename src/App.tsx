@@ -16,15 +16,10 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { CartProvider } from './context/CartContext';
 import { IntelligenceProvider } from './context/IntelligenceContext';
-import { LoadingSpinner } from "./components/LoadingSpinner";
 import { CodeWatermark } from "./components/layout/CodeWatermark";
 import { HorizontalScrollSection } from "./components/fx/HorizontalScrollSection";
 import { MagneticCursor } from "./components/fx/MagneticCursor";
-import { Preloader } from "./components/layout/Preloader";
 import { ReverseVoidSystem } from "./components/fx/ReverseVoidSystem";
-
-// Global Context to track if this relies on a fresh load vs internal navigation
-export const NavigationContext = React.createContext({ isInitialLoad: true });
 
 // Lazy Loaded Pages
 const MarketingPage = React.lazy(() => import("./pages/MarketingPage"));
@@ -140,59 +135,37 @@ const App = () => {
         };
     }, []);
 
-    // ONLY true on the very first time the user opens/refreshes the tab. 
-    // Remains false on all subsequent internal navigations via React Router.
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const [isInitialLoad, setIsInitialLoad] = React.useState(false);
     const [botLoaded, setBotLoaded] = React.useState(false);
 
     React.useEffect(() => {
-        if (!isInitialLoad) {
-            const timer = setTimeout(() => setBotLoaded(true), 2000);
-            return () => clearTimeout(timer);
-        }
-    }, [isInitialLoad]);
-
-    const handlePreloaderComplete = () => {
-        setIsInitialLoad(false);
-        // Trigger a refresh after the UI has settled
-        requestAnimationFrame(() => {
-            ScrollTrigger.refresh();
-        });
-    };
+        const timer = setTimeout(() => setBotLoaded(true), 2000);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
-        <NavigationContext.Provider value={{ isInitialLoad }}>
         <IntelligenceProvider>
         <CartProvider>
             <Router>
                 <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#000000] text-[#FFFFFF]">
-                    {/* <Preloader onComplete={handlePreloaderComplete} /> */}
-                    
-                    {!isInitialLoad && (
-                        <>
-                            {/* <CodeWatermark /> */}
-                            <MagneticCursor />
-                            <GlobalShell isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
-                            <ScrollToTop />
+                    <MagneticCursor />
+                    <GlobalShell isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+                    <ScrollToTop />
 
-                            <div className="flex-grow z-10"> {/* Added z-10 to ensure content sits above watermark */}
-                                <ClothTear>
-                                    <Suspense fallback={<LoadingSpinner />}>
-                                        <AnimatedRoutes />
-                                    </Suspense>
-                                </ClothTear>
-                            </div>
+                    <div className="flex-grow z-10">
+                        <ClothTear>
+                            <Suspense fallback={null}>
+                                <AnimatedRoutes />
+                            </Suspense>
+                        </ClothTear>
+                    </div>
 
-                            <FooterWrapper />
-                            <ArsBot loaded={botLoaded} isMenuOpen={isMenuOpen} />
-                        </>
-                    )}
+                    <FooterWrapper />
+                    <ArsBot loaded={botLoaded} isMenuOpen={isMenuOpen} />
                 </div>
             </Router>
         </CartProvider>
         </IntelligenceProvider>
-        </NavigationContext.Provider>
     );
 };
 

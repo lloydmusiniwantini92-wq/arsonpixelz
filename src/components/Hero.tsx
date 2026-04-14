@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { NavigationContext } from '../App';
 import { BrutalistButton } from './common/BrutalistButton';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import HeroBg from './assets/USE.webp';
@@ -145,14 +144,13 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
 
 export const Hero: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
-  const { isInitialLoad } = useContext(NavigationContext);
 
   useEffect(() => {
-    // Determine timeout based on initial bootloader presence
-    const delay = isInitialLoad ? 3500 : 800; 
+    // Standardized delay for consistent load experience
+    const delay = 800; 
     const timer = setTimeout(() => setLoaded(true), delay);
     return () => clearTimeout(timer);
-  }, [isInitialLoad]);
+  }, []);
 
   return (
     <section id="hero-section" className="relative w-full overflow-hidden bg-[#E6E4DD]">
