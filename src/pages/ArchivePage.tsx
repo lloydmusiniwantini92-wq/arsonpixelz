@@ -39,13 +39,7 @@ const archiveData: Record<string, ProjectRecord> = {
             '/site-static/archive1/Screenshot 2026-03-19 014815.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014840.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014901.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 014940.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 015005.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 015111.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 015229.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 015258.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 015328.webp',
-            '/site-static/archive1/Screenshot 2026-03-19 015345.webp'
+            '/site-static/archive1/Screenshot 2026-03-19 014940.webp'
         ],
         manifesto: 'NOT A WEBSITE — A DIGITAL LEGACY ARCHIVE.',
         manifestoAuthor: 'T. THOMPSON',
@@ -481,9 +475,9 @@ const ArchivePage: React.FC = () => {
             <motion.section
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.2 }}
                 variants={containerVariants}
-                className="py-40 px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a]"
+                className="py-24 px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a]"
             >
                 {/* Avant-Garde Beige Slab (Subtle Background Anchor) */}
                 <div 
@@ -640,7 +634,7 @@ const ArchivePage: React.FC = () => {
                                     variants={itemVariants}
                                     whileHover={{ y: -10 }}
                                     onClick={() => setActiveModalIndex(i + 3)}
-                                    className={`relative overflow-hidden group cursor-pointer aspect-video md:aspect-auto md:h-[400px]`}
+                                    className={`relative overflow-hidden group cursor-pointer ${i % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'}`}
                                 >
                                     <img
                                         src={img}
