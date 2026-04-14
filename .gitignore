@@ -24,7 +24,5 @@ dist-ssr
 .DS_Store
 Thumbs.db
 .env
-.wrangler
-functions_debug_backup
 node_modules
 dist
