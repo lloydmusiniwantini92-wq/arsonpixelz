@@ -26,11 +26,25 @@ const archiveData: Record<string, ProjectRecord> = {
         referenceImage: '/site-static/archive1/tt_brand_1.webp',
         sideImage: '/site-static/archive1/tt_brand_7.webp',
         galleryImages: [
+            '/site-static/archive1/tt_brand_1.webp',
             '/site-static/archive1/tt_brand_2.webp',
             '/site-static/archive1/tt_brand_3.webp',
+            '/site-static/archive1/tt_brand_4.webp',
             '/site-static/archive1/tt_brand_5.webp',
             '/site-static/archive1/tt_brand_6.webp',
+            '/site-static/archive1/tt_brand_7.webp',
             '/site-static/archive1/tt_brand_8.webp',
+            '/site-static/archive1/tt_brand_9.webp',
+            '/site-static/archive1/tt_brand_10.webp',
+            '/site-static/archive1/tt_brand_11.webp',
+            '/site-static/archive1/tt_brand_12.webp',
+            '/site-static/archive1/tt_brand_13.webp',
+            '/site-static/archive1/tt_brand_14.webp',
+            '/site-static/archive1/tt_brand_15.webp',
+            '/site-static/archive1/tt_brand_16.webp',
+            '/site-static/archive1/tt_brand_17.webp',
+            '/site-static/archive1/tt_brand_18.webp',
+            '/site-static/archive1/tt_brand_19.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014514.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014606.webp',
             '/site-static/archive1/Screenshot 2026-03-19 014652.webp',
@@ -553,7 +567,7 @@ const ArchivePage: React.FC = () => {
                 variants={containerVariants}
                 className="py-24 px-4 md:px-10 bg-[#131313] relative overflow-hidden"
             >
-                <div className="grid grid-cols-12 gap-6 md:gap-4 items-end">
+                <div className="grid grid-cols-12 gap-6 md:gap-4 items-start">
                     {/* Large hero image, hovers right */}
                     <motion.div
                         variants={itemVariants}
@@ -625,40 +639,6 @@ const ArchivePage: React.FC = () => {
                         </div>
                     </motion.div>
 
-                    {/* NEW: Expanded Gallery Section */}
-                    {project.galleryImages && project.galleryImages.length > 0 && (
-                        <div className="col-span-12 grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
-                            {project.galleryImages.map((img, i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={itemVariants}
-                                    whileHover={{ y: -10 }}
-                                    onClick={() => setActiveModalIndex(i + 3)}
-                                    className={`relative overflow-hidden group cursor-pointer ${i % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'}`}
-                                >
-                                    <img
-                                        src={img}
-                                        alt={`Gallery image ${i}`}
-                                        loading="lazy"
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                                        <div className="bg-[#FF3E00] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                            <span className="text-black text-lg tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
-                                        </div>
-                                    </div>
-                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 pointer-events-none group-hover:opacity-0 transition-opacity">
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-mono text-[10px] tracking-widest text-[#FF3E00]">
-                                                VISUAL_RECORD_{String(i + 1).padStart(2, '0')}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    )}
-
                     {/* Full-width dissolve text block */}
                     <motion.div
                         variants={itemVariants}
@@ -683,6 +663,46 @@ const ArchivePage: React.FC = () => {
                 </div>
             </motion.section>
 
+            {/* === EXPANDED BRANDING GALLERY (HARMONIZED LOGIC) === */}
+            {project.galleryImages && project.galleryImages.length > 0 && (
+                <motion.section
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.1 }}
+                    variants={containerVariants}
+                    className="py-12 md:py-24 px-4 md:px-10 bg-[#0e0e0e] border-t border-white/5"
+                >
+                    <div className="max-w-[1700px] mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {project.galleryImages.map((img, i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={itemVariants}
+                                    whileHover={{ y: -10 }}
+                                    onClick={() => setActiveModalIndex(i + 3)}
+                                    className="relative overflow-hidden group cursor-pointer aspect-square bg-[#1a1a1a] shadow-2xl"
+                                >
+                                    <img
+                                        src={img}
+                                        alt={`Branding asset ${i}`}
+                                        loading="lazy"
+                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span className="text-[10px] font-mono text-[#FF3E00]">RECORD_{String(i + 1).padStart(2, '0')}</span>
+                                    </div>
+                                    <div className="absolute inset-0 flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
+                                        <div className="bg-[#FF3E00] px-6 py-3">
+                                            <span className="text-black text-sm font-anton uppercase">VIEW IN FULL</span>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.section>
+            )}
             {/* === STATS SECTION === */}
             <motion.section
                 initial="hidden"
