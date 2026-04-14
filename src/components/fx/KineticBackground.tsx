@@ -73,14 +73,14 @@ export const KineticBackground: React.FC<KineticBackgroundProps> = ({ progress =
             <div 
                 ref={bgLayer1Ref}
                 className="absolute inset-x-[-20%] inset-y-[-10%] opacity-30 mix-blend-screen bg-cover bg-center"
-                style={{ backgroundImage: "url('/images/background/kinetic_bg.webp')" }}
+                style={{ backgroundImage: "url('/site-static/background/kinetic_bg.webp')" }}
             />
             
             {/* Layer 2: Parallax Energy Streams */}
             <div 
                 ref={bgLayer2Ref}
                 className="absolute inset-x-[-40%] inset-y-[-20%] opacity-50 mix-blend-color-dodge bg-cover bg-center"
-                style={{ backgroundImage: "url('/images/background/energy_field.webp')" }}
+                style={{ backgroundImage: "url('/site-static/background/energy_field.webp')" }}
             />
 
             {/* Layer 3: Dynamic Brand Glow Singularity */}

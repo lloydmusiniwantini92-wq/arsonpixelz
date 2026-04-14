@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
-import ContactBg from '../assets/images/contact_brutalist_bg.webp';
+import ContactBg from '../assets/site-static/contact_brutalist_bg.webp';
 
 import { useIgnition } from '../components/layout/IgnitionRuntime';
 

@@ -14,7 +14,7 @@ export const ServiceMatrix = () => {
             {/* Unified Monolith Background - WITH 90% MASK FOR ABSOLUTE LEGIBILITY */}
             <div className="absolute inset-0 z-0">
                 <img 
-                    src="/images/shop/matrix_monolith.webp" 
+                    src="/site-static/shop/matrix_monolith.webp" 
                     alt="" 
                     className="w-full h-full object-cover opacity-100 brightness-100"
                 />

@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 import { BrutalistButton } from '../components/common/BrutalistButton';
-import MarketingHeroBg from '../assets/images/tim.webp';
-import MarketingImg1 from '../assets/images/marketing/marketing1.jpg';
-import MarketingImg2 from '../assets/images/marketing/marketing2.jpg';
-import MarketingImg3 from '../assets/images/marketing/marketing3.jpg';
+import MarketingHeroBg from '../assets/site-static/tim.webp';
+import MarketingImg1 from '../assets/site-static/marketing/marketing1.jpg';
+import MarketingImg2 from '../assets/site-static/marketing/marketing2.jpg';
+import MarketingImg3 from '../assets/site-static/marketing/marketing3.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 

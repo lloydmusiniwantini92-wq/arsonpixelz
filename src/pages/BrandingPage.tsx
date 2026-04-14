@@ -5,9 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 import { BrutalistButton } from '../components/common/BrutalistButton';
-import PhilosophyWhiteBg from '../assets/images/branding/branding4.jpg';
-import branding1 from '../assets/images/branding/branding1.jpg';
-import brandingHero from '../assets/images/branding/brandinghero.jpg';
+import PhilosophyWhiteBg from '../assets/site-static/branding/branding4.jpg';
+import branding1 from '../assets/site-static/branding/branding1.jpg';
+import brandingHero from '../assets/site-static/branding/brandinghero.jpg';
 import PhilosophyBg2 from '../components/assets/branding/philosophy_bg2.webp';
 import { RevealText } from '../components/fx/RevealText';
 
@@ -353,7 +353,7 @@ const BrandingPage: React.FC = () => {
                                 <ScrollReveal staggerIndex={1}>
                                     <div className="absolute inset-0 bg-black z-0">
                                         <img 
-                                            src={index === 0 ? '/images/laradice/laradice_01.webp' : index === 1 ? branding1 : '/images/eataly/b1cbbd148768185.62dafea48505f.webp'} 
+                                            src={index === 0 ? '/site-static/laradice/laradice_01.webp' : index === 1 ? branding1 : '/site-static/eataly/b1cbbd148768185.62dafea48505f.webp'} 
                                             alt={cap.title}
                                             className="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-1000 grayscale group-hover:grayscale-0"
                                         />

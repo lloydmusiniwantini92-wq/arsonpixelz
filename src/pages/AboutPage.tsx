@@ -63,7 +63,7 @@ export const AboutPage = () => {
                     style={{ y: yHeroImg }} 
                     className="absolute top-0 right-[10%] w-full max-w-[600px] h-[80vh] opacity-20 md:opacity-40 pointer-events-none mix-blend-multiply grayscale"
                 >
-                    <img src="/images/arsonic.webp" alt="Arsonic" className="w-full h-full object-cover object-top" />
+                    <img src="/site-static/arsonic.webp" alt="Arsonic" className="w-full h-full object-cover object-top" />
                 </motion.div>
 
                 {/* Vertical Decorative Label */}
@@ -170,7 +170,7 @@ export const AboutPage = () => {
                             transition={{ duration: 1.2, ease }}
                             className="aspect-[3/4] relative overflow-hidden bg-[#111]"
                         >
-                            <img src="/images/web_1.webp" alt="Studio Core" className="w-full h-full object-cover grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-700" />
+                            <img src="/site-static/web_1.webp" alt="Studio Core" className="w-full h-full object-cover grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-700" />
                             <div className="absolute inset-0 border-[12px] border-[#0a0a0a] pointer-events-none" />
                             
                             <div className="absolute top-4 left-4 right-4 flex justify-between uppercase font-mono text-[10px] tracking-[0.4em] text-white/50">

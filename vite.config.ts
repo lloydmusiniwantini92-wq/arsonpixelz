@@ -30,6 +30,9 @@ export default defineConfig(({ mode }) => {
             'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
         },
 
+        build: {
+            assetsDir: 'bundle',
+        },
         resolve: {
             alias: {
                 '@': resolve(__dirname, './src'),

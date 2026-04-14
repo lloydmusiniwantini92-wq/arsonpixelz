@@ -102,9 +102,9 @@ const SchematicRadar = () => (
     </div>
 );
 
-import brandingBg from '../assets/images/branding/brandinghero.jpg';
-import devBg from '../assets/images/DevAI/DEVAIhero.jpg';
-import marketingBg from '../assets/images/tim.webp';
+import brandingBg from '../assets/site-static/branding/brandinghero.jpg';
+import devBg from '../assets/site-static/DevAI/DEVAIhero.jpg';
+import marketingBg from '../assets/site-static/tim.webp';
 
 export const Services: React.FC = () => {
     const [activeService, setActiveService] = useState(0);

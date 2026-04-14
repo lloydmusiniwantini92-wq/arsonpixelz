@@ -4,7 +4,7 @@ import { redirectToCheckoutLineItems, isStripeConfigured } from '../utils/stripe
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
-import GamingHeroBg from '../assets/images/mg.webp';
+import GamingHeroBg from '../assets/site-static/mg.webp';
 import { useIgnition } from '../components/layout/IgnitionRuntime';
 
 gsap.registerPlugin(ScrollTrigger);

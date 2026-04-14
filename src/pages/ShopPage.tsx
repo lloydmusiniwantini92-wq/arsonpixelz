@@ -66,7 +66,7 @@ const ShopPage = () => {
                 {/* Architectural Background - FULLY UNMASKED */}
                 <div className="absolute inset-0 z-0">
                     <img 
-                        src="/images/shop/manifesto_monolith.webp" 
+                        src="/site-static/shop/manifesto_monolith.webp" 
                         alt="" 
                         className="w-full h-full object-cover opacity-100 brightness-100"
                     />

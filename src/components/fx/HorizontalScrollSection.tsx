@@ -15,7 +15,7 @@ const panels = [
         text: '#EBE9DF',
         accent: '#D16D6A',
         gradient: 'from-[#D16D6A]/60 via-[#0E0E0E]/80 to-transparent',
-        image: '/images/web_1.webp'
+        image: '/site-static/web_1.webp'
     },
     {
         id: 'evo-2',
@@ -26,7 +26,7 @@ const panels = [
         text: '#00E5C3',
         accent: '#00E5C3',
         gradient: 'from-[#00E5C3]/50 via-[#05131A]/80 to-transparent',
-        image: '/images/web_2.webp'
+        image: '/site-static/web_2.webp'
     },
     {
         id: 'evo-3',
@@ -37,7 +37,7 @@ const panels = [
         text: '#B794F4',
         accent: '#B794F4',
         gradient: 'from-[#B794F4]/50 via-[#0A0516]/80 to-transparent',
-        image: '/images/web_3.webp'
+        image: '/site-static/web_3.webp'
     },
     {
         id: 'evo-4',
@@ -48,7 +48,7 @@ const panels = [
         text: '#D16D6A',
         accent: '#D16D6A',
         gradient: 'from-[#D16D6A]/60 via-[#0A0A0A]/80 to-transparent',
-        image: '/images/type_7.webp'
+        image: '/site-static/type_7.webp'
     }
 ];
 

@@ -5,12 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollReveal } from '../components/fx/ScrollReveal';
 import { PageHeroBackground } from '../components/fx/PageHeroBackground';
 import { BrutalistButton } from '../components/common/BrutalistButton';
-import devAIHero from '../assets/images/DevAI/DEVAIhero.jpg';
-import devAI1 from '../assets/images/DevAI/Dev1.jpg';
-import devAI2 from '../assets/images/DevAI/Dev2.jpg';
-import devAI3 from '../assets/images/DevAI/Dev3.jpg';
-import devAI4 from '../assets/images/DevAI/DEVAI1.jpg';
-import brutalistBg from '../assets/images/DevAI/contact_brutalist_bg.webp';
+import devAIHero from '../assets/site-static/DevAI/DEVAIhero.jpg';
+import devAI1 from '../assets/site-static/DevAI/Dev1.jpg';
+import devAI2 from '../assets/site-static/DevAI/Dev2.jpg';
+import devAI3 from '../assets/site-static/DevAI/Dev3.jpg';
+import devAI4 from '../assets/site-static/DevAI/DEVAI1.jpg';
+import brutalistBg from '../assets/site-static/DevAI/contact_brutalist_bg.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
