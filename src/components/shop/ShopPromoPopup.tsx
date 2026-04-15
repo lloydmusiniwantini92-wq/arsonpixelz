@@ -22,7 +22,7 @@ export const ShopPromoPopup = () => {
             
             scrollTimeout = setTimeout(() => {
                 setIsScrolling(false);
-            }, 1000); // Reappear after 1 second of inactivity
+            }, 1000); 
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -39,10 +39,9 @@ export const ShopPromoPopup = () => {
             opacity: 1, 
             scale: 1,
             transition: { 
-                duration: 0.8, 
+                duration: 0.6, 
                 ease: [0.16, 1, 0.3, 1],
-                staggerChildren: 0.1,
-                delayChildren: 0.4
+                staggerChildren: 0.05,
             } 
         },
         exit: { x: 50, opacity: 0, scale: 0.95 }
@@ -50,7 +49,7 @@ export const ShopPromoPopup = () => {
 
     const itemVariants = {
         hidden: { opacity: 0, y: 10 },
-        visible: { opacity: 1, y: 0 }
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
     };
 
     return (
@@ -61,83 +60,71 @@ export const ShopPromoPopup = () => {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="fixed bottom-12 right-12 z-[200] w-[320px]"
+                    className="fixed bottom-8 right-8 z-[200] w-[340px]"
                 >
-                    <div className="relative group overflow-hidden border border-[#FF3E00]/30 backdrop-blur-2xl bg-black/90 p-8 shadow-[0_0_50px_rgba(255,62,0,0.1)]">
-                        {/* ── ARCHITECTURAL CORNER REINFORCEMENTS ── */}
-                        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#FF3E00] opacity-40 translate-x-[-1px] translate-y-[-1px]" />
-                        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#FF3E00] opacity-40 translate-x-[1px] translate-y-[1px]" />
+                    <div className="relative bg-black border-[3px] border-[#FF3E00] p-10 shadow-[15px_15px_0px_rgba(255,62,0,0.1)]">
+                        
+                        {/* ── MINIMAL CLOSE CONTROL ── */}
+                        <button 
+                            onClick={() => {
+                                setIsVisible(false);
+                                setHasBeenClosed(true);
+                            }}
+                            className="absolute top-4 right-4 group flex items-center gap-2 z-50 text-white/30 hover:text-white transition-colors"
+                        >
+                            <span className="font-mono text-[8px] tracking-[0.3em] font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">EXIT_</span>
+                            <div className="w-5 h-5 flex items-center justify-center font-bold text-xs">X</div>
+                        </button>
 
-                        {/* ── HEADER ── */}
-                        <div className="flex justify-between items-start mb-12">
-                            <motion.div variants={itemVariants} className="space-y-1">
-                                <div className="font-mono text-[9px] text-[#FF3E00] tracking-[0.4em] uppercase font-black">
-                                    ESTABLISHED_OFFER
-                                </div>
-                                <div className="h-[1px] w-12 bg-[#FF3E00]/60" />
-                            </motion.div>
-                            <button 
-                                onClick={() => {
-                                    setIsVisible(false);
-                                    setHasBeenClosed(true);
-                                }}
-                                className="text-white/20 hover:text-[#FF3E00] transition-colors flex items-center justify-center"
-                            >
-                                <span className="font-mono text-xs font-black">X</span>
-                            </button>
-                        </div>
-
-                        {/* ── CORE CONTENT ── */}
-                        <div className="space-y-8">
-                            <motion.div variants={itemVariants} className="relative">
-                                <motion.h4 
-                                    animate={{ 
-                                        scale: [1, 1.05, 1],
-                                        textShadow: [
-                                            "0 0 0px rgba(255,255,255,0)",
-                                            "0 0 20px rgba(255,255,255,0.4)",
-                                            "0 0 0px rgba(255,255,255,0)"
-                                        ]
-                                    }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                    className="font-space font-black text-6xl text-white leading-none uppercase tracking-tighter mb-2"
-                                >
-                                    50% 
-                                    <span className="block text-2xl text-[#FF3E00]">OFF</span>
-                                </motion.h4>
-                                <div className="absolute -left-4 top-0 w-[1px] h-full bg-[#FF3E00]/20" />
-                            </motion.div>
-
+                        <div className="relative z-20 space-y-10">
                             <motion.div variants={itemVariants} className="space-y-4">
-                                <h5 className="font-space font-bold text-lg text-white uppercase tracking-tight leading-none">
-                                    50% OFF YOUR<br/>WEBSITE
-                                </h5>
-                                <p className="font-inter text-[10px] text-[#FF3E00] uppercase font-black tracking-widest leading-relaxed">
-                                    VALID UNTIL 01 MAY 2026
-                                </p>
+                                <div className="font-mono text-[9px] text-[#FF3E00] font-black uppercase tracking-[0.5em]">
+                                    FE_ADJUSTMENT_ACTIVE
+                                </div>
+                                <div className="h-[3px] w-12 bg-[#FF3E00]" />
                             </motion.div>
 
-                            {/* ── ACTION ── */}
+                            <motion.div variants={itemVariants} className="relative">
+                                <h4 className="font-anton text-[110px] text-white leading-[0.75] uppercase tracking-tighter m-0">
+                                    50%
+                                </h4>
+                                <span className="absolute -bottom-4 right-0 font-mono text-[#FF3E00] text-sm font-black uppercase tracking-widest">
+                                    REDUCTION_
+                                </span>
+                            </motion.div>
+
+                            <motion.div variants={itemVariants} className="space-y-6 pt-4">
+                                <p className="font-mono text-[10px] text-white/50 uppercase leading-relaxed max-w-[240px]">
+                                    ACCESS TO INSTITUTIONAL-SCALE<br/>ARCHITECTURE SYSTEMS AT A<br/>NON-RECURRING FEE REDUCTION.
+                                </p>
+                                
+                                <div className="font-mono text-[9px] text-[#FF3E00] font-black tracking-[0.2em] uppercase">
+                                    OFFER_VALID_UNTIL_01_MAY_2026
+                                </div>
+                            </motion.div>
+
+                            {/* ── INDUSTRIAL ACTION ── */}
                             <motion.button 
                                 variants={itemVariants}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="w-full bg-white p-4 group/btn relative overflow-hidden"
+                                whileHover={{ x: 8, backgroundColor: '#FF3E00', color: '#000' }}
+                                className="w-full bg-transparent border-2 border-[#FF3E00] p-5 text-[#FF3E00] flex justify-between items-center transition-all duration-300 group"
                             >
-                                <div className="absolute inset-0 bg-[#FF3E00]/10 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500" />
-                                <div className="flex justify-center items-center transition-transform group-hover/btn:translate-x-1 duration-300 gap-4">
-                                    <span className="font-space font-black text-[14px] text-black uppercase tracking-[0.2em]">
-                                        CLAIM OFFER
-                                    </span>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="black" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter"/>
-                                    </svg>
-                                </div>
+                                <span className="font-anton text-2xl uppercase tracking-widest leading-none pt-1">
+                                    APPLY_OFFER
+                                </span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform group-hover:translate-x-1">
+                                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter"/>
+                                </svg>
                             </motion.button>
                         </div>
+
+                        {/* ── STRUCTURAL ACCENT ── */}
+                        <div className="absolute top-0 left-12 w-[1px] h-full bg-white/5" />
                     </div>
                 </motion.div>
             )}
         </AnimatePresence>
     );
 };
+
+

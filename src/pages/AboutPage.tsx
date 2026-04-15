@@ -78,11 +78,11 @@ export const AboutPage = () => {
                     <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-start leading-[0.8] tracking-tighter uppercase font-black" style={{ fontFamily: 'Anton, sans-serif' }}>
                         
                         <motion.div variants={itemVariants} className="overflow-hidden">
-                            <h1 className="text-[clamp(60px,16vw,300px)] text-black mb-0">WE BUILD</h1>
+                            <h1 className="text-[clamp(60px,16vw,300px)] text-black mb-0">WE ARCHITECT</h1>
                         </motion.div>
                         
                         <motion.div variants={itemVariants} className="overflow-hidden mix-blend-difference ml-[5vw] md:ml-[15vw]">
-                            <h1 className="text-[clamp(60px,16vw,300px)] text-[#FF3E00] mb-0">EMPIRES_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT PAGES.</span></h1>
+                            <h1 className="text-[clamp(60px,16vw,300px)] text-[#FF3E00] mb-0">DOMINANCE_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT DESIGN.</span></h1>
                         </motion.div>
                         
                         <motion.div variants={itemVariants} className="mt-10 md:mt-20 ml-[10vw]">
