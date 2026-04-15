@@ -26,6 +26,3 @@ Thumbs.db
 .env
 node_modules
 dist
-.wrangler
-src/assets/brand\ mock\ up/
-src/assets/brand\ mockup/
