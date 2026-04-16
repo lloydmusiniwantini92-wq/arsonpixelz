@@ -26,3 +26,9 @@ Thumbs.db
 .env
 node_modules
 dist
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
