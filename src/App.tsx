@@ -147,7 +147,7 @@ const App = () => {
         <IntelligenceProvider>
         <CartProvider>
             <Router>
-                <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-[#000000] text-[#FFFFFF]">
+                <div className="relative flex min-h-screen flex-col overflow-hidden w-full max-w-full bg-[#000000] text-[#FFFFFF]">
                     <MagneticCursor />
                     <GlobalShell isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
                     <ScrollToTop />

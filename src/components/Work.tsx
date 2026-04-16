@@ -140,11 +140,11 @@ export const Work: React.FC = () => {
   }, [hash, lenis]);
 
   return (
-    <section id="work-section" className="relative w-full bg-[#050505] border-y border-white/5 font-sans selection:bg-[#FF3E00] selection:text-white z-[40]">
+    <section id="work-section" className="relative w-full bg-[#050505] border-y border-white/5 font-sans selection:bg-[#FF3E00] selection:text-white z-[40] overflow-hidden">
       {/* ── MOBILE: UNIFIED BRUTALIST SECTOR CARDS (Hidden on LG) ── */}
       <div className="lg:hidden flex flex-col w-full bg-[#050505]">
-        <div className="px-6 pt-20 pb-10 border-b border-white/5 text-center bg-[#050505]">
-          <h2 className="uppercase text-white leading-[0.8] tracking-tighter inline-block" style={{ fontFamily: 'Anton, sans-serif', fontSize: '18vw' }}>
+        <div className="px-6 pt-24 pb-12 border-b border-white/5 text-center bg-[#050505]">
+          <h2 className="uppercase text-white leading-[0.8] tracking-tighter inline-block" style={{ fontFamily: 'Anton, sans-serif', fontSize: '12vw' }}>
             SELECTED<br />WORKS
           </h2>
         </div>
@@ -152,56 +152,62 @@ export const Work: React.FC = () => {
         {PROJECTS.map((project, index) => (
           <div
             key={`mobile-${project.id}`}
-            className="relative w-full border-b border-white/10 overflow-hidden h-screen flex flex-col bg-[#050505]"
+            className="relative w-full border-b border-white/10 overflow-hidden min-h-[85vh] flex flex-col bg-[#050505]"
           >
             {/* Background Layer */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 opacity-50">
               <img
                 src={project.mainImage}
                 alt={project.mainImageAlt}
-                className="w-full h-full object-cover filter brightness-50 contrast-125"
+                className="w-full h-full object-cover filter brightness-[0.4] contrast-125"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/40" />
             </div>
 
             {/* Content Overlay */}
-            <div className="relative z-10 flex-1 flex flex-col justify-end p-8 pb-12">
-              <div className="mb-6 flex flex-col items-start gap-2">
-                <span className="bg-[#FF3E00] text-black font-mono text-[9px] font-black px-2 py-0.5 tracking-wider uppercase">
-                  SECTOR_RECORD_{project.number}
-                </span>
-                <span className="text-white/40 font-mono text-[10px] tracking-[0.3em] uppercase">
+            <div className="relative z-10 flex-1 flex flex-col justify-end p-8 pb-16">
+              <div className="mb-8 flex flex-col items-start gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-1.5 h-1.5 bg-[#FF3E00] animate-pulse" />
+                  <span className="text-white/40 font-mono text-[9px] tracking-[0.4em] uppercase">
+                    SECTOR_ACCESS_OPEN_{project.number}
+                  </span>
+                </div>
+                <span className="text-white/20 font-mono text-[8px] tracking-[0.2em] uppercase border-l border-white/20 pl-3">
                   {project.type} // {project.location}
                 </span>
               </div>
 
-              <h3 className="text-white uppercase leading-[0.8] tracking-tighter mb-10" style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(5rem, 15vw, 8rem)' }}>
+              <h3 className="text-white uppercase leading-[0.85] tracking-tighter mb-8" style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(3.5rem, 12vw, 6rem)' }}>
                 {project.title1}<br />{project.title2}
               </h3>
 
-              <p className="font-mono text-[11px] text-white/50 leading-relaxed uppercase tracking-widest mb-12 max-w-[80%] border-l border-[#FF3E00] pl-4">
+              <p className="font-mono text-[10px] text-white/40 leading-relaxed uppercase tracking-widest mb-10 max-w-[90%] border-l-2 border-[#FF3E00] pl-5">
                 {project.description}
               </p>
 
-              <BrutalistButton 
-                label="Access File_"
-                onClick={() => navigate(project.link)}
-                variant="white"
-                className="w-full"
-                size="md"
-              />
+              <div className="w-full max-w-[280px]">
+                <BrutalistButton 
+                  label="Access File_"
+                  onClick={() => navigate(project.link)}
+                  variant="white"
+                  className="w-full"
+                  size="md"
+                />
+              </div>
             </div>
 
             {/* Aesthetic Grid Mask */}
-            <div className="absolute top-4 right-4 z-20 pointer-events-none opacity-20">
-              <div className="flex flex-col items-end gap-1">
-                <div className="w-12 h-[1px] bg-white" />
-                <div className="w-8 h-[1px] bg-[#FF3E00]" />
+            <div className="absolute top-6 right-6 z-20 pointer-events-none opacity-10">
+              <div className="flex flex-col items-end gap-1.5">
+                <div className="w-16 h-[1px] bg-white" />
+                <div className="w-10 h-[2px] bg-[#FF3E00]" />
               </div>
             </div>
           </div>
         ))}
       </div>
+
 
       {/* ── DESKTOP: SPLIT VIEWPORT ARCHITECTURE (Hidden on Mobile) ── */}
       <div className="hidden lg:flex flex-row items-stretch">

@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-[#000000] text-[#FFFFFF] antialiased selection:bg-[#FF3E00] selection:text-black overflow-x-hidden;
+  html, body {
+    @apply bg-[#000000] text-[#FFFFFF] antialiased selection:bg-[#FF3E00] selection:text-black;
+    overflow-x: hidden !important;
+    width: 100%;
+    position: relative;
   }
 
   /* Custom Scrollbar */
@@ -216,4 +219,23 @@ body[data-archive-modal-active="true"] header,
 body[data-archive-modal-active="true"] .ars-bot-ui,
 body[data-shop-active="true"] .ars-bot-ui {
   display: none !important;
+}
+
+@keyframes scanline-kinetic {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(500%); }
+}
+
+.animate-scanline {
+  animation: scanline-kinetic 2s linear infinite;
+}
+
+@keyframes vertical-scroll-kinetic {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-vertical-scroll {
+  display: inline-block;
+  animation: vertical-scroll-kinetic 20s linear infinite;
 }

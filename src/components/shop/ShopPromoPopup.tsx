@@ -9,22 +9,17 @@ export const ShopPromoPopup = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             if (!hasBeenClosed) setIsVisible(true);
-        }, 1500);
+        }, 3000);
         return () => clearTimeout(timer);
     }, [hasBeenClosed]);
 
     useEffect(() => {
         let scrollTimeout: NodeJS.Timeout;
-
         const handleScroll = () => {
             setIsScrolling(true);
             clearTimeout(scrollTimeout);
-            
-            scrollTimeout = setTimeout(() => {
-                setIsScrolling(false);
-            }, 1000); 
+            scrollTimeout = setTimeout(() => setIsScrolling(false), 800);
         };
-
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -33,23 +28,23 @@ export const ShopPromoPopup = () => {
     }, []);
 
     const containerVariants = {
-        hidden: { x: 50, opacity: 0, scale: 0.95 },
+        hidden: { opacity: 0, x: 40, filter: 'blur(10px)' },
         visible: { 
-            x: 0, 
             opacity: 1, 
-            scale: 1,
+            x: 0, 
+            filter: 'blur(0px)',
             transition: { 
-                duration: 0.6, 
+                duration: 0.8, 
                 ease: [0.16, 1, 0.3, 1],
-                staggerChildren: 0.05,
+                staggerChildren: 0.1
             } 
         },
-        exit: { x: 50, opacity: 0, scale: 0.95 }
+        exit: { opacity: 0, x: 100, transition: { duration: 0.4 } }
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 10 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+    const elementVariants = {
+        hidden: { opacity: 0, y: 15 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
     };
 
     return (
@@ -60,71 +55,104 @@ export const ShopPromoPopup = () => {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="fixed bottom-8 right-8 z-[200] w-[340px]"
+                    className="fixed bottom-12 right-12 z-[500] w-[420px] pointer-events-auto"
                 >
-                    <div className="relative bg-black border-[3px] border-[#FF3E00] p-10 shadow-[15px_15px_0px_rgba(255,62,0,0.1)]">
+                    {/* ── INDUSTRIAL SHELL ── */}
+                    <div className="relative group overflow-hidden">
                         
-                        {/* ── MINIMAL CLOSE CONTROL ── */}
-                        <button 
-                            onClick={() => {
-                                setIsVisible(false);
-                                setHasBeenClosed(true);
-                            }}
-                            className="absolute top-4 right-4 group flex items-center gap-2 z-50 text-white/30 hover:text-white transition-colors"
-                        >
-                            <span className="font-mono text-[8px] tracking-[0.3em] font-black uppercase opacity-0 group-hover:opacity-100 transition-opacity">EXIT_</span>
-                            <div className="w-5 h-5 flex items-center justify-center font-bold text-xs">X</div>
-                        </button>
-
-                        <div className="relative z-20 space-y-10">
-                            <motion.div variants={itemVariants} className="space-y-4">
-                                <div className="font-mono text-[9px] text-[#FF3E00] font-black uppercase tracking-[0.5em]">
-                                    FE_ADJUSTMENT_ACTIVE
+                        {/* Background Infrastructure */}
+                        <div className="absolute inset-0 bg-glass-industrial hud-grid border-2 border-white/10" />
+                        <div className="absolute inset-0 noise-bg opacity-[0.03] pointer-events-none" />
+                        
+                        {/* Structural Accents */}
+                        <div className="absolute top-0 right-0 w-24 h-[1px] bg-[#FF3E00]" />
+                        <div className="absolute bottom-0 left-0 w-[1px] h-24 bg-[#FF3E00]" />
+                        
+                        <div className="relative p-8 flex gap-8">
+                            
+                            {/* ── LEFT: DYNAMIC 50% GAUGE ── */}
+                            <div className="flex flex-col items-center gap-4">
+                                <span className="font-mono text-[9px] text-white/30 [writing-mode:vertical-lr] rotate-180 tracking-[0.3em] uppercase">SYSTEM_LOAD</span>
+                                <div className="w-[6px] h-48 bg-white/5 relative overflow-hidden border border-white/10">
+                                    <motion.div 
+                                        initial={{ height: 0 }}
+                                        animate={{ height: '50%' }}
+                                        transition={{ delay: 0.8, duration: 1.5, ease: "circOut" }}
+                                        className="absolute bottom-0 left-0 w-full bg-[#FF3E00] shadow-[0_0_15px_rgba(255,62,0,0.5)]"
+                                    />
+                                    {/* Tick marks */}
+                                    <div className="absolute inset-0 flex flex-col justify-between py-2 pointer-events-none opacity-20">
+                                        {[...Array(8)].map((_, i) => (
+                                            <div key={i} className="w-full h-[1px] bg-white" />
+                                        ))}
+                                    </div>
                                 </div>
-                                <div className="h-[3px] w-12 bg-[#FF3E00]" />
-                            </motion.div>
+                                <span className="font-mono text-[10px] text-[#FF3E00] font-black">50%</span>
+                            </div>
 
-                            <motion.div variants={itemVariants} className="relative">
-                                <h4 className="font-anton text-[110px] text-white leading-[0.75] uppercase tracking-tighter m-0">
-                                    50%
-                                </h4>
-                                <span className="absolute -bottom-4 right-0 font-mono text-[#FF3E00] text-sm font-black uppercase tracking-widest">
-                                    REDUCTION_
-                                </span>
-                            </motion.div>
-
-                            <motion.div variants={itemVariants} className="space-y-6 pt-4">
-                                <p className="font-mono text-[10px] text-white/50 uppercase leading-relaxed max-w-[240px]">
-                                    ACCESS TO INSTITUTIONAL-SCALE<br/>ARCHITECTURE SYSTEMS AT A<br/>NON-RECURRING FEE REDUCTION.
-                                </p>
+                            {/* ── RIGHT: COMMAND DATA ── */}
+                            <div className="flex-1 flex flex-col justify-between py-1">
                                 
-                                <div className="font-mono text-[9px] text-[#FF3E00] font-black tracking-[0.2em] uppercase">
-                                    OFFER_VALID_UNTIL_01_MAY_2026
-                                </div>
-                            </motion.div>
+                                <div className="space-y-6">
+                                    {/* Header Meta */}
+                                    <div className="flex justify-between items-start">
+                                        <motion.div variants={elementVariants} className="space-y-1">
+                                            <div className="font-mono text-[8px] text-[#FF3E00] font-black tracking-[0.4em] uppercase">ACCESS_LEVEL: ELITE</div>
+                                            <div className="font-mono text-[10px] text-white/40 uppercase tracking-tighter">REF: ARS_INTEL_2026</div>
+                                        </motion.div>
+                                        <button 
+                                            onClick={() => { setIsVisible(false); setHasBeenClosed(true); }}
+                                            className="font-mono text-[10px] text-white/20 hover:text-white transition-colors p-2 -mr-2"
+                                        >
+                                            [ESC_]
+                                        </button>
+                                    </div>
 
-                            {/* ── INDUSTRIAL ACTION ── */}
-                            <motion.button 
-                                variants={itemVariants}
-                                whileHover={{ x: 8, backgroundColor: '#FF3E00', color: '#000' }}
-                                className="w-full bg-transparent border-2 border-[#FF3E00] p-5 text-[#FF3E00] flex justify-between items-center transition-all duration-300 group"
-                            >
-                                <span className="font-anton text-2xl uppercase tracking-widest leading-none pt-1">
-                                    APPLY_OFFER
-                                </span>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform group-hover:translate-x-1">
-                                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter"/>
-                                </svg>
-                            </motion.button>
+                                    {/* The Offer Headline */}
+                                    <motion.div variants={elementVariants} className="relative">
+                                        <h4 className="font-syne text-[52px] font-black leading-[0.9] text-white tracking-[-0.04em] uppercase italic">
+                                            OVERRIDE_ <br/>
+                                            <span className="text-[#FF3E00]">OFFER.</span>
+                                        </h4>
+                                        <div className="absolute -top-4 -right-2 font-mono text-[8px] text-white/10 tracking-[0.8em] pointer-events-none">CODE: RED_50</div>
+                                    </motion.div>
+
+                                    {/* Technical Context */}
+                                    <motion.p variants={elementVariants} className="font-mono text-[10px] leading-relaxed text-white/50 uppercase max-w-[240px]">
+                                        50% SYSTEM REDUCTION APPLIED TO ALL INSTITUTIONAL ASSETS. VALID FOR SINGLE DEPLOYMENT AUTHENTICATION.
+                                    </motion.p>
+                                </div>
+
+                                {/* ── FINAL ACTION ── */}
+                                <motion.button
+                                    variants={elementVariants}
+                                    whileHover={{ x: 5 }}
+                                    className="mt-8 group relative overflow-hidden flex items-center justify-between border border-[#FF3E00] bg-black p-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,62,0,0.2)]"
+                                >
+                                    <div className="absolute inset-0 bg-[#FF3E00] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                                    <span className="relative z-10 font-syne text-sm font-black uppercase tracking-[0.2em] group-hover:text-black transition-colors">
+                                        SECURE_ACCESS
+                                    </span>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-black">
+                                        <path d="M4 10H16M16 10L12 6M16 10L12 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" />
+                                    </svg>
+                                    
+                                    {/* Scanline effect on hover */}
+                                    <div className="absolute inset-x-0 h-[2px] bg-white/20 group-hover:animate-scanline pointer-events-none opacity-0 group-hover:opacity-100" />
+                                </motion.button>
+                            </div>
                         </div>
 
-                        {/* ── STRUCTURAL ACCENT ── */}
-                        <div className="absolute top-0 left-12 w-[1px] h-full bg-white/5" />
+                        {/* Scrolling Log Background Texture */}
+                        <div className="absolute top-0 right-0 h-full w-[60px] pointer-events-none opacity-[0.03] overflow-hidden whitespace-nowrap">
+                            <div className="animate-vertical-scroll font-mono text-[7px] text-white leading-loose italic uppercase">
+                                DECRYPT_01_SECURE_AUTH_GRANTED_SYS_OK_05_LOAD_SEQUENCE_COMPLETE_
+                            </div>
+                        </div>
+                        
                     </div>
                 </motion.div>
             )}
         </AnimatePresence>
     );
 };
-
-

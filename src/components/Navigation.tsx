@@ -153,7 +153,7 @@ const SystemHUD = memo(({ active }: { active: boolean }) => {
     }, []);
 
     return (
-        <div className="hidden lg:flex flex-col items-center justify-center -translate-y-1">
+        <div className="hidden md:flex flex-col items-center justify-center -translate-y-1">
             <div className="font-mono text-[8px] tracking-[0.6em] text-[#FF3E00] uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,62,0,0.4)]">
                 {status}
             </div>
@@ -410,7 +410,7 @@ const OriginalLogo = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-none"
+      className="fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-none hidden md:block"
     >
       <div className="relative h-[42px] w-[42px] md:h-[52px] md:w-[52px]">
         <motion.div
@@ -455,7 +455,7 @@ const OriginalLogo = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: mountedRight ? 1 : 0 }}
       exit={{ opacity: 0 }}
-      className="fixed top-[21.5px] right-6 md:right-12 z-[9999] pointer-events-none"
+      className="fixed top-[21.5px] right-6 md:right-12 z-[9999] pointer-events-none hidden md:block"
     >
       <div className="relative h-[48px] w-[48px] md:h-[64px] md:w-[64px]">
         <AnimatePresence>
@@ -491,7 +491,7 @@ const OriginalLogo = ({
       initial={false}
       animate={{ opacity: 1 }}
       className={cn(
-        'fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto',
+        'fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto max-w-[calc(100vw-80px)] overflow-hidden',
         arsonStatus === 'complete' && 'transition-none'
       )}
     >
@@ -809,12 +809,12 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                     delay: 1.2 
                 }}
                 className={cn(
-                    "fixed top-0 left-0 w-full z-50 transition-all duration-700 h-16 pointer-events-none text-white",
+                    "fixed top-0 left-0 w-full z-50 transition-all duration-700 h-16 pointer-events-none text-white overflow-hidden",
                     !isHeroState && "mix-blend-difference"
                 )}
             >
                 {/* The Header Root Container */}
-                <div className="max-w-[1920px] mx-auto h-full flex items-stretch px-6 md:px-12 relative">
+                <div className="max-w-[1920px] mx-auto h-full flex items-stretch px-6 md:px-12 relative overflow-hidden">
                     
                     {/* NEW ARCHITECTURE: Absolute DOM Logo Node (Bypasses Frame Trap & Double-P Issue) */}
                     {!isOpen && (
