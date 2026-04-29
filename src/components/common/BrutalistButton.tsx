@@ -16,6 +16,8 @@ interface BrutalistButtonProps {
     slant?: number;
     type?: 'button' | 'submit' | 'reset';
     id?: string;
+    /** If true, the icon is only visible on hover. */
+    hoverIconOnly?: boolean;
 }
 
 /**
@@ -51,6 +53,7 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
     slant,
     type = 'button',
     id,
+    hoverIconOnly = false,
 }) => {
     const finalSlant = slant ?? getDeterministicValue(label, 1.5);
     const finalShadowColor = shadowColor ?? getDeterministicShadow(label);
@@ -139,7 +142,17 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
                 <span>{label}</span>
-                {icon && <span className="shrink-0">{icon}</span>}
+                {icon && (
+                    <motion.span 
+                        className="shrink-0"
+                        variants={hoverIconOnly ? {
+                            initial: { opacity: 0, x: -10, width: 0 },
+                            hover: { opacity: 1, x: 0, width: 'auto' }
+                        } : {}}
+                    >
+                        {icon}
+                    </motion.span>
+                )}
             </motion.div>
         </motion.button>
     );

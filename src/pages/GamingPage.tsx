@@ -272,8 +272,8 @@ const GamingPage: React.FC = () => {
         <section ref={containerRef} className="relative min-h-screen w-full pb-24 overflow-hidden bg-[#000000] text-[#FFFFFF]">
 
             {/* ── HERO SECTION with homepage-level background ── */}
-            <div className="relative px-6 md:px-12 pt-36 md:pt-48 pb-32 overflow-hidden" style={{ background: '#000000', maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage={GamingHeroBg} />
+            <div className="relative px-6 md:px-12 pt-36 md:pt-48 pb-32 overflow-hidden" style={{ background: '#000000' }}>
+                <PageHeroBackground accentColor="#FF3E00" backgroundImage={GamingHeroBg} showGrid={false} showMask={false} />
 
 
                 {/* Decorative Plus Icon */}
@@ -290,7 +290,7 @@ const GamingPage: React.FC = () => {
                     <div ref={headingRef} className="mb-16 md:mb-24">
                         <div className="overflow-hidden mb-8">
                             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight text-white leading-[0.8]" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
-                                INDUSTRIAL <br /> ENTERTAINMENT
+                                INDUSTRIAL <br /> <span className="text-[#FF3E00]">ENTERTAINMENT</span>
                             </h1>
                         </div>
                         <div className="overflow-hidden">
@@ -310,12 +310,7 @@ const GamingPage: React.FC = () => {
             </div>
 
 
-            {/* Animated Grid Background */}
-            <div ref={bgGridRef} className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,62,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,62,0,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] animate-pulse"
-                    style={{ animationDuration: '8s' }}
-                />
-            </div>
+
 
 
             <div className="relative z-10 px-6 md:px-12">

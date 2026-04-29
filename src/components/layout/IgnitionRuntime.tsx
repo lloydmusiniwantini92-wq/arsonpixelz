@@ -15,6 +15,8 @@ const IgnitionContext = createContext<IgnitionContextType>({
 
 export const useIgnition = () => useContext(IgnitionContext);
 
+import { CookieConsent } from '../common/CookieConsent';
+
 // --- COMPONENT ---
 export const IgnitionRuntime: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [lenis, setLenis] = useState<Lenis | null>(null);
@@ -84,6 +86,7 @@ export const IgnitionRuntime: React.FC<{ children: React.ReactNode }> = ({ child
     return (
         <IgnitionContext.Provider value={{ lenis, getPhysics }}>
             {children}
+            <CookieConsent />
         </IgnitionContext.Provider>
     );
 };

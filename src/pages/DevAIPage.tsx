@@ -43,10 +43,9 @@ const DevAIPage: React.FC = () => {
             gsap.from(containerRef.current, {
                 opacity: 0,
                 filter: 'blur(12px)',
-                scale: 1.04,
                 duration: 1.4,
                 ease: CINEMATIC_EASE,
-                clearProps: 'filter,scale'
+                clearProps: 'filter'
             });
 
             // 2. Hero Parallax Depth
@@ -196,13 +195,13 @@ const DevAIPage: React.FC = () => {
             
             {/* HER0 HEADER */}
             <div className="relative pt-36 md:pt-48 pb-32 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden h-screen flex flex-col justify-center" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage={devAIHero} />
+                <PageHeroBackground accentColor="#FF3E00" backgroundImage="/site-static/gaming/hero.png" brightness={1.0} showGrid={false} showMask={false} />
                 <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight leading-[0.8] mb-10 text-white" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
+                    <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-normal leading-[0.95] mb-10 text-white drop-shadow-[0_0_30px_rgba(0,0,0,1)]" style={{ fontFamily: 'Anton, sans-serif' }}>
                         DIGITAL <br />
                         <span className="text-[#FF3E00]">ARCHITECTURE</span>
                     </h1>
-                    <p className="hero-desc text-lg md:text-3xl font-mono text-white/50 max-w-5xl border-l-8 border-[#FF3E00] pl-10 uppercase font-bold">
+                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#FF3E00] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
                         A BEAUTIFUL FLAME NEEDS A SOLID STRUCTURE TO SUSTAIN IT. WE ARCHITECT ROBUST, SCALABLE PLATFORMS POWERED BY ABSOLUTE ENGINEERING.
                     </p>
                 </div>

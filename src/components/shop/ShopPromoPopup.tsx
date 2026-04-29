@@ -55,101 +55,47 @@ export const ShopPromoPopup = () => {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="fixed bottom-12 right-12 z-[500] w-[420px] pointer-events-auto"
+                    className="fixed bottom-12 right-12 z-[500] w-[380px] pointer-events-auto"
                 >
-                    {/* ── INDUSTRIAL SHELL ── */}
-                    <div className="relative group overflow-hidden">
+                    {/* ── ARSON BRUTALIST BLOCK ── */}
+                    <div className="relative bg-[#000000] border-4 border-white p-10 shadow-[20px_20px_0px_#FF3E00]">
                         
-                        {/* Background Infrastructure */}
-                        <div className="absolute inset-0 bg-glass-industrial hud-grid border-2 border-white/10" />
-                        <div className="absolute inset-0 noise-bg opacity-[0.03] pointer-events-none" />
+                        {/* Close Trigger */}
+                        <button 
+                            onClick={() => { setIsVisible(false); setHasBeenClosed(true); }}
+                            className="absolute -top-4 -right-4 w-10 h-10 bg-[#FF3E00] border-4 border-white flex items-center justify-center hover:scale-110 transition-transform z-20"
+                        >
+                            <span className="font-black text-black">X</span>
+                        </button>
                         
-                        {/* Structural Accents */}
-                        <div className="absolute top-0 right-0 w-24 h-[1px] bg-[#FF3E00]" />
-                        <div className="absolute bottom-0 left-0 w-[1px] h-24 bg-[#FF3E00]" />
-                        
-                        <div className="relative p-8 flex gap-8">
-                            
-                            {/* ── LEFT: DYNAMIC 50% GAUGE ── */}
-                            <div className="flex flex-col items-center gap-4">
-                                <span className="font-mono text-[9px] text-white/30 [writing-mode:vertical-lr] rotate-180 tracking-[0.3em] uppercase">SYSTEM_LOAD</span>
-                                <div className="w-[6px] h-48 bg-white/5 relative overflow-hidden border border-white/10">
-                                    <motion.div 
-                                        initial={{ height: 0 }}
-                                        animate={{ height: '50%' }}
-                                        transition={{ delay: 0.8, duration: 1.5, ease: "circOut" }}
-                                        className="absolute bottom-0 left-0 w-full bg-[#FF3E00] shadow-[0_0_15px_rgba(255,62,0,0.5)]"
-                                    />
-                                    {/* Tick marks */}
-                                    <div className="absolute inset-0 flex flex-col justify-between py-2 pointer-events-none opacity-20">
-                                        {[...Array(8)].map((_, i) => (
-                                            <div key={i} className="w-full h-[1px] bg-white" />
-                                        ))}
-                                    </div>
-                                </div>
-                                <span className="font-mono text-[10px] text-[#FF3E00] font-black">50%</span>
-                            </div>
+                        <div className="relative z-10 space-y-8">
+                            {/* Headline */}
+                            <motion.div variants={elementVariants}>
+                                <h4 className="font-black text-6xl leading-[0.85] text-white tracking-tighter uppercase" style={{ fontFamily: 'Anton, sans-serif' }}>
+                                    50% <br/>
+                                    <span className="text-[#FF3E00]">OFF_</span>
+                                </h4>
+                            </motion.div>
 
-                            {/* ── RIGHT: COMMAND DATA ── */}
-                            <div className="flex-1 flex flex-col justify-between py-1">
-                                
-                                <div className="space-y-6">
-                                    {/* Header Meta */}
-                                    <div className="flex justify-between items-start">
-                                        <motion.div variants={elementVariants} className="space-y-1">
-                                            <div className="font-mono text-[8px] text-[#FF3E00] font-black tracking-[0.4em] uppercase">ACCESS_LEVEL: ELITE</div>
-                                            <div className="font-mono text-[10px] text-white/40 uppercase tracking-tighter">REF: ARS_INTEL_2026</div>
-                                        </motion.div>
-                                        <button 
-                                            onClick={() => { setIsVisible(false); setHasBeenClosed(true); }}
-                                            className="font-mono text-[10px] text-white/20 hover:text-white transition-colors p-2 -mr-2"
-                                        >
-                                            [ESC_]
-                                        </button>
-                                    </div>
+                            {/* Impact Text */}
+                            <motion.div variants={elementVariants} className="border-l-4 border-[#FF3E00] pl-6 py-2">
+                                <p className="font-mono text-xs font-bold leading-tight text-white/90 uppercase tracking-widest">
+                                    INSTITUTIONAL ACCESS GRANTED. VALID FOR SINGLE DEPLOYMENT.
+                                </p>
+                            </motion.div>
 
-                                    {/* The Offer Headline */}
-                                    <motion.div variants={elementVariants} className="relative">
-                                        <h4 className="font-syne text-[52px] font-black leading-[0.9] text-white tracking-[-0.04em] uppercase italic">
-                                            OVERRIDE_ <br/>
-                                            <span className="text-[#FF3E00]">OFFER.</span>
-                                        </h4>
-                                        <div className="absolute -top-4 -right-2 font-mono text-[8px] text-white/10 tracking-[0.8em] pointer-events-none">CODE: RED_50</div>
-                                    </motion.div>
-
-                                    {/* Technical Context */}
-                                    <motion.p variants={elementVariants} className="font-mono text-[10px] leading-relaxed text-white/50 uppercase max-w-[240px]">
-                                        50% SYSTEM REDUCTION APPLIED TO ALL INSTITUTIONAL ASSETS. VALID FOR SINGLE DEPLOYMENT AUTHENTICATION.
-                                    </motion.p>
-                                </div>
-
-                                {/* ── FINAL ACTION ── */}
-                                <motion.button
-                                    variants={elementVariants}
-                                    whileHover={{ x: 5 }}
-                                    className="mt-8 group relative overflow-hidden flex items-center justify-between border border-[#FF3E00] bg-black p-4 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,62,0,0.2)]"
-                                >
-                                    <div className="absolute inset-0 bg-[#FF3E00] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                                    <span className="relative z-10 font-syne text-sm font-black uppercase tracking-[0.2em] group-hover:text-black transition-colors">
-                                        SECURE_ACCESS
-                                    </span>
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-black">
-                                        <path d="M4 10H16M16 10L12 6M16 10L12 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" />
-                                    </svg>
-                                    
-                                    {/* Scanline effect on hover */}
-                                    <div className="absolute inset-x-0 h-[2px] bg-white/20 group-hover:animate-scanline pointer-events-none opacity-0 group-hover:opacity-100" />
-                                </motion.button>
-                            </div>
+                            {/* Minimalist Button */}
+                            <motion.button
+                                variants={elementVariants}
+                                onClick={() => { setIsVisible(false); setHasBeenClosed(true); }}
+                                className="w-full bg-[#FF3E00] text-black font-black py-4 uppercase tracking-[0.2em] text-sm hover:bg-white transition-colors border-2 border-transparent hover:border-black"
+                            >
+                                SECURE_ACCESS
+                            </motion.button>
                         </div>
 
-                        {/* Scrolling Log Background Texture */}
-                        <div className="absolute top-0 right-0 h-full w-[60px] pointer-events-none opacity-[0.03] overflow-hidden whitespace-nowrap">
-                            <div className="animate-vertical-scroll font-mono text-[7px] text-white leading-loose italic uppercase">
-                                DECRYPT_01_SECURE_AUTH_GRANTED_SYS_OK_05_LOAD_SEQUENCE_COMPLETE_
-                            </div>
-                        </div>
-                        
+                        {/* Subtle noise grain */}
+                        <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
                     </div>
                 </motion.div>
             )}

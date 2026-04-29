@@ -3,6 +3,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useIgnition } from '../components/layout/IgnitionRuntime';
+import { BrutalistButton } from '../components/common/BrutalistButton';
+import { ArchiveCTAButton } from '../components/common/ArchiveCTAButton';
 
 // --- IMPORT ASSETS ---
 import EatalyImg from '../components/assets/Eataly.webp';
@@ -169,8 +171,17 @@ const containerVariants = {
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 40, filter: 'blur(8px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+    hidden: { opacity: 0, y: 100, scale: 0.95, filter: 'blur(20px)' },
+    visible: { 
+        opacity: 1, 
+        y: 0, 
+        scale: 1,
+        filter: 'blur(0px)', 
+        transition: { 
+            duration: 1.2, 
+            ease: [0.16, 1, 0.3, 1] 
+        } 
+    },
 };
 
 // ── GlitchImage Component ─────────────────────────────────────────────────────
@@ -822,41 +833,60 @@ const ArchivePage: React.FC = () => {
                 </div>
             </motion.section>
 
-            {/* === PROJECT CTA SECTION === */}
             <motion.section
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
-                variants={containerVariants}
-                className="relative bg-[#FF3E00] py-40 px-8 overflow-hidden group"
+                variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                        opacity: 1,
+                        transition: { staggerChildren: 0.05, delayChildren: 0.4 }
+                    }
+                }}
+                className="relative bg-white py-80 px-8 overflow-hidden group border-t-[32px] border-black"
             >
-                {/* Massive background watermark text */}
-                <div className="absolute inset-0 opacity-10 flex items-center justify-center overflow-hidden pointer-events-none select-none">
-                    <span
-                        className="whitespace-nowrap uppercase font-black text-black"
-                        style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(80px, 25vw, 400px)' }}
-                    >
-                        INITIATE_PROJECT
-                    </span>
+                {/* Architectural Background Image (Manifesto in Walls) */}
+                <div className="absolute inset-0 z-0 select-none pointer-events-none">
+                    <img 
+                        src="/site-static/archive/manifesto_wall.png" 
+                        alt="Manifesto Wall" 
+                        className="w-full h-full object-cover opacity-100 grayscale brightness-110"
+                        style={{ objectPosition: 'center calc(50% - 150px)' }}
+                    />
+                    {/* Subtle Overlay for Legibility */}
+                    <div className="absolute inset-0 bg-white/20" />
                 </div>
-                <motion.div variants={itemVariants} className="relative z-10 flex flex-col items-center text-center">
-                    <h2
-                        className="text-black uppercase tracking-tighter leading-none mb-16"
-                        style={{
-                            fontFamily: 'Anton, sans-serif',
-                            fontSize: 'clamp(48px, 10vw, 160px)',
+
+                <div className="relative z-10 flex flex-col items-center text-center max-w-[95vw] mx-auto h-full justify-center pt-24">
+                    {/* Leaning Command Button (Specialized START -> ARROW) */}
+                    <motion.div 
+                        variants={{
+                            hidden: { opacity: 0, scale: 0.8, y: 300, rotateY: 45 },
+                            visible: { 
+                                opacity: 1, 
+                                scale: 1.2, 
+                                y: 120,
+                                x: -110, // Move left by 3cm
+                                rotateY: -20,
+                                transition: { delay: 0.2, duration: 2, ease: [0.16, 1, 0.3, 1] } 
+                            }
+                        }}
+                        style={{ 
+                            perspective: '2500px',
+                            transformStyle: 'preserve-3d'
                         }}
                     >
-                        COLLAPSE THE<br />FUTURE_
-                    </h2>
-                    <Link
-                        to="/contact"
-                        className="bg-black text-white px-20 py-8 font-black text-2xl uppercase tracking-[0.3em] hover:scale-105 hover:-rotate-1 transition-all active:scale-95 border-4 border-transparent hover:border-white block"
-                        style={{ fontFamily: 'Anton, sans-serif' }}
-                    >
-                        START_PROCESS
-                    </Link>
-                </motion.div>
+                        <motion.div
+                            style={{
+                                transform: 'rotateY(-30deg) rotateX(15deg) skewY(-5deg)',
+                            }}
+                            className="relative"
+                        >
+                            <ArchiveCTAButton to="/contact" />
+                        </motion.div>
+                    </motion.div>
+                </div>
             </motion.section>
 
             {/* === IMAGE MODAL CAROUSEL === */}

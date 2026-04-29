@@ -198,6 +198,7 @@ const ArsonInternalBurn = memo(({ active, dissipating }: { active: boolean; diss
     </AnimatePresence>
 ));
 
+// --- BOUNDLESS ORGANIC FIERY FOG ---
 const HeatRipple = memo(({ active }: { active: boolean }) => (
   <AnimatePresence>
     {active && (
@@ -205,20 +206,28 @@ const HeatRipple = memo(({ active }: { active: boolean }) => (
         initial={{ right: '-12vw', opacity: 0 }}
         animate={{
           right: '108vw',
-          opacity: [0, 0.35, 0.9, 0.55, 0],
-          scaleX: [0.8, 1, 1.08, 1.15],
+          opacity: [0, 0.4, 0.8, 0.4, 0],
+          scaleX: [0.8, 1, 1.2, 1],
         }}
         exit={{ opacity: 0 }}
         transition={{
           duration: 1.8,
           ease: [0.22, 0.8, 0.22, 1],
         }}
-        className="fixed top-0 h-20 z-[9997] pointer-events-none"
+        className="fixed top-0 h-24 z-[9997] pointer-events-none mix-blend-screen overflow-visible"
       >
-        <div className="relative h-full w-[24vw] min-w-[240px] overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-l from-[#FF3E00]/0 via-[#FF3E00]/55 to-cyan-300/0 blur-2xl" />
-          <div className="absolute inset-y-0 left-1/2 w-[2px] bg-cyan-300/70 blur-[1px]" />
-          <div className="absolute inset-0 backdrop-blur-[10px] border-l border-cyan-300/30 border-r border-[#FF3E00]/40 skew-x-[-24deg]" />
+        <div className="relative h-full w-[35vw] min-w-[350px] flex items-center justify-center overflow-visible">
+            {/* Core fiery fog - completely boundless massive blur */}
+            <div className="absolute inset-[-80px] bg-gradient-to-l from-transparent via-[#FF3E00]/40 to-transparent blur-[45px]" />
+            
+            {/* Organic distortion layer using the arson-fire-filter */}
+            <div 
+                className="absolute inset-[-40px] bg-[#FF3E00]/20 blur-[20px] opacity-90" 
+                style={{ filter: 'url(#arson-fire-filter)' }} 
+            />
+            
+            {/* Subtle sweeping accent */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF3E00]/5 to-transparent blur-[10px]" />
         </div>
       </motion.div>
     )}
@@ -267,14 +276,6 @@ const TopNavLink = memo(({
     const [hovered, setHovered] = useState(false);
     const location = useLocation();
 
-    // ── CALC GHOST SCALE ────────────────────────────────────────────────────
-    // index 4 (Shop)    -> 1.8
-    // index 3 (Gaming)  -> 1.55
-    // index 2 (Market)  -> 1.3
-    // index 1 (Dev/AI)  -> 1.05
-    // index 0 (Brand)   -> 0.8
-    const ghostScale = 0.8 + (index * 0.25); 
-
     const handleMouseEnter = useCallback(() => setHovered(true), []);
     const handleMouseLeave = useCallback(() => setHovered(false), []);
 
@@ -293,7 +294,7 @@ const TopNavLink = memo(({
         <Link
             to={href}
             className={cn(
-                "group relative flex flex-col items-center justify-center px-8 md:px-12 h-full transition-all duration-500 pointer-events-auto",
+                "group relative flex flex-col items-center justify-center px-8 md:px-12 h-full transition-all duration-500 pointer-events-auto overflow-visible",
                 isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]" : "text-white",
                 isHeroState && "gap-1"
             )}
@@ -303,29 +304,6 @@ const TopNavLink = memo(({
             onClick={handleClick}
             aria-label={label}
         >
-            <AnimatePresence>
-                {isArsonInfected && (
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.6 }}
-                        animate={{ 
-                            opacity: 0, 
-                            scale: [0.6, ghostScale, ghostScale * 1.1, ghostScale * 1.2],
-                            filter: ["blur(4px)", "blur(0px)", "blur(8px)", "blur(20px)"]
-                        }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute inset-[-40px] z-[5] pointer-events-none flex items-center justify-center"
-                    >
-                         <img 
-                            src={PLogo} 
-                            alt="" 
-                            className="w-full h-full object-contain mix-blend-screen brightness-0 invert" 
-                            style={{ opacity: 0.15 }}
-                        />
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
             {isHeroState && (
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
@@ -336,7 +314,7 @@ const TopNavLink = memo(({
                 >
                     <Icon className={cn(
                         isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                        isArsonInfected ? 'text-[#FF3E00] opacity-100 drop-shadow-[0_0_18px_rgba(255,62,0,1)]' : 'text-white',
+                        isArsonInfected ? 'text-[#FF3E00] opacity-100 drop-shadow-[0_0_24px_rgba(255,62,0,1)]' : 'text-white',
                         (label === 'Shop' && isHeroState) ? "w-[16px] h-[16px]" : "w-[24px] h-[24px]"
                     )} 
                     scrolled={scrolled}
@@ -348,7 +326,7 @@ const TopNavLink = memo(({
                 whileHover={{ scale: 1.1, y: -5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 className={cn(
-                    "relative flex items-center gap-2 transition-all duration-[175ms] px-2",
+                    "relative flex items-center gap-2 transition-all duration-[175ms] px-2 overflow-visible",
                     isHeroState && "mt-0"
                 )}>
                 {!isHeroState && (
@@ -361,12 +339,10 @@ const TopNavLink = memo(({
                 />
                 )}
                 <span className={cn(
-                    "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap relative",
+                    "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap relative overflow-visible",
                     isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                    // Lock structural size independently
                     scrolled ? "text-[12px]" : "text-[10px]",
-                    // Apply dynamic color mapping
-                    isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,1)]" :
+                    isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_20px_rgba(255,62,0,1)]" :
                     (isActive ? "text-[#FF3E00] drop-shadow-[0_0_5px_rgba(255,62,0,0.4)]" : "text-white/90")
                 )}>
                     {label}
@@ -491,7 +467,7 @@ const OriginalLogo = ({
       initial={false}
       animate={{ opacity: 1 }}
       className={cn(
-        'fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto max-w-[calc(100vw-80px)] overflow-hidden',
+        'fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto max-w-[calc(100vw-80px)] overflow-visible',
         arsonStatus === 'complete' && 'transition-none'
       )}
     >
@@ -516,7 +492,7 @@ const OriginalLogo = ({
           x: { type: "spring", stiffness: 45, damping: 12, mass: 2.2, delay: 0.1 },
           default: { duration: 6.4, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
         }}
-        className="relative"
+        className="relative overflow-visible"
       >
         <AnimatePresence>
             {arsonStatus === 'complete' && (
@@ -552,7 +528,7 @@ const OriginalLogo = ({
             )}
           />
 
-          {/* Cinematic 'Orange Furnace' Emergence (Solid orange mask retained until movement settles) */}
+          {/* Cinematic 'Orange Furnace' Emergence */}
           <motion.div 
             initial={{ opacity: 1, filter: 'drop-shadow(0 0 40px rgba(255,62,0,1)) brightness(2)' }}
             animate={{ 
@@ -561,8 +537,8 @@ const OriginalLogo = ({
             }}
             transition={{ 
                 duration: 4.5, 
-                ease: [0.16, 1, 0.3, 1], // Cinematic slow dissipation
-                delay: 1.8 // Holds pure orange state intact for 1.8s while it exits the Branding path
+                ease: [0.16, 1, 0.3, 1],
+                delay: 1.8 
             }}
             className="absolute inset-0 z-20 pointer-events-none"
             style={{
@@ -571,7 +547,7 @@ const OriginalLogo = ({
                 WebkitMaskRepeat: 'no-repeat',
                 WebkitMaskPosition: 'center',
                 WebkitMaskSize: 'contain',
-                background: '#FF3E00', // Solid orange foundation for a 'burning' look
+                background: '#FF3E00', 
             }}
           />
         </Link>
@@ -657,6 +633,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
     const [scrolled, setScrolled] = React.useState(false);
     const [voidProgress, setVoidProgress] = useState(0);
     const [hoveredMenuIndex, setHoveredMenuIndex] = useState<number | null>(null);
+    const [hamburgerInfected, setHamburgerInfected] = useState(false);
     const [arsonStatus, setArsonStatus] = useState<
         | 'idle'
         | 'ghost_start'
@@ -678,6 +655,13 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
         { label: "Gaming", href: "/gaming", icon: GamingIcon },
         { label: "Shop", href: "/shop", icon: ShopIcon },
     ], []);
+
+    // NEW LOGIC: Lock in the permanent orange branding the moment the sequence hits the hamburger
+    useEffect(() => {
+        if (infectedIndex === navItems.length) {
+            setHamburgerInfected(true);
+        }
+    }, [infectedIndex, navItems.length]);
 
     const menuLinks = useMemo(() => [
         { label: "Brand Ignition",        href: "/branding",      image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=1600&q=80&auto=format" },
@@ -749,9 +733,9 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                         }, 480); // Sweeps deliberately at 480ms per item
                         timers.push(infectionInterval);
                     }, 50); // Instant ramming start
-                }, 100); // Instant travel
-            }, 100); // Instant burst
-        }, 3000); // Starts at exactly 3 seconds to align perfectly with Hamburger
+                }, 2400); 
+            }, 100); 
+        }, 2800); 
 
         return () => {
             cancelled = true;
@@ -809,14 +793,13 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                     delay: 1.2 
                 }}
                 className={cn(
-                    "fixed top-0 left-0 w-full z-50 transition-all duration-700 h-16 pointer-events-none text-white overflow-hidden",
+                    "fixed top-0 left-0 w-full z-50 transition-all duration-700 h-16 pointer-events-none text-white overflow-visible",
                     !isHeroState && "mix-blend-difference"
                 )}
             >
                 {/* The Header Root Container */}
-                <div className="max-w-[1920px] mx-auto h-full flex items-stretch px-6 md:px-12 relative overflow-hidden">
+                <div className="max-w-[1920px] mx-auto h-full flex items-stretch px-6 md:px-12 relative overflow-visible">
                     
-                    {/* NEW ARCHITECTURE: Absolute DOM Logo Node (Bypasses Frame Trap & Double-P Issue) */}
                     {!isOpen && (
                         location.pathname !== '/shop' ? (
                             <OriginalLogo 
@@ -842,7 +825,6 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                         )
                     )}
 
-                    {/* Logo Slot Placeholder: Standardized at 110px to achieve perfect margin symmetry with the right-side hamburger pillar */}
                     <div className="hidden md:flex flex-col items-center justify-center shrink-0 w-[110px] pointer-events-none" aria-hidden="true" />
 
                     <motion.div 
@@ -864,8 +846,8 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                             filter: 'blur(0px) brightness(1)'
                                         }}
                                         transition={{ 
-                                            duration: 3.6, // Doubled for 2x system-wide deceleration
-                                            delay: 0.8 + (i * 0.1), // Synchronized with Hero entrance
+                                            duration: 3.6, 
+                                            delay: 0.8 + (i * 0.1), 
                                             ease: [0.16, 1, 0.3, 1] 
                                         }}
                                     >
@@ -920,19 +902,20 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 )}
                             </AnimatePresence>
 
+                                {/* THE FIX: Pure white on load, turns orange when hit, and never goes back */}
                                 <span className={cn(
                                     "block h-[1.5px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
-                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px] bg-white" : "w-5 !bg-[#FF3E00]",
+                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px] bg-white" : (hamburgerInfected ? "w-5 !bg-[#FF3E00]" : "w-5 bg-white"),
                                     infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                                 <span className={cn(
                                     "block h-[1.5px] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                                    isOpen ? "w-0 opacity-0 bg-white" : "w-4 opacity-100 !bg-[#FF3E00]",
+                                    isOpen ? "w-0 opacity-0 bg-white" : (hamburgerInfected ? "w-4 opacity-100 !bg-[#FF3E00]" : "w-4 opacity-100 bg-white"),
                                     infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                                 <span className={cn(
                                     "block h-[1.5px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
-                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px] bg-white" : "w-3 !bg-[#FF3E00]",
+                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px] bg-white" : (hamburgerInfected ? "w-3 !bg-[#FF3E00]" : "w-3 bg-white"),
                                     infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                             </div>
@@ -955,7 +938,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                 `}</style>
                 <svg className="absolute w-0 h-0 invisible" aria-hidden="true">
                     <defs>
-                        <filter id="arson-fire-filter">
+                        <filter id="arson-fire-filter" x="-50%" y="-50%" width="200%" height="200%">
                             <feTurbulence type="fractalNoise" baseFrequency="0.015 0.08" numOctaves="3" seed="1">
                                 <animate attributeName="baseFrequency" dur="5s" values="0.015 0.08; 0.015 0.15; 0.015 0.08" repeatCount="indefinite" />
                             </feTurbulence>

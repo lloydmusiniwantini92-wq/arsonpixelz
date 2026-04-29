@@ -35,9 +35,12 @@ const Linkedin = ({ size = 24, ...props }) => (
 
 
 import { useIgnition } from '../components/layout/IgnitionRuntime';
+import { useNavigate } from 'react-router-dom';
 
 const ShopPage = () => {
     const { lenis } = useIgnition();
+    const navigate = useNavigate();
+
     useEffect(() => { 
         if (lenis) {
             lenis.scrollTo(0, { immediate: true });
@@ -97,12 +100,18 @@ const ShopPage = () => {
                     
                     {/* LEFT SIDE: Utility Grid */}
                     <div className="flex flex-wrap justify-start gap-8 lg:gap-14">
-                        {['LEGAL', 'TERMS', 'PRIVACY', 'SECURITY'].map(l => (
+                        {[
+                            { label: 'LEGAL', path: '/legal' },
+                            { label: 'TERMS', path: '/legal#terms' },
+                            { label: 'PRIVACY', path: '/legal#privacy' },
+                            { label: 'SECURITY', path: '/legal#privacy' }
+                        ].map(l => (
                             <button 
-                                key={l} 
+                                key={l.label} 
+                                onClick={() => navigate(l.path)}
                                 className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-white/40 hover:text-[#FF3E00] transition-colors relative group py-2"
                             >
-                                {l}
+                                {l.label}
                                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FF3E00] group-hover:w-full transition-all" />
                             </button>
                         ))}

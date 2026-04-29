@@ -14,6 +14,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 import { useIgnition } from '../components/layout/IgnitionRuntime';
 
+// --- Helpers ---
+const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(" ");
+
 const MarketingPage: React.FC = () => {
     const { lenis } = useIgnition();
     const [loaded, setLoaded] = useState(false);
@@ -159,7 +162,7 @@ const MarketingPage: React.FC = () => {
                 ScrollTrigger.create({
                     trigger: loopContainerRef.current,
                     start: 'top top',
-                    end: `+=${cards.length * 80}%`,
+                    end: `+=${cards.length * 45}%`,
                     pin: true,
                     anticipatePin: 1
                 });
@@ -185,8 +188,8 @@ const MarketingPage: React.FC = () => {
                             clearProps: 'filter',
                             scrollTrigger: {
                                 trigger: loopContainerRef.current,
-                                start: `top+=${(i - 1) * 80}% top`,
-                                end: `top+=${i * 80}% top`,
+                                start: `top+=${(i - 1) * 45}% top`,
+                                end: `top+=${i * 45}% top`,
                                 scrub: 1.2
                             }
                         }
@@ -203,14 +206,29 @@ const MarketingPage: React.FC = () => {
                                 ease: 'power2.in',
                                 scrollTrigger: {
                                     trigger: loopContainerRef.current,
-                                    start: `top+=${(i - 1) * 80}% top`,
-                                    end: `top+=${(i - 0.3) * 80}% top`,
+                                    start: `top+=${(i - 1) * 45}% top`,
+                                    end: `top+=${(i - 0.3) * 45}% top`,
                                     scrub: 1
                                 }
                             }
                         );
                     }
                 });
+
+                // ── Sync Heading Overlap Color ────────────────────────────
+                const overlapHeading = containerRef.current.querySelector('.overlap-heading');
+                if (overlapHeading) {
+                    gsap.to(overlapHeading, {
+                        clipPath: 'inset(45% 0 0 0)', // Reveal bottom half as cards flip in
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: loopContainerRef.current,
+                            start: 'top top',
+                            end: `top+=${45}% top`,
+                            scrub: true
+                        }
+                    });
+                }
             }
 
             // ── 6. CTA — Cinematic clip-path wipe + blur ─────────────────────
@@ -414,46 +432,107 @@ const MarketingPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* METHODOLOGY SECTION (PINNED LOOP) — enhanced flip */}
+            {/* METHODOLOGY SECTION (PINNED LOOP) — HIGH-FASHION BRUTALISM */}
             <div
                 ref={loopContainerRef}
-                className="bg-[#050505] text-[#FFFFFF] w-full h-screen overflow-hidden flex flex-col justify-center relative z-10 border-t border-white/5"
+                className="bg-[#030303] text-[#FFFFFF] w-full h-screen overflow-hidden flex flex-col justify-start pt-24 md:pt-32 relative z-10 border-t-[2px] border-white/20"
             >
-                {/* Atmospheric background for methodology */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,62,0,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,62,0,0.06)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(255,62,0,0.12)_0%,transparent_70%)]" />
+                {/* Tactical SVG Noise Texture (Bone-Deep Grain) */}
+                <div 
+                    className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none z-0" 
+                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+                />
+
+                {/* Harsh Background Grid */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.04] z-0">
+                    <div className="absolute inset-0 bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] bg-[size:6rem_6rem]" />
                 </div>
 
-                <div className="max-w-[90rem] mx-auto px-6 md:px-12 w-full relative z-10">
-                    <div className="mb-12 text-center">
-                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#FF3E00] mb-4">The Methodology</h2>
-                        <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">The Acceleration Loop</h3>
+                <div className="max-w-[100rem] mx-auto px-6 md:px-12 w-full relative z-10">
+                    <div className="mb-8 text-left border-l-[4px] border-[#FF3E00] pl-8 relative group/heading z-30">
+                        {/* THE DYNAMIC OVERLAP HEADING SYSTEM */}
+                        <div className="relative">
+                            {/* BASE LAYER (Orange/White) */}
+                            <h3 className="text-4xl md:text-[5.5rem] font-black uppercase tracking-normal leading-[0.95] text-white" style={{ fontFamily: 'Anton, sans-serif' }}>
+                                THE <br /> <span className="text-[#FF3E00]">ACCELERATION</span> <br /> LOOP
+                            </h3>
+
+                            {/* OVERLAP LAYER (Changes color when cards pass through) */}
+                            <h3 
+                                className="overlap-heading absolute inset-0 text-4xl md:text-[5.5rem] font-black uppercase tracking-normal leading-[0.95] text-white pointer-events-none select-none" 
+                                style={{ 
+                                    fontFamily: 'Anton, sans-serif',
+                                    clipPath: 'inset(100% 0 0 0)',
+                                    color: '#FFFFFF',
+                                    zIndex: 20
+                                }}
+                            >
+                                THE <br /> <span className="text-white">ACCELERATION</span> <br /> LOOP
+                            </h3>
+                        </div>
                     </div>
 
-                    <div className="relative w-full max-w-5xl mx-auto h-[500px] perspective-[1500px]">
+                    {/* MOVED UP: -mt-24 md:-mt-48 to reach the datum */}
+                    <div className="relative w-full max-w-6xl mx-auto h-[500px] perspective-[3000px] -mt-20 md:-mt-40">
                         {processes.map((step, index) => (
                             <div
                                 key={step.num}
-                                className="loop-card absolute inset-0 w-full bg-[#000000] border-2 border-[#FF3E00] p-10 md:p-16 flex flex-col text-center items-center justify-center origin-bottom will-change-transform overflow-hidden"
+                                className="loop-card absolute inset-0 w-full bg-[#050505] border-[2px] border-white/20 p-8 md:p-16 flex flex-col md:flex-row items-center gap-10 md:gap-16 origin-bottom shadow-[16px_16px_0px_#FF3E00] will-change-transform overflow-hidden group"
                                 style={{ zIndex: index + 1 }}
                             >
-                                {/* Noise texture */}
-                                <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
-                                {/* Static scan-line atmosphere */}
-                                <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)] pointer-events-none" />
-                                {/* Scanline sweep — animated by GSAP on flip */}
-                                <div className="scanline-sweep absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FF3E00]/40 to-transparent pointer-events-none z-20 opacity-0" />
-
-                                <div className="w-24 h-24 rounded-full border-4 border-[#FF3E00] text-[#FF3E00] font-black font-mono flex items-center justify-center text-3xl mb-8 relative z-10 bg-black shadow-[0_0_30px_rgba(255,62,0,0.3)]">
+                                {/* Massive Background Watermark Layering */}
+                                <div className="absolute -right-12 -top-24 text-[20rem] md:text-[35rem] font-black text-white/[0.02] select-none pointer-events-none font-mono leading-none tracking-tighter z-0">
                                     {step.num}
                                 </div>
-                                <h4 className="text-4xl md:text-5xl font-black uppercase mb-6 relative z-10 text-white tracking-tight">{step.title}</h4>
-                                <p className="font-mono text-lg md:text-xl text-white/70 leading-relaxed max-w-3xl relative z-10">{step.desc}</p>
+
+                                {/* Razor-sharp structural lines */}
+                                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
+                                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
+
+                                {/* Heavy Industrial Number Block */}
+                                <div className="relative shrink-0 w-32 h-32 md:w-48 md:h-48 bg-[#FF3E00] flex items-center justify-center text-[#000000] text-6xl md:text-8xl font-black font-mono leading-none border-[2px] border-white transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] shadow-[8px_8px_0px_rgba(255,255,255,0.9)] z-20">
+                                    {/* Hazard Stripes */}
+                                    <div className="absolute inset-0 opacity-[0.15] bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#000_10px,#000_20px)]" />
+                                    <span className="relative z-10">{step.num}</span>
+                                    
+                                    {/* Registration / Crosshair Marks */}
+                                    <div className="absolute top-2 left-2 w-3 h-3 border-t-[2px] border-l-[2px] border-black opacity-50" />
+                                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b-[2px] border-r-[2px] border-black opacity-50" />
+                                </div>
+                                
+                                <div className="flex-1 text-left relative z-20">
+                                    <h4 className="text-4xl md:text-7xl font-black uppercase mb-6 text-white tracking-normal leading-[0.95]" style={{ fontFamily: 'Anton, sans-serif' }}>
+                                        {step.title}
+                                    </h4>
+                                    
+                                    <p className="font-mono text-sm md:text-xl text-white/70 leading-relaxed uppercase font-bold max-w-2xl border-l-[2px] border-[#FF3E00]/50 pl-6 py-2">
+                                        {step.desc}
+                                    </p>
+                                </div>
+
+                                {/* Structural Data Hash / Barcode */}
+                                <div className="absolute right-6 bottom-6 flex flex-col items-end gap-[6px] opacity-30 z-20">
+                                    <div className="flex gap-[3px] items-end h-6">
+                                        {[4, 8, 12, 6, 16, 10, 4, 14].map((height, i) => (
+                                            <div 
+                                                key={i} 
+                                                className={cn("bg-white", i % 3 === 0 ? "w-[3px]" : "w-[1px]")} 
+                                                style={{ height: `${height}px` }} 
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
+
+                <style>{`
+                    .loop-card {
+                        backface-visibility: hidden;
+                        transform-style: preserve-3d;
+                    }
+                `}</style>
             </div>
 
             {/* BOTTOM CTA */}

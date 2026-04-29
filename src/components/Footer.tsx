@@ -260,7 +260,7 @@ export const Footer: React.FC = () => {
 
                     {/* Navigation Grid */}
                     <div className="grid grid-cols-2 h-full">
-                        <div className="p-8 md:p-12 border-r border-white/5">
+                        <div className="p-8 md:p-12 border-r border-white/5 flex flex-col justify-between">
                             <ul className="space-y-6">
                                 {navLinks.map((link) => (
                                     <li key={link.title}>
@@ -271,6 +271,24 @@ export const Footer: React.FC = () => {
                                     </li>
                                 ))}
                             </ul>
+
+                            {/* LEGAL LINKS BLOCK (Brutalist Protocol) */}
+                            <div className="mt-20 flex flex-wrap gap-x-6 gap-y-3 pt-10 border-t border-white/5">
+                                {[
+                                    { label: 'LEGAL', path: '/legal' },
+                                    { label: 'TERMS', path: '/legal#terms' },
+                                    { label: 'PRIVACY', path: '/legal#privacy' },
+                                    { label: 'COOKIES', path: '/legal#cookies' }
+                                ].map(l => (
+                                    <Link 
+                                        key={l.label}
+                                        to={l.path}
+                                        className="font-mono text-[9px] font-black uppercase tracking-[0.3em] text-white/20 hover:text-[#FF3E00] transition-colors"
+                                    >
+                                        {l.label}
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="flex-1 grid grid-cols-3 divide-x divide-white/5 h-full">

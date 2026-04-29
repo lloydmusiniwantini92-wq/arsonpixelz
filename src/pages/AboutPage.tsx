@@ -59,29 +59,43 @@ export const AboutPage = () => {
             <section className="relative min-h-[110vh] bg-[#E6E4DD] text-black overflow-hidden flex flex-col justify-end pb-32 pt-40 px-6 md:px-12">
                 
                 {/* Abstract Image Positioning */}
+                {/* Otherworldly Hero Image (Unmasked) */}
                 <motion.div 
                     style={{ y: yHeroImg }} 
-                    className="absolute top-0 right-[10%] w-full max-w-[600px] h-[80vh] opacity-20 md:opacity-40 pointer-events-none mix-blend-multiply grayscale"
+                    className="absolute top-0 right-0 w-full max-w-[900px] h-[100vh] pointer-events-none z-0"
                 >
-                    <img src="/site-static/arsonic.webp" alt="Arsonic" className="w-full h-full object-cover object-top" />
+                    <img 
+                        src="/site-static/about/otherworldly.png" 
+                        alt="Otherworldly Perspective" 
+                        className="w-full h-full object-cover grayscale" 
+                    />
+                    {/* Minimalist Gradient for Text Legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#E6E4DD] via-[#E6E4DD]/40 to-transparent" />
                 </motion.div>
-
-                {/* Vertical Decorative Label */}
-                <div 
-                    className="absolute top-40 left-6 md:left-12 origin-top-left -rotate-90 text-[10px] uppercase font-bold tracking-[0.4em] opacity-40 text-black border-l border-black/30 pl-4"
-                    style={{ fontFamily: 'IBM Plex Mono, monospace' }}
-                >
-                    AGENCY_ORIGIN_FILE // CLASSIFIED
-                </div>
 
                 <div className="relative z-10 w-full max-w-[1900px] mx-auto">
                     <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-start leading-[0.8] tracking-tighter uppercase font-black" style={{ fontFamily: 'Anton, sans-serif' }}>
                         
-                        <motion.div variants={itemVariants} className="overflow-hidden">
-                            <h1 className="text-[clamp(60px,16vw,300px)] text-black mb-0">WE ARCHITECT</h1>
+                        <motion.div variants={itemVariants} className="overflow-visible py-4">
+                            <h1 className="text-[clamp(60px,16vw,300px)] mb-0 flex flex-wrap gap-[0.05em] leading-[0.9] overflow-visible">
+                                <span className="text-black inline-block py-2">WE</span>
+                                <span 
+                                    className="relative inline-block py-2 px-2"
+                                    style={{ 
+                                        backgroundImage: 'url(/site-static/about/otherworldly.png)',
+                                        backgroundSize: '150% auto',
+                                        backgroundPosition: 'right 20%',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                        filter: 'brightness(0.4) contrast(1.5) grayscale(1)',
+                                    }}
+                                >
+                                    ARCHITECT
+                                </span>
+                            </h1>
                         </motion.div>
                         
-                        <motion.div variants={itemVariants} className="overflow-hidden mix-blend-difference ml-[5vw] md:ml-[15vw]">
+                        <motion.div variants={itemVariants} className="overflow-visible mix-blend-difference ml-[5vw] md:ml-[15vw]">
                             <h1 className="text-[clamp(60px,16vw,300px)] text-[#FF3E00] mb-0">DOMINANCE_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT DESIGN.</span></h1>
                         </motion.div>
                         
@@ -273,9 +287,6 @@ export const AboutPage = () => {
                         >
                             SECTOR LOG
                         </h2>
-                        <span className="font-mono text-[10px] tracking-[0.5em] text-[#FF3E00] uppercase hidden md:block">
-                            [ ARCHIVE_2020-PRESENT ]
-                        </span>
                     </div>
 
                     <div className="space-y-6">
