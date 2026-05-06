@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 // Vite 6 ESM-safe replacements
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,7 +25,7 @@ export default defineConfig(({ mode }) => {
             }
         },
 
-        plugins: [react()],
+        plugins: [react(), cloudflare()],
 
         define: {
             'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
