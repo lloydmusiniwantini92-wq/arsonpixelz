@@ -42,14 +42,14 @@ export const CookieConsent = () => {
                                 <div className="space-y-4 text-left max-w-4xl">
                                     <div className="flex items-center gap-4">
                                         <div className="w-4 h-4 bg-[#D83600] animate-pulse" />
-                                        <span className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-[#D83600]">
+                                        <span className="font-mono text-[10px] font-black tracking-[0.5em] text-[#D83600]">
                                             DATA PRIVACY.
                                         </span>
                                     </div>
                                     <h4 className="font-black text-4xl md:text-6xl text-white uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
                                         WE USE <span className="text-[#D83600]">COOKIES.</span>
                                     </h4>
-                                    <p className="font-mono text-xs md:text-sm text-white/70 uppercase leading-relaxed font-bold border-l-4 border-[#D83600] pl-6 py-2">
+                                    <p className="font-mono text-xs md:text-sm text-white/70 leading-relaxed font-bold border-l-4 border-[#D83600] pl-6 py-2">
                                         WE STORE DATA LOCALLY TO OPTIMIZE PERFORMANCE. <br />
                                         CONTINUED USE CONSTITUTES CONSENT.
                                     </p>

@@ -44,7 +44,7 @@ const Marquee: React.FC<{ text: string; reverse?: boolean; accentColor?: string;
             {[...Array(8)].map((_, i) => (
                 <React.Fragment key={i}>
                     <span 
-                        className="text-7xl md:text-9xl tracking-tighter uppercase text-transparent stroke-text" 
+                        className="text-7xl md:text-9xl tracking-tighter text-transparent stroke-text" 
                         style={{ 
                             WebkitTextStroke: `1px ${borderColor}`, 
                             opacity: 0.1,
@@ -190,7 +190,7 @@ export const Footer: React.FC = () => {
                         {/* BRUTALIST WATERMARK */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none select-none z-0">
                             <span 
-                                className="font-anton uppercase leading-none whitespace-nowrap text-black"
+                                className="font-anton leading-none whitespace-nowrap text-black"
                                 style={{ fontSize: '15vw', letterSpacing: '-0.05em' }}
                             >
                                 MANIFESTO
@@ -219,7 +219,7 @@ export const Footer: React.FC = () => {
                             
                             <div className="max-w-xl">
                                 <p 
-                                    className="text-[13px] text-white/50 leading-[1.85] uppercase"
+                                    className="text-[13px] text-white/50 leading-[1.85] "
                                     style={{ fontFamily: 'IBM Plex Mono, monospace', letterSpacing: '0.1em' }}
                                 >
                                     {content.paragraph}
@@ -299,7 +299,7 @@ export const Footer: React.FC = () => {
                                     className="group relative flex flex-col items-center justify-center p-4 transition-all duration-500 hover:bg-[#D83600] overflow-hidden"
                                 >
                                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-                                        <span className="font-anton text-3xl md:text-5xl text-black opacity-0 group-hover:opacity-10 transition-opacity duration-700 whitespace-nowrap -rotate-90 uppercase tracking-[-0.05em]">{link.title}</span>
+                                        <span className="font-anton text-3xl md:text-5xl text-black opacity-0 group-hover:opacity-10 transition-opacity duration-700 whitespace-nowrap -rotate-90 tracking-[-0.05em]">{link.title}</span>
                                     </div>
                                     <div className="relative z-10 w-8 h-8 md:w-10 md:h-10 text-white group-hover:text-black transition-colors duration-300">{link.icon}</div>
                                     <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/10 group-hover:border-black/30" />

@@ -33,7 +33,7 @@ export const ArchiveCTAButton: React.FC<ArchiveCTAButtonProps> = ({ to }) => {
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
                 {/* Text: START (Monolithic) */}
-                <span className="text-[12rem] font-black tracking-tighter uppercase font-anton leading-none select-none">
+                <span className="text-[12rem] font-black tracking-tighter font-anton leading-none select-none">
                     START
                 </span>
             </motion.div>

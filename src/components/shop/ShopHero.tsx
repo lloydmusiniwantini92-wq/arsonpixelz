@@ -63,7 +63,7 @@ export const ShopHero = () => {
                 
                 {/* Watermark Background Text - Refined */}
                 <div className="core-watermark absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] select-none pointer-events-none">
-                    <span className="text-[35vw] font-black tracking-tighter uppercase whitespace-nowrap leading-none text-white" 
+                    <span className="text-[35vw] font-black tracking-tighter whitespace-nowrap leading-none text-white" 
                         style={{ fontFamily: "'Space Grotesk', sans-serif", WebkitTextStroke: '1px rgba(255,255,255,0.1)', WebkitTextFillColor: 'transparent' }}>
                         FUTURE
                     </span>

@@ -31,7 +31,7 @@ export const NotFoundPage = () => {
             </h1>
 
             <div className="relative z-10 text-center -mt-8 md:-mt-16">
-                <p className="font-mono text-white/50 text-[10px] md:text-sm tracking-[0.5em] uppercase mb-6 font-black">
+                <p className="font-mono text-white/50 text-[10px] md:text-sm tracking-[0.5em] mb-6 font-black">
                     System Failure // Path Not Found
                 </p>
                 <h2 className="font-syne font-black text-white text-2xl md:text-5xl max-w-2xl mx-auto mb-14 uppercase leading-tight tracking-tighter">

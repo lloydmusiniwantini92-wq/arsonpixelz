@@ -72,7 +72,7 @@ const ContactPage: React.FC = () => {
                         <span className="text-6xl md:text-8xl lg:text-9xl relative md:-left-[0.15em]">START YOUR</span><br />
                         <span className="text-5xl md:text-8xl lg:text-9xl text-[#D83600] relative -left-[0.33em] md:-left-[0.55em]">PROJECT</span>
                     </h1>
-                    <p className="font-mono text-white/50 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed uppercase tracking-[0.2em] italic font-bold">
+                    <p className="font-mono text-white/50 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed tracking-[0.2em] italic font-bold">
                         Define the scope. We architect high-performance digital systems that incinerate mediocrity and dominate market sectors.
                     </p>
                 </div>

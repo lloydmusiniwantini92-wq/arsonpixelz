@@ -341,7 +341,7 @@ const MarketingPage: React.FC = () => {
                         MARKET <br />
                         <span className="text-[#D83600]">ACCELERATION</span>
                     </h1>
-                    <p ref={heroDescRef} className="text-lg md:text-3xl font-mono text-white/50 max-w-5xl border-l-8 border-[#D83600] pl-10 uppercase font-bold">
+                    <p ref={heroDescRef} className="text-lg md:text-3xl font-mono text-white/50 max-w-5xl border-l-8 border-[#D83600] pl-10 font-bold">
                         WE DON'T JUST MARKET—WE ACCELERATE. STRATEGIC CAMPAIGNS ENGINEERED TO AMPLIFY YOUR REACH, ENGAGEMENT, AND REVENUE AT UNPRECEDENTED VELOCITY.
                     </p>
                 </div>
@@ -399,7 +399,7 @@ const MarketingPage: React.FC = () => {
                             {/* Content Side */}
                             <div className={`cap-content lg:col-span-7 flex flex-col ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
                                 
-                                    <span className="font-mono text-xs tracking-widest uppercase opacity-50">{cap.subtitle}</span>
+                                    <span className="font-mono text-xs tracking-widest opacity-50">{cap.subtitle}</span>
                                     <h4 className="text-4xl md:text-6xl font-black uppercase tracking-tight mb-8" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>{cap.title}</h4>
                                     <p className="text-lg font-mono text-white/60 leading-relaxed mb-8 max-w-2xl">
                                         {cap.description}
@@ -505,7 +505,7 @@ const MarketingPage: React.FC = () => {
                                         {step.title}
                                     </h4>
                                     
-                                    <p className="font-mono text-sm md:text-xl text-white/70 leading-relaxed uppercase font-bold max-w-2xl border-l-[2px] border-[#D83600]/50 pl-6 py-2">
+                                    <p className="font-mono text-sm md:text-xl text-white/70 leading-relaxed font-bold max-w-2xl border-l-[2px] border-[#D83600]/50 pl-6 py-2">
                                         {step.desc}
                                     </p>
                                 </div>

@@ -36,7 +36,7 @@ export const ServiceMatrix = () => {
                 {/* ── AGENCY CAPABILITIES PANEL ── */}
                 <div className="mb-20 flex flex-col items-center">
                     <div className="mb-10 text-center h-5">
-                        <span className="font-mono text-[#D83600] text-[11px] md:text-[13px] tracking-[0.8em] uppercase animate-pulse">
+                        <span className="font-mono text-[#D83600] text-[11px] md:text-[13px] tracking-[0.8em] animate-pulse">
                             {activeService?.name}
                         </span>
                     </div>
@@ -51,7 +51,7 @@ export const ServiceMatrix = () => {
                                         ${activeCategory === service.id ? 'text-[#D83600]' : 'text-white/40 hover:text-white'}
                                     `}
                                 >
-                                    <span className="font-space font-black text-[10px] md:text-[12px] uppercase tracking-[0.15em] whitespace-nowrap">
+                                    <span className="font-space font-black text-[10px] md:text-[12px] tracking-[0.15em] whitespace-nowrap">
                                         {service.name}
                                     </span>
                                     {activeCategory === service.id && (

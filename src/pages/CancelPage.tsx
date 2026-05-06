@@ -34,7 +34,7 @@ const CancelPage: React.FC = () => {
                     className="pt-32"
                 >
                     <span 
-                        className="block text-[10px] font-bold tracking-[2em] uppercase mb-8 text-[#D83600]"
+                        className="block text-[10px] font-bold tracking-[2em] mb-8 text-[#D83600]"
                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                     >
                         PROTOCOL_TERMINATED
@@ -49,7 +49,7 @@ const CancelPage: React.FC = () => {
                     </h1>
                     
                     <p 
-                        className="max-w-md mx-auto text-white/40 font-mono text-xs uppercase tracking-[0.2em] leading-loose mb-6"
+                        className="max-w-md mx-auto text-white/40 font-mono text-xs tracking-[0.2em] leading-loose mb-6"
                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                     >
                         The checkout sequence was manually terminated. Your parameters have been saved in local memory.

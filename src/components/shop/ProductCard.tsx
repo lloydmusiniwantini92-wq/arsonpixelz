@@ -49,10 +49,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
         >
             {/* ── Top Label Strip ── */}
             <div className="flex items-center justify-between px-4 py-2 border-b border-white/5">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#D83600]">
+                <span className="font-mono text-[9px] tracking-[0.3em] text-[#D83600]">
                     {assetLabel}
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/25">
+                <span className="font-mono text-[9px] tracking-[0.3em] text-white/25">
                     {tagLabel}
                 </span>
             </div>
@@ -127,7 +127,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
                 {product.featured && (
                     <div className="absolute top-3 left-3 z-30">
                         <span
-                            className="font-mono text-[8px] font-black uppercase tracking-[0.3em] px-2 py-1 text-black"
+                            className="font-mono text-[8px] font-black tracking-[0.3em] px-2 py-1 text-black"
                             style={{ background: '#D83600' }}
                         >
                             FEATURED

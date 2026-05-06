@@ -105,7 +105,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                                 >
                                     <div className="w-3 md:w-4 h-[1px] bg-[#D83600]" />
                                     <span
-                                        className="text-[8px] md:text-[9px] text-[#D83600] uppercase tracking-[0.3em] md:tracking-[0.35em] font-bold"
+                                        className="text-[8px] md:text-[9px] text-[#D83600] tracking-[0.3em] md:tracking-[0.35em] font-bold"
                                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                                     >
                                         ARSON PIXELZ
@@ -128,15 +128,15 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                     initial={{ opacity: 0, y: 50 }}
                     animate={loaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                     transition={{ duration: 1.8, delay: 2.6, ease }}
-                    className="absolute bottom-10 md:bottom-12 left-0 md:left-auto md:right-12 w-full md:w-auto flex items-center justify-center md:justify-end pointer-events-auto px-6 md:px-0"
+                    className="absolute bottom-6 md:bottom-12 right-6 md:right-12 w-auto flex items-center justify-end pointer-events-auto"
                 >
-                    <div className="w-full max-w-[280px] md:w-auto">
+                    <div className="w-auto">
                         <BrutalistButton 
                             label="START PROJECT"
                             to="/contact"
                             variant="orange"
                             size="md"
-                            className="md:hidden w-full"
+                            className="md:hidden"
                         />
                         <div className="hidden md:block">
                             <BrutalistButton 

@@ -201,7 +201,7 @@ const DevAIPage: React.FC = () => {
                         DIGITAL <br />
                         <span className="text-[#D83600]">ARCHITECTURE</span>
                     </h1>
-                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#D83600] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
+                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#D83600] pl-10 font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
                         A BEAUTIFUL FLAME NEEDS A SOLID STRUCTURE TO SUSTAIN IT. WE ARCHITECT ROBUST, SCALABLE PLATFORMS POWERED BY ABSOLUTE ENGINEERING.
                     </p>
                 </div>
@@ -233,12 +233,12 @@ const DevAIPage: React.FC = () => {
                     </ScrollReveal>
                     <div className="grid md:grid-cols-2 gap-12">
                         <ScrollReveal staggerIndex={1}>
-                            <p className="font-mono text-lg text-white/50 leading-relaxed uppercase tracking-wide">
+                            <p className="font-mono text-lg text-white/50 leading-relaxed tracking-wide">
                                 Beautiful design without structural integrity is a house of cards. We engineer digital products with the assumption that they will handle exponential scale. Your platform must never be the bottleneck to your growth.
                             </p>
                         </ScrollReveal>
                         <ScrollReveal staggerIndex={2}>
-                            <p className="font-mono text-lg text-white/50 leading-relaxed uppercase tracking-wide">
+                            <p className="font-mono text-lg text-white/50 leading-relaxed tracking-wide">
                                 From isolated microservices to headless architectures, we enforce strict, modern engineering paradigms. No legacy code. No shortcuts. Just pure, unadulterated performance.
                             </p>
                         </ScrollReveal>
@@ -275,10 +275,10 @@ const DevAIPage: React.FC = () => {
                             <div className={`lg:col-span-7 flex flex-col w-full ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
                                 <div className="flex items-center space-x-4 mb-4">
                                     <span className="font-mono text-sm font-black text-[#D83600] tracking-widest">{`<${cap.id} />`}</span>
-                                    <span className="font-mono text-[10px] tracking-[0.4em] uppercase opacity-30">{cap.subtitle}</span>
+                                    <span className="font-mono text-[10px] tracking-[0.4em] opacity-30">{cap.subtitle}</span>
                                 </div>
                                  <h4 className="text-4xl md:text-6xl font-black uppercase tracking-tight mb-8" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>{cap.title}</h4>
-                                <p className="text-lg font-mono text-white/50 leading-relaxed mb-10 max-w-2xl uppercase tracking-wider text-xs">
+                                <p className="text-lg font-mono text-white/50 leading-relaxed mb-10 max-w-2xl tracking-wider text-xs">
                                     {cap.description}
                                 </p>
                                 
@@ -286,7 +286,7 @@ const DevAIPage: React.FC = () => {
                                      <h5 className="font-black text-sm font-mono uppercase tracking-[0.3em] text-[#D83600] mb-6 border-b border-white/5 pb-3">Scope of Work:</h5>
                                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         {cap.deliverables.map((item, i) => (
-                                            <li key={i} className="flex items-center space-x-3 text-[11px] font-mono text-white/40 uppercase tracking-widest">
+                                            <li key={i} className="flex items-center space-x-3 text-[11px] font-mono text-white/40 tracking-widest">
                                                 <svg className="w-4 h-4 text-[#D83600] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                 </svg>
@@ -327,7 +327,7 @@ const DevAIPage: React.FC = () => {
                                                 {'/* ' + step.num + ' */'}
                                             </div>
                                             <h4 className="text-2xl font-black uppercase mb-6 tracking-tight text-black">{step.title}</h4>
-                                            <p className="font-mono text-[11px] text-black/70 leading-relaxed uppercase tracking-widest flex-grow font-bold">
+                                            <p className="font-mono text-[11px] text-black/70 leading-relaxed tracking-widest flex-grow font-bold">
                                                 {step.desc}
                                             </p>
                                         </div>
@@ -348,7 +348,7 @@ const DevAIPage: React.FC = () => {
                         <h3 className="text-3xl md:text-5xl font-black uppercase mb-8 text-black leading-[0.85] tracking-tighter">
                             SYSTEMS ONLINE.
                         </h3>
-                        <p className="text-black/80 font-syne font-bold text-xl mb-12 uppercase tracking-tight leading-tight">
+                        <p className="text-black/80 font-syne font-bold text-xl mb-12 tracking-tight leading-tight">
                             Stop patching broken legacy systems. Architect the future of your platform today.
                         </p>
                         <BrutalistButton 

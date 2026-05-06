@@ -56,7 +56,7 @@ export const AboutContent: React.FC = () => {
             {/* ── Sector tag ── */}
             <div className="flex items-center gap-4 mb-10 opacity-60">
                 <div className="w-2 h-2 rounded-full bg-[#D83600] animate-pulse shadow-[0_0_10px_#D83600]" />
-                <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-white font-black">
+                <span className="font-mono text-[10px] tracking-[0.4em] text-white font-black">
                     Sector_02 // Studio_Core
                 </span>
                 <div className="h-px flex-1 max-w-[6rem] bg-[#D83600]/40" />
@@ -98,10 +98,10 @@ export const AboutContent: React.FC = () => {
 
                 <div className="lg:col-span-7 flex flex-col gap-12">
                     <div className="relative pl-8 border-l-4 border-[#D83600] space-y-8 max-w-2xl">
-                        <p className={`text-xl md:text-2xl font-mono ${textMuted} leading-relaxed uppercase tracking-tight`}>
+                        <p className={`text-xl md:text-2xl font-mono ${textMuted} leading-relaxed tracking-tight`}>
                             At the convergence of <span className={`${textColor} font-black`}>architectural engineering</span> and volatile digital design, we operate as a high-fidelity bridge for brands ready to go critical.
                         </p>
-                        <p className={`text-3xl md:text-4xl font-black ${textColor} leading-[1.1] uppercase tracking-tighter italic`}>
+                        <p className={`text-3xl md:text-4xl font-black ${textColor} leading-[1.1] tracking-tighter italic`}>
                             Fusing industrial-grade IT consulting with cinematic creativity to engineer ecosystems that are 
                             <span className="text-[#D83600] block mt-2"> impossible to ignore.</span>
                         </p>
@@ -111,7 +111,7 @@ export const AboutContent: React.FC = () => {
                         onClick={() => navigate('/contact')}
                         className="group relative inline-flex items-center justify-center w-max px-12 py-6 overflow-hidden transition-all duration-500 bg-white"
                     >
-                        <span className="relative z-10 font-syne font-black uppercase tracking-[0.4em] text-[11px] text-black group-hover:text-white transition-colors duration-500">
+                        <span className="relative z-10 font-syne font-black tracking-[0.4em] text-[11px] text-black group-hover:text-white transition-colors duration-500">
                             Initialize Protocol
                         </span>
                         <ArrowRightIcon className="relative z-10 w-4 h-4 ml-4 text-black group-hover:text-white transition-all group-hover:translate-x-2 duration-500" />
@@ -131,11 +131,11 @@ export const AboutContent: React.FC = () => {
                             >
                                 {stat.value}
                             </span>
-                            <span className={`font-syne font-black text-xs uppercase tracking-[0.2em] ${textColor} group-hover:text-[#D83600] transition-colors duration-500`}>
+                            <span className={`font-syne font-black text-xs tracking-[0.2em] ${textColor} group-hover:text-[#D83600] transition-colors duration-500`}>
                                 {stat.label}
                             </span>
                             {stat.sub && (
-                                <span className={`font-mono text-[9px] font-black tracking-[0.3em] ${textSub} uppercase`}>
+                                <span className={`font-mono text-[9px] font-black tracking-[0.3em] ${textSub} `}>
                                     {stat.sub}
                                 </span>
                             )}

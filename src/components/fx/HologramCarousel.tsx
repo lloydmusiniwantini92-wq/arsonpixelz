@@ -196,7 +196,7 @@ export const HologramCarousel: React.FC<HologramCarouselProps> = ({ projects }) 
                                     transition={{ duration: 0.8 }}
                                 >
                                     <div className="h-px w-8 bg-[#D16D6A]/60" />
-                                    <span className="font-mono text-[10px] uppercase tracking-[0.5em] text-[#D16D6A] font-bold">
+                                    <span className="font-mono text-[10px] tracking-[0.5em] text-[#D16D6A] font-bold">
                                         {project.category}
                                     </span>
                                 </motion.div>
@@ -216,7 +216,7 @@ export const HologramCarousel: React.FC<HologramCarouselProps> = ({ projects }) 
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                             </svg>
                                         </div>
-                                        <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-white uppercase">Initialize_Node</span>
+                                        <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-white ">Initialize_Node</span>
                                     </Link>
 
                                     <div className="text-right font-mono text-[8px] text-white/40 leading-tight">

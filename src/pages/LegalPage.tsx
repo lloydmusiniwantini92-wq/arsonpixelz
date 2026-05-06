@@ -44,7 +44,7 @@ export const LegalPage = () => {
                 
                 {/* ── HEADER BLOCK ── */}
                 <div className="mb-32 border-l-[12px] border-[#D83600] pl-12">
-                    <span className="font-mono text-xs font-black tracking-[1em] uppercase text-[#D83600] block mb-8">
+                    <span className="font-mono text-xs font-black tracking-[1em] text-[#D83600] block mb-8">
                         LEGAL.
                     </span>
                     <h1 className="text-7xl md:text-[11rem] font-black uppercase tracking-tighter leading-[0.8] mb-12" style={{ fontFamily: 'Anton, sans-serif' }}>
@@ -70,7 +70,7 @@ export const LegalPage = () => {
                                 >
                                     <div className="flex items-center gap-6 py-4 border-b-2 border-white/5 group-hover:border-[#D83600] transition-colors">
                                         <span className="font-mono text-xs font-black text-[#D83600] opacity-40 group-hover:opacity-100 transition-opacity">{link.num}</span>
-                                        <span className="font-mono text-[11px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">{link.title}</span>
+                                        <span className="font-mono text-[11px] font-black tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">{link.title}</span>
                                     </div>
                                     <div className="absolute left-[-12px] top-0 bottom-0 w-1 bg-[#D83600] scale-y-0 group-hover:scale-y-100 transition-transform origin-top" />
                                 </a>
@@ -79,7 +79,7 @@ export const LegalPage = () => {
 
                         <div className="mt-20 p-8 border-4 border-white/10 bg-white/[0.02] shadow-[15px_15px_0px_rgba(255,62,0,0.1)]">
                             <h4 className="font-mono text-[10px] font-black text-[#D83600] mb-4 tracking-[0.3em] uppercase">NOTICE:</h4>
-                            <p className="font-mono text-[9px] leading-relaxed text-white/40 uppercase font-bold">
+                            <p className="font-mono text-[9px] leading-relaxed text-white/40 font-bold">
                                 BY REMAINING WITHIN THIS SECTOR, YOU ACCEPT ALL PROTOCOLS. DEVIATION IS NOT PERMITTED.
                             </p>
                         </div>
@@ -180,7 +180,7 @@ export const LegalPage = () => {
                                 </h2>
                             </div>
                             <div className="p-12 border-4 border-[#D83600] bg-black shadow-[20px_20px_0px_white]">
-                                <p className="font-mono text-sm md:text-lg font-black uppercase leading-relaxed text-white tracking-tight">
+                                <p className="font-mono text-sm md:text-lg font-black leading-relaxed text-white tracking-tight">
                                     ARSON PIXELZ IS NOT LIABLE FOR ANY LOSS OF REVENUE, DATA, OR DIGITAL REPUTATION ARISING FROM SYSTEM OVERLOAD, EXCESSIVE EXPOSURE TO HIGH-FIDELITY ASSETS, OR MISUSE OF THE ARMORY MODULES. PROCEED AT YOUR OWN RISK.
                                 </p>
                             </div>
@@ -192,7 +192,7 @@ export const LegalPage = () => {
 
             {/* Bottom Finality */}
             <div className="max-w-[1700px] mx-auto border-t-2 border-white/10 pt-20 text-center">
-                <p className="font-mono text-[10px] text-white/20 uppercase tracking-[1em] font-black">
+                <p className="font-mono text-[10px] text-white/20 tracking-[1em] font-black">
                     SIGNAL_END // ARSON_PIXELZ_LEGAL_DIVISION
                 </p>
             </div>

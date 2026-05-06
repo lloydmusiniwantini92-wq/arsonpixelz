@@ -81,7 +81,7 @@ const TestimonialCard: React.FC<{ item: Testimonial; index: number; cardRef: (el
                 <div className="relative z-20 flex items-center justify-between px-6 pt-5 pb-3 border-b border-white/5">
                     <div className="flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: sig.primary, boxShadow: `0 0 8px ${sig.primary}` }} />
-                        <span className="font-mono text-[9px] tracking-[0.45em] uppercase" style={{ color: sig.primary }}>
+                        <span className="font-mono text-[9px] tracking-[0.45em] " style={{ color: sig.primary }}>
                             SIGNAL_NODE_{signalNum}
                         </span>
                     </div>
@@ -94,7 +94,7 @@ const TestimonialCard: React.FC<{ item: Testimonial; index: number; cardRef: (el
 
                 {/* ── SIGNAL STRENGTH STRIP ── */}
                 <div className="relative z-20 px-6 pt-3 flex items-center gap-3">
-                    <span className="font-mono text-[8px] text-white/20 uppercase tracking-widest">SIG_STR</span>
+                    <span className="font-mono text-[8px] text-white/20 tracking-widest">SIG_STR</span>
                     <div className="flex gap-[3px]">
                         {Array.from({ length: 12 }).map((_, i) => (
                             <div
@@ -119,7 +119,7 @@ const TestimonialCard: React.FC<{ item: Testimonial; index: number; cardRef: (el
                         {/* Opening glyph */}
                         <div className="font-serif text-[4rem] leading-none mb-2 select-none" style={{ color: `${sig.primary}40` }}>"</div>
                         <p
-                            className="font-syne text-xl md:text-2xl xl:text-3xl font-bold leading-tight text-white/70 group-hover:text-white/95 transition-colors duration-700 uppercase -mt-4"
+                            className="font-syne text-xl md:text-2xl xl:text-3xl font-bold leading-tight text-white/70 group-hover:text-white/95 transition-colors duration-700 -mt-4"
                             style={{ animation: 'signal-flicker 8s ease-in-out infinite', textShadow: `0 0 30px ${sig.glow}` }}
                         >
                             {item.transmission}
@@ -145,7 +145,7 @@ const TestimonialCard: React.FC<{ item: Testimonial; index: number; cardRef: (el
                             >
                                 {item.alias}
                             </h3>
-                            <p className="font-mono text-[10px] text-white/40 tracking-[0.35em] uppercase">{item.role}</p>
+                            <p className="font-mono text-[10px] text-white/40 tracking-[0.35em] ">{item.role}</p>
                         </div>
 
                         {/* Data chips */}
@@ -278,7 +278,7 @@ export const TestimonialsPage: React.FC = () => {
                 className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none z-0 select-none text-center"
             >
                 <div className="inline-block px-4 py-1 mb-8 border border-[#D16D6A]/40 w-fit">
-                    <span className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-[#D16D6A]">/// SIGNAL ECHOES // ENCODED</span>
+                    <span className="font-mono text-[10px] font-black tracking-[0.4em] text-[#D16D6A]">/// SIGNAL ECHOES // ENCODED</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white leading-[0.85] mb-8 drop-shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full text-center" style={{ fontFamily: 'Syne, sans-serif' }}>
                     NETWORK<br />TRAFFIC
@@ -290,7 +290,7 @@ export const TestimonialsPage: React.FC = () => {
                 
                 <div className="mt-12 flex items-center gap-6">
                     <div className="w-40 h-[1px] bg-white/10" />
-                    <span className="font-mono text-[10px] text-white/20 tracking-[0.5em] uppercase animate-pulse">Scanning Stream...</span>
+                    <span className="font-mono text-[10px] text-white/20 tracking-[0.5em] animate-pulse">Scanning Stream...</span>
                     <div className="w-40 h-[1px] bg-white/10" />
                 </div>
             </div>

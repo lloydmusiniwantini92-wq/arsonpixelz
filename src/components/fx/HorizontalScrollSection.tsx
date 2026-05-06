@@ -250,7 +250,7 @@ export const HorizontalScrollSection = () => {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>
                                     </div>
-                                    <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-widest font-bold hidden md:block drop-shadow-md" style={{ color: panel.accent }}>
+                                    <span className="font-mono text-[9px] md:text-[10px] tracking-widest font-bold hidden md:block drop-shadow-md" style={{ color: panel.accent }}>
                                         ACCESS_ARCHIVE
                                     </span>
                                 </div>

@@ -57,10 +57,10 @@ export const QuantumScroll: React.FC<QuantumScrollProps> = ({ isDark = false }) 
         >
             {/* HUD Diagnostic Data (Left) */}
             <div className="hidden lg:flex flex-col items-end">
-                <span className={`font-mono text-[7px] tracking-[0.3em] uppercase ${textColor} animate-pulse`}>
+                <span className={`font-mono text-[7px] tracking-[0.3em] ${textColor} animate-pulse`}>
                     grav_lock_engaged
                 </span>
-                <span className={`font-mono text-[7px] tracking-[0.3em] uppercase ${textColor}`}>
+                <span className={`font-mono text-[7px] tracking-[0.3em] ${textColor}`}>
                     depth_01 // 0.00
                 </span>
             </div>
@@ -96,12 +96,12 @@ export const QuantumScroll: React.FC<QuantumScrollProps> = ({ isDark = false }) 
 
             {/* HUD Signal (Right) */}
             <div className="flex flex-col items-start translate-y-1">
-                <span className={`font-mono text-[9px] font-bold tracking-[0.4em] uppercase ${isDark ? 'text-[#D16D6A]' : 'text-[#1A1A1A]'}`}>
+                <span className={`font-mono text-[9px] font-bold tracking-[0.4em] ${isDark ? 'text-[#D16D6A]' : 'text-[#1A1A1A]'}`}>
                     Scroll
                 </span>
                 <div className="flex items-center gap-2 mt-1">
                     <div className={`h-[1px] w-6 ${isDark ? 'bg-[#D16D6A]/30' : 'bg-black/20'}`} />
-                    <span className={`font-mono text-[6px] tracking-[0.2em] uppercase ${textColor}`}>
+                    <span className={`font-mono text-[6px] tracking-[0.2em] ${textColor}`}>
                         init_ascension
                     </span>
                 </div>

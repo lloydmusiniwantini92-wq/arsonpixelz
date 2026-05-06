@@ -113,7 +113,7 @@ export const AboutPage = () => {
                                     <div className="flex items-center gap-2 mt-2">
                                         <div className="w-4 h-[1px] bg-[#D83600]" />
                                         <span
-                                            className="text-[9px] text-[#D83600] uppercase tracking-[0.35em] font-bold"
+                                            className="text-[9px] text-[#D83600] tracking-[0.35em] font-bold"
                                             style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                                         >
                                             ARSON PIXELZ
@@ -263,7 +263,7 @@ export const AboutPage = () => {
                                 </div>
                                 <div className="relative z-10 w-full lg:w-[45%] px-6 mt-4 lg:mt-0">
                                     <p 
-                                        className="text-black/70 group-hover:text-black text-xs lg:text-sm font-bold tracking-[0.3em] uppercase leading-loose"
+                                        className="text-black/70 group-hover:text-black text-xs lg:text-sm font-bold tracking-[0.3em] leading-loose"
                                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                                     >
                                         {phase.desc}
@@ -321,7 +321,7 @@ export const AboutPage = () => {
                                     </h3>
                                 </div>
                                 <div className="md:col-span-6">
-                                    <p className="font-mono text-xs text-white/40 tracking-[0.2em] uppercase leading-relaxed">
+                                    <p className="font-mono text-xs text-white/40 tracking-[0.2em] leading-relaxed">
                                         {log.desc}
                                     </p>
                                 </div>
@@ -338,7 +338,7 @@ export const AboutPage = () => {
                 {/* Massive watermark */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
                     <span 
-                        className="font-anton uppercase tracking-tighter text-black whitespace-nowrap"
+                        className="font-anton tracking-tighter text-black whitespace-nowrap"
                         style={{ fontSize: '150vh', lineHeight: 0.8 }}
                     >
                         END
@@ -347,7 +347,7 @@ export const AboutPage = () => {
 
                 <div className="relative z-10 text-center flex flex-col items-center">
                     <span 
-                        className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#D83600]"
+                        className="block text-[10px] font-bold tracking-[1.5em] mb-12 text-[#D83600]"
                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                     >
                         INITIATE SEQUENCE

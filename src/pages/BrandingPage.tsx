@@ -253,7 +253,7 @@ const BrandingPage: React.FC = () => {
                         IGNITE <br />
                         <span className="text-[#D83600]">THE BRAND</span>
                     </h1>
-                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#D83600] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
+                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#D83600] pl-10 font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
                         YOUR BRAND IS THE SIGNAL. WE ARE THE POWER. WE FORGE IDENTITIES THAT BURN INTO THE CULTURAL CONSCIOUSNESS—IMPENETRABLE, IRREFUTABLE, UNFORGETTABLE.
                     </p>
                 </div>
@@ -297,7 +297,7 @@ const BrandingPage: React.FC = () => {
                         {/* Protocol Layer 1: The Warning (New) */}
                         <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SILENCE IS <br/><span className="text-[#D83600]">A VIRUS.</span></h3>
-                            <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed uppercase">
+                            <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed ">
                                 GENERIC BRANDS ARE BACKGROUND NOISE. WE ENGINEER TECTONIC SHIFTS IN PERCEPTION. IF YOUR AUDIENCE ISN'T REACTING, YOU'RE ALREADY DEAD.
                             </p>
                         </div>
@@ -305,7 +305,7 @@ const BrandingPage: React.FC = () => {
                         {/* Protocol Layer 2: The Command (New) */}
                         <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>CHAOS BY <br/>DESIGN.</h3>
-                            <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed uppercase">
+                            <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed ">
                                 WE DO NOT FOLLOW TRENDS; WE CRASH THEM. BY INJECTING HIGH-FIDELITY DISRUPTION INTO EVERY TOUCHPOINT, WE ENSURE YOUR BRAND IS THE ONLY CONSTANT IN THE MARKET.
                             </p>
                         </div>
@@ -318,7 +318,7 @@ const BrandingPage: React.FC = () => {
                         {/* Protocol Layer 3: The Threat */}
                         <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SAFETY IS <br/><span className="text-[#D83600]">TERMINAL.</span></h3>
-                            <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed uppercase">
+                            <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed ">
                                 IN A SATURATED MARKET, WHISPERS ARE ERASED. WE ENGINEER IDENTITIES THAT SCREAM. BY FUSING INDUSTRIAL-GRADE DESIGN WITH PSYCHOLOGICAL DOMINATION, WE CREATE CULTURAL ANCHORS DISGUISED AS MARKS.
                             </p>
                         </div>
@@ -326,7 +326,7 @@ const BrandingPage: React.FC = () => {
                         {/* Protocol Layer 4: The Command */}
                         <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>APEX <br/>PREDATOR.</h3>
-                            <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed uppercase">
+                            <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed ">
                                 WE DO NOT PERFORM REFLIFTS. WE PERFORM MOLECULAR RECONSTRUCTION. IF YOU SEEK GENTLE REFINEMENT, LEAVE NOW. IF YOU SEEK ABSOLUTE DOMINANCE IN YOUR SECTOR, INITIATE.
                             </p>
                         </div>
@@ -369,10 +369,10 @@ const BrandingPage: React.FC = () => {
                             <div className={`lg:col-span-6 flex flex-col ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-7' : ''}`}>
                                 <ScrollReveal staggerIndex={2}>
                                     <div className="flex items-center space-x-6 mb-8">
-                                        <span className="font-mono text-sm tracking-widest uppercase opacity-40">{cap.subtitle}</span>
+                                        <span className="font-mono text-sm tracking-widest opacity-40">{cap.subtitle}</span>
                                     </div>
                                     <h4 className="text-4xl md:text-6xl font-black uppercase tracking-normal mb-8 leading-[0.9]" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>{cap.title}</h4>
-                                    <p className="text-xl font-mono text-white/50 leading-relaxed mb-10 max-w-2xl font-bold uppercase">
+                                    <p className="text-xl font-mono text-white/50 leading-relaxed mb-10 max-w-2xl font-bold ">
                                         {cap.description}
                                     </p>
                                     

@@ -110,7 +110,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
 
                 {/* ESSENTIAL / MOST POPULAR / BEST VALUE - Aligned with Tier Name */}
                 <div className="flex justify-start mb-1 md:ml-[9.5rem] ml-[7.5rem]">
-                    <span className="text-base font-mono font-black tracking-[0.5em] text-[#D83600] uppercase">
+                    <span className="text-base font-mono font-black tracking-[0.5em] text-[#D83600] ">
                         {config.subLabel}
                     </span>
                 </div>
@@ -135,7 +135,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                     </h3>
                 </div>
 
-                <p className="text-white/70 text-base uppercase leading-relaxed tracking-wider mb-8 mt-4" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 500 }}>
+                <p className="text-white/70 text-base leading-relaxed tracking-wider mb-8 mt-4" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 500 }}>
                     {tier.description}
                 </p>
             </div>
@@ -145,7 +145,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                 {tier.included.map((item, i) => (
                     <div key={i} className="flex items-start gap-4">
                         <div className="mt-1 w-1.5 h-1.5 bg-[#D83600] shadow-[0_0_8px_#D83600]" />
-                        <span className="text-white/80 text-[11px] leading-tight font-inter uppercase tracking-widest font-medium">
+                        <span className="text-white/80 text-[11px] leading-tight font-inter tracking-widest font-medium">
                             {item}
                         </span>
                     </div>
@@ -159,7 +159,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                         {tier.price.split(' ')[0]}
                     </div>
                     <div className="text-right">
-                        <span className="block font-inter font-mono text-[10px] text-[#D83600] uppercase font-black tracking-widest">
+                        <span className="block font-inter font-mono text-[10px] text-[#D83600] font-black tracking-widest">
                             {tier.turnaround}
                         </span>
                     </div>

@@ -31,7 +31,7 @@ const LoadingStep = ({ text, active, completed }: { text: string, active: boolea
                 <div className="w-1.5 h-1.5 bg-zinc-700 rounded-full"></div>
             )}
         </div>
-        <span className={`font-mono text-xs tracking-wide uppercase ${active ? 'text-zinc-200' : completed ? 'text-zinc-400 line-through' : 'text-zinc-600'}`}>{text}</span>
+        <span className={`font-mono text-xs tracking-wide ${active ? 'text-zinc-200' : completed ? 'text-zinc-400 line-through' : 'text-zinc-600'}`}>{text}</span>
     </div>
 );
 
@@ -181,7 +181,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ creation, isLoading, i
         {/* Center: Title */}
         <div className="flex items-center space-x-2 text-zinc-500">
             <CodeBracketIcon className="w-3 h-3" />
-            <span className="text-[11px] font-mono uppercase tracking-wider">
+            <span className="text-[11px] font-mono tracking-wider">
                 {isLoading ? 'System Processing...' : creation ? creation.name : 'Preview Mode'}
             </span>
         </div>

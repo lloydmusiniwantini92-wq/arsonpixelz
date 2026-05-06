@@ -79,7 +79,7 @@ export const ShopPromoPopup = () => {
 
                             {/* Impact Text */}
                             <motion.div variants={elementVariants} className="border-l-4 border-[#D83600] pl-6 py-2">
-                                <p className="font-mono text-xs font-bold leading-tight text-white/90 uppercase tracking-widest">
+                                <p className="font-mono text-xs font-bold leading-tight text-white/90 tracking-widest">
                                     INSTITUTIONAL ACCESS GRANTED. VALID FOR SINGLE DEPLOYMENT.
                                 </p>
                             </motion.div>

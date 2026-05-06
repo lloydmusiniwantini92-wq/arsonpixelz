@@ -150,7 +150,7 @@ export const StackedCards: React.FC<StackedCardsProps> = ({ projects, children }
                                 transition={{ duration: 1, delay: 0.2 }}
                             >
                                 <div className="h-[2px] w-8 bg-[#D83600] shadow-[0_0_10px_#D83600]" />
-                                <span className="font-mono text-xs uppercase tracking-[0.5em] text-[#D83600] font-black drop-shadow-md">
+                                <span className="font-mono text-xs tracking-[0.5em] text-[#D83600] font-black drop-shadow-md">
                                     {project.category}
                                 </span>
                             </motion.div>
@@ -173,7 +173,7 @@ export const StackedCards: React.FC<StackedCardsProps> = ({ projects, children }
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>
                                     </Link>
-                                    <span className="font-mono text-[9px] tracking-[0.3em] text-white/40 uppercase group-hover/btn:text-[#D83600] transition-colors mt-2">ACCESS_RECORD</span>
+                                    <span className="font-mono text-[9px] tracking-[0.3em] text-white/40 group-hover/btn:text-[#D83600] transition-colors mt-2">ACCESS_RECORD</span>
                                 </div>
                             </div>
                         </div>

@@ -310,10 +310,10 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                                 <img src={PLogo} alt="Bot" className="h-8 w-auto invert object-contain" />
                             </div>
                             <div>
-                                <p className="font-syne text-[10px] font-black uppercase tracking-[0.2em] text-white">IGNIS_CORE</p>
+                                <p className="font-syne text-[10px] font-black tracking-[0.2em] text-white">IGNIS_CORE</p>
                                 <div className="flex items-center gap-1.5 mt-0.5">
                                     <div className="w-1.5 h-1.5 rounded-full bg-[#D83600] animate-pulse" />
-                                    <span className="font-mono text-[8px] uppercase tracking-widest text-[#D83600]">Active Intelligence</span>
+                                    <span className="font-mono text-[8px] tracking-widest text-[#D83600]">Active Intelligence</span>
                                 </div>
                             </div>
                             <button

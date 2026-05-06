@@ -339,7 +339,7 @@ const TopNavLink = memo(({
                 />
                 )}
                 <span className={cn(
-                    "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap relative overflow-visible",
+                    "font-mono font-bold tracking-[0.1em] whitespace-nowrap relative overflow-visible",
                     isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
                     scrolled ? "text-[12px]" : "text-[10px]",
                     isArsonInfected ? "text-[#D83600] drop-shadow-[0_0_20px_rgba(255,62,0,1)]" :
@@ -1002,7 +1002,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 {/* Centralized Scroll Indicator */}
                                 <div className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center pointer-events-none z-30">
                                     <div className="flex flex-col items-center gap-1">
-                                        <span className="font-mono text-[#D83600] text-[10px] tracking-[0.5em] uppercase animate-pulse mb-[-2px]">
+                                        <span className="font-mono text-[#D83600] text-[10px] tracking-[0.5em] animate-pulse mb-[-2px]">
                                             SCROLL
                                         </span>
                                         <svg className="w-4 h-4 text-[#D83600] opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

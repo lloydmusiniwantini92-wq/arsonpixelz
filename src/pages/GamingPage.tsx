@@ -302,7 +302,7 @@ const GamingPage: React.FC = () => {
 
                     {/* Description */}
                     <div ref={descRef} className="max-w-3xl">
-                        <p className="text-lg md:text-3xl font-mono text-white/50 leading-relaxed border-l-8 border-[#D83600] pl-10 uppercase font-bold">
+                        <p className="text-lg md:text-3xl font-mono text-white/50 leading-relaxed border-l-8 border-[#D83600] pl-10 font-bold">
                             WE ARCHITECT IMMERSIVE ECOSYSTEMS. FROM INDIE TITLES TO AAA FRANCHISES, WE ENGINEER THE VISUAL NARRATIVES THAT ANCHOR GLOBAL PLAYER COMMUNITIES.
                         </p>
                     </div>
@@ -331,7 +331,7 @@ const GamingPage: React.FC = () => {
                                     {service.title}
                                 </h3>
 
-                                <p className="text-md font-mono text-white/50 leading-relaxed mb-10 font-bold uppercase">
+                                <p className="text-md font-mono text-white/50 leading-relaxed mb-10 font-bold ">
                                     {service.description}
                                 </p>
 

@@ -169,11 +169,11 @@ export const Work: React.FC = () => {
               <div className="mb-8 flex flex-col items-start gap-3">
                 <div className="flex items-center gap-3">
                   <div className="w-1.5 h-1.5 bg-[#D83600] animate-pulse" />
-                  <span className="text-white/40 font-mono text-[9px] tracking-[0.4em] uppercase">
+                  <span className="text-white/40 font-mono text-[9px] tracking-[0.4em] ">
                     SECTOR_ACCESS_OPEN_{project.number}
                   </span>
                 </div>
-                <span className="text-white/20 font-mono text-[8px] tracking-[0.2em] uppercase border-l border-white/20 pl-3">
+                <span className="text-white/20 font-mono text-[8px] tracking-[0.2em] border-l border-white/20 pl-3">
                   {project.type} // {project.location}
                 </span>
               </div>
@@ -182,7 +182,7 @@ export const Work: React.FC = () => {
                 {project.title1}<br />{project.title2}
               </h3>
 
-              <p className="font-mono text-[10px] text-white/40 leading-relaxed uppercase tracking-widest mb-10 max-w-[90%] border-l-2 border-[#D83600] pl-5">
+              <p className="font-mono text-[10px] text-white/40 leading-relaxed tracking-widest mb-10 max-w-[90%] border-l-2 border-[#D83600] pl-5">
                 {project.description}
               </p>
 
@@ -257,7 +257,7 @@ export const Work: React.FC = () => {
 
                   <div className={`transition-transform duration-500 ${isActive ? 'scale-105' : 'scale-100'}`}>
                     <div className="flex justify-between items-center w-full mb-3">
-                        <span className={`font-mono text-[10px] uppercase tracking-[0.3em] font-bold ${isActive ? 'text-[#D83600]' : 'text-white/40'}`}>
+                        <span className={`font-mono text-[10px] tracking-[0.3em] font-bold ${isActive ? 'text-[#D83600]' : 'text-white/40'}`}>
                             {project.number} // {project.type}
                         </span>
                     </div>
@@ -336,7 +336,7 @@ export const Work: React.FC = () => {
                 transition={{ duration: 1.2, delay: 0.6, type: 'spring', bounce: 0.3 }}
                 className="absolute bottom-12 left-12 max-w-sm pointer-events-auto"
             >
-              <p className="font-mono text-[12px] font-bold text-white/70 leading-relaxed uppercase tracking-[0.2em] border-l border-[#D83600] pl-4 drop-shadow-xl">
+              <p className="font-mono text-[12px] font-bold text-white/70 leading-relaxed tracking-[0.2em] border-l border-[#D83600] pl-4 drop-shadow-xl">
                 {activeProject.description}
               </p>
             </motion.div>

@@ -21,7 +21,7 @@ export const ChooseYourTier: React.FC = () => {
             <div className="relative z-10 flex flex-col items-center text-center max-w-[1700px] mx-auto">
                 {/* Technical Title Label */}
                 <span 
-                    className="block text-sm md:text-lg font-bold tracking-[1.5em] uppercase mb-16 text-white/60"
+                    className="block text-sm md:text-lg font-bold tracking-[1.5em] mb-16 text-white/60"
                     style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                 >
                     ANALYSIS REQUIRED

@@ -221,7 +221,7 @@ const ManifestoBlock = React.memo(({ quote, author, title }: { quote: string; au
             aria-hidden="true"
         >
             <span
-                className="uppercase whitespace-nowrap font-black leading-none"
+                className="whitespace-nowrap font-black leading-none"
                 style={{
                     fontFamily: 'Anton, sans-serif',
                     fontSize: 'clamp(80px, 18vw, 260px)',
@@ -234,7 +234,7 @@ const ManifestoBlock = React.memo(({ quote, author, title }: { quote: string; au
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4">
             <span
-                className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 opacity-40"
+                className="block text-[10px] font-bold tracking-[1.5em] mb-12 opacity-40"
                 style={{ fontFamily: 'IBM Plex Mono, monospace', color: '#D83600' }}
             >
                 PROJECT_NARRATIVE
@@ -261,11 +261,11 @@ const ManifestoBlock = React.memo(({ quote, author, title }: { quote: string; au
                 <div className="w-12 h-1 bg-[#D83600] flex-shrink-0" />
                 <cite className="not-italic">
                     <span
-                        className="block text-white uppercase font-black text-2xl"
+                        className="block text-white font-black text-2xl"
                         style={{ fontFamily: 'Anton, sans-serif' }}
                     >{author}</span>
                     <span
-                        className="block text-[10px] tracking-widest text-[#D83600] uppercase opacity-60 mt-1"
+                        className="block text-[10px] tracking-widest text-[#D83600] opacity-60 mt-1"
                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                     >{title}</span>
                 </cite>
@@ -376,14 +376,14 @@ const ArchivePage: React.FC = () => {
                         <div className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500">
                              <ArrowLeftIcon className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-[10px] tracking-[0.4em] uppercase text-white group-hover:text-black transition-colors font-bold">BACK TO SELECTED WORKS</span>
+                        <span className="text-[10px] tracking-[0.4em] text-white group-hover:text-black transition-colors font-bold">BACK TO SELECTED WORKS</span>
                     </Link>
                 </div>
 
                 {/* Massive Centralized Project Watermark (Fluid / Custom Stack Logic) */}
                 <div className="absolute inset-0 flex items-start justify-center opacity-[0.08] pointer-events-none select-none z-0 overflow-hidden pt-[20vh] px-4">
                     <span 
-                        className={`font-space font-bold leading-[0.8] uppercase text-black text-center tracking-tighter ${project.id === 'tt-01' ? 'flex flex-col items-center' : 'whitespace-nowrap'}`}
+                        className={`font-space font-bold leading-[0.8] text-black text-center tracking-tighter ${project.id === 'tt-01' ? 'flex flex-col items-center' : 'whitespace-nowrap'}`}
                         style={{ fontSize: project.id === 'tt-01' ? 'clamp(140px, 19vw, 450px)' : `clamp(100px, ${Math.min(28, 190 / Math.max(project.title.length, 6))}vw, 400px)` }}
                     >
                         {project.id === 'tt-01' ? (
@@ -468,7 +468,7 @@ const ArchivePage: React.FC = () => {
                     {/* View overlay */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                          <div className="bg-[#D83600] px-10 py-5 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 shadow-[0_20px_50px_rgba(255,62,0,0.3)]">
-                            <span className="text-black text-2xl tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                            <span className="text-black text-2xl tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                          </div>
                     </div>
                 </motion.div>
@@ -505,7 +505,7 @@ const ArchivePage: React.FC = () => {
                                 THE<br />PROBLEM
                             </h2>
                             <p
-                                className="text-black leading-relaxed font-bold uppercase text-xs opacity-80"
+                                className="text-black leading-relaxed font-bold text-xs opacity-80"
                                 style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                             >
                                 {project.voidText}
@@ -538,7 +538,7 @@ const ArchivePage: React.FC = () => {
                                 THE<br />EXECUTION
                             </h2>
                             <p
-                                className="text-sm leading-relaxed font-bold uppercase opacity-80"
+                                className="text-sm leading-relaxed font-bold opacity-80"
                                 style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                             >
                                 {project.chaosText}
@@ -576,7 +576,7 @@ const ArchivePage: React.FC = () => {
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                              <div className="bg-[#D83600] px-8 py-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span className="text-black text-xl tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                                <span className="text-black text-xl tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                              </div>
                         </div>
                         <div
@@ -622,7 +622,7 @@ const ArchivePage: React.FC = () => {
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                                 <div className="bg-[#D83600] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <span className="text-black text-lg tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                                    <span className="text-black text-lg tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                                 </div>
                             </div>
                         </div>
@@ -648,7 +648,7 @@ const ArchivePage: React.FC = () => {
                                     />
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                                         <div className="bg-[#D83600] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                            <span className="text-black text-lg tracking-[0.1em] font-anton leading-none uppercase">VIEW IN GALLERY</span>
+                                            <span className="text-black text-lg tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                                         </div>
                                     </div>
                                     <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6 pointer-events-none group-hover:opacity-0 transition-opacity">
@@ -717,7 +717,7 @@ const ArchivePage: React.FC = () => {
                                     {stat.value}
                                 </span>
                                 <span
-                                    className="text-xs tracking-[0.5em] text-white/40 uppercase mt-4"
+                                    className="text-xs tracking-[0.5em] text-white/40 mt-4"
                                     style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                                 >
                                     {stat.label}
@@ -762,7 +762,7 @@ const ArchivePage: React.FC = () => {
                 {/* Background Watermark Displacement (Now in Dark) */}
                 <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
                     <span
-                        className="uppercase whitespace-nowrap font-black leading-none opacity-[0.12]"
+                        className="whitespace-nowrap font-black leading-none opacity-[0.12]"
                         style={{
                             fontFamily: 'Anton, sans-serif',
                             fontSize: 'clamp(100px, 20vw, 300px)',
@@ -812,7 +812,7 @@ const ArchivePage: React.FC = () => {
                                                 0{i+1}
                                             </span>
                                             <span 
-                                                className="font-anton uppercase leading-[0.9] tracking-tighter text-base"
+                                                className="font-anton leading-[0.9] tracking-tighter text-base"
                                             >
                                                 {d}
                                             </span>

@@ -33,7 +33,7 @@ const SuccessPage: React.FC = () => {
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
                     System Activated
                 </h1>
-                <p className="text-white/40 font-mono text-xs uppercase tracking-[0.2em] mb-10 leading-relaxed">
+                <p className="text-white/40 font-mono text-xs tracking-[0.2em] mb-10 leading-relaxed">
                     Payment successful. Your assets are being provisioned and will be delivered shortly via secure channel.
                 </p>
                 <Link
