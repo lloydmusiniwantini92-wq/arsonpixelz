@@ -22,7 +22,7 @@ export const ArchiveCTAButton: React.FC<ArchiveCTAButtonProps> = ({ to }) => {
             <motion.div
                 className="relative z-10 flex items-center justify-center overflow-visible"
                 variants={{
-                    initial: { scale: 1, color: '#FF3E00', filter: 'drop-shadow(0 0 0px rgba(0,0,0,0))' },
+                    initial: { scale: 1, color: '#D83600', filter: 'drop-shadow(0 0 0px rgba(0,0,0,0))' },
                     hover: { 
                         scale: 1.15, 
                         color: '#000000',

@@ -70,11 +70,11 @@ export const ShopHero = () => {
                 </div>
 
                 <div className="core-item mb-6">
-                    <div className="h-[2px] w-24 bg-[#FF3E00] mx-auto mb-4" />
+                    <div className="h-[2px] w-24 bg-[#D83600] mx-auto mb-4" />
                 </div>
 
                 <h1 className="core-item text-[12vw] md:text-[8rem] lg:text-[10rem] font-black leading-[0.8] tracking-[-0.05em] uppercase text-white mb-16 font-['Space_Grotesk']">
-                    <span className="text-[#FF3E00]">THE</span> ARCHITECTURE <span className="text-[#FF3E00]">OF</span><br/>
+                    <span className="text-[#D83600]">THE</span> ARCHITECTURE <span className="text-[#D83600]">OF</span><br/>
                     <span className="text-white">DIGITAL DOMINANCE.</span>
                 </h1>
 
@@ -82,7 +82,7 @@ export const ShopHero = () => {
                     <div className="core-item pt-8 flex justify-center">
                         <button 
                             onClick={() => document.getElementById('agency-capabilities')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="px-20 py-8 bg-[#FF3E00] text-white font-['Anton'] font-bold uppercase tracking-[0.2em] text-xl md:text-2xl hover:bg-white hover:text-black transition-all transform active:scale-95 duration-500"
+                            className="px-20 py-8 bg-[#D83600] text-white font-['Anton'] font-bold uppercase tracking-[0.2em] text-xl md:text-2xl hover:bg-white hover:text-black transition-all transform active:scale-95 duration-500"
                         >
                             GET STARTED
                         </button>

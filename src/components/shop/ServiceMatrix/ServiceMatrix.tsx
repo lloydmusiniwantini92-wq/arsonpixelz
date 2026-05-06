@@ -29,14 +29,14 @@ export const ServiceMatrix = () => {
                 <div className="mb-20 text-center w-full">
                     <h3 className="font-space font-bold text-5xl md:text-7xl text-white uppercase tracking-tighter inline-block relative px-4 text-center">
                          AGENCY CAPABILITIES <br className="md:hidden" /> AND PRODUCT RANKING
-                         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-[#FF3E00]" />
+                         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-[#D83600]" />
                     </h3>
                 </div>
                 
                 {/* ── AGENCY CAPABILITIES PANEL ── */}
                 <div className="mb-20 flex flex-col items-center">
                     <div className="mb-10 text-center h-5">
-                        <span className="font-mono text-[#FF3E00] text-[11px] md:text-[13px] tracking-[0.8em] uppercase animate-pulse">
+                        <span className="font-mono text-[#D83600] text-[11px] md:text-[13px] tracking-[0.8em] uppercase animate-pulse">
                             {activeService?.name}
                         </span>
                     </div>
@@ -48,7 +48,7 @@ export const ServiceMatrix = () => {
                                     key={service.id}
                                     onClick={() => setActiveCategory(service.id)}
                                     className={`group relative px-2 py-2 transition-all duration-300 flex flex-col items-center gap-2
-                                        ${activeCategory === service.id ? 'text-[#FF3E00]' : 'text-white/40 hover:text-white'}
+                                        ${activeCategory === service.id ? 'text-[#D83600]' : 'text-white/40 hover:text-white'}
                                     `}
                                 >
                                     <span className="font-space font-black text-[10px] md:text-[12px] uppercase tracking-[0.15em] whitespace-nowrap">
@@ -57,7 +57,7 @@ export const ServiceMatrix = () => {
                                     {activeCategory === service.id && (
                                         <motion.div 
                                             layoutId="activeTab"
-                                            className="absolute -bottom-1 h-[2px] w-full bg-[#FF3E00] shadow-[0_0_15px_#FF3E00]"
+                                            className="absolute -bottom-1 h-[2px] w-full bg-[#D83600] shadow-[0_0_15px_#D83600]"
                                         />
                                     )}
                                 </button>
@@ -77,7 +77,7 @@ export const ServiceMatrix = () => {
                                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                                 exit={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
                                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-0 border border-[#FF3E00]/10 bg-[#FF3E00]/5"
+                                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-0 border border-[#D83600]/10 bg-[#D83600]/5"
                             >
                                 {activeService?.tiers.map((tier, idx) => (
                                     <ServiceTierCard 

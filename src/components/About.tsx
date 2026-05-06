@@ -24,12 +24,12 @@ export const AboutContent: React.FC = () => {
     const textSub = 'text-white/30';
     
     const borderColor = 'border-white/10';
-    const gridBg = 'bg-[#FF3E00]/10';
+    const gridBg = 'bg-[#D83600]/10';
     const statBg = 'bg-[#050505]';
     const statHover = 'hover:bg-[#080808]';
     
     const buttonShadowColor = 'rgba(255,255,255,0.05)';
-    const marqueeStyle = 'opacity-20 border-[#FF3E00]/10 text-white';
+    const marqueeStyle = 'opacity-20 border-[#D83600]/10 text-white';
 
     return (
         <div className="relative transition-colors duration-500 overflow-hidden bg-[#000000]">
@@ -46,7 +46,7 @@ export const AboutContent: React.FC = () => {
                         mixBlendMode: 'screen',
                     }}
                 />
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF3E00]/50 to-transparent" />
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D83600]/50 to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,62,0,0.15)_0%,transparent_75%)]" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#000000]/60 to-[#000000]" />
             </div>
@@ -55,11 +55,11 @@ export const AboutContent: React.FC = () => {
 
             {/* ── Sector tag ── */}
             <div className="flex items-center gap-4 mb-10 opacity-60">
-                <div className="w-2 h-2 rounded-full bg-[#FF3E00] animate-pulse shadow-[0_0_10px_#FF3E00]" />
+                <div className="w-2 h-2 rounded-full bg-[#D83600] animate-pulse shadow-[0_0_10px_#D83600]" />
                 <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-white font-black">
                     Sector_02 // Studio_Core
                 </span>
-                <div className="h-px flex-1 max-w-[6rem] bg-[#FF3E00]/40" />
+                <div className="h-px flex-1 max-w-[6rem] bg-[#D83600]/40" />
             </div>
 
             {/* ── Massive headline ── */}
@@ -70,14 +70,14 @@ export const AboutContent: React.FC = () => {
                 <span
                     className="block text-[clamp(5.5rem,14vw,13rem)] relative italic"
                     style={{
-                        color: '#FF3E00',
+                        color: '#D83600',
                         textShadow: '0 0 80px rgba(255,62,0,0.4), 0 0 200px rgba(255,62,0,0.2)',
                         fontFamily: 'Syne, sans-serif',
                     }}
                 >
                     THE SPARK
                     <span
-                        className="absolute inset-0 text-[#FF3E00] opacity-40"
+                        className="absolute inset-0 text-[#D83600] opacity-40"
                         style={{ animation: 'spark-glitch1 4s infinite linear alternate-reverse', textShadow: 'none', clipPath: 'inset(30% 0 55% 0)' }}
                         aria-hidden="true"
                     >
@@ -97,13 +97,13 @@ export const AboutContent: React.FC = () => {
             <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start pb-20">
 
                 <div className="lg:col-span-7 flex flex-col gap-12">
-                    <div className="relative pl-8 border-l-4 border-[#FF3E00] space-y-8 max-w-2xl">
+                    <div className="relative pl-8 border-l-4 border-[#D83600] space-y-8 max-w-2xl">
                         <p className={`text-xl md:text-2xl font-mono ${textMuted} leading-relaxed uppercase tracking-tight`}>
                             At the convergence of <span className={`${textColor} font-black`}>architectural engineering</span> and volatile digital design, we operate as a high-fidelity bridge for brands ready to go critical.
                         </p>
                         <p className={`text-3xl md:text-4xl font-black ${textColor} leading-[1.1] uppercase tracking-tighter italic`}>
                             Fusing industrial-grade IT consulting with cinematic creativity to engineer ecosystems that are 
-                            <span className="text-[#FF3E00] block mt-2"> impossible to ignore.</span>
+                            <span className="text-[#D83600] block mt-2"> impossible to ignore.</span>
                         </p>
                     </div>
 
@@ -115,7 +115,7 @@ export const AboutContent: React.FC = () => {
                             Initialize Protocol
                         </span>
                         <ArrowRightIcon className="relative z-10 w-4 h-4 ml-4 text-black group-hover:text-white transition-all group-hover:translate-x-2 duration-500" />
-                        <div className="absolute inset-0 bg-[#FF3E00] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]" />
+                        <div className="absolute inset-0 bg-[#D83600] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)]" />
                     </button>
                 </div>
 
@@ -123,15 +123,15 @@ export const AboutContent: React.FC = () => {
                     {stats.map((stat) => (
                         <div
                             key={stat.label}
-                            className={`stat-item ${statBg} p-10 flex flex-col gap-3 hover:border-[#FF3E00]/40 ${statHover} transition-all duration-500 group`}
+                            className={`stat-item ${statBg} p-10 flex flex-col gap-3 hover:border-[#D83600]/40 ${statHover} transition-all duration-500 group`}
                         >
                             <span
-                                className="font-syne font-black text-5xl md:text-7xl leading-none tracking-tighter text-[#FF3E00] italic group-hover:scale-110 transition-transform duration-500"
+                                className="font-syne font-black text-5xl md:text-7xl leading-none tracking-tighter text-[#D83600] italic group-hover:scale-110 transition-transform duration-500"
                                 style={{ textShadow: '0 0 30px rgba(255,62,0,0.3)' }}
                             >
                                 {stat.value}
                             </span>
-                            <span className={`font-syne font-black text-xs uppercase tracking-[0.2em] ${textColor} group-hover:text-[#FF3E00] transition-colors duration-500`}>
+                            <span className={`font-syne font-black text-xs uppercase tracking-[0.2em] ${textColor} group-hover:text-[#D83600] transition-colors duration-500`}>
                                 {stat.label}
                             </span>
                             {stat.sub && (

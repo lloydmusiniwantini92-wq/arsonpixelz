@@ -14,7 +14,7 @@ export const ChooseYourTier: React.FC = () => {
     };
 
     return (
-        <div className="mt-20 md:mt-32 relative pt-32 pb-40 px-6 md:px-10 bg-[#FF3E00] overflow-hidden border-t-4 border-b-4 border-black">
+        <div className="mt-20 md:mt-32 relative pt-32 pb-40 px-6 md:px-10 bg-[#D83600] overflow-hidden border-t-4 border-b-4 border-black">
             {/* Noise overlay */}
             <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-[0.2] mix-blend-overlay pointer-events-none" />
 

@@ -126,15 +126,15 @@ const SectorSurveillance = memo(({ active }: { active: boolean }) => {
             <motion.div 
                 animate={active ? { top: ["0%", "100%"] } : { top: ["0%", "0%"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 w-full h-[1px] bg-[#FF3E00]/60 shadow-[0_0_15px_#FF3E00]"
+                className="absolute left-0 w-full h-[1px] bg-[#D83600]/60 shadow-[0_0_15px_#D83600]"
             />
             <div className="absolute top-4 left-4 flex gap-1 animate-pulse">
-                <div className="w-1 h-3 bg-[#FF3E00]/40" />
-                <div className="w-4 h-[1px] bg-[#FF3E00]/40 self-center" />
+                <div className="w-1 h-3 bg-[#D83600]/40" />
+                <div className="w-4 h-[1px] bg-[#D83600]/40 self-center" />
             </div>
             <div className="absolute bottom-4 right-4 flex flex-col items-end opacity-20">
                 <span className="font-mono text-[8px]">FEED_ACTIVE // PORT_8080</span>
-                <div className="w-12 h-[1px] bg-[#FF3E00]" />
+                <div className="w-12 h-[1px] bg-[#D83600]" />
             </div>
         </div>
     );
@@ -154,7 +154,7 @@ const SystemHUD = memo(({ active }: { active: boolean }) => {
 
     return (
         <div className="hidden md:flex flex-col items-center justify-center -translate-y-1">
-            <div className="font-mono text-[8px] tracking-[0.6em] text-[#FF3E00] uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,62,0,0.4)]">
+            <div className="font-mono text-[8px] tracking-[0.6em] text-[#D83600] uppercase mb-1 drop-shadow-[0_0_8px_rgba(255,62,0,0.4)]">
                 {status}
             </div>
             <div className="flex items-center gap-1">
@@ -186,7 +186,7 @@ const ArsonInternalBurn = memo(({ active, dissipating }: { active: boolean; diss
                 <div 
                     className="absolute inset-0"
                     style={{ 
-                        background: 'linear-gradient(45deg, #FF3E00, #FFFFFF, #FF3E00)',
+                        background: 'linear-gradient(45deg, #D83600, #FFFFFF, #D83600)',
                         backgroundSize: '200% 200%',
                         animation: 'arson-burn 3s linear infinite',
                         filter: 'url(#arson-fire-filter)',
@@ -218,16 +218,16 @@ const HeatRipple = memo(({ active }: { active: boolean }) => (
       >
         <div className="relative h-full w-[35vw] min-w-[350px] flex items-center justify-center overflow-visible">
             {/* Core fiery fog - completely boundless massive blur */}
-            <div className="absolute inset-[-80px] bg-gradient-to-l from-transparent via-[#FF3E00]/40 to-transparent blur-[45px]" />
+            <div className="absolute inset-[-80px] bg-gradient-to-l from-transparent via-[#D83600]/40 to-transparent blur-[45px]" />
             
             {/* Organic distortion layer using the arson-fire-filter */}
             <div 
-                className="absolute inset-[-40px] bg-[#FF3E00]/20 blur-[20px] opacity-90" 
+                className="absolute inset-[-40px] bg-[#D83600]/20 blur-[20px] opacity-90" 
                 style={{ filter: 'url(#arson-fire-filter)' }} 
             />
             
             {/* Subtle sweeping accent */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF3E00]/5 to-transparent blur-[10px]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D83600]/5 to-transparent blur-[10px]" />
         </div>
       </motion.div>
     )}
@@ -295,7 +295,7 @@ const TopNavLink = memo(({
             to={href}
             className={cn(
                 "group relative flex flex-col items-center justify-center px-8 md:px-12 h-full transition-all duration-500 pointer-events-auto overflow-visible",
-                isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]" : "text-white",
+                isArsonInfected ? "text-[#D83600] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]" : "text-white",
                 isHeroState && "gap-1"
             )}
             style={{ transform: `translate(${offsetX}px, ${offsetY}px)` }}
@@ -314,7 +314,7 @@ const TopNavLink = memo(({
                 >
                     <Icon className={cn(
                         isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                        isArsonInfected ? 'text-[#FF3E00] opacity-100 drop-shadow-[0_0_24px_rgba(255,62,0,1)]' : 'text-white',
+                        isArsonInfected ? 'text-[#D83600] opacity-100 drop-shadow-[0_0_24px_rgba(255,62,0,1)]' : 'text-white',
                         (label === 'Shop' && isHeroState) ? "w-[16px] h-[16px]" : "w-[24px] h-[24px]"
                     )} 
                     scrolled={scrolled}
@@ -333,7 +333,7 @@ const TopNavLink = memo(({
                     <Icon className={cn(
                         "w-[12px] h-[12px]",
                         isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                        isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,1)]" : (isActive ? "text-[#FF3E00] drop-shadow-[0_0_8px_rgba(255,62,0,0.6)]" : "text-white")
+                        isArsonInfected ? "text-[#D83600] drop-shadow-[0_0_15px_rgba(255,62,0,1)]" : (isActive ? "text-[#D83600] drop-shadow-[0_0_8px_rgba(255,62,0,0.6)]" : "text-white")
                     )} 
                     scrolled={scrolled}
                 />
@@ -342,15 +342,15 @@ const TopNavLink = memo(({
                     "font-mono font-bold uppercase tracking-[0.1em] whitespace-nowrap relative overflow-visible",
                     isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
                     scrolled ? "text-[12px]" : "text-[10px]",
-                    isArsonInfected ? "text-[#FF3E00] drop-shadow-[0_0_20px_rgba(255,62,0,1)]" :
-                    (isActive ? "text-[#FF3E00] drop-shadow-[0_0_5px_rgba(255,62,0,0.4)]" : "text-white/90")
+                    isArsonInfected ? "text-[#D83600] drop-shadow-[0_0_20px_rgba(255,62,0,1)]" :
+                    (isActive ? "text-[#D83600] drop-shadow-[0_0_5px_rgba(255,62,0,0.4)]" : "text-white/90")
                 )}>
                     {label}
                 </span>
             </motion.div>
 
             {hasItems && (
-                <span className="absolute top-1/2 -translate-y-6 right-2 bg-[#FF3E00] text-[#000000] px-1 py-0.5 text-[7px] font-black rounded-sm shadow-[0_0_10px_#FF3E00]">
+                <span className="absolute top-1/2 -translate-y-6 right-2 bg-[#D83600] text-[#000000] px-1 py-0.5 text-[7px] font-black rounded-sm shadow-[0_0_10px_#D83600]">
                     {cartCount}
                 </span>
             )}
@@ -414,7 +414,7 @@ const OriginalLogo = ({
             WebkitMaskPosition: 'center',
             WebkitMaskSize: 'contain',
             background:
-              'linear-gradient(180deg,#FF3E00 0%,#ffffff 45%,#FF3E00 100%)',
+              'linear-gradient(180deg,#D83600 0%,#ffffff 45%,#D83600 100%)',
             filter:
               'drop-shadow(0 0 18px rgba(255,62,0,0.9)) blur(0.5px)',
           }}
@@ -547,7 +547,7 @@ const OriginalLogo = ({
                 WebkitMaskRepeat: 'no-repeat',
                 WebkitMaskPosition: 'center',
                 WebkitMaskSize: 'contain',
-                background: '#FF3E00', 
+                background: '#D83600', 
             }}
           />
         </Link>
@@ -604,12 +604,12 @@ const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }
                 className="relative z-10 flex flex-col items-center"
             >
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-[1px] bg-[#FF3E00]/40" />
+                    <div className="w-8 h-[1px] bg-[#D83600]/40" />
                 </div>
                 <div 
                     className={cn(
                         "uppercase tracking-tighter text-4xl md:text-5xl lg:text-7xl transition-all duration-500 flex flex-col leading-[0.85]",
-                        isHovered ? "text-[#FF3E00] drop-shadow-[0_0_20px_rgba(255,62,0,0.6)]" : "text-white"
+                        isHovered ? "text-[#D83600] drop-shadow-[0_0_20px_rgba(255,62,0,0.6)]" : "text-white"
                     )}
                     style={{ fontFamily: 'Anton, sans-serif' }}
                 >
@@ -621,7 +621,7 @@ const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }
                     <div className="w-8 h-[1px] bg-white/10" />
                 </div>
             </motion.div>
-            {isHovered && <div className="absolute inset-x-0 h-full w-full pointer-events-none bg-gradient-to-b from-transparent via-[#FF3E00]/5 to-transparent top-0 animate-[scan-down_1.5s_linear_infinite]" />}
+            {isHovered && <div className="absolute inset-x-0 h-full w-full pointer-events-none bg-gradient-to-b from-transparent via-[#D83600]/5 to-transparent top-0 animate-[scan-down_1.5s_linear_infinite]" />}
         </Link>
     );
 });
@@ -817,7 +817,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 <Link
                                     to="/"
                                     className="font-black text-base md:text-lg uppercase tracking-tighter leading-none hover:opacity-80 transition-opacity"
-                                    style={{ fontFamily: 'Syne, sans-serif', color: '#FF3E00' }}
+                                    style={{ fontFamily: 'Syne, sans-serif', color: '#D83600' }}
                                 >
                                     ARSON<span className="text-white">_STORE</span>
                                 </Link>
@@ -879,7 +879,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                             onClick={toggleMenu}
                             className={cn(
                                 "relative w-16 md:w-20 flex items-center justify-center group focus:outline-none transition-all duration-[175ms] pointer-events-auto",
-                                infectedIndex === navItems.length && "text-[#FF3E00] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]"
+                                infectedIndex === navItems.length && "text-[#D83600] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]"
                             )}
                             aria-label={isOpen ? "Close menu" : "Open menu"}
                         >
@@ -905,17 +905,17 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 {/* THE FIX: Pure white on load, turns orange when hit, and never goes back */}
                                 <span className={cn(
                                     "block h-[1.5px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
-                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px] bg-white" : (hamburgerInfected ? "w-5 !bg-[#FF3E00]" : "w-5 bg-white"),
+                                    isOpen ? "w-5 rotate-45 translate-y-[6.5px] bg-white" : (hamburgerInfected ? "w-5 !bg-[#D83600]" : "w-5 bg-white"),
                                     infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                                 <span className={cn(
                                     "block h-[1.5px] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                                    isOpen ? "w-0 opacity-0 bg-white" : (hamburgerInfected ? "w-4 opacity-100 !bg-[#FF3E00]" : "w-4 opacity-100 bg-white"),
+                                    isOpen ? "w-0 opacity-0 bg-white" : (hamburgerInfected ? "w-4 opacity-100 !bg-[#D83600]" : "w-4 opacity-100 bg-white"),
                                     infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                                 <span className={cn(
                                     "block h-[1.5px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center",
-                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px] bg-white" : (hamburgerInfected ? "w-3 !bg-[#FF3E00]" : "w-3 bg-white"),
+                                    isOpen ? "w-5 -rotate-45 -translate-y-[6.5px] bg-white" : (hamburgerInfected ? "w-3 !bg-[#D83600]" : "w-3 bg-white"),
                                     infectedIndex === navItems.length && "drop-shadow-[0_0_10px_rgba(255,62,0,1)]"
                                 )} />
                             </div>
@@ -967,7 +967,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                             </div>
                             
                             <div className="flex-1 px-8 md:px-12" />
-                            <button onClick={closeMenu} className="w-20 md:w-24 flex items-center justify-center border-l border-white/5 hover:bg-[#FF3E00] hover:text-white transition-all duration-500 group">
+                            <button onClick={closeMenu} className="w-20 md:w-24 flex items-center justify-center border-l border-white/5 hover:bg-[#D83600] hover:text-white transition-all duration-500 group">
                                 <XMarkIcon className="w-8 h-8 transition-transform duration-500 group-hover:rotate-90" />
                             </button>
                         </div>
@@ -975,7 +975,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                         <div className="flex-1 flex flex-col md:flex-row relative z-20 overflow-hidden min-h-0">
                             <div className="flex-1 border-r border-white/5 flex flex-col relative min-h-0">
                                 <div className="py-8 md:py-12 border-b border-white/5 flex items-center justify-center shrink-0">
-                                    <div className="font-mono text-[#FF3E00] text-[11px] md:text-[13px] tracking-[0.7em] uppercase animate-pulse">
+                                    <div className="font-mono text-[#D83600] text-[11px] md:text-[13px] tracking-[0.7em] uppercase animate-pulse">
                                         COMMAND CENTRE
                                     </div>
                                 </div>
@@ -1002,10 +1002,10 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 {/* Centralized Scroll Indicator */}
                                 <div className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center pointer-events-none z-30">
                                     <div className="flex flex-col items-center gap-1">
-                                        <span className="font-mono text-[#FF3E00] text-[10px] tracking-[0.5em] uppercase animate-pulse mb-[-2px]">
+                                        <span className="font-mono text-[#D83600] text-[10px] tracking-[0.5em] uppercase animate-pulse mb-[-2px]">
                                             SCROLL
                                         </span>
-                                        <svg className="w-4 h-4 text-[#FF3E00] opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                        <svg className="w-4 h-4 text-[#D83600] opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                             <path d="M7 13l5 5 5-5M7 6l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                     </div>
@@ -1034,7 +1034,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                             className="absolute inset-0 bg-[#050505] z-0 flex items-center justify-center p-12"
                                         >
                                             <div className="flex flex-col items-center gap-4">
-                                                <div className="font-mono text-[#FF3E00] text-[10px] md:text-[12px] tracking-[0.8em] uppercase animate-pulse text-center">
+                                                <div className="font-mono text-[#D83600] text-[10px] md:text-[12px] tracking-[0.8em] uppercase animate-pulse text-center">
                                                     AWAITING INPUT...
                                                 </div>
                                             </div>
@@ -1052,7 +1052,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                     <a 
                                         key={social.name} 
                                         href={social.url} 
-                                        className="text-white/40 hover:text-[#FF3E00] transition-colors uppercase"
+                                        className="text-white/40 hover:text-[#D83600] transition-colors uppercase"
                                     >
                                         {social.name}
                                     </a>

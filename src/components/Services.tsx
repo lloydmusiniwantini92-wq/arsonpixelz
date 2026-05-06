@@ -16,11 +16,11 @@ import { BrutalistButton } from './common/BrutalistButton';
 const SchematicTurbine = () => (
     <div className="relative w-full h-full flex items-center justify-center scale-110">
         {/* Cinematic Glow Orbs */}
-        <div className="absolute w-[400px] h-[400px] bg-[#FF3E00]/10 blur-[100px] rounded-full animate-pulse" />
+        <div className="absolute w-[400px] h-[400px] bg-[#D83600]/10 blur-[100px] rounded-full animate-pulse" />
         
         {/* Outer Ring System */}
-        <div className="absolute w-80 h-80 border-2 border-[#FF3E00]/20 rounded-full animate-[spin_15s_linear_infinite]">
-            <div className="absolute top-0 left-1/2 w-4 h-4 bg-[#FF3E00] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_20px_#FF3E00]"></div>
+        <div className="absolute w-80 h-80 border-2 border-[#D83600]/20 rounded-full animate-[spin_15s_linear_infinite]">
+            <div className="absolute top-0 left-1/2 w-4 h-4 bg-[#D83600] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_20px_#D83600]"></div>
             <div className="absolute bottom-0 left-1/2 w-2 h-2 bg-white/20 -translate-x-1/2 translate-y-1/2"></div>
         </div>
         
@@ -29,12 +29,12 @@ const SchematicTurbine = () => (
         </div>
 
         {/* Inner Kinetic Core */}
-        <div className="relative w-48 h-48 border-2 border-[#FF3E00]/40 rounded-full flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FF3E00]/20 to-transparent animate-pulse" />
+        <div className="relative w-48 h-48 border-2 border-[#D83600]/40 rounded-full flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#D83600]/20 to-transparent animate-pulse" />
             {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
-                <div key={i} className="absolute w-[1px] h-full bg-[#FF3E00]/30" style={{ transform: `rotate(${deg}deg)` }}></div>
+                <div key={i} className="absolute w-[1px] h-full bg-[#D83600]/30" style={{ transform: `rotate(${deg}deg)` }}></div>
             ))}
-            <div className="w-16 h-16 bg-white rounded-full mix-blend-difference shadow-[0_0_50px_#FF3E00]"></div>
+            <div className="w-16 h-16 bg-white rounded-full mix-blend-difference shadow-[0_0_50px_#D83600]"></div>
         </div>
         
         <div className="absolute bottom-4 font-mono text-[8px] tracking-[0.6em] text-white/40 font-black uppercase">CORE_IGNITION // ACTIVE</div>
@@ -52,10 +52,10 @@ const SchematicStack = () => (
             <div className="absolute top-0 left-0 w-full h-full border border-white/10 bg-white/[0.03] transform rotate-x-[60deg] rotate-z-[45deg] translate-z-[0px] shadow-2xl backdrop-blur-sm"></div>
             
             {/* Logic Layer (Glow) */}
-            <div className="absolute top-0 left-0 w-full h-full border-2 border-[#FF3E00] bg-[#FF3E00]/5 transform rotate-x-[60deg] rotate-z-[45deg] translate-z-[60px] shadow-[0_0_80px_rgba(255,62,0,0.3)] animate-pulse">
+            <div className="absolute top-0 left-0 w-full h-full border-2 border-[#D83600] bg-[#D83600]/5 transform rotate-x-[60deg] rotate-z-[45deg] translate-z-[60px] shadow-[0_0_80px_rgba(255,62,0,0.3)] animate-pulse">
                 <div className="absolute inset-0 grid grid-cols-8 grid-rows-8 opacity-20">
                     {[...Array(64)].map((_, i) => (
-                        <div key={i} className="border-[0.5px] border-[#FF3E00]"></div>
+                        <div key={i} className="border-[0.5px] border-[#D83600]"></div>
                     ))}
                 </div>
             </div>
@@ -84,7 +84,7 @@ const SchematicRadar = () => (
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     d="M0,90 Q15,85 25,60 T50,45 T75,20 T100,5"
                     fill="none"
-                    stroke="#FF3E00"
+                    stroke="#D83600"
                     strokeWidth="2"
                     className="drop-shadow-[0_0_12px_rgba(255,62,0,0.8)]"
                     vectorEffect="non-scaling-stroke"
@@ -92,11 +92,11 @@ const SchematicRadar = () => (
             </svg>
 
             {/* Scanning Strobe */}
-            <div className="absolute top-0 bottom-0 w-[4px] bg-gradient-to-r from-[#FF3E00] to-transparent shadow-[10px_0_30px_rgba(255,62,0,0.5)] z-20 animate-[scan_3s_linear_infinite]"></div>
+            <div className="absolute top-0 bottom-0 w-[4px] bg-gradient-to-r from-[#D83600] to-transparent shadow-[10px_0_30px_rgba(255,62,0,0.5)] z-20 animate-[scan_3s_linear_infinite]"></div>
             
             {/* Floating Data Nodes */}
             <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-white shadow-[0_0_10px_white] rounded-full animate-ping" />
-            <div className="absolute top-2/3 left-2/3 w-2 h-2 bg-[#FF3E00] shadow-[0_0_10px_#FF3E00] rounded-full animate-ping delay-700" />
+            <div className="absolute top-2/3 left-2/3 w-2 h-2 bg-[#D83600] shadow-[0_0_10px_#D83600] rounded-full animate-ping delay-700" />
         </div>
         <div className="absolute bottom-4 font-mono text-[8px] tracking-[0.6em] text-white/40 font-black uppercase">VELOCITY_METRIC // PEAK</div>
     </div>
@@ -224,7 +224,7 @@ export const Services: React.FC = () => {
                             >
                                 {services[activeService].title.split(' ')[0]}
                                 <br />
-                                <span className="text-[#FF3E00] transition-all duration-700">
+                                <span className="text-[#D83600] transition-all duration-700">
                                     {services[activeService].title.split(' ')[1]}
                                 </span>
                             </h2>
@@ -257,8 +257,8 @@ export const Services: React.FC = () => {
                 <div className="absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-16 items-center">
                     {services.map((_, i) => (
                         <div key={i} className="flex flex-col items-center gap-4 group pointer-events-auto">
-                             <span className={`font-mono text-[10px] font-black transition-all ${activeService === i ? 'text-[#FF3E00] scale-125' : 'text-white/20'}`}>0{i+1}</span>
-                             <div className={`w-[1px] h-12 transition-all duration-500 ${activeService === i ? 'bg-[#FF3E00] h-24' : 'bg-white/10'}`} />
+                             <span className={`font-mono text-[10px] font-black transition-all ${activeService === i ? 'text-[#D83600] scale-125' : 'text-white/20'}`}>0{i+1}</span>
+                             <div className={`w-[1px] h-12 transition-all duration-500 ${activeService === i ? 'bg-[#D83600] h-24' : 'bg-white/10'}`} />
                         </div>
                     ))}
                 </div>

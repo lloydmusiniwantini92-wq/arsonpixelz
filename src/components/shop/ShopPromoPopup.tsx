@@ -58,12 +58,12 @@ export const ShopPromoPopup = () => {
                     className="fixed bottom-12 right-12 z-[500] w-[380px] pointer-events-auto"
                 >
                     {/* ── ARSON BRUTALIST BLOCK ── */}
-                    <div className="relative bg-[#000000] border-4 border-white p-10 shadow-[20px_20px_0px_#FF3E00]">
+                    <div className="relative bg-[#000000] border-4 border-white p-10 shadow-[20px_20px_0px_#D83600]">
                         
                         {/* Close Trigger */}
                         <button 
                             onClick={() => { setIsVisible(false); setHasBeenClosed(true); }}
-                            className="absolute -top-4 -right-4 w-10 h-10 bg-[#FF3E00] border-4 border-white flex items-center justify-center hover:scale-110 transition-transform z-20"
+                            className="absolute -top-4 -right-4 w-10 h-10 bg-[#D83600] border-4 border-white flex items-center justify-center hover:scale-110 transition-transform z-20"
                         >
                             <span className="font-black text-black">X</span>
                         </button>
@@ -73,12 +73,12 @@ export const ShopPromoPopup = () => {
                             <motion.div variants={elementVariants}>
                                 <h4 className="font-black text-6xl leading-[0.85] text-white tracking-tighter uppercase" style={{ fontFamily: 'Anton, sans-serif' }}>
                                     50% <br/>
-                                    <span className="text-[#FF3E00]">OFF_</span>
+                                    <span className="text-[#D83600]">OFF_</span>
                                 </h4>
                             </motion.div>
 
                             {/* Impact Text */}
-                            <motion.div variants={elementVariants} className="border-l-4 border-[#FF3E00] pl-6 py-2">
+                            <motion.div variants={elementVariants} className="border-l-4 border-[#D83600] pl-6 py-2">
                                 <p className="font-mono text-xs font-bold leading-tight text-white/90 uppercase tracking-widest">
                                     INSTITUTIONAL ACCESS GRANTED. VALID FOR SINGLE DEPLOYMENT.
                                 </p>
@@ -88,7 +88,7 @@ export const ShopPromoPopup = () => {
                             <motion.button
                                 variants={elementVariants}
                                 onClick={() => { setIsVisible(false); setHasBeenClosed(true); }}
-                                className="w-full bg-[#FF3E00] text-black font-black py-4 uppercase tracking-[0.2em] text-sm hover:bg-white transition-colors border-2 border-transparent hover:border-black"
+                                className="w-full bg-[#D83600] text-black font-black py-4 uppercase tracking-[0.2em] text-sm hover:bg-white transition-colors border-2 border-transparent hover:border-black"
                             >
                                 SECURE_ACCESS
                             </motion.button>

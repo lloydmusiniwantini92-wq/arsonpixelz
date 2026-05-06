@@ -273,13 +273,13 @@ const GamingPage: React.FC = () => {
 
             {/* ── HERO SECTION with homepage-level background ── */}
             <div className="relative px-6 md:px-12 pt-36 md:pt-48 pb-32 overflow-hidden" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage={GamingHeroBg} showGrid={false} showMask={false} />
+                <PageHeroBackground accentColor="#D83600" backgroundImage={GamingHeroBg} showGrid={false} showMask={false} />
 
 
                 {/* Decorative Plus Icon */}
                 <div
                     ref={plusRef}
-                    className={`absolute right-[15%] top-[15%] text-[20vw] leading-none font-black text-[#FF3E00]/10 select-none pointer-events-none transition-all duration-[2000ms] ease-out z-10 ${loaded ? 'opacity-100 rotate-45' : 'opacity-0 rotate-0'}`}
+                    className={`absolute right-[15%] top-[15%] text-[20vw] leading-none font-black text-[#D83600]/10 select-none pointer-events-none transition-all duration-[2000ms] ease-out z-10 ${loaded ? 'opacity-100 rotate-45' : 'opacity-0 rotate-0'}`}
                 >
                     +
                 </div>
@@ -290,7 +290,7 @@ const GamingPage: React.FC = () => {
                     <div ref={headingRef} className="mb-16 md:mb-24">
                         <div className="overflow-hidden mb-8">
                             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight text-white leading-[0.8]" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
-                                INDUSTRIAL <br /> <span className="text-[#FF3E00]">ENTERTAINMENT</span>
+                                INDUSTRIAL <br /> <span className="text-[#D83600]">ENTERTAINMENT</span>
                             </h1>
                         </div>
                         <div className="overflow-hidden">
@@ -302,7 +302,7 @@ const GamingPage: React.FC = () => {
 
                     {/* Description */}
                     <div ref={descRef} className="max-w-3xl">
-                        <p className="text-lg md:text-3xl font-mono text-white/50 leading-relaxed border-l-8 border-[#FF3E00] pl-10 uppercase font-bold">
+                        <p className="text-lg md:text-3xl font-mono text-white/50 leading-relaxed border-l-8 border-[#D83600] pl-10 uppercase font-bold">
                             WE ARCHITECT IMMERSIVE ECOSYSTEMS. FROM INDIE TITLES TO AAA FRANCHISES, WE ENGINEER THE VISUAL NARRATIVES THAT ANCHOR GLOBAL PLAYER COMMUNITIES.
                         </p>
                     </div>
@@ -318,7 +318,7 @@ const GamingPage: React.FC = () => {
                 {/* Services Grid */}
                 <div ref={cardsRef} className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">
                     {services.map((service, idx) => (
-                        <div key={idx} className="gaming-card group h-[450px] relative overflow-hidden flex flex-col justify-end bg-[#0A0A0A] border border-white/10 p-10 hover:border-[#FF3E00]/60 transition-all duration-700">
+                        <div key={idx} className="gaming-card group h-[450px] relative overflow-hidden flex flex-col justify-end bg-[#0A0A0A] border border-white/10 p-10 hover:border-[#D83600]/60 transition-all duration-700">
                             <img 
                                 src="/gaming_monolith.webp"
                                 alt={service.title}
@@ -337,7 +337,7 @@ const GamingPage: React.FC = () => {
 
                                 <button
                                     onClick={() => handleCheckout(service.stripePriceId)}
-                                    className="px-10 py-5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#FF3E00] hover:text-white transition-all transform active:scale-95"
+                                    className="px-10 py-5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#D83600] hover:text-white transition-all transform active:scale-95"
                                 >
                                     Force Protocol
                                 </button>
@@ -357,7 +357,7 @@ const GamingPage: React.FC = () => {
                         { label: 'AWARDS WON', value: '12+' }
                     ].map((stat, idx) => (
                         <div key={idx} className="stat-node text-center p-6 bg-white/5 rounded-lg border border-white/5">
-                            <div className="text-4xl md:text-5xl font-black text-[#FF3E00] mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
+                            <div className="text-4xl md:text-5xl font-black text-[#D83600] mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {stat.value}
                             </div>
                             <div className="text-xs font-mono text-white/40 uppercase tracking-wider">
@@ -369,7 +369,7 @@ const GamingPage: React.FC = () => {
 
                 {/* CTA */}
                 <div ref={ctaRef} className={`
-                    relative p-8 md:p-14 rounded-2xl bg-gradient-to-br from-[#FF3E00] to-[#E63900]
+                    relative p-8 md:p-14 rounded-2xl bg-gradient-to-br from-[#D83600] to-[#E63900]
                     overflow-hidden
                 `}>
 
@@ -389,7 +389,7 @@ const GamingPage: React.FC = () => {
 
                         <a
                             href="mailto:hello@arsonpixels.com?subject=Gaming%20Project%20Inquiry"
-                            className="group px-8 py-4 bg-white text-[#FF3E00] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-all duration-300 whitespace-nowrap border-2 border-white hover:border-black"
+                            className="group px-8 py-4 bg-white text-[#D83600] rounded-full font-mono font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-all duration-300 whitespace-nowrap border-2 border-white hover:border-black"
                         >
                             <span className="inline-flex items-center gap-2">
                                 START QUEST

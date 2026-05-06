@@ -247,13 +247,13 @@ const BrandingPage: React.FC = () => {
             
             {/* HER0 HEADER */}
             <div className="relative pt-36 md:pt-48 pb-32 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden h-screen flex flex-col justify-center" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage="/site-static/branding/widescreen.png" brightness={1.0} showGrid={false} showMask={false} scale={1} doubleLayer={false} />
+                <PageHeroBackground accentColor="#D83600" backgroundImage="/site-static/branding/widescreen.png" brightness={1.0} showGrid={false} showMask={false} scale={1} doubleLayer={false} />
                 <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-normal leading-[0.95] mb-10 text-white drop-shadow-[0_0_30px_rgba(0,0,0,1)]" style={{ fontFamily: 'Anton, sans-serif' }}>
                         IGNITE <br />
-                        <span className="text-[#FF3E00]">THE BRAND</span>
+                        <span className="text-[#D83600]">THE BRAND</span>
                     </h1>
-                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#FF3E00] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
+                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#D83600] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
                         YOUR BRAND IS THE SIGNAL. WE ARE THE POWER. WE FORGE IDENTITIES THAT BURN INTO THE CULTURAL CONSCIOUSNESS—IMPENETRABLE, IRREFUTABLE, UNFORGETTABLE.
                     </p>
                 </div>
@@ -288,15 +288,15 @@ const BrandingPage: React.FC = () => {
                         pointerEvents: 'none'
                     }}
                 >
-                    BLAND IS A <br/><span className="text-[#FF3E00]">DEATH SENTENCE.</span>
+                    BLAND IS A <br/><span className="text-[#D83600]">DEATH SENTENCE.</span>
                 </h2>
 
                 {/* STAGE 1 CONTENT */}
                 <div ref={philosophyContent1Ref} className="max-w-[100rem] w-full mx-auto px-6 md:px-12 absolute inset-0 flex items-center z-20 opacity-0 pointer-events-none mt-[10vh]">
                     <div className="grid md:grid-cols-2 gap-10 md:gap-20 w-full">
                         {/* Protocol Layer 1: The Warning (New) */}
-                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#FF3E00] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
-                            <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SILENCE IS <br/><span className="text-[#FF3E00]">A VIRUS.</span></h3>
+                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
+                            <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SILENCE IS <br/><span className="text-[#D83600]">A VIRUS.</span></h3>
                             <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed uppercase">
                                 GENERIC BRANDS ARE BACKGROUND NOISE. WE ENGINEER TECTONIC SHIFTS IN PERCEPTION. IF YOUR AUDIENCE ISN'T REACTING, YOU'RE ALREADY DEAD.
                             </p>
@@ -316,8 +316,8 @@ const BrandingPage: React.FC = () => {
                 <div ref={philosophyContent2Ref} className="max-w-[100rem] w-full mx-auto px-6 md:px-12 absolute inset-0 flex items-center z-20 opacity-0 pointer-events-none mt-[10vh]">
                     <div className="grid md:grid-cols-2 gap-10 md:gap-20 w-full">
                         {/* Protocol Layer 3: The Threat */}
-                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#FF3E00] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
-                            <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SAFETY IS <br/><span className="text-[#FF3E00]">TERMINAL.</span></h3>
+                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
+                            <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SAFETY IS <br/><span className="text-[#D83600]">TERMINAL.</span></h3>
                             <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed uppercase">
                                 IN A SATURATED MARKET, WHISPERS ARE ERASED. WE ENGINEER IDENTITIES THAT SCREAM. BY FUSING INDUSTRIAL-GRADE DESIGN WITH PSYCHOLOGICAL DOMINATION, WE CREATE CULTURAL ANCHORS DISGUISED AS MARKS.
                             </p>
@@ -338,7 +338,7 @@ const BrandingPage: React.FC = () => {
             <div className="py-24 md:py-48 px-6 md:px-12 max-w-[100rem] mx-auto">
                 <ScrollReveal staggerIndex={0}>
                     <div className="mb-32">
-                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#FF3E00] mb-6">Execution Modules</h2>
+                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#D83600] mb-6">Execution Modules</h2>
                         <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tight leading-none" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>Strategic Domination</h3>
                     </div>
                 </ScrollReveal>
@@ -361,7 +361,7 @@ const BrandingPage: React.FC = () => {
                                     <div className="absolute inset-0 border-[20px] border-black pointer-events-none z-20" />
                                     <div className="absolute inset-0 border border-white/10 m-8 transition-all duration-500 group-hover:m-6 z-30"></div>
                                     <span className="absolute bottom-10 right-10 text-8xl font-black text-white/10 font-mono select-none z-30">{cap.id}</span>
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-[#FF3E00]/20 rounded-full animate-spin-slow z-30"></div>
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-[#D83600]/20 rounded-full animate-spin-slow z-30"></div>
                                 </ScrollReveal>
                             </div>
 
@@ -377,11 +377,11 @@ const BrandingPage: React.FC = () => {
                                     </p>
                                     
                                     <div className="mb-12">
-                                        <h5 className="font-bold text-sm font-mono uppercase tracking-[0.2em] text-[#FF3E00] mb-6 border-b border-white/5 pb-4">Scope of Work:</h5>
+                                        <h5 className="font-bold text-sm font-mono uppercase tracking-[0.2em] text-[#D83600] mb-6 border-b border-white/5 pb-4">Scope of Work:</h5>
                                         <ul className="grid grid-cols-1 gap-6">
                                             {cap.deliverables.map((item, i) => (
                                                 <li key={i} className="flex items-center group/item">
-                                                    <div className="w-3 h-3 bg-[#FF3E00] mr-4 rounded-full group-hover/item:scale-150 transition-transform shadow-[0_0_10px_rgba(255,62,0,0.5)]"></div>
+                                                    <div className="w-3 h-3 bg-[#D83600] mr-4 rounded-full group-hover/item:scale-150 transition-transform shadow-[0_0_10px_rgba(255,62,0,0.5)]"></div>
                                                     <span className="font-mono text-lg text-white/80 group-hover/item:text-white transition-colors">{item}</span>
                                                 </li>
                                             ))}
@@ -406,7 +406,7 @@ const BrandingPage: React.FC = () => {
                 <div className="max-w-[90rem] mx-auto">
                     <ScrollReveal staggerIndex={0}>
                         <div className="mb-20">
-                            <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#FF3E00] mb-4">The Methodology</h2>
+                            <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase text-[#D83600] mb-4">The Methodology</h2>
                             <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Ignition Sequence</h3>
                         </div>
                     </ScrollReveal>
@@ -415,8 +415,8 @@ const BrandingPage: React.FC = () => {
                         <div className="hidden md:block absolute top-[40px] left-0 w-full h-[2px] bg-white/5 -z-10"></div>
                         {processes.map((step, index) => (
                             <ScrollReveal key={step.num} staggerIndex={index + 1}>
-                                <div className="bg-[#0A0A0A] p-8 md:p-10 border border-white/5 hover:border-[#FF3E00] transition-colors h-full flex flex-col">
-                                    <div className="w-16 h-16 bg-white/5 text-[#FF3E00] font-bold font-mono flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform">
+                                <div className="bg-[#0A0A0A] p-8 md:p-10 border border-white/5 hover:border-[#D83600] transition-colors h-full flex flex-col">
+                                    <div className="w-16 h-16 bg-white/5 text-[#D83600] font-bold font-mono flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform">
                                         {step.num}
                                     </div>
                                     <h4 className="text-2xl font-black uppercase mb-4 text-white">{step.title}</h4>
@@ -432,7 +432,7 @@ const BrandingPage: React.FC = () => {
 
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16">
-                <div ref={ctaRef} className="relative p-8 md:p-14 bg-gradient-to-br from-[#FF3E00] to-[#E63900] overflow-hidden">
+                <div ref={ctaRef} className="relative p-8 md:p-14 bg-gradient-to-br from-[#D83600] to-[#E63900] overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-20 mix-blend-overlay" />
                     <div className="absolute top-0 right-0 p-8 opacity-10">
                         <svg className="w-32 h-32 text-white animate-spin-slow" viewBox="0 0 100 100">

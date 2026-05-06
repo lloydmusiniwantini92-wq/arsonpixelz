@@ -195,13 +195,13 @@ const DevAIPage: React.FC = () => {
             
             {/* HER0 HEADER */}
             <div className="relative pt-36 md:pt-48 pb-32 px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden h-screen flex flex-col justify-center" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage="/site-static/gaming/hero.png" brightness={1.0} showGrid={false} showMask={false} />
+                <PageHeroBackground accentColor="#D83600" backgroundImage="/site-static/gaming/hero.png" brightness={1.0} showGrid={false} showMask={false} />
                 <div className={`transition-all duration-1000 relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <h1 className="hero-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-normal leading-[0.95] mb-10 text-white drop-shadow-[0_0_30px_rgba(0,0,0,1)]" style={{ fontFamily: 'Anton, sans-serif' }}>
                         DIGITAL <br />
-                        <span className="text-[#FF3E00]">ARCHITECTURE</span>
+                        <span className="text-[#D83600]">ARCHITECTURE</span>
                     </h1>
-                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#FF3E00] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
+                    <p className="hero-desc text-lg md:text-3xl font-mono text-white max-w-5xl border-l-8 border-[#D83600] pl-10 uppercase font-bold drop-shadow-[0_4px_10px_rgba(0,0,0,1)]">
                         A BEAUTIFUL FLAME NEEDS A SOLID STRUCTURE TO SUSTAIN IT. WE ARCHITECT ROBUST, SCALABLE PLATFORMS POWERED BY ABSOLUTE ENGINEERING.
                     </p>
                 </div>
@@ -228,7 +228,7 @@ const DevAIPage: React.FC = () => {
                 <div className="max-w-[90rem] mx-auto px-6 md:px-12">
                     <ScrollReveal staggerIndex={0}>
                         <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tight mb-12 text-white/90" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
-                            SCALABILITY IS <span className="text-[#FF3E00]">NOT OPTIONAL.</span>
+                            SCALABILITY IS <span className="text-[#D83600]">NOT OPTIONAL.</span>
                         </h2>
                     </ScrollReveal>
                     <div className="grid md:grid-cols-2 gap-12">
@@ -250,7 +250,7 @@ const DevAIPage: React.FC = () => {
             <div className="py-32 px-6 md:px-12 max-w-[90rem] mx-auto relative z-10">
                 <ScrollReveal staggerIndex={0}>
                     <div className="mb-32">
-                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#FF3E00] mb-6">Engineering Capabilities</h2>
+                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#D83600] mb-6">Engineering Capabilities</h2>
                         <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tight" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>Stack & Infrastructure</h3>
                     </div>
                 </ScrollReveal>
@@ -274,7 +274,7 @@ const DevAIPage: React.FC = () => {
                             {/* Content Side */}
                             <div className={`lg:col-span-7 flex flex-col w-full ${index % 2 !== 0 ? 'lg:col-start-1 lg:col-end-8' : ''}`}>
                                 <div className="flex items-center space-x-4 mb-4">
-                                    <span className="font-mono text-sm font-black text-[#FF3E00] tracking-widest">{`<${cap.id} />`}</span>
+                                    <span className="font-mono text-sm font-black text-[#D83600] tracking-widest">{`<${cap.id} />`}</span>
                                     <span className="font-mono text-[10px] tracking-[0.4em] uppercase opacity-30">{cap.subtitle}</span>
                                 </div>
                                  <h4 className="text-4xl md:text-6xl font-black uppercase tracking-tight mb-8" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>{cap.title}</h4>
@@ -283,11 +283,11 @@ const DevAIPage: React.FC = () => {
                                 </p>
                                 
                                 <div className="mb-12">
-                                     <h5 className="font-black text-sm font-mono uppercase tracking-[0.3em] text-[#FF3E00] mb-6 border-b border-white/5 pb-3">Scope of Work:</h5>
+                                     <h5 className="font-black text-sm font-mono uppercase tracking-[0.3em] text-[#D83600] mb-6 border-b border-white/5 pb-3">Scope of Work:</h5>
                                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         {cap.deliverables.map((item, i) => (
                                             <li key={i} className="flex items-center space-x-3 text-[11px] font-mono text-white/40 uppercase tracking-widest">
-                                                <svg className="w-4 h-4 text-[#FF3E00] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <svg className="w-4 h-4 text-[#D83600] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                 </svg>
                                                 <span>{item}</span>
@@ -309,7 +309,7 @@ const DevAIPage: React.FC = () => {
             </div>
 
                     {/* METHODOLOGY SECTION */}
-                    <div className="py-24 md:py-32 bg-[#FF3E00] text-black relative z-10 border-t border-b border-black/10">
+                    <div className="py-24 md:py-32 bg-[#D83600] text-black relative z-10 border-t border-b border-black/10">
                         <div className="max-w-[90rem] mx-auto px-6 md:px-12">
                             <ScrollReveal staggerIndex={0}>
                                 <div className="mb-20">
@@ -323,7 +323,7 @@ const DevAIPage: React.FC = () => {
                                 {processes.map((step, index) => (
                                     <ScrollReveal key={step.num} staggerIndex={index + 1}>
                                         <div className="bg-black/5 p-10 md:p-12 border border-black/10 hover:border-black/30 transition-all duration-500 h-full flex flex-col group">
-                                            <div className="w-20 h-20 bg-white text-black font-black font-mono flex items-center justify-center text-xl mb-10 border border-black/10 group-hover:bg-black group-hover:text-[#FF3E00] transition-all duration-500">
+                                            <div className="w-20 h-20 bg-white text-black font-black font-mono flex items-center justify-center text-xl mb-10 border border-black/10 group-hover:bg-black group-hover:text-[#D83600] transition-all duration-500">
                                                 {'/* ' + step.num + ' */'}
                                             </div>
                                             <h4 className="text-2xl font-black uppercase mb-6 tracking-tight text-black">{step.title}</h4>
@@ -341,7 +341,7 @@ const DevAIPage: React.FC = () => {
 
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16 pt-16 relative z-30">
-                <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#FF3E00] overflow-hidden">
+                <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#D83600] overflow-hidden">
                     <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-20 mix-blend-overlay" />
 
                     <div className="relative z-10 max-w-2xl">

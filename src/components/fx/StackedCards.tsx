@@ -149,8 +149,8 @@ export const StackedCards: React.FC<StackedCardsProps> = ({ projects, children }
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 1, delay: 0.2 }}
                             >
-                                <div className="h-[2px] w-8 bg-[#FF3E00] shadow-[0_0_10px_#FF3E00]" />
-                                <span className="font-mono text-xs uppercase tracking-[0.5em] text-[#FF3E00] font-black drop-shadow-md">
+                                <div className="h-[2px] w-8 bg-[#D83600] shadow-[0_0_10px_#D83600]" />
+                                <span className="font-mono text-xs uppercase tracking-[0.5em] text-[#D83600] font-black drop-shadow-md">
                                     {project.category}
                                 </span>
                             </motion.div>
@@ -167,13 +167,13 @@ export const StackedCards: React.FC<StackedCardsProps> = ({ projects, children }
                                         {/* HUD Circle Border */}
                                         <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
                                             <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="1" fill="none" className="text-white/10" />
-                                            <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="2" fill="none" strokeDasharray="30 271.8" className="text-[#FF3E00] group-hover/btn:stroke-white transition-all duration-500" />
+                                            <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="2" fill="none" strokeDasharray="30 271.8" className="text-[#D83600] group-hover/btn:stroke-white transition-all duration-500" />
                                         </svg>
-                                        <svg className="w-8 h-8 text-white group-hover/btn:scale-125 group-hover/btn:text-[#FF3E00] transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <svg className="w-8 h-8 text-white group-hover/btn:scale-125 group-hover/btn:text-[#D83600] transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>
                                     </Link>
-                                    <span className="font-mono text-[9px] tracking-[0.3em] text-white/40 uppercase group-hover/btn:text-[#FF3E00] transition-colors mt-2">ACCESS_RECORD</span>
+                                    <span className="font-mono text-[9px] tracking-[0.3em] text-white/40 uppercase group-hover/btn:text-[#D83600] transition-colors mt-2">ACCESS_RECORD</span>
                                 </div>
                             </div>
                         </div>

@@ -33,7 +33,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [inputVal, setInputVal] = useState('');
     const [messages, setMessages] = useState<ChatMessage[]>([
-        { id: 0, from: 'bot', text: "ARSON_INTERFACE live. Creative engines active. Awaiting your move." }
+        { id: 0, from: 'bot', text: "IGNIS_CORE live. Creative engines active. Awaiting your move." }
     ]);
     const [isTyping, setIsTyping] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -302,18 +302,18 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 12, scale: 0.95 }}
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className={`absolute bottom-full mb-4 ${renderedFixed ? 'right-0' : 'left-0'} w-[280px] md:w-[380px] bg-[#000000] border-2 border-[#FF3E00]/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[10001] flex flex-col overflow-hidden`}
+                        className={`absolute bottom-full mb-4 ${renderedFixed ? 'right-0' : 'left-0'} w-[280px] md:w-[380px] bg-[#000000] border-2 border-[#D83600]/30 shadow-[0_20px_60px_rgba(0,0,0,0.8)] z-[10001] flex flex-col overflow-hidden`}
                         style={{ borderRadius: 2 }}
                     >
-                        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#FF3E00]/20 bg-[#0A0A0A]">
-                            <div className="w-12 h-12 rounded-full bg-[#FF3E00] flex items-center justify-center overflow-hidden shrink-0 px-2">
+                        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#D83600]/20 bg-[#0A0A0A]">
+                            <div className="w-12 h-12 rounded-full bg-[#D83600] flex items-center justify-center overflow-hidden shrink-0 px-2">
                                 <img src={PLogo} alt="Bot" className="h-8 w-auto invert object-contain" />
                             </div>
                             <div>
-                                <p className="font-syne text-[10px] font-black uppercase tracking-[0.2em] text-white">ARSON_INTERFACE</p>
+                                <p className="font-syne text-[10px] font-black uppercase tracking-[0.2em] text-white">IGNIS_CORE</p>
                                 <div className="flex items-center gap-1.5 mt-0.5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#FF3E00] animate-pulse" />
-                                    <span className="font-mono text-[8px] uppercase tracking-widest text-[#FF3E00]">Active Intelligence</span>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#D83600] animate-pulse" />
+                                    <span className="font-mono text-[8px] uppercase tracking-widest text-[#D83600]">Active Intelligence</span>
                                 </div>
                             </div>
                             <button
@@ -327,8 +327,8 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                                 <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     <div className={`max-w-[85%] px-3 py-2 font-mono text-[11px] leading-relaxed whitespace-pre-wrap ${
                                         msg.from === 'bot'
-                                            ? 'bg-white/5 text-white/80 border-l-2 border-[#FF3E00]'
-                                            : 'bg-[#FF3E00] text-black font-bold'
+                                            ? 'bg-white/5 text-white/80 border-l-2 border-[#D83600]'
+                                            : 'bg-[#D83600] text-black font-bold'
                                     }`}>
                                         {msg.text}
                                     </div>
@@ -336,10 +336,10 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                             ))}
                             {isTyping && (
                                 <div className="flex justify-start">
-                                    <div className="px-4 py-2 bg-white/5 border-l-2 border-[#FF3E00] flex gap-1 items-center">
-                                        <span className="w-1 h-1 rounded-full bg-[#FF3E00] animate-bounce" style={{ animationDelay: '0ms' }} />
-                                        <span className="w-1 h-1 rounded-full bg-[#FF3E00] animate-bounce" style={{ animationDelay: '150ms' }} />
-                                        <span className="w-1 h-1 rounded-full bg-[#FF3E00] animate-bounce" style={{ animationDelay: '300ms' }} />
+                                    <div className="px-4 py-2 bg-white/5 border-l-2 border-[#D83600] flex gap-1 items-center">
+                                        <span className="w-1 h-1 rounded-full bg-[#D83600] animate-bounce" style={{ animationDelay: '0ms' }} />
+                                        <span className="w-1 h-1 rounded-full bg-[#D83600] animate-bounce" style={{ animationDelay: '150ms' }} />
+                                        <span className="w-1 h-1 rounded-full bg-[#D83600] animate-bounce" style={{ animationDelay: '300ms' }} />
                                     </div>
                                 </div>
                             )}
@@ -357,7 +357,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                             />
                             <button
                                 onClick={handleSend}
-                                className="w-8 h-8 rounded-full bg-[#FF3E00] flex items-center justify-center hover:scale-110 transition-transform shrink-0"
+                                className="w-8 h-8 rounded-full bg-[#D83600] flex items-center justify-center hover:scale-110 transition-transform shrink-0"
                             >
                                 <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-black">
                                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -386,7 +386,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                     >
                         <motion.path
                             d={renderedFixed ? "M90 14 Q70 6 45 14 Q25 20 8 10" : "M0 14 Q20 6 45 14 Q65 20 82 10"}
-                            stroke="#FF3E00"
+                            stroke="#D83600"
                             strokeWidth="2"
                             strokeLinecap="round"
                             fill="none"
@@ -399,7 +399,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                         />
                         <motion.circle
                             cx={renderedFixed ? "8" : "82"} cy="10" r="3"
-                            fill="#FF3E00"
+                            fill="#D83600"
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{
                                 scale: finalArmVisible ? 1 : 0,
@@ -411,16 +411,16 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
 
                     <div className={`
                         relative w-10 h-10 md:w-14 md:h-14 rounded-full
-                        bg-[#FF3E00] border-2
+                        bg-[#D83600] border-2
                         flex items-center justify-center
                         transition-all duration-500 shadow-[0_0_24px_rgba(255,62,0,0.4)]
-                        ${isHovered ? 'border-white scale-110' : 'border-[#FF3E00]/50 scale-100'}
+                        ${isHovered ? 'border-white scale-110' : 'border-[#D83600]/50 scale-100'}
                         ${isOpen ? 'ring-2 ring-white/30' : ''}
                         ${isIdle && !isHovered ? 'animate-[bot-idle-pulse_2s_ease-in-out_infinite]' : ''}
                     `}>
-                        <img src={PLogo} alt="ArsonBot" className="h-8 md:h-12 w-auto invert object-contain px-2" />
+                        <img src={PLogo} alt="IGNIS_CORE" className="h-8 md:h-12 w-auto invert object-contain px-2" />
                         {isIdle && !isScrolling && (
-                            <span className="absolute inset-0 rounded-full border-2 border-[#FF3E00] animate-ping opacity-40 pointer-events-none" />
+                            <span className="absolute inset-0 rounded-full border-2 border-[#D83600] animate-ping opacity-40 pointer-events-none" />
                         )}
                     </div>
                 </div>
@@ -442,7 +442,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                                 ${isHovered ? 'shadow-[0_4px_30px_rgba(255,62,0,0.3)]' : ''}
                             `}
                         >
-                            <div className="w-1.5 h-1.5 rounded-full bg-[#FF3E00] animate-pulse shrink-0" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#D83600] animate-pulse shrink-0" />
                             <AnimatePresence mode="wait">
                                 <motion.span
                                     key={promptIndex}
@@ -453,7 +453,7 @@ export const ArsBot: React.FC<BotInterfaceProps> = ({ loaded, isMenuOpen }) => {
                                     className="font-sans font-bold text-[11px] md:text-[12px] uppercase tracking-wide text-black/80"
                                 >
                                     {currentTarget ? (
-                                        <span className="text-[#FF3E00]">{currentPrompts[promptIndex]}</span>
+                                        <span className="text-[#D83600]">{currentPrompts[promptIndex]}</span>
                                     ) : (
                                         currentPrompts[promptIndex]
                                     )}

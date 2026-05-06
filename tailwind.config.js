@@ -16,7 +16,7 @@ export default {
             colors: {
                 arson: {
                     black: '#000000',
-                    orange: '#FF3E00',
+                    orange: '#D83600',
                     white: '#FFFFFF',
                 }
             },

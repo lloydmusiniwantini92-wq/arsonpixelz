@@ -26,7 +26,7 @@ export const NotFoundPage = () => {
             {/* Background Glitch */}
             <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-10 mix-blend-overlay"></div>
 
-            <h1 className="font-syne font-black text-[#FF3E00] text-[20vw] leading-none opacity-40 select-none tracking-tighter italic">
+            <h1 className="font-syne font-black text-[#D83600] text-[20vw] leading-none opacity-40 select-none tracking-tighter italic">
                 404
             </h1>
 
@@ -40,7 +40,7 @@ export const NotFoundPage = () => {
 
                 <Link
                     to="/"
-                    className="inline-block bg-[#FF3E00] text-black font-syne font-black text-[11px] tracking-[0.4em] uppercase px-12 py-5 hover:bg-white transition-all duration-300 hover:scale-105"
+                    className="inline-block bg-[#D83600] text-black font-syne font-black text-[11px] tracking-[0.4em] uppercase px-12 py-5 hover:bg-white transition-all duration-300 hover:scale-105"
                 >
                     Return to Base
                 </Link>

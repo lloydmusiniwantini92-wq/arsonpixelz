@@ -49,7 +49,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
         >
             {/* ── Top Label Strip ── */}
             <div className="flex items-center justify-between px-4 py-2 border-b border-white/5">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#FF3E00]">
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#D83600]">
                     {assetLabel}
                 </span>
                 <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/25">
@@ -128,7 +128,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
                     <div className="absolute top-3 left-3 z-30">
                         <span
                             className="font-mono text-[8px] font-black uppercase tracking-[0.3em] px-2 py-1 text-black"
-                            style={{ background: '#FF3E00' }}
+                            style={{ background: '#D83600' }}
                         >
                             FEATURED
                         </span>
@@ -152,9 +152,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, as
                     onClick={handleAddToCart}
                     className="flex-shrink-0 font-mono text-[10px] font-black uppercase tracking-[0.2em] px-5 py-2.5 transition-all duration-300 relative overflow-hidden group/btn"
                     style={{
-                        background: isAdded ? '#22c55e' : (isHovered ? '#FF3E00' : 'transparent'),
-                        color: isAdded ? '#050505' : (isHovered ? '#000000' : '#FF3E00'),
-                        border: isAdded ? '1px solid #22c55e' : '1px solid #FF3E00',
+                        background: isAdded ? '#22c55e' : (isHovered ? '#D83600' : 'transparent'),
+                        color: isAdded ? '#050505' : (isHovered ? '#000000' : '#D83600'),
+                        border: isAdded ? '1px solid #22c55e' : '1px solid #D83600',
                     }}
                     whileTap={{ scale: 0.95 }}
                 >

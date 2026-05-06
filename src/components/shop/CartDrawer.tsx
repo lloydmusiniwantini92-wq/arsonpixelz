@@ -30,7 +30,7 @@ export const CartDrawer = () => {
                         {/* Header */}
                         <div className="p-6 border-b border-white/5 flex justify-between items-center bg-[#080808] relative">
                             {/* Branded Orange Vertical Line */}
-                            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#FF3E00]" />
+                            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#D83600]" />
                             <h2 className="text-xl font-black text-white uppercase tracking-tighter font-sans pl-2">
                                 Sector // Armory
                             </h2>
@@ -142,13 +142,13 @@ export const CartDrawer = () => {
                                                 alert("Checkout failed to setup. See console for details.");
                                             }
                                         }}
-                                    className="w-full font-sans text-[11px] font-black uppercase tracking-[0.3em] px-6 py-4 bg-[#FF3E00] text-black hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(255,62,0,0.3)] mb-4"
+                                    className="w-full font-sans text-[11px] font-black uppercase tracking-[0.3em] px-6 py-4 bg-[#D83600] text-black hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(255,62,0,0.3)] mb-4"
                                 >
                                     INITIALIZE CHECKOUT
                                 </button>
                                 <button
                                     onClick={clearCart}
-                                    className="w-full text-[9px] font-mono text-center text-white/20 hover:text-[#FF3E00] uppercase tracking-widest transition-colors duration-200"
+                                    className="w-full text-[9px] font-mono text-center text-white/20 hover:text-[#D83600] uppercase tracking-widest transition-colors duration-200"
                                 >
                                     // FLUSH SYSTEM //
                                 </button>

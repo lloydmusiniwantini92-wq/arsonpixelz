@@ -43,12 +43,12 @@ export const LegalPage = () => {
             <div className="max-w-[1700px] mx-auto relative z-10">
                 
                 {/* ── HEADER BLOCK ── */}
-                <div className="mb-32 border-l-[12px] border-[#FF3E00] pl-12">
-                    <span className="font-mono text-xs font-black tracking-[1em] uppercase text-[#FF3E00] block mb-8">
+                <div className="mb-32 border-l-[12px] border-[#D83600] pl-12">
+                    <span className="font-mono text-xs font-black tracking-[1em] uppercase text-[#D83600] block mb-8">
                         LEGAL.
                     </span>
                     <h1 className="text-7xl md:text-[11rem] font-black uppercase tracking-tighter leading-[0.8] mb-12" style={{ fontFamily: 'Anton, sans-serif' }}>
-                        THE <br /> <span className="text-[#FF3E00]">PROTOCOLS</span>
+                        THE <br /> <span className="text-[#D83600]">PROTOCOLS</span>
                     </h1>
                 </div>
 
@@ -68,17 +68,17 @@ export const LegalPage = () => {
                                     href={`#${link.id}`} 
                                     className="block group relative"
                                 >
-                                    <div className="flex items-center gap-6 py-4 border-b-2 border-white/5 group-hover:border-[#FF3E00] transition-colors">
-                                        <span className="font-mono text-xs font-black text-[#FF3E00] opacity-40 group-hover:opacity-100 transition-opacity">{link.num}</span>
+                                    <div className="flex items-center gap-6 py-4 border-b-2 border-white/5 group-hover:border-[#D83600] transition-colors">
+                                        <span className="font-mono text-xs font-black text-[#D83600] opacity-40 group-hover:opacity-100 transition-opacity">{link.num}</span>
                                         <span className="font-mono text-[11px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-white transition-colors">{link.title}</span>
                                     </div>
-                                    <div className="absolute left-[-12px] top-0 bottom-0 w-1 bg-[#FF3E00] scale-y-0 group-hover:scale-y-100 transition-transform origin-top" />
+                                    <div className="absolute left-[-12px] top-0 bottom-0 w-1 bg-[#D83600] scale-y-0 group-hover:scale-y-100 transition-transform origin-top" />
                                 </a>
                             ))}
                         </nav>
 
                         <div className="mt-20 p-8 border-4 border-white/10 bg-white/[0.02] shadow-[15px_15px_0px_rgba(255,62,0,0.1)]">
-                            <h4 className="font-mono text-[10px] font-black text-[#FF3E00] mb-4 tracking-[0.3em] uppercase">NOTICE:</h4>
+                            <h4 className="font-mono text-[10px] font-black text-[#D83600] mb-4 tracking-[0.3em] uppercase">NOTICE:</h4>
                             <p className="font-mono text-[9px] leading-relaxed text-white/40 uppercase font-bold">
                                 BY REMAINING WITHIN THIS SECTOR, YOU ACCEPT ALL PROTOCOLS. DEVIATION IS NOT PERMITTED.
                             </p>
@@ -91,9 +91,9 @@ export const LegalPage = () => {
                         {/* SECTION 01: TERMS */}
                         <section id="terms" className="relative">
                             <div className="flex items-end gap-6 mb-16">
-                                <span className="font-mono text-5xl font-black text-[#FF3E00] leading-none">01</span>
+                                <span className="font-mono text-5xl font-black text-[#D83600] leading-none">01</span>
                                 <h2 className="font-black text-5xl md:text-7xl uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                    TERMS OF <br/> <span className="text-[#FF3E00]">SERVICE</span>
+                                    TERMS OF <br/> <span className="text-[#D83600]">SERVICE</span>
                                 </h2>
                             </div>
                             <div className="space-y-12 font-mono text-xs md:text-sm font-bold uppercase tracking-wider leading-loose text-white/70">
@@ -104,16 +104,16 @@ export const LegalPage = () => {
                                 </div>
                                 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="border-4 border-white p-8 shadow-[10px_10px_0px_#FF3E00]">
-                                        <h4 className="text-[#FF3E00] mb-4 font-black tracking-widest text-[10px]">PROHIBITED ACTIONS:</h4>
+                                    <div className="border-4 border-white p-8 shadow-[10px_10px_0px_#D83600]">
+                                        <h4 className="text-[#D83600] mb-4 font-black tracking-widest text-[10px]">PROHIBITED ACTIONS:</h4>
                                         <ul className="space-y-4 text-[9px] font-black opacity-60">
                                             <li>- UNAUTHORIZED SYSTEM SCRAPING</li>
                                             <li>- BRAND IDENTITY SPOOFING</li>
                                             <li>- REPRODUCTION WITHOUT LICENSE</li>
                                         </ul>
                                     </div>
-                                    <div className="border-4 border-white p-8 shadow-[10px_10px_0px_#FF3E00]">
-                                        <h4 className="text-[#FF3E00] mb-4 font-black tracking-widest text-[10px]">USER OBLIGATIONS:</h4>
+                                    <div className="border-4 border-white p-8 shadow-[10px_10px_0px_#D83600]">
+                                        <h4 className="text-[#D83600] mb-4 font-black tracking-widest text-[10px]">USER OBLIGATIONS:</h4>
                                         <ul className="space-y-4 text-[9px] font-black opacity-60">
                                             <li>- SECURE AUTHENTICATION</li>
                                             <li>- COMPLIANCE WITH THE BURN</li>
@@ -127,13 +127,13 @@ export const LegalPage = () => {
                         {/* SECTION 02: PRIVACY */}
                         <section id="privacy" className="relative">
                             <div className="flex items-end gap-6 mb-16">
-                                <span className="font-mono text-5xl font-black text-[#FF3E00] leading-none">02</span>
+                                <span className="font-mono text-5xl font-black text-[#D83600] leading-none">02</span>
                                 <h2 className="font-black text-5xl md:text-7xl uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                    PRIVACY <br/> <span className="text-[#FF3E00]">GOVERNANCE</span>
+                                    PRIVACY <br/> <span className="text-[#D83600]">GOVERNANCE</span>
                                 </h2>
                             </div>
                             <div className="space-y-10 font-mono text-xs md:text-sm font-bold uppercase tracking-wider leading-loose text-white/70">
-                                <p className="text-xl text-white font-black italic border-l-4 border-[#FF3E00] pl-8 py-4 bg-white/[0.03]">
+                                <p className="text-xl text-white font-black italic border-l-4 border-[#D83600] pl-8 py-4 bg-white/[0.03]">
                                     "YOUR DATA IS A STRATEGIC ASSET. WE DEFEND IT WITH ABSOLUTE INTENSITY."
                                 </p>
                                 <p className="mb-8">
@@ -142,7 +142,7 @@ export const LegalPage = () => {
                                 <p className="mb-8">
                                     <span className="text-white">2.2 IDENTITY SIGNATURES.</span> PERSONAL DATA PROVIDED VOLUNTARILY (NAME, EMAIL) IS ENCRYPTED VIA AES-256 AND NEVER TRADED TO THIRD-PARTY BROKERS.
                                 </p>
-                                <div className="p-8 border-2 border-white bg-[#FF3E00] text-black">
+                                <div className="p-8 border-2 border-white bg-[#D83600] text-black">
                                     <h4 className="font-black mb-4 tracking-[0.2em]">DATA_ENCRYPTION_STATUS:</h4>
                                     <div className="flex justify-between items-center font-mono text-xs font-black">
                                         <span>IN_TRANSIT: TLS 1.3</span>
@@ -156,9 +156,9 @@ export const LegalPage = () => {
                         {/* SECTION 03: COOKIES */}
                         <section id="cookies" className="relative">
                             <div className="flex items-end gap-6 mb-16">
-                                <span className="font-mono text-5xl font-black text-[#FF3E00] leading-none">03</span>
+                                <span className="font-mono text-5xl font-black text-[#D83600] leading-none">03</span>
                                 <h2 className="font-black text-5xl md:text-7xl uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                    SIGNAL <br/> <span className="text-[#FF3E00]">CONSENT</span>
+                                    SIGNAL <br/> <span className="text-[#D83600]">CONSENT</span>
                                 </h2>
                             </div>
                             <div className="space-y-8 font-mono text-xs md:text-sm font-bold uppercase tracking-wider leading-loose text-white/70">
@@ -174,12 +174,12 @@ export const LegalPage = () => {
                         {/* SECTION 04: DISCLAIMER */}
                         <section id="disclaimer" className="relative">
                             <div className="flex items-end gap-6 mb-16">
-                                <span className="font-mono text-5xl font-black text-[#FF3E00] leading-none">04</span>
+                                <span className="font-mono text-5xl font-black text-[#D83600] leading-none">04</span>
                                 <h2 className="font-black text-5xl md:text-7xl uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                    LIABILITY <br/> <span className="text-[#FF3E00]">LIMITS</span>
+                                    LIABILITY <br/> <span className="text-[#D83600]">LIMITS</span>
                                 </h2>
                             </div>
-                            <div className="p-12 border-4 border-[#FF3E00] bg-black shadow-[20px_20px_0px_white]">
+                            <div className="p-12 border-4 border-[#D83600] bg-black shadow-[20px_20px_0px_white]">
                                 <p className="font-mono text-sm md:text-lg font-black uppercase leading-relaxed text-white tracking-tight">
                                     ARSON PIXELZ IS NOT LIABLE FOR ANY LOSS OF REVENUE, DATA, OR DIGITAL REPUTATION ARISING FROM SYSTEM OVERLOAD, EXCESSIVE EXPOSURE TO HIGH-FIDELITY ASSETS, OR MISUSE OF THE ARMORY MODULES. PROCEED AT YOUR OWN RISK.
                                 </p>

@@ -61,21 +61,21 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
     const shadowColors = {
         black: 'rgba(0,0,0,1)',
         white: 'rgba(255,255,255,1)',
-        orange: '#FF3E00',
+        orange: '#D83600',
         accent: '#D16D6A',
     };
 
     const bgColors = {
         black: 'bg-black text-white',
         white: 'bg-white text-black border border-black/10',
-        orange: 'bg-[#FF3E00] text-white',
+        orange: 'bg-[#D83600] text-white',
     };
 
     const sizes = {
-        sm: 'px-6 py-3 text-xs tracking-[0.2em]',
-        md: 'px-10 py-5 text-sm tracking-[0.3em]',
-        lg: 'px-12 py-6 text-xl tracking-[0.2em]',
-        xl: 'px-16 py-8 text-2xl tracking-[0.1em]',
+        sm: 'px-4 py-2 md:px-6 md:py-3 text-[10px] md:text-xs tracking-[0.15em] md:tracking-[0.2em]',
+        md: 'px-6 py-4 md:px-10 md:py-5 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em]',
+        lg: 'px-8 py-5 md:px-12 md:py-6 text-sm md:text-xl tracking-[0.15em] md:tracking-[0.2em]',
+        xl: 'px-10 py-6 md:px-16 md:py-8 text-lg md:text-2xl tracking-[0.1em]',
     };
 
     const baseColorName = variant;
@@ -101,7 +101,7 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
     
     const hoverText = variant === 'black' ? 'rgb(0,0,0)' : 
                      variant === 'white' ? 'rgb(255,255,255)' : 
-                     '#FF3E00';
+                     '#D83600';
 
     // Core Button Rendering Logic
     const ButtonElement = () => (

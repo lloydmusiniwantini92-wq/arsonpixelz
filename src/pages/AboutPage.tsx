@@ -49,7 +49,7 @@ export const AboutPage = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, filter: 'blur(20px)' }}
             transition={{ duration: 0.8, ease }}
-            className="relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-[#FF3E00] selection:text-black"
+            className="relative bg-[#0a0a0a] text-white overflow-hidden selection:bg-[#D83600] selection:text-black"
         >
             <GrainOverlay />
 
@@ -96,13 +96,13 @@ export const AboutPage = () => {
                         </motion.div>
                         
                         <motion.div variants={itemVariants} className="overflow-visible mix-blend-difference ml-[5vw] md:ml-[15vw]">
-                            <h1 className="text-[clamp(60px,16vw,300px)] text-[#FF3E00] mb-0">DOMINANCE_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT DESIGN.</span></h1>
+                            <h1 className="text-[clamp(60px,16vw,300px)] text-[#D83600] mb-0">DOMINANCE_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT DESIGN.</span></h1>
                         </motion.div>
                         
                         <motion.div variants={itemVariants} className="mt-10 md:mt-20 ml-[10vw]">
                             <div className="flex items-stretch gap-0">
                                 {/* Orange accent bar */}
-                                <div className="w-[2px] bg-[#FF3E00] mr-5 shrink-0" />
+                                <div className="w-[2px] bg-[#D83600] mr-5 shrink-0" />
                                 <div className="flex flex-col gap-2 max-w-[280px] md:max-w-xs">
                                     <p
                                         className="text-[13px] text-black/50 leading-[1.85]"
@@ -111,9 +111,9 @@ export const AboutPage = () => {
                                         Full-spectrum creative agency. Engineered for enterprises that measure success not by presence — but by dominance.
                                     </p>
                                     <div className="flex items-center gap-2 mt-2">
-                                        <div className="w-4 h-[1px] bg-[#FF3E00]" />
+                                        <div className="w-4 h-[1px] bg-[#D83600]" />
                                         <span
-                                            className="text-[9px] text-[#FF3E00] uppercase tracking-[0.35em] font-bold"
+                                            className="text-[9px] text-[#D83600] uppercase tracking-[0.35em] font-bold"
                                             style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                                         >
                                             ARSON PIXELZ
@@ -121,7 +121,7 @@ export const AboutPage = () => {
                                         <motion.span
                                             animate={{ opacity: [1, 0, 1] }}
                                             transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
-                                            className="inline-block w-[5px] h-[10px] bg-[#FF3E00] ml-1"
+                                            className="inline-block w-[5px] h-[10px] bg-[#D83600] ml-1"
                                         />
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@ export const AboutPage = () => {
                         >
                             <motion.span 
                                 variants={itemVariants}
-                                className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#FF3E00]"
+                                className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#D83600]"
                                 style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                             >
                                 THE_DOCTRINE
@@ -168,7 +168,7 @@ export const AboutPage = () => {
                             
                             <motion.p 
                                 variants={itemVariants}
-                                className="text-white/60 font-mono text-sm tracking-widest uppercase leading-loose border-l border-[#FF3E00] pl-6"
+                                className="text-white/60 font-mono text-sm tracking-widest uppercase leading-loose border-l border-[#D83600] pl-6"
                             >
                                 We don't iterate on your competitors. We erase them. Traditional agencies play it safe, they A/B test until the soul is sanded off. We deploy high-contrast, hyper-optimized frameworks built to dominate attention spans and monopolize your market share.
                             </motion.p>
@@ -195,7 +195,7 @@ export const AboutPage = () => {
                         
                         {/* Overlapping Text Label */}
                         <div 
-                            className="absolute -bottom-10 -left-10 lg:-left-32 uppercase font-black tracking-tighter text-[#FF3E00] mix-blend-screen pointer-events-none"
+                            className="absolute -bottom-10 -left-10 lg:-left-32 uppercase font-black tracking-tighter text-[#D83600] mix-blend-screen pointer-events-none"
                             style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(60px, 12vw, 180px)', lineHeight: 0.8 }}
                         >
                             STUDIO
@@ -207,7 +207,7 @@ export const AboutPage = () => {
             {/* ═══════════════════════════════════════════════════════════════
                 METHODOLOGY — INDUSTRIAL DATA TABLE
             ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-32 px-6 md:px-12 bg-[#FF3E00] text-black">
+            <section className="py-32 px-6 md:px-12 bg-[#D83600] text-black">
                 <div className="max-w-[1900px] mx-auto">
                     <motion.div 
                         initial="hidden" 
@@ -251,7 +251,7 @@ export const AboutPage = () => {
                                 <div className="absolute inset-x-0 bottom-0 h-0 bg-white group-hover:h-full transition-all duration-700 ease-out z-0" />
                                 
                                 <div className="relative z-10 w-full lg:w-[15%] px-6">
-                                    <span className="font-anton text-4xl lg:text-6xl text-black group-hover:text-[#FF3E00] transition-colors">{phase.step}</span>
+                                    <span className="font-anton text-4xl lg:text-6xl text-black group-hover:text-[#D83600] transition-colors">{phase.step}</span>
                                 </div>
                                 <div className="relative z-10 w-full lg:w-[40%] px-6 mt-4 lg:mt-0">
                                     <h3 
@@ -306,7 +306,7 @@ export const AboutPage = () => {
                             >
                                 <div className="md:col-span-2">
                                     <span 
-                                        className="text-[#FF3E00] text-3xl font-black"
+                                        className="text-[#D83600] text-3xl font-black"
                                         style={{ fontFamily: 'Anton, sans-serif' }}
                                     >
                                         {log.year}
@@ -347,7 +347,7 @@ export const AboutPage = () => {
 
                 <div className="relative z-10 text-center flex flex-col items-center">
                     <span 
-                        className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#FF3E00]"
+                        className="block text-[10px] font-bold tracking-[1.5em] uppercase mb-12 text-[#D83600]"
                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                     >
                         INITIATE SEQUENCE
@@ -357,7 +357,7 @@ export const AboutPage = () => {
                         style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(50px, 10vw, 150px)' }}
                     >
                         PREPARE FOR<br/>
-                        <span className="text-[#FF3E00]">IGNITION.</span>
+                        <span className="text-[#D83600]">IGNITION.</span>
                     </h2>
                     
                     <BrutalistButton 

@@ -140,7 +140,7 @@ export const Work: React.FC = () => {
   }, [hash, lenis]);
 
   return (
-    <section id="work-section" className="relative w-full bg-[#050505] border-y border-white/5 font-sans selection:bg-[#FF3E00] selection:text-white z-[40] overflow-hidden">
+    <section id="work-section" className="relative w-full bg-[#050505] border-y border-white/5 font-sans selection:bg-[#D83600] selection:text-white z-[40] overflow-hidden">
       {/* ── MOBILE: UNIFIED BRUTALIST SECTOR CARDS (Hidden on LG) ── */}
       <div className="lg:hidden flex flex-col w-full bg-[#050505]">
         <div className="px-6 pt-24 pb-12 border-b border-white/5 text-center bg-[#050505]">
@@ -168,7 +168,7 @@ export const Work: React.FC = () => {
             <div className="relative z-10 flex-1 flex flex-col justify-end p-8 pb-16">
               <div className="mb-8 flex flex-col items-start gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 bg-[#FF3E00] animate-pulse" />
+                  <div className="w-1.5 h-1.5 bg-[#D83600] animate-pulse" />
                   <span className="text-white/40 font-mono text-[9px] tracking-[0.4em] uppercase">
                     SECTOR_ACCESS_OPEN_{project.number}
                   </span>
@@ -182,7 +182,7 @@ export const Work: React.FC = () => {
                 {project.title1}<br />{project.title2}
               </h3>
 
-              <p className="font-mono text-[10px] text-white/40 leading-relaxed uppercase tracking-widest mb-10 max-w-[90%] border-l-2 border-[#FF3E00] pl-5">
+              <p className="font-mono text-[10px] text-white/40 leading-relaxed uppercase tracking-widest mb-10 max-w-[90%] border-l-2 border-[#D83600] pl-5">
                 {project.description}
               </p>
 
@@ -201,7 +201,7 @@ export const Work: React.FC = () => {
             <div className="absolute top-6 right-6 z-20 pointer-events-none opacity-10">
               <div className="flex flex-col items-end gap-1.5">
                 <div className="w-16 h-[1px] bg-white" />
-                <div className="w-10 h-[2px] bg-[#FF3E00]" />
+                <div className="w-10 h-[2px] bg-[#D83600]" />
               </div>
             </div>
           </div>
@@ -253,11 +253,11 @@ export const Work: React.FC = () => {
                   style={{ transformOrigin: 'top' }}
                 >
                   {/* Tracking Line */}
-                  <div className={`absolute left-0 top-0 h-full w-1 transition-all duration-500 ${isActive ? 'bg-[#FF3E00]' : 'bg-transparent'}`} />
+                  <div className={`absolute left-0 top-0 h-full w-1 transition-all duration-500 ${isActive ? 'bg-[#D83600]' : 'bg-transparent'}`} />
 
                   <div className={`transition-transform duration-500 ${isActive ? 'scale-105' : 'scale-100'}`}>
                     <div className="flex justify-between items-center w-full mb-3">
-                        <span className={`font-mono text-[10px] uppercase tracking-[0.3em] font-bold ${isActive ? 'text-[#FF3E00]' : 'text-white/40'}`}>
+                        <span className={`font-mono text-[10px] uppercase tracking-[0.3em] font-bold ${isActive ? 'text-[#D83600]' : 'text-white/40'}`}>
                             {project.number} // {project.type}
                         </span>
                     </div>
@@ -297,7 +297,7 @@ export const Work: React.FC = () => {
                   alt={activeProject.mainImageAlt}
                   className="w-full h-full object-cover filter brightness-75 contrast-110 group-hover/visual:scale-105 transition-transform duration-[20s] ease-out origin-center"
                 />
-                <div className="absolute inset-0 bg-[#FF3E00]/10 mix-blend-multiply group-hover/visual:bg-black/20 transition-all duration-700 pointer-events-none" />
+                <div className="absolute inset-0 bg-[#D83600]/10 mix-blend-multiply group-hover/visual:bg-black/20 transition-all duration-700 pointer-events-none" />
               </motion.div>
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none z-10" />
@@ -324,7 +324,7 @@ export const Work: React.FC = () => {
             <div className="absolute top-4 right-4 opacity-20">
               <div className="flex flex-col items-end gap-1">
                 <div className="w-12 h-[1px] bg-white" />
-                <div className="w-8 h-[1px] bg-[#FF3E00]" />
+                <div className="w-8 h-[1px] bg-[#D83600]" />
               </div>
             </div>
 
@@ -336,7 +336,7 @@ export const Work: React.FC = () => {
                 transition={{ duration: 1.2, delay: 0.6, type: 'spring', bounce: 0.3 }}
                 className="absolute bottom-12 left-12 max-w-sm pointer-events-auto"
             >
-              <p className="font-mono text-[12px] font-bold text-white/70 leading-relaxed uppercase tracking-[0.2em] border-l border-[#FF3E00] pl-4 drop-shadow-xl">
+              <p className="font-mono text-[12px] font-bold text-white/70 leading-relaxed uppercase tracking-[0.2em] border-l border-[#D83600] pl-4 drop-shadow-xl">
                 {activeProject.description}
               </p>
             </motion.div>

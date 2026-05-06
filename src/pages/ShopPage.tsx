@@ -54,7 +54,7 @@ const ShopPage = () => {
 
     return (
         <div
-            className="min-h-screen text-white selection:bg-[#FF3E00] selection:text-black"
+            className="min-h-screen text-white selection:bg-[#D83600] selection:text-black"
             style={{ background: '#000000', fontFamily: 'Inter, sans-serif' }}
         >
 
@@ -88,7 +88,7 @@ const ShopPage = () => {
                         <blockquote
                             className="font-black text-4xl md:text-7xl xl:text-[7.5rem] uppercase leading-[0.85] tracking-[-0.05em] mb-12 font-['Space_Grotesk'] max-w-6xl mx-auto"
                         >
-                            "WE ARE NOT JUST <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>BUILDING</span> SYSTEMS, <br/> WE ARE <span className="text-[#FF3E00]">ENGINEERING</span> DIGITAL FORTRESSES"
+                            "WE ARE NOT JUST <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>BUILDING</span> SYSTEMS, <br/> WE ARE <span className="text-[#D83600]">ENGINEERING</span> DIGITAL FORTRESSES"
                         </blockquote>
                     </motion.div>
                 </div>
@@ -109,10 +109,10 @@ const ShopPage = () => {
                             <button 
                                 key={l.label} 
                                 onClick={() => navigate(l.path)}
-                                className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-white/40 hover:text-[#FF3E00] transition-colors relative group py-2"
+                                className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-white/40 hover:text-[#D83600] transition-colors relative group py-2"
                             >
                                 {l.label}
-                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#FF3E00] group-hover:w-full transition-all" />
+                                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#D83600] group-hover:w-full transition-all" />
                             </button>
                         ))}
                     </div>
@@ -126,7 +126,7 @@ const ShopPage = () => {
                         ].map((social, i) => (
                             <button 
                                 key={i}
-                                className="group p-2 text-white/40 hover:text-[#FF3E00] transition-all duration-300"
+                                className="group p-2 text-white/40 hover:text-[#D83600] transition-all duration-300"
                                 aria-label={social.label}
                             >
                                 <social.icon size={20} className="group-hover:scale-110 transition-transform" />
@@ -136,7 +136,7 @@ const ShopPage = () => {
                 </div>
                 
                 {/* Visual anchor bar */}
-                <div className="h-1.5 w-full bg-[#FF3E00]" />
+                <div className="h-1.5 w-full bg-[#D83600]" />
             </footer>
 
             <CartDrawer />

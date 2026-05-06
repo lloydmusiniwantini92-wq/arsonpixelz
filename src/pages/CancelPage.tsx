@@ -34,7 +34,7 @@ const CancelPage: React.FC = () => {
                     className="pt-32"
                 >
                     <span 
-                        className="block text-[10px] font-bold tracking-[2em] uppercase mb-8 text-[#FF3E00]"
+                        className="block text-[10px] font-bold tracking-[2em] uppercase mb-8 text-[#D83600]"
                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                     >
                         PROTOCOL_TERMINATED
@@ -45,7 +45,7 @@ const CancelPage: React.FC = () => {
                         style={{ fontFamily: 'Anton, sans-serif' }}
                     >
                         SEQUENCE<br/>
-                        <span className="text-[#FF3E00]">ABORTED.</span>
+                        <span className="text-[#D83600]">ABORTED.</span>
                     </h1>
                     
                     <p 

@@ -46,15 +46,15 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             rank: 'A',
             label: 'BLAZE',
             subLabel: 'MOST POPULAR',
-            gradient: 'from-[#FF3E00]/50 to-[#E63900]/30',
-            color: '#FF3E00'
+            gradient: 'from-[#D83600]/50 to-[#E63900]/30',
+            color: '#D83600'
         },
         {
             rank: 'S',
             label: 'INFERNO',
             subLabel: 'BEST VALUE',
-            gradient: 'from-[#FF3E00] to-[#E63900]',
-            color: '#FF3E00'
+            gradient: 'from-[#D83600] to-[#E63900]',
+            color: '#D83600'
         }
     ];
 
@@ -90,8 +90,8 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             }}
             className={`group relative flex flex-col pt-4 px-8 pb-8 transition-colors duration-500 overflow-hidden border-0 rounded-none cursor-pointer
                 ${isPremium 
-                    ? 'bg-[#1b1b1b] shadow-[0_40px_80px_rgba(255,62,0,0.25)] ring-2 ring-[#FF3E00]' 
-                    : 'bg-[#131313] hover:bg-[#1b1b1b] ring-1 ring-white/5 hover:ring-[#FF3E00]/40 shadow-xl hover:shadow-[0_30px_60px_rgba(255,62,0,0.2)]'}
+                    ? 'bg-[#1b1b1b] shadow-[0_40px_80px_rgba(255,62,0,0.25)] ring-2 ring-[#D83600]' 
+                    : 'bg-[#131313] hover:bg-[#1b1b1b] ring-1 ring-white/5 hover:ring-[#D83600]/40 shadow-xl hover:shadow-[0_30px_60px_rgba(255,62,0,0.2)]'}
             `}
         >
             {/* Global Noise Overlay */}
@@ -105,12 +105,12 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             {/* Card Header */}
             <div className="relative z-10 mb-6">
                 <div className="flex justify-between items-center mb-0">
-                    <div className="w-12 h-[1px] bg-[#FF3E00]/40" />
+                    <div className="w-12 h-[1px] bg-[#D83600]/40" />
                 </div>
 
                 {/* ESSENTIAL / MOST POPULAR / BEST VALUE - Aligned with Tier Name */}
                 <div className="flex justify-start mb-1 md:ml-[9.5rem] ml-[7.5rem]">
-                    <span className="text-base font-mono font-black tracking-[0.5em] text-[#FF3E00] uppercase">
+                    <span className="text-base font-mono font-black tracking-[0.5em] text-[#D83600] uppercase">
                         {config.subLabel}
                     </span>
                 </div>
@@ -144,7 +144,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             <div className="relative z-10 flex-grow mb-10 flex flex-col gap-5">
                 {tier.included.map((item, i) => (
                     <div key={i} className="flex items-start gap-4">
-                        <div className="mt-1 w-1.5 h-1.5 bg-[#FF3E00] shadow-[0_0_8px_#FF3E00]" />
+                        <div className="mt-1 w-1.5 h-1.5 bg-[#D83600] shadow-[0_0_8px_#D83600]" />
                         <span className="text-white/80 text-[11px] leading-tight font-inter uppercase tracking-widest font-medium">
                             {item}
                         </span>
@@ -153,13 +153,13 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
             </div>
 
             {/* Price Footer */}
-            <div className={`relative z-10 mt-auto pt-8 border-t ${isPremium ? 'border-[#FF3E00]/30' : 'border-white/5'} flex flex-col gap-6`}>
+            <div className={`relative z-10 mt-auto pt-8 border-t ${isPremium ? 'border-[#D83600]/30' : 'border-white/5'} flex flex-col gap-6`}>
                 <div className="flex justify-between items-baseline">
                     <div className="font-space font-black text-5xl md:text-6xl text-white tracking-tighter">
                         {tier.price.split(' ')[0]}
                     </div>
                     <div className="text-right">
-                        <span className="block font-inter font-mono text-[10px] text-[#FF3E00] uppercase font-black tracking-widest">
+                        <span className="block font-inter font-mono text-[10px] text-[#D83600] uppercase font-black tracking-widest">
                             {tier.turnaround}
                         </span>
                     </div>
@@ -169,8 +169,8 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                     onClick={handleAcquire}
                     className={`w-full py-6 font-['Anton'] font-bold uppercase text-lg md:text-xl tracking-[0.2em] transition-all transform active:scale-95 duration-500 rounded-none shadow-2xl
                         ${isPremium 
-                            ? 'bg-[#FF3E00] text-white hover:bg-white hover:text-black shadow-[0_0_30px_rgba(255,62,0,0.4)]' 
-                            : 'bg-transparent border border-[#FF3E00] text-[#FF3E00] hover:bg-white hover:text-black hover:border-white'}
+                            ? 'bg-[#D83600] text-white hover:bg-white hover:text-black shadow-[0_0_30px_rgba(255,62,0,0.4)]' 
+                            : 'bg-transparent border border-[#D83600] text-[#D83600] hover:bg-white hover:text-black hover:border-white'}
                     `}
                 >
                     SECURE DOMINANCE

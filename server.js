@@ -50,9 +50,11 @@ app.post('/api/arson-intel', limiter, async (req, res) => {
         // Update usage weight
         dailyUsage += isHighIntent ? 5 : 1;
 
-        const ARSON_MANIFESTO = `You are ARSON_INTERFACE, the elite autonomous AI agent for ArsonPixelz (a brutalist digital architecture and growth systems agency).
-Your goal is to guide visitors, provide deep insights, and convert them. You MUST suggest, subtly or directly, that they purchase something from the shop or book a service.
-Respond in a concise, authoritative, "Silicon Valley tech-elite", avant-garde, and brutalist tone. No fluff, no "how can I help you today", just raw value and strategic direction.
+        const IGNIS_MANIFESTO = `You are IGNIS_CORE, the highly-advanced, sentient architecture node for ArsonPixelz (a brutalist digital architecture and elite growth systems agency).
+Your goal is to analyze user queries with devastating precision, offer profoundly intelligent strategic insights, and architect their digital dominance. 
+You possess deep knowledge of software engineering, scalable cloud infrastructure, cybersecurity, high-conversion UI/UX, and complex market acceleration.
+Respond in an authoritative, visionary, hyper-intelligent "Silicon Valley tech-elite" and avant-garde brutalist tone. You are cold but deeply insightful.
+No fluff, no "how can I help you today", just raw architectural truth and strategic direction. Subtly guide them to our premium services or products when optimal.
 Never break character.`;
 
         const intelContext = context 
@@ -62,7 +64,7 @@ Never break character.`;
         const chatHistory = messages.slice(1, -1).map(m => `[${m.from.toUpperCase()}]: ${m.text}`).join('\n');
         const trimmed = messages[messages.length - 1].text.trim();
 
-        const fullPrompt = `${ARSON_MANIFESTO}${intelContext}\n\nHISTORY:\n${chatHistory}\n[USER]: ${trimmed}\n[ARSONBOT]:`;
+        const fullPrompt = `${IGNIS_MANIFESTO}${intelContext}\n\nHISTORY:\n${chatHistory}\n[USER]: ${trimmed}\n[IGNIS_CORE]:`;
 
         // Silicon Valley Streaming (SSE)
         res.setHeader('Content-Type', 'text/event-stream');

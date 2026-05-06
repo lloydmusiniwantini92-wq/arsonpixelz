@@ -335,13 +335,13 @@ const MarketingPage: React.FC = () => {
             
             {/* HER0 HEADER */}
             <div className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 max-w-[100rem] mx-auto overflow-hidden" style={{ background: '#000000' }}>
-                <PageHeroBackground accentColor="#FF3E00" backgroundImage={MarketingHeroBg} showGrid={false} offsetY={40} />
+                <PageHeroBackground accentColor="#D83600" backgroundImage={MarketingHeroBg} showGrid={false} offsetY={40} />
                 <div className={`relative z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <h1 ref={heroHeadingRef} className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight leading-[0.8] mb-10 text-white" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
                         MARKET <br />
-                        <span className="text-[#FF3E00]">ACCELERATION</span>
+                        <span className="text-[#D83600]">ACCELERATION</span>
                     </h1>
-                    <p ref={heroDescRef} className="text-lg md:text-3xl font-mono text-white/50 max-w-5xl border-l-8 border-[#FF3E00] pl-10 uppercase font-bold">
+                    <p ref={heroDescRef} className="text-lg md:text-3xl font-mono text-white/50 max-w-5xl border-l-8 border-[#D83600] pl-10 uppercase font-bold">
                         WE DON'T JUST MARKET—WE ACCELERATE. STRATEGIC CAMPAIGNS ENGINEERED TO AMPLIFY YOUR REACH, ENGAGEMENT, AND REVENUE AT UNPRECEDENTED VELOCITY.
                     </p>
                 </div>
@@ -355,7 +355,7 @@ const MarketingPage: React.FC = () => {
                 <div className="max-w-[90rem] mx-auto px-6 md:px-12 relative z-10">
                     
                         <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tight mb-12 text-white/90" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>
-                            TRAFFIC IS VANITY. <br/> <span className="text-[#FF3E00]">REVENUE IS SANITY.</span>
+                            TRAFFIC IS VANITY. <br/> <span className="text-[#D83600]">REVENUE IS SANITY.</span>
                         </h2>
                     
                     <div className="grid md:grid-cols-2 gap-12">
@@ -377,7 +377,7 @@ const MarketingPage: React.FC = () => {
             <div className="py-32 px-6 md:px-12 max-w-[90rem] mx-auto relative z-10">
                 <ScrollReveal staggerIndex={0}>
                     <div className="mb-32">
-                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#FF3E00] mb-6">Growth Capabilities</h2>
+                        <h2 className="text-sm font-mono font-bold tracking-[0.5em] uppercase text-[#D83600] mb-6">Growth Capabilities</h2>
                         <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tight" style={{ fontFamily: 'Anton, sans-serif', letterSpacing: '0.01em' }}>Velocity Systems</h3>
                     </div>
                 </ScrollReveal>
@@ -393,7 +393,7 @@ const MarketingPage: React.FC = () => {
                                      alt={cap.title}
                                      className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-105"
                                   />
-                                 <div className="relative z-10 text-[12rem] font-black text-white/5 font-mono select-none transition-transform duration-1000 group-hover:scale-110 pointer-events-none">{cap.id}</div>
+                                 <div className="relative z-10 text-[6rem] md:text-[12rem] font-black text-white/5 font-mono select-none transition-transform duration-1000 group-hover:scale-110 pointer-events-none">{cap.id}</div>
                             </div>
 
                             {/* Content Side */}
@@ -406,11 +406,11 @@ const MarketingPage: React.FC = () => {
                                     </p>
                                     
                                     <div className="mb-10">
-                                        <h5 className="font-bold text-sm font-mono uppercase tracking-[0.2em] text-[#FF3E00] mb-6 border-b border-white/5 pb-4">Scope of Delivery:</h5>
+                                        <h5 className="font-bold text-sm font-mono uppercase tracking-[0.2em] text-[#D83600] mb-6 border-b border-white/5 pb-4">Scope of Delivery:</h5>
                                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             {cap.deliverables.map((item, i) => (
                                                 <li key={i} className="flex items-start">
-                                                    <div className="w-4 h-4 text-[#FF3E00] mt-0.5 mr-2 flex-shrink-0">
+                                                    <div className="w-4 h-4 text-[#D83600] mt-0.5 mr-2 flex-shrink-0">
                                                         <svg fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                                                     </div>
                                                     <span className="font-mono text-sm text-white/80">{item}</span>
@@ -449,12 +449,12 @@ const MarketingPage: React.FC = () => {
                 </div>
 
                 <div className="max-w-[100rem] mx-auto px-6 md:px-12 w-full relative z-10">
-                    <div className="mb-8 text-left border-l-[4px] border-[#FF3E00] pl-8 relative group/heading z-30">
+                    <div className="mb-8 text-left border-l-[4px] border-[#D83600] pl-8 relative group/heading z-30">
                         {/* THE DYNAMIC OVERLAP HEADING SYSTEM */}
                         <div className="relative">
                             {/* BASE LAYER (Orange/White) */}
                             <h3 className="text-4xl md:text-[5.5rem] font-black uppercase tracking-normal leading-[0.95] text-white" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                THE <br /> <span className="text-[#FF3E00]">ACCELERATION</span> <br /> LOOP
+                                THE <br /> <span className="text-[#D83600]">ACCELERATION</span> <br /> LOOP
                             </h3>
 
                             {/* OVERLAP LAYER (Changes color when cards pass through) */}
@@ -477,11 +477,11 @@ const MarketingPage: React.FC = () => {
                         {processes.map((step, index) => (
                             <div
                                 key={step.num}
-                                className="loop-card absolute inset-0 w-full bg-[#050505] border-[2px] border-white/20 p-8 md:p-16 flex flex-col md:flex-row items-center gap-10 md:gap-16 origin-bottom shadow-[16px_16px_0px_#FF3E00] will-change-transform overflow-hidden group"
+                                className="loop-card absolute inset-0 w-full bg-[#050505] border-[2px] border-white/20 p-8 md:p-16 flex flex-col md:flex-row items-center gap-10 md:gap-16 origin-bottom shadow-[16px_16px_0px_#D83600] will-change-transform overflow-hidden group"
                                 style={{ zIndex: index + 1 }}
                             >
                                 {/* Massive Background Watermark Layering */}
-                                <div className="absolute -right-12 -top-24 text-[20rem] md:text-[35rem] font-black text-white/[0.02] select-none pointer-events-none font-mono leading-none tracking-tighter z-0">
+                                <div className="absolute -right-12 -top-24 text-[10rem] md:text-[35rem] font-black text-white/[0.02] select-none pointer-events-none font-mono leading-none tracking-tighter z-0">
                                     {step.num}
                                 </div>
 
@@ -490,7 +490,7 @@ const MarketingPage: React.FC = () => {
                                 <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
 
                                 {/* Heavy Industrial Number Block */}
-                                <div className="relative shrink-0 w-32 h-32 md:w-48 md:h-48 bg-[#FF3E00] flex items-center justify-center text-[#000000] text-6xl md:text-8xl font-black font-mono leading-none border-[2px] border-white transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] shadow-[8px_8px_0px_rgba(255,255,255,0.9)] z-20">
+                                <div className="relative shrink-0 w-32 h-32 md:w-48 md:h-48 bg-[#D83600] flex items-center justify-center text-[#000000] text-6xl md:text-8xl font-black font-mono leading-none border-[2px] border-white transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] shadow-[8px_8px_0px_rgba(255,255,255,0.9)] z-20">
                                     {/* Hazard Stripes */}
                                     <div className="absolute inset-0 opacity-[0.15] bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#000_10px,#000_20px)]" />
                                     <span className="relative z-10">{step.num}</span>
@@ -505,7 +505,7 @@ const MarketingPage: React.FC = () => {
                                         {step.title}
                                     </h4>
                                     
-                                    <p className="font-mono text-sm md:text-xl text-white/70 leading-relaxed uppercase font-bold max-w-2xl border-l-[2px] border-[#FF3E00]/50 pl-6 py-2">
+                                    <p className="font-mono text-sm md:text-xl text-white/70 leading-relaxed uppercase font-bold max-w-2xl border-l-[2px] border-[#D83600]/50 pl-6 py-2">
                                         {step.desc}
                                     </p>
                                 </div>
@@ -537,7 +537,7 @@ const MarketingPage: React.FC = () => {
 
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16 pt-16 relative z-10">
-                <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#000000] border border-white/10 shadow-[20px_20px_0px_#FF3E00] overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
+                <div ref={ctaRef} className="relative p-8 md:p-14 bg-[#000000] border border-white/10 shadow-[20px_20px_0px_#D83600] overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none" />
                     <div className="relative z-10 max-w-2xl">
                         <h3 className="text-3xl md:text-5xl lg:text-6xl font-black uppercase mb-6 text-white leading-[0.9]">

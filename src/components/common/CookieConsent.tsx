@@ -33,23 +33,23 @@ export const CookieConsent = () => {
                     className="fixed bottom-0 left-0 w-full z-[1000] p-6 md:p-12 pointer-events-none"
                 >
                     <div className="max-w-[1800px] mx-auto pointer-events-auto">
-                        <div className="bg-[#000000] border-4 border-white p-8 md:p-12 shadow-[30px_30px_0px_#FF3E00] relative overflow-hidden group">
+                        <div className="bg-[#000000] border-4 border-white p-8 md:p-12 shadow-[30px_30px_0px_#D83600] relative overflow-hidden group">
                             
                             {/* Hazard Stripes */}
-                            <div className="absolute top-0 left-0 w-full h-2 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#FF3E00_10px,#FF3E00_20px)]" />
+                            <div className="absolute top-0 left-0 w-full h-2 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#D83600_10px,#D83600_20px)]" />
                             
                             <div className="flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
                                 <div className="space-y-4 text-left max-w-4xl">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-4 h-4 bg-[#FF3E00] animate-pulse" />
-                                        <span className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-[#FF3E00]">
+                                        <div className="w-4 h-4 bg-[#D83600] animate-pulse" />
+                                        <span className="font-mono text-[10px] font-black uppercase tracking-[0.5em] text-[#D83600]">
                                             DATA PRIVACY.
                                         </span>
                                     </div>
                                     <h4 className="font-black text-4xl md:text-6xl text-white uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
-                                        WE USE <span className="text-[#FF3E00]">COOKIES.</span>
+                                        WE USE <span className="text-[#D83600]">COOKIES.</span>
                                     </h4>
-                                    <p className="font-mono text-xs md:text-sm text-white/70 uppercase leading-relaxed font-bold border-l-4 border-[#FF3E00] pl-6 py-2">
+                                    <p className="font-mono text-xs md:text-sm text-white/70 uppercase leading-relaxed font-bold border-l-4 border-[#D83600] pl-6 py-2">
                                         WE STORE DATA LOCALLY TO OPTIMIZE PERFORMANCE. <br />
                                         CONTINUED USE CONSTITUTES CONSENT.
                                     </p>
@@ -64,7 +64,7 @@ export const CookieConsent = () => {
                                     </button>
                                     <button 
                                         onClick={handleAccept}
-                                        className="px-12 py-5 bg-[#FF3E00] text-black font-black font-mono text-xs uppercase tracking-[0.3em] hover:bg-white transition-all shadow-[8px_8px_0px_white] hover:shadow-none translate-x-[-4px] translate-y-[-4px] hover:translate-x-0 hover:translate-y-0"
+                                        className="px-12 py-5 bg-[#D83600] text-black font-black font-mono text-xs uppercase tracking-[0.3em] hover:bg-white transition-all shadow-[8px_8px_0px_white] hover:shadow-none translate-x-[-4px] translate-y-[-4px] hover:translate-x-0 hover:translate-y-0"
                                     >
                                         ACCEPT
                                     </button>

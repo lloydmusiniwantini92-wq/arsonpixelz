@@ -37,7 +37,7 @@ const LinkedInIcon = () => (
 // --- Subcomponents for cleaner organization ---
 
 const Marquee: React.FC<{ text: string; reverse?: boolean; accentColor?: string; borderColor?: string }> = ({
-    text, reverse = false, accentColor = '#FF3E00', borderColor = '#1A1A1A'
+    text, reverse = false, accentColor = '#D83600', borderColor = '#1A1A1A'
 }) => {
     const content = (
         <div className={`flex gap-12 items-center whitespace-nowrap ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
@@ -78,7 +78,7 @@ const LiveClock: React.FC = () => {
     }, []);
 
     return (
-        <span className="font-mono tabular-nums font-black text-[#FF3E00]">
+        <span className="font-mono tabular-nums font-black text-[#D83600]">
             {time.toLocaleTimeString('en-US', { hour12: false })} UTC
         </span>
     );
@@ -106,7 +106,7 @@ export const Footer: React.FC = () => {
         const baseTheme = {
             bg: '#000000',
             text: '#FFFFFF',
-            accent: '#FF3E00',
+            accent: '#D83600',
             border: 'rgba(255,62,0,0.2)',
             rightBg: 'rgba(255,255,255,0.02)',
         };
@@ -114,37 +114,37 @@ export const Footer: React.FC = () => {
         const pages: Record<string, any> = {
             '/branding': {
                 marquee: "AESTHETICS OVER EVERYTHING // BRAND IS BATTLE //",
-                heading: <>Bland Is A <span className="text-[#FF3E00]">Death Sentence.</span></>,
+                heading: <>Bland Is A <span className="text-[#D83600]">Death Sentence.</span></>,
                 paragraph: "In a saturated digital landscape, safety is your greatest liability. We engineer identities that cut through the noise.",
                 directive: "Branding Architecture",
             },
             '/marketing': {
                 marquee: "SCALE UNFAIRLY // DOMINATE THE ATTENTION ECONOMY //",
-                heading: <>Force <span className="text-[#FF3E00]">Multiplier.</span></>,
+                heading: <>Force <span className="text-[#D83600]">Multiplier.</span></>,
                 paragraph: "Burning venture capital is a choice. We accelerate growth through pure creative leverage.",
                 directive: "Growth Architecture",
             },
             '/dev-ai': {
                 marquee: "ARCHITECTURAL INTEGRITY // SCALABILITY IS MANDATORY //",
-                heading: <>The <span className="text-[#FF3E00]">Core Engine.</span></>,
+                heading: <>The <span className="text-[#D83600]">Core Engine.</span></>,
                 paragraph: "Structure without soul is a cage. Soul without structure is noise. We weave both into the architectural core.",
                 directive: "Digital Infrastructure",
             },
             '/gaming': {
                 marquee: "PIXEL PERFECT // VIRTUAL WORLDS // PURE INTERACTION //",
-                heading: <>Enter The <span className="text-[#FF3E00]">Arena.</span></>,
+                heading: <>Enter The <span className="text-[#D83600]">Arena.</span></>,
                 paragraph: "Bridging the gap between interactive entertainment and high-fidelity digital archives.",
                 directive: "Interactive Media",
             },
             '/shop': {
                 marquee: "THE ARMORY // PHYSICAL ARTIFACTS // GEAR UP //",
-                heading: <>Equip The <span className="text-[#FF3E00]">Vision.</span></>,
+                heading: <>Equip The <span className="text-[#D83600]">Vision.</span></>,
                 paragraph: "Physical artifacts and digital tools engineered for the modern creative practitioner.",
                 directive: "Archive Acquisition",
             },
             '/about': {
                 marquee: "WE BUILD EMPIRES NOT PAGES // TECTONIC SHIFT //",
-                heading: <>Build The <span className="text-[#FF3E00]">Empire.</span></>,
+                heading: <>Build The <span className="text-[#D83600]">Empire.</span></>,
                 paragraph: "Arson Pixelz wasn't founded to make 'pretty websites.' We exist to burn down the boring, the safe, and the templated.",
                 directive: "Studio Foundation",
             },
@@ -152,7 +152,7 @@ export const Footer: React.FC = () => {
 
         const pageContent = pages[location.pathname] || {
             marquee: "DESIGN IS WARFARE // AESTHETICS AS DEFENSE //",
-            heading: <>Don't Just <span>Exist.</span> <span className="text-[#FF3E00]">Claim</span> Your Space.</>,
+            heading: <>Don't Just <span>Exist.</span> <span className="text-[#D83600]">Claim</span> Your Space.</>,
             paragraph: "Attention isn't passive currency — it is agency, leverage, and revolt. We craft digital systems that cannot be ignored.",
             directive: "Studio Foundation",
         };
@@ -184,7 +184,7 @@ export const Footer: React.FC = () => {
                     
                     {/* TOP SECTOR: WHITE COMMAND (HEADING) as a SLANTED CARD */}
                     <div 
-                        className="bg-[#FF3E00] p-8 md:p-16 border-4 border-black relative overflow-hidden shadow-[20px_20px_0px_white] z-20"
+                        className="bg-[#D83600] p-8 md:p-16 border-4 border-black relative overflow-hidden shadow-[20px_20px_0px_white] z-20"
                         style={{ transform: 'rotate(-2deg)' }}
                     >
                         {/* BRUTALIST WATERMARK */}
@@ -215,7 +215,7 @@ export const Footer: React.FC = () => {
                     <div className="flex-grow flex flex-col justify-end p-6 md:p-12 relative pt-20">
                         <div className="flex items-stretch gap-0">
                             {/* Signature Hero-style vertical bar */}
-                            <div className="w-[2px] bg-[#FF3E00] mr-6 shrink-0" />
+                            <div className="w-[2px] bg-[#D83600] mr-6 shrink-0" />
                             
                             <div className="max-w-xl">
                                 <p 
@@ -233,10 +233,10 @@ export const Footer: React.FC = () => {
                 <div className="lg:col-span-4 flex flex-col bg-white/[0.01]">
                     {/* Subscription Module */}
                         <div className="p-4 md:p-8 flex-grow flex flex-col justify-center border-b border-white/5 relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 font-syne font-black text-[150px] text-white/[0.03] leading-none -translate-y-1/3 translate-x-1/4 select-none pointer-events-none group-hover:text-[#FF3E00]/[0.08] transition-colors duration-1000 italic">01</div>
+                            <div className="absolute top-0 right-0 font-syne font-black text-[80px] md:text-[150px] text-white/[0.03] leading-none -translate-y-1/3 translate-x-1/4 select-none pointer-events-none group-hover:text-[#D83600]/[0.08] transition-colors duration-1000 italic">01</div>
                             
                             <label className="uppercase tracking-tighter mb-4 block text-white" style={{ fontFamily: 'Anton, sans-serif', fontSize: '2rem' }}>
-                                JOIN THE <span className="text-[#FF3E00]">MANIFESTO</span>
+                                JOIN THE <span className="text-[#D83600]">MANIFESTO</span>
                             </label>
 
                             <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 items-start md:items-center">
@@ -246,7 +246,7 @@ export const Footer: React.FC = () => {
                                     disabled={status !== 'IDLE'}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-white/5 p-6 font-anton text-lg outline-none transition-all uppercase focus:bg-[#FF3E00] text-white focus:text-black placeholder:text-white/20 tracking-tighter italic border border-white/10"
+                                    className="w-full bg-white/5 p-6 font-anton text-lg outline-none transition-all uppercase focus:bg-[#D83600] text-white focus:text-black placeholder:text-white/20 tracking-tighter italic border border-white/10"
                                 />
                                 <BrutalistButton
                                     type="submit"
@@ -264,8 +264,8 @@ export const Footer: React.FC = () => {
                             <ul className="space-y-6">
                                 {navLinks.map((link) => (
                                     <li key={link.title}>
-                                        <Link to={link.href} className="group flex items-center gap-3 text-sm font-anton uppercase tracking-[0.2em] italic transition-all duration-500 hover:text-[#FF3E00]">
-                                            <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-500 text-[#FF3E00]">/</span>
+                                        <Link to={link.href} className="group flex items-center gap-3 text-sm font-anton uppercase tracking-[0.2em] italic transition-all duration-500 hover:text-[#D83600]">
+                                            <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-500 text-[#D83600]">/</span>
                                             {link.title}
                                         </Link>
                                     </li>
@@ -283,7 +283,7 @@ export const Footer: React.FC = () => {
                                     <Link 
                                         key={l.label}
                                         to={l.path}
-                                        className="font-mono text-[9px] font-black uppercase tracking-[0.3em] text-white/20 hover:text-[#FF3E00] transition-colors"
+                                        className="font-mono text-[9px] font-black uppercase tracking-[0.3em] text-white/20 hover:text-[#D83600] transition-colors"
                                     >
                                         {l.label}
                                     </Link>
@@ -296,7 +296,7 @@ export const Footer: React.FC = () => {
                                 <a
                                     key={link.title}
                                     href={link.href}
-                                    className="group relative flex flex-col items-center justify-center p-4 transition-all duration-500 hover:bg-[#FF3E00] overflow-hidden"
+                                    className="group relative flex flex-col items-center justify-center p-4 transition-all duration-500 hover:bg-[#D83600] overflow-hidden"
                                 >
                                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
                                         <span className="font-anton text-3xl md:text-5xl text-black opacity-0 group-hover:opacity-10 transition-opacity duration-700 whitespace-nowrap -rotate-90 uppercase tracking-[-0.05em]">{link.title}</span>
@@ -312,7 +312,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* 3. ARSON BASELINE (Division 1 Protocol) */}
-            <div className="h-1.5 w-full bg-[#FF3E00] z-20" />
+            <div className="h-1.5 w-full bg-[#D83600] z-20" />
         </footer>
     );
 };

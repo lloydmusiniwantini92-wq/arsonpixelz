@@ -73,7 +73,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                     
                     <div className="mix-blend-difference ml-0 md:ml-[15vw] mt-6 md:mt-0">
                         <motion.div variants={itemVariants}>
-                            <h1 className="text-[clamp(34px,9vw,300px)] md:text-[clamp(60px,16vw,300px)] text-[#FF3E00] leading-[0.95] md:leading-[0.8]">EMPIRES_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT PAGES.</span></h1>
+                            <h1 className="text-[clamp(34px,9vw,300px)] md:text-[clamp(60px,16vw,300px)] text-[#D83600] leading-[0.95] md:leading-[0.8]">EMPIRES_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT PAGES.</span></h1>
                         </motion.div>
                     </div>
                     
@@ -84,7 +84,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                                 initial={{ scaleY: 0, originY: 0 }}
                                 animate={loaded ? { scaleY: 1 } : {}}
                                 transition={{ duration: 1.5, delay: 1.8, ease }}
-                                className="w-[1px] md:w-[2px] bg-[#FF3E00] mr-4 md:mr-5 shrink-0 origin-top"
+                                className="w-[1px] md:w-[2px] bg-[#D83600] mr-4 md:mr-5 shrink-0 origin-top"
                             />
                             <div className="flex flex-col gap-2 max-w-[220px] md:max-w-xs">
                                 <motion.p
@@ -103,9 +103,9 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                                     transition={{ duration: 1.5, delay: 3.2, ease }}
                                     className="flex items-center gap-2 mt-1 md:mt-2"
                                 >
-                                    <div className="w-3 md:w-4 h-[1px] bg-[#FF3E00]" />
+                                    <div className="w-3 md:w-4 h-[1px] bg-[#D83600]" />
                                     <span
-                                        className="text-[8px] md:text-[9px] text-[#FF3E00] uppercase tracking-[0.3em] md:tracking-[0.35em] font-bold"
+                                        className="text-[8px] md:text-[9px] text-[#D83600] uppercase tracking-[0.3em] md:tracking-[0.35em] font-bold"
                                         style={{ fontFamily: 'IBM Plex Mono, monospace' }}
                                     >
                                         ARSON PIXELZ
@@ -113,7 +113,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                                     <motion.span
                                         animate={{ opacity: [1, 0, 1] }}
                                         transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
-                                        className="inline-block w-[4px] md:w-[5px] h-[8px] md:h-[10px] bg-[#FF3E00] ml-1"
+                                        className="inline-block w-[4px] md:w-[5px] h-[8px] md:h-[10px] bg-[#D83600] ml-1"
                                     />
                                 </motion.div>
                             </div>

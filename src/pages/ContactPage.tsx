@@ -70,7 +70,7 @@ const ContactPage: React.FC = () => {
                 <div className="text-center mb-16 md:mb-20">
                     <h1 className="font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]" style={{ fontFamily: 'Syne, sans-serif' }}>
                         <span className="text-6xl md:text-8xl lg:text-9xl relative md:-left-[0.15em]">START YOUR</span><br />
-                        <span className="text-5xl md:text-8xl lg:text-9xl text-[#FF3E00] relative -left-[0.33em] md:-left-[0.55em]">PROJECT</span>
+                        <span className="text-5xl md:text-8xl lg:text-9xl text-[#D83600] relative -left-[0.33em] md:-left-[0.55em]">PROJECT</span>
                     </h1>
                     <p className="font-mono text-white/50 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed uppercase tracking-[0.2em] italic font-bold">
                         Define the scope. We architect high-performance digital systems that incinerate mediocrity and dominate market sectors.
@@ -85,7 +85,7 @@ const ContactPage: React.FC = () => {
                     <div className="grid md:grid-cols-2 gap-10 mb-10">
                         {/* Name */}
                         <div className="flex flex-col gap-3 group">
-                            <label htmlFor="name" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Name</label>
+                            <label htmlFor="name" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#D83600] transition-colors">Name</label>
                             <input
                                 type="text"
                                 id="name"
@@ -93,14 +93,14 @@ const ContactPage: React.FC = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-black/[0.02] border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl md:text-2xl text-black focus:outline-none focus:border-[#FF3E00] transition-all placeholder-black/10 uppercase tracking-tighter"
+                                className="w-full bg-black/[0.02] border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl md:text-2xl text-black focus:outline-none focus:border-[#D83600] transition-all placeholder-black/10 uppercase tracking-tighter"
                                 placeholder="YOUR NAME"
                             />
                         </div>
 
                         {/* Email */}
                         <div className="flex flex-col gap-3 group">
-                            <label htmlFor="email" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Email</label>
+                            <label htmlFor="email" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#D83600] transition-colors">Email</label>
                             <input
                                 type="email"
                                 id="email"
@@ -108,7 +108,7 @@ const ContactPage: React.FC = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-black/[0.02] border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl md:text-2xl text-black focus:outline-none focus:border-[#FF3E00] transition-all placeholder-black/10 uppercase tracking-tighter"
+                                className="w-full bg-black/[0.02] border-b-2 border-black/20 px-0 py-4 font-syne font-black text-xl md:text-2xl text-black focus:outline-none focus:border-[#D83600] transition-all placeholder-black/10 uppercase tracking-tighter"
                                 placeholder="YOUR EMAIL"
                             />
                         </div>
@@ -117,14 +117,14 @@ const ContactPage: React.FC = () => {
                     <div className="grid md:grid-cols-2 gap-10 mb-10">
                         {/* Project Type */}
                         <div className="flex flex-col gap-3 group">
-                            <label htmlFor="projectType" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Project Type</label>
+                            <label htmlFor="projectType" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#D83600] transition-colors">Project Type</label>
                             <div className="relative">
                                 <select
                                     id="projectType"
                                     name="projectType"
                                     value={formData.projectType}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-[14px] md:text-[16px] text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-normal"
+                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-[14px] md:text-[16px] text-black focus:outline-none focus:border-[#D83600] transition-all appearance-none cursor-pointer uppercase tracking-normal"
                                 >
                                     <option value="" disabled className="bg-white">SELECT TYPE</option>
                                     <option value="branding" className="bg-white">Brand Ignition</option>
@@ -133,20 +133,20 @@ const ContactPage: React.FC = () => {
                                     <option value="marketing" className="bg-white">Market Acceleration</option>
                                     <option value="other" className="bg-white">Custom Execution</option>
                                 </select>
-                                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px] pr-2">▼</div>
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#D83600] font-mono text-[10px] pr-2">▼</div>
                             </div>
                         </div>
 
                         {/* Budget */}
                         <div className="flex flex-col gap-3 group">
-                            <label htmlFor="budget" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Budget</label>
+                            <label htmlFor="budget" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#D83600] transition-colors">Budget</label>
                             <div className="relative">
                                 <select
                                     id="budget"
                                     name="budget"
                                     value={formData.budget}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-[14px] md:text-[16px] text-black focus:outline-none focus:border-[#FF3E00] transition-all appearance-none cursor-pointer uppercase tracking-normal"
+                                    className="w-full bg-transparent border-b-2 border-black/20 px-0 py-4 font-syne font-black text-[14px] md:text-[16px] text-black focus:outline-none focus:border-[#D83600] transition-all appearance-none cursor-pointer uppercase tracking-normal"
                                 >
                                     <option value="" disabled className="bg-white">SELECT BUDGET</option>
                                     <option value="1k-5k" className="bg-white">1K - 5K USD</option>
@@ -155,21 +155,21 @@ const ContactPage: React.FC = () => {
                                     <option value="25k-50k" className="bg-white">25K - 50K USD</option>
                                     <option value="50k+" className="bg-white">50K+ USD</option>
                                 </select>
-                                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF3E00] font-mono text-[10px] pr-2">▼</div>
+                                <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[#D83600] font-mono text-[10px] pr-2">▼</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Details */}
                     <div className="flex flex-col gap-3 mb-16 group">
-                        <label htmlFor="details" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#FF3E00] transition-colors">Message</label>
+                        <label htmlFor="details" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#D83600] transition-colors">Message</label>
                         <textarea
                             id="details"
                             name="details"
                             value={formData.details}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full bg-black/[0.02] border-b-2 border-black/20 px-4 py-6 font-syne font-bold text-lg text-black focus:outline-none focus:border-[#FF3E00] transition-all placeholder-black/20 uppercase tracking-wide resize-none leading-relaxed"
+                            className="w-full bg-black/[0.02] border-b-2 border-black/20 px-4 py-6 font-syne font-bold text-lg text-black focus:outline-none focus:border-[#D83600] transition-all placeholder-black/20 uppercase tracking-wide resize-none leading-relaxed"
                             placeholder="TELL US ABOUT THE MISSION..."
                         ></textarea>
                     </div>
@@ -182,7 +182,7 @@ const ContactPage: React.FC = () => {
                             className="group relative w-full md:w-auto px-10 md:px-16 py-7 bg-black text-white uppercase text-[20px] tracking-[0.1em] md:tracking-[0.25em] overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
                         >
                             <span className="relative z-10 transition-colors duration-500 group-hover:text-black">SUBMIT INQUIRY</span>
-                            <div className="absolute inset-0 bg-[#FF3E00] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                            <div className="absolute inset-0 bg-[#D83600] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                         </button>
                     </div>
 
