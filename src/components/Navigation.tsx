@@ -311,12 +311,12 @@ const TopNavLink = memo(({
                 if (element) {
                     if (lenis) {
                         lenis.scrollTo(element, { 
-                            offset: targetHash === 'bottom' ? 0 : -50, 
+                            offset: targetHash === 'bottom' ? -90 : -50, 
                             duration: 1.2,
                             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
                         });
                     } else {
-                        element.scrollIntoView({ behavior: 'smooth', block: targetHash === 'bottom' ? 'end' : 'start' });
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                     window.history.pushState(null, '', href);
                 } else if (targetHash === 'bottom') {
@@ -808,9 +808,9 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                 if (element) {
                     setTimeout(() => {
                         if (lenis) {
-                            lenis.scrollTo(element, { offset: hash === 'bottom' ? 0 : -50, duration: 1.2 });
+                            lenis.scrollTo(element, { offset: hash === 'bottom' ? -90 : -50, duration: 1.2 });
                         } else {
-                            element.scrollIntoView({ behavior: 'smooth', block: hash === 'bottom' ? 'end' : 'start' });
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     }, 120);
                 } else if (hash === 'bottom') {

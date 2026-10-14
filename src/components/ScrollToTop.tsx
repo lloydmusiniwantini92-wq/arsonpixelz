@@ -46,20 +46,22 @@ export const ScrollToTop = () => {
                         clearInterval(interval);
                         if (lenis) {
                             lenis.scrollTo(element, { 
-                                offset: id === 'bottom' ? 0 : -50,
+                                offset: id === 'bottom' ? -90 : -50,
                                 duration: 1.2, 
                                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
                             });
                         } else {
-                            element.scrollIntoView({ behavior: 'smooth', block: id === 'bottom' ? 'end' : 'start' });
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     } else if (id === 'bottom' && attempts >= 15) {
-                        // If specific #bottom element wasn't caught, scroll to document bottom
-                        clearInterval(interval);
-                        if (lenis) {
-                            lenis.scrollTo(document.body.scrollHeight, { duration: 1.2 });
-                        } else {
-                            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                        const fallbackEl = document.getElementById('details') || document.getElementById('bottom');
+                        if (fallbackEl) {
+                            clearInterval(interval);
+                            if (lenis) {
+                                lenis.scrollTo(fallbackEl, { offset: -90, duration: 1.2 });
+                            } else {
+                                fallbackEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
                         }
                     } else if (attempts >= maxAttempts) {
                         clearInterval(interval);

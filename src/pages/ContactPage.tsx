@@ -208,8 +208,8 @@ const ContactPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Details */}
-                    <div className="flex flex-col gap-3 mb-16 group">
+                    {/* Details / Message - Primary Landing Target for Contact Us */}
+                    <div id="bottom" className="flex flex-col gap-3 mb-12 md:mb-16 group scroll-mt-28">
                         <label htmlFor="details" className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-black/40 group-focus-within:text-[#D83600] transition-colors">Message</label>
                         <textarea
                             id="details"
@@ -223,7 +223,7 @@ const ContactPage: React.FC = () => {
                     </div>
 
                     {/* Action Bar & Direct Dispatch */}
-                    <div id="bottom" className="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-black/10">
+                    <div id="contact-actions" className="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-black/10">
                         {/* Direct Line Badge */}
                         <div className="flex flex-col gap-2 font-mono text-[11px] tracking-widest text-black/60">
                             <span className="text-[9px] uppercase font-bold text-black/40 tracking-[0.3em]">DIRECT PROTOCOL CHANNELS</span>
