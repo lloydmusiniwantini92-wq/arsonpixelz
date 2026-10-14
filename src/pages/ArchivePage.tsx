@@ -202,8 +202,6 @@ const GlitchImage: React.FC<{ src: string; alt: string; className?: string; styl
                 background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 62, 0, 0.04) 3px)',
             }}
         />
-        {/* Orange left border accent */}
-        <div className="absolute inset-y-0 left-0 w-2 bg-[#D83600]" />
     </div>
 );
 const MemoizedGlitchImage = React.memo(GlitchImage);
@@ -334,7 +332,7 @@ const ArchivePage: React.FC = () => {
                 </div>
                 <Link
                     to="/#work-section"
-                    className="border border-white/20 px-8 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-[#D83600] hover:border-[#D83600] transition-colors"
+                    className="border border-white/20 px-8 py-4 text-[10px] tracking-[0.4em] uppercase hover:bg-[#D83600] hover:border-[#D83600] transition-colors rounded-[2rem]"
                 >
                     RETURN_TO_WORKS
                 </Link>
@@ -371,12 +369,12 @@ const ArchivePage: React.FC = () => {
                 <div className="relative z-50 flex items-center justify-between mb-12">
                     <Link 
                         to="/#work-section"
-                        className="group flex items-center gap-0 hover:gap-4 bg-black px-6 py-3 border border-black/10 hover:bg-[#D83600] hover:border-[#D83600] transition-all duration-500"
+                        className="group flex items-center gap-0 hover:gap-4 bg-black px-6 py-3 border border-black/10 hover:bg-[#D83600] hover:border-[#D83600] transition-all duration-500 rounded-[2rem]"
                     >
                         <div className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-500">
                              <ArrowLeftIcon className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-[10px] tracking-[0.4em] text-white group-hover:text-black transition-colors font-bold">BACK TO SELECTED WORKS</span>
+                        <span className="text-[10px] tracking-[0.2em] sm:tracking-[0.4em] text-white group-hover:text-black transition-colors font-bold">BACK TO SELECTED WORKS</span>
                     </Link>
                 </div>
 
@@ -384,7 +382,7 @@ const ArchivePage: React.FC = () => {
                 <div className="absolute inset-0 flex items-start justify-center opacity-[0.08] pointer-events-none select-none z-0 overflow-hidden pt-[20vh] px-4">
                     <span 
                         className={`font-space font-bold leading-[0.8] text-black text-center tracking-tighter ${project.id === 'tt-01' ? 'flex flex-col items-center' : 'whitespace-nowrap'}`}
-                        style={{ fontSize: project.id === 'tt-01' ? 'clamp(140px, 19vw, 450px)' : `clamp(100px, ${Math.min(28, 190 / Math.max(project.title.length, 6))}vw, 400px)` }}
+                        style={{ fontSize: project.id === 'tt-01' ? 'clamp(90px, 19vw, 450px)' : `clamp(80px, ${Math.min(28, 190 / Math.max(project.title.length, 6))}vw, 400px)` }}
                     >
                         {project.id === 'tt-01' ? (
                             <>
@@ -403,10 +401,10 @@ const ArchivePage: React.FC = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <h1
-                            className="uppercase leading-[0.8] tracking-tighter text-black -rotate-1"
+                            className="uppercase leading-[0.85] sm:leading-[0.8] tracking-tighter text-black -rotate-1"
                             style={{
                                 fontFamily: 'Anton, sans-serif',
-                                fontSize: 'clamp(80px, 15vw, 240px)',
+                                fontSize: 'clamp(44px, 13vw, 240px)',
                             }}
                         >
                             {project.title}
@@ -437,7 +435,7 @@ const ArchivePage: React.FC = () => {
                     style={{ transform: 'rotate(2deg)' }}
                 >
                     <div
-                        className="bg-[#D83600] px-6 py-4 text-black font-bold uppercase leading-tight"
+                        className="bg-[#D83600] px-6 py-4 text-black font-bold uppercase leading-tight rounded-[2rem]"
                         style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: 'clamp(11px, 1.5vw, 15px)' }}
                     >
                         DECONSTRUCTING THE VISION.<br />
@@ -452,7 +450,7 @@ const ArchivePage: React.FC = () => {
                     whileHover={{ scale: 1.01 }}
                     onClick={() => setActiveModalIndex(0)}
                     transition={{ delay: 0.2, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 h-[55vw] max-h-[680px] min-h-[320px] cursor-pointer group"
+                    className="relative z-10 h-[55vw] max-h-[680px] min-h-[320px] cursor-pointer group rounded-[2rem] overflow-hidden"
                     style={{ transform: 'translateX(-0.5%)' }}
                 >
                     <MemoizedGlitchImage
@@ -467,7 +465,7 @@ const ArchivePage: React.FC = () => {
                     />
                     {/* View overlay */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                         <div className="bg-[#D83600] px-10 py-5 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 shadow-[0_20px_50px_rgba(255,62,0,0.3)]">
+                         <div className="bg-[#D83600] px-10 py-5 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 shadow-[0_20px_50px_rgba(255,62,0,0.3)] rounded-full">
                             <span className="text-black text-2xl tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                          </div>
                     </div>
@@ -480,7 +478,7 @@ const ArchivePage: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="py-40 px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a]"
+                className="py-20 sm:py-32 md:py-40 px-6 md:px-10 relative overflow-hidden bg-[#0a0a0a]"
             >
                 {/* Avant-Garde Beige Slab (Subtle Background Anchor) */}
                 <div 
@@ -488,18 +486,17 @@ const ArchivePage: React.FC = () => {
                     aria-hidden="true"
                 />
 
-                <div className="mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 max-w-7xl relative z-10">
+                <div className="mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 max-w-7xl relative z-10">
                     {/* Left: The Void text block (Inverted to Beige) */}
                     <motion.div variants={itemVariants} className="md:col-span-5 space-y-10 relative z-20">
                         <div
-                            className="p-10 bg-[#E6E4DD] text-black shadow-[20px_20px_0px_rgba(255,62,0,1)]"
-                            style={{ transform: 'rotate(-1.5deg)' }}
+                            className="p-6 sm:p-10 bg-[#E6E4DD] text-black shadow-[8px_8px_0px_rgba(255,62,0,1)] sm:shadow-[20px_20px_0px_rgba(255,62,0,1)] rounded-[1.5rem] sm:rounded-[2rem] rotate-0 sm:-rotate-1"
                         >
                             <h2
-                                className="uppercase mb-8 leading-[0.85] tracking-tighter"
+                                className="uppercase mb-6 sm:mb-8 leading-[0.85] tracking-tighter"
                                 style={{
                                     fontFamily: 'Anton, sans-serif',
-                                    fontSize: 'clamp(48px, 6vw, 90px)',
+                                    fontSize: 'clamp(40px, 6vw, 90px)',
                                 }}
                             >
                                 THE<br />PROBLEM
@@ -521,18 +518,17 @@ const ArchivePage: React.FC = () => {
                     >
                         {/* Decorative rotating square */}
                         <div
-                            className="absolute -top-20 -left-20 w-64 h-64 border border-white/5 pointer-events-none"
+                            className="hidden sm:block absolute -top-20 -left-20 w-64 h-64 border border-white/5 pointer-events-none"
                             style={{ transform: 'rotate(45deg)' }}
                         />
                         <div
-                            className="p-10 bg-[#D83600] text-black relative z-10"
-                            style={{ transform: 'rotate(1deg)' }}
+                            className="p-6 sm:p-10 bg-[#D83600] text-black relative z-10 rounded-[1.5rem] sm:rounded-[2rem] rotate-0 sm:rotate-1"
                         >
                             <h2
-                                className="uppercase mb-6 leading-none"
+                                className="uppercase mb-4 sm:mb-6 leading-none"
                                 style={{
                                     fontFamily: 'Anton, sans-serif',
-                                    fontSize: 'clamp(36px, 5vw, 72px)',
+                                    fontSize: 'clamp(32px, 5vw, 72px)',
                                 }}
                             >
                                 THE<br />EXECUTION
@@ -560,27 +556,23 @@ const ArchivePage: React.FC = () => {
                     {/* Large hero image, hovers right */}
                     <motion.div
                         variants={itemVariants}
-                        className="col-span-12 md:col-span-7 relative group cursor-pointer"
+                        className="col-span-12 md:col-span-7 relative group cursor-pointer overflow-hidden rounded-[2rem]"
                         style={{ transition: 'transform 0.5s ease' }}
                         whileHover={{ x: 16 }}
                         onClick={() => setActiveModalIndex(1)}
                     >
-                        <div
-                            className="absolute inset-0 -m-4 pointer-events-none"
-                            style={{ background: 'rgba(255,62,0,0.06)' }}
-                        />
                         <MemoizedGlitchImage
                             src={project.referenceImage}
                             alt="structural reference"
                             className="w-full h-[500px] grayscale group-hover:grayscale-0 transition-all duration-700"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                             <div className="bg-[#D83600] px-8 py-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                             <div className="bg-[#D83600] px-8 py-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 rounded-full">
                                 <span className="text-black text-xl tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                              </div>
                         </div>
                         <div
-                            className="absolute bottom-4 left-4 bg-[#131313] px-4 py-2 border border-white/10"
+                            className="absolute bottom-4 left-4 bg-[#131313] px-4 py-2 border border-white/10 rounded-full"
                             style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px' }}
                         >
                             VISUAL_INDEX_{project.id.toUpperCase()}
@@ -590,7 +582,7 @@ const ArchivePage: React.FC = () => {
                     {/* Right column: info + small image */}
                     <motion.div variants={itemVariants} className="col-span-12 md:col-span-5 relative z-20 mt-10 md:mt-0">
                         <div
-                            className="bg-[#1f1f1f] p-8 mb-4 border-r-8 border-[#D83600]"
+                            className="bg-[#1f1f1f] p-8 mb-4 border-r-8 border-[#D83600] rounded-[2rem]"
                             style={{ transform: 'rotate(-2deg)' }}
                         >
                             <h3
@@ -610,7 +602,7 @@ const ArchivePage: React.FC = () => {
                             </p>
                         </div>
                         <div 
-                            className="relative overflow-hidden h-[420px] cursor-pointer group"
+                            className="relative overflow-hidden h-[420px] cursor-pointer group rounded-[2rem]"
                             onClick={() => setActiveModalIndex(2)}
                         >
                             <img
@@ -637,7 +629,7 @@ const ArchivePage: React.FC = () => {
                                     variants={itemVariants}
                                     whileHover={{ y: -10 }}
                                     onClick={() => setActiveModalIndex(i + 3)}
-                                    className={`relative overflow-hidden group cursor-pointer ${i % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'}`}
+                                    className={`relative overflow-hidden group cursor-pointer ${i % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-video'} rounded-[2rem]`}
                                     style={{ contentVisibility: 'auto' }}
                                 >
                                     <img
@@ -647,7 +639,7 @@ const ArchivePage: React.FC = () => {
                                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                                     />
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                                        <div className="bg-[#D83600] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <div className="bg-[#D83600] px-6 py-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 rounded-full">
                                             <span className="text-black text-lg tracking-[0.1em] font-anton leading-none ">VIEW IN GALLERY</span>
                                         </div>
                                     </div>
@@ -666,7 +658,7 @@ const ArchivePage: React.FC = () => {
                     {/* Full-width dissolve text block */}
                     <motion.div
                         variants={itemVariants}
-                        className="col-span-12 md:col-span-8 p-12 bg-[#1a1a1a] border border-white/5 flex flex-col justify-end relative mt-6"
+                        className="col-span-12 md:col-span-8 p-12 bg-[#1a1a1a] border border-white/5 flex flex-col justify-end relative mt-6 rounded-[2rem]"
                     >
                         <h3
                             className="uppercase text-white/5 leading-none absolute -top-8 left-0 pointer-events-none select-none"
@@ -796,12 +788,12 @@ const ArchivePage: React.FC = () => {
                         {/* RIGHT: THE DELIVERABLES COLUMN (INVERTED MONOLITH) */}
                         <motion.div 
                             variants={itemVariants} 
-                            className="w-full xl:w-[450px] bg-black text-white p-8 md:p-10 flex flex-col justify-between -rotate-1 shadow-[15px_15px_0px_rgba(255,62,0,1)] self-start"
+                            className="w-full xl:w-[450px] bg-black text-white p-6 sm:p-8 md:p-10 flex flex-col justify-between rotate-0 sm:-rotate-1 shadow-[8px_8px_0px_rgba(255,62,0,1)] sm:shadow-[15px_15px_0px_rgba(255,62,0,1)] self-start rounded-[1.5rem] sm:rounded-[2rem]"
                         >
                             <div>
                                 <h3 
-                                    className="font-anton uppercase tracking-tighter leading-[0.8] mb-10 text-[#D83600]"
-                                    style={{ fontSize: '3rem', letterSpacing: '-0.02em' }}
+                                    className="font-anton uppercase tracking-tighter leading-[0.8] mb-8 sm:mb-10 text-[#D83600]"
+                                    style={{ fontSize: 'clamp(2.2rem, 5vw, 3rem)', letterSpacing: '-0.02em' }}
                                 >
                                     DELIVERABLES_
                                 </h3>
@@ -844,7 +836,7 @@ const ArchivePage: React.FC = () => {
                         transition: { staggerChildren: 0.05, delayChildren: 0.4 }
                     }
                 }}
-                className="relative bg-white py-80 px-8 overflow-hidden group border-t-[32px] border-black"
+                className="relative bg-white py-28 sm:py-48 md:py-80 px-6 sm:px-8 overflow-hidden group border-t-[20px] sm:border-t-[32px] border-black"
             >
                 {/* Architectural Background Image (Manifesto in Walls) */}
                 <div className="absolute inset-0 z-0 select-none pointer-events-none">
@@ -858,7 +850,7 @@ const ArchivePage: React.FC = () => {
                     <div className="absolute inset-0 bg-white/20" />
                 </div>
 
-                <div className="relative z-10 flex flex-col items-center text-center max-w-[95vw] mx-auto h-full justify-center pt-24">
+                <div className="relative z-10 flex flex-col items-center text-center max-w-[95vw] mx-auto h-full justify-center pt-16 sm:pt-24">
                     {/* Leaning Command Button (Specialized START -> ARROW) */}
                     <motion.div 
                         variants={{
@@ -867,7 +859,7 @@ const ArchivePage: React.FC = () => {
                                 opacity: 1, 
                                 scale: 1.2, 
                                 y: 120,
-                                x: -110, // Move left by 3cm
+                                x: 0,
                                 rotateY: -20,
                                 transition: { delay: 0.2, duration: 2, ease: [0.16, 1, 0.3, 1] } 
                             }
@@ -910,7 +902,7 @@ const ArchivePage: React.FC = () => {
                                     e.stopPropagation();
                                     setActiveModalIndex(prev => (prev! === 0 ? allProjectImages.length - 1 : prev! - 1));
                                 }}
-                                className="pointer-events-auto bg-white/5 hover:bg-[#D83600]/20 p-6 group transition-colors border border-white/5"
+                                className="pointer-events-auto bg-white/5 hover:bg-[#D83600]/20 p-6 group transition-colors border border-white/5 rounded-[2rem]"
                             >
                                 <ArrowLeftIcon className="w-6 h-6 text-white group-hover:text-[#D83600] transition-colors" />
                             </motion.button>
@@ -920,7 +912,7 @@ const ArchivePage: React.FC = () => {
                                     e.stopPropagation();
                                     setActiveModalIndex(prev => (prev! === allProjectImages.length - 1 ? 0 : prev! + 1));
                                 }}
-                                className="pointer-events-auto bg-white/5 hover:bg-[#D83600]/20 p-6 group transition-colors border border-white/5"
+                                className="pointer-events-auto bg-white/5 hover:bg-[#D83600]/20 p-6 group transition-colors border border-white/5 rounded-[2rem]"
                             >
                                 <ArrowRightIcon className="w-6 h-6 text-white group-hover:text-[#D83600] transition-colors" />
                             </motion.button>

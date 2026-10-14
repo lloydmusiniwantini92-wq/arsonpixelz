@@ -32,6 +32,15 @@ export default defineConfig(({ mode }) => {
 
         build: {
             assetsDir: 'bundle',
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+                        'vendor-motion': ['framer-motion', 'gsap', 'lenis'],
+                        'vendor-icons': ['@heroicons/react', 'lucide-react'],
+                    }
+                }
+            }
         },
         resolve: {
             alias: {

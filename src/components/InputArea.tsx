@@ -90,7 +90,7 @@ export const InputArea: React.FC<InputAreaProps> = ({ onGenerate, isGenerating, 
             h-56 sm:h-64 md:h-[22rem]
             bg-zinc-900/30 
             backdrop-blur-sm
-            rounded-xl border border-dashed
+            rounded-[2rem] border border-dashed
             cursor-pointer overflow-hidden
             transition-all duration-300
             ${isDragging 
@@ -115,8 +115,8 @@ export const InputArea: React.FC<InputAreaProps> = ({ onGenerate, isGenerating, 
             <div className={`absolute bottom-4 right-4 w-4 h-4 border-r-2 border-b-2 transition-colors duration-300 ${isDragging ? 'border-blue-500' : 'border-zinc-600'}`}></div>
 
             <div className="relative z-10 flex flex-col items-center text-center space-y-6 md:space-y-8 p-6 md:p-8 w-full">
-                <div className={`relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center transition-transform duration-500 ${isDragging ? 'scale-110' : 'group-hover:-translate-y-1'}`}>
-                    <div className={`absolute inset-0 rounded-2xl bg-zinc-800 border border-zinc-700 shadow-xl flex items-center justify-center ${isGenerating ? 'animate-pulse' : ''}`}>
+                <div className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-transform duration-500 ${isDragging ? 'scale-110' : 'group-hover:-translate-y-1'}`}>
+                    <div className={`absolute inset-0 rounded-full bg-zinc-800 border border-zinc-700 shadow-xl flex items-center justify-center ${isGenerating ? 'animate-pulse' : ''}`}>
                         {isGenerating ? (
                             <CpuChipIcon className="w-8 h-8 md:w-10 md:h-10 text-blue-400 animate-spin-slow" />
                         ) : (

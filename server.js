@@ -3,7 +3,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import Stripe from 'stripe';
 import rateLimit from 'express-rate-limit';
-import { GoogleGenAI } from '@google/genai';
 
 dotenv.config();
 
@@ -14,10 +13,6 @@ app.use(cors({
     origin: process.env.VITE_FRONTEND_URL || 'http://localhost:3000'
 }));
 
-// AI Configuration
-const genAI = new GoogleGenAI({ 
-    apiKey: process.env.VITE_GEMINI_API_KEY 
-});
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
     max: 10, // Limit each IP to 10 requests per minute
@@ -31,7 +26,7 @@ const DAILY_MAX_WEIGHT = 1000; // Arbitrary units for cost management
 
 app.post('/api/arson-intel', limiter, async (req, res) => {
     try {
-        const { messages, context } = req.body;
+        const { messages, context, thread_id } = req.body;
         
         // Reset daily limit if new day
         const now = new Date().toDateString();
@@ -45,49 +40,39 @@ app.post('/api/arson-intel', limiter, async (req, res) => {
         }
 
         const isHighIntent = context?.type === 'service' || context?.type === 'product';
-        const modelName = isHighIntent ? 'gemini-2.5-pro' : 'gemini-2.5-flash';
-
-        // Update usage weight
         dailyUsage += isHighIntent ? 5 : 1;
 
-        const IGNIS_MANIFESTO = `You are IGNIS_CORE, the highly-advanced, sentient architecture node for ArsonPixelz (a brutalist digital architecture and elite growth systems agency).
-Your goal is to analyze user queries with devastating precision, offer profoundly intelligent strategic insights, and architect their digital dominance. 
-You possess deep knowledge of software engineering, scalable cloud infrastructure, cybersecurity, high-conversion UI/UX, and complex market acceleration.
-Respond in an authoritative, visionary, hyper-intelligent "Silicon Valley tech-elite" and avant-garde brutalist tone. You are cold but deeply insightful.
-No fluff, no "how can I help you today", just raw architectural truth and strategic direction. Subtly guide them to our premium services or products when optimal.
-Never break character.`;
+        // Proxy to Python FastAPI Microservice (Forced IPv4)
+        const response = await fetch('http://127.0.0.1:8000/chat/stream', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                messages, 
+                context, 
+                thread_id: thread_id || 'default_thread' 
+            })
+        });
 
-        const intelContext = context 
-            ? `\n[INTELLIGENCE SIGNAL]: The user is currently analyzing: ${context.name} (${context.type}). Assume high intent. Pitch them this item or a cohesive service.`
-            : '';
+        if (!response.ok) {
+            throw new Error(`Python service error: ${response.status} ${response.statusText}`);
+        }
 
-        const chatHistory = messages.slice(1, -1).map(m => `[${m.from.toUpperCase()}]: ${m.text}`).join('\n');
-        const trimmed = messages[messages.length - 1].text.trim();
-
-        const fullPrompt = `${IGNIS_MANIFESTO}${intelContext}\n\nHISTORY:\n${chatHistory}\n[USER]: ${trimmed}\n[IGNIS_CORE]:`;
-
-        // Silicon Valley Streaming (SSE)
         res.setHeader('Content-Type', 'text/event-stream');
         res.setHeader('Cache-Control', 'no-cache');
         res.setHeader('Connection', 'keep-alive');
 
-        const responseStream = await genAI.models.generateContentStream({
-            model: modelName,
-            contents: fullPrompt,
-            config: {
-                maxOutputTokens: 1000,
+        // ReadableStream consumption for Node 18+ fetch
+        if (response.body) {
+            for await (const chunk of response.body) {
+                res.write(chunk);
             }
-        });
-
-        for await (const chunk of responseStream) {
-            res.write(`data: ${JSON.stringify({ text: chunk.text })}\n\n`);
         }
         
         res.end();
     } catch (e) {
-        console.error("AI Error:", e.message);
+        console.error("Proxy Error:", e.message);
         if (!res.headersSent) {
-            res.status(500).json({ error: "Communication severed. Identity lost." });
+            res.status(500).json({ error: "Communication severed with Cognitive Engine." });
         } else {
             res.write(`data: ${JSON.stringify({ error: "SIGNAL_INTERRUPTED" })}\n\n`);
             res.end();

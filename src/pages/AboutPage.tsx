@@ -101,16 +101,16 @@ export const AboutPage = () => {
                         
                         <motion.div variants={itemVariants} className="mt-10 md:mt-20 ml-[10vw]">
                             <div className="flex items-stretch gap-0">
-                                {/* Orange accent bar */}
-                                <div className="w-[2px] bg-[#D83600] mr-5 shrink-0" />
-                                <div className="flex flex-col gap-2 max-w-[280px] md:max-w-xs">
+                                {/* Soft Accent Pill */}
+                                <div className="w-1.5 rounded-full bg-[#D83600] mr-6 md:mr-8 shrink-0" />
+                                <div className="flex flex-col gap-3 max-w-[280px] md:max-w-sm py-1">
                                     <p
-                                        className="text-[13px] text-black/50 leading-[1.85]"
-                                        style={{ fontFamily: 'IBM Plex Mono, monospace', maxWidth: '240px' }}
+                                        className="text-[12px] md:text-[14px] text-black/60 leading-relaxed normal-case tracking-normal"
+                                        style={{ fontFamily: 'IBM Plex Mono, monospace', maxWidth: '300px' }}
                                     >
                                         Full-spectrum creative agency. Engineered for enterprises that measure success not by presence — but by dominance.
                                     </p>
-                                    <div className="flex items-center gap-2 mt-2">
+                                    <div className="flex items-center gap-2 -mt-1">
                                         <div className="w-4 h-[1px] bg-[#D83600]" />
                                         <span
                                             className="text-[9px] text-[#D83600] tracking-[0.35em] font-bold"

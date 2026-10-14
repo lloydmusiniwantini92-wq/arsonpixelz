@@ -28,7 +28,7 @@ export const LegalPage = () => {
     }, []);
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#030303] text-white pt-40 pb-32 px-6 md:px-12 relative overflow-hidden">
+        <div ref={containerRef} className="min-h-screen bg-[#030303] text-white pt-32 sm:pt-40 pb-20 sm:pb-32 px-6 md:px-12 relative overflow-hidden">
             {/* Tactical SVG Noise Texture */}
             <div 
                 className="absolute inset-0 opacity-[0.12] mix-blend-overlay pointer-events-none z-0" 
@@ -43,13 +43,31 @@ export const LegalPage = () => {
             <div className="max-w-[1700px] mx-auto relative z-10">
                 
                 {/* ── HEADER BLOCK ── */}
-                <div className="mb-32 border-l-[12px] border-[#D83600] pl-12">
-                    <span className="font-mono text-xs font-black tracking-[1em] text-[#D83600] block mb-8">
+                <div className="mb-16 md:mb-32 border-l-[8px] md:border-l-[12px] border-[#D83600] pl-6 md:pl-12">
+                    <span className="font-mono text-[10px] sm:text-xs font-black tracking-[0.5em] sm:tracking-[1em] text-[#D83600] block mb-4 sm:mb-8">
                         LEGAL.
                     </span>
-                    <h1 className="text-7xl md:text-[11rem] font-black uppercase tracking-tighter leading-[0.8] mb-12" style={{ fontFamily: 'Anton, sans-serif' }}>
+                    <h1 className="text-5xl sm:text-7xl md:text-[11rem] font-black uppercase tracking-tighter leading-[0.85] sm:leading-[0.8] mb-8 sm:mb-12" style={{ fontFamily: 'Anton, sans-serif' }}>
                         THE <br /> <span className="text-[#D83600]">PROTOCOLS</span>
                     </h1>
+                </div>
+
+                {/* Mobile Protocol Jump Pills */}
+                <div className="flex lg:hidden overflow-x-auto gap-3 pb-6 mb-10 no-scrollbar">
+                    {[
+                        { id: 'terms', num: '01', title: 'TERMS' },
+                        { id: 'privacy', num: '02', title: 'PRIVACY' },
+                        { id: 'cookies', num: '03', title: 'COOKIES' },
+                        { id: 'disclaimer', num: '04', title: 'LIABILITY' }
+                    ].map(link => (
+                        <a
+                            key={link.id}
+                            href={`#${link.id}`}
+                            className="shrink-0 px-4 py-2 bg-white/5 border border-white/10 rounded-full font-mono text-[10px] tracking-wider text-white hover:border-[#D83600] hover:text-[#D83600] transition-colors"
+                        >
+                            <span className="text-[#D83600] mr-1.5 font-bold">{link.num}</span> {link.title}
+                        </a>
+                    ))}
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-32">
@@ -86,13 +104,13 @@ export const LegalPage = () => {
                     </div>
 
                     {/* ── RIGHT: CONTENT ── */}
-                    <div className="lg:col-span-8 space-y-40 pb-64">
+                    <div className="lg:col-span-8 space-y-20 md:space-y-40 pb-32 sm:pb-64">
                         
                         {/* SECTION 01: TERMS */}
                         <section id="terms" className="relative">
-                            <div className="flex items-end gap-6 mb-16">
-                                <span className="font-mono text-5xl font-black text-[#D83600] leading-none">01</span>
-                                <h2 className="font-black text-5xl md:text-7xl uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
+                            <div className="flex items-end gap-6 mb-12 sm:mb-16">
+                                <span className="font-mono text-4xl sm:text-5xl font-black text-[#D83600] leading-none">01</span>
+                                <h2 className="font-black text-3xl sm:text-5xl md:text-7xl uppercase tracking-tighter leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>
                                     TERMS OF <br/> <span className="text-[#D83600]">SERVICE</span>
                                 </h2>
                             </div>

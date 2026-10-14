@@ -256,7 +256,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ creation, isLoading, i
             {/* Split View: Left Panel (Original Image) */}
             {showSplitView && creation.originalImage && (
                 <div className="w-full md:w-1/2 h-1/2 md:h-full border-b md:border-b-0 md:border-r border-zinc-800 bg-[#0c0c0e] relative flex flex-col shrink-0">
-                    <div className="absolute top-4 left-4 z-10 bg-black/80 backdrop-blur text-zinc-400 text-[10px] font-mono uppercase px-2 py-1 rounded border border-zinc-800">
+                    <div className="absolute top-4 left-4 z-10 bg-black/80 backdrop-blur text-zinc-400 text-[10px] font-mono uppercase px-2 py-1 rounded border border-zinc-800 rounded-[2rem]">
                         Input Source
                     </div>
                     <div className="w-full h-full p-6 flex items-center justify-center overflow-hidden">

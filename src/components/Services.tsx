@@ -30,7 +30,7 @@ const SchematicTurbine = () => (
 
         {/* Inner Kinetic Core */}
         <div className="relative w-48 h-48 border-2 border-[#D83600]/40 rounded-full flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D83600]/20 to-transparent animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#D83600]/20 to-transparent animate-pulse rounded-[2rem]" />
             {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
                 <div key={i} className="absolute w-[1px] h-full bg-[#D83600]/30" style={{ transform: `rotate(${deg}deg)` }}></div>
             ))}
@@ -105,6 +105,7 @@ const SchematicRadar = () => (
 import brandingBg from '../assets/site-static/branding/brandinghero.jpg';
 import devBg from '../assets/site-static/DevAI/DEVAIhero.jpg';
 import marketingBg from '../assets/site-static/tim.webp';
+import gamingBg from '../assets/site-static/mg.webp';
 
 export const Services: React.FC = () => {
     const [activeService, setActiveService] = useState(0);
@@ -129,6 +130,12 @@ export const Services: React.FC = () => {
             title: "Market Acceleration",
             bgImage: marketingBg,
             link: "/marketing"
+        },
+        {
+            id: "04",
+            title: "Gaming Division",
+            bgImage: gamingBg,
+            link: "/gaming"
         }
     ];
 
@@ -139,14 +146,15 @@ export const Services: React.FC = () => {
             const trigger = ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: "top top",
-                end: "+=300%",
+                end: "+=400%",
                 pin: true,
                 scrub: 1,
                 onUpdate: (self) => {
                     const progress = self.progress;
-                    if (progress < 0.33) setActiveService(0);
-                    else if (progress < 0.66) setActiveService(1);
-                    else setActiveService(2);
+                    if (progress < 0.25) setActiveService(0);
+                    else if (progress < 0.5) setActiveService(1);
+                    else if (progress < 0.75) setActiveService(2);
+                    else setActiveService(3);
                 }
             });
             return () => trigger.kill();

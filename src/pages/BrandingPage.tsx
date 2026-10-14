@@ -295,7 +295,7 @@ const BrandingPage: React.FC = () => {
                 <div ref={philosophyContent1Ref} className="max-w-[100rem] w-full mx-auto px-6 md:px-12 absolute inset-0 flex items-center z-20 opacity-0 pointer-events-none mt-[10vh]">
                     <div className="grid md:grid-cols-2 gap-10 md:gap-20 w-full">
                         {/* Protocol Layer 1: The Warning (New) */}
-                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
+                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[2rem]">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SILENCE IS <br/><span className="text-[#D83600]">A VIRUS.</span></h3>
                             <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed ">
                                 GENERIC BRANDS ARE BACKGROUND NOISE. WE ENGINEER TECTONIC SHIFTS IN PERCEPTION. IF YOUR AUDIENCE ISN'T REACTING, YOU'RE ALREADY DEAD.
@@ -303,7 +303,7 @@ const BrandingPage: React.FC = () => {
                         </div>
 
                         {/* Protocol Layer 2: The Command (New) */}
-                        <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden">
+                        <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden rounded-[2rem]">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>CHAOS BY <br/>DESIGN.</h3>
                             <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed ">
                                 WE DO NOT FOLLOW TRENDS; WE CRASH THEM. BY INJECTING HIGH-FIDELITY DISRUPTION INTO EVERY TOUCHPOINT, WE ENSURE YOUR BRAND IS THE ONLY CONSTANT IN THE MARKET.
@@ -316,7 +316,7 @@ const BrandingPage: React.FC = () => {
                 <div ref={philosophyContent2Ref} className="max-w-[100rem] w-full mx-auto px-6 md:px-12 absolute inset-0 flex items-center z-20 opacity-0 pointer-events-none mt-[10vh]">
                     <div className="grid md:grid-cols-2 gap-10 md:gap-20 w-full">
                         {/* Protocol Layer 3: The Threat */}
-                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden">
+                        <div className="group relative p-10 md:p-16 bg-black/80 backdrop-blur-xl border-l-[12px] border-[#D83600] shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[2rem]">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>SAFETY IS <br/><span className="text-[#D83600]">TERMINAL.</span></h3>
                             <p className="font-mono text-xl md:text-2xl text-white/70 font-bold leading-relaxed ">
                                 IN A SATURATED MARKET, WHISPERS ARE ERASED. WE ENGINEER IDENTITIES THAT SCREAM. BY FUSING INDUSTRIAL-GRADE DESIGN WITH PSYCHOLOGICAL DOMINATION, WE CREATE CULTURAL ANCHORS DISGUISED AS MARKS.
@@ -324,7 +324,7 @@ const BrandingPage: React.FC = () => {
                         </div>
 
                         {/* Protocol Layer 4: The Command */}
-                        <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden">
+                        <div className="group relative p-10 md:p-16 bg-[#0A0A0A]/90 border border-white/5 shadow-2xl overflow-hidden rounded-[2rem]">
                             <h3 className="text-4xl md:text-7xl font-black uppercase text-white mb-8 leading-none" style={{ fontFamily: 'Anton, sans-serif' }}>APEX <br/>PREDATOR.</h3>
                             <p className="font-mono text-lg md:text-xl text-white/60 font-bold leading-relaxed ">
                                 WE DO NOT PERFORM REFLIFTS. WE PERFORM MOLECULAR RECONSTRUCTION. IF YOU SEEK GENTLE REFINEMENT, LEAVE NOW. IF YOU SEEK ABSOLUTE DOMINANCE IN YOUR SECTOR, INITIATE.
@@ -348,7 +348,7 @@ const BrandingPage: React.FC = () => {
                         <div key={cap.id} className={`grid lg:grid-cols-12 gap-20 items-center ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
                             
                             {/* Visual Side - Integrated Selected Works Images */}
-                            <div className={`lg:col-span-6 h-[500px] bg-[#0A0A0A] border border-white/5 relative overflow-hidden group shadow-2xl ${index % 2 !== 0 ? 'lg:col-start-7' : ''}`}>
+                            <div className={`lg:col-span-6 h-[500px] bg-[#0A0A0A] border border-white/5 relative overflow-hidden group shadow-2xl rounded-[2rem] ${index % 2 !== 0 ? 'lg:col-start-7' : ''}`}>
                                 <ScrollReveal staggerIndex={1}>
                                     <div className="absolute inset-0 bg-black z-0">
                                         <img 
@@ -359,7 +359,7 @@ const BrandingPage: React.FC = () => {
                                     </div>
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
                                     <div className="absolute inset-0 border-[20px] border-black pointer-events-none z-20" />
-                                    <div className="absolute inset-0 border border-white/10 m-8 transition-all duration-500 group-hover:m-6 z-30"></div>
+                                    <div className="absolute inset-0 border border-white/10 m-8 transition-all duration-500 group-hover:m-6 z-30 rounded-[2rem]"></div>
                                     <span className="absolute bottom-10 right-10 text-8xl font-black text-white/10 font-mono select-none z-30">{cap.id}</span>
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-[#D83600]/20 rounded-full animate-spin-slow z-30"></div>
                                 </ScrollReveal>
@@ -415,7 +415,7 @@ const BrandingPage: React.FC = () => {
                         <div className="hidden md:block absolute top-[40px] left-0 w-full h-[2px] bg-white/5 -z-10"></div>
                         {processes.map((step, index) => (
                             <ScrollReveal key={step.num} staggerIndex={index + 1}>
-                                <div className="bg-[#0A0A0A] p-8 md:p-10 border border-white/5 hover:border-[#D83600] transition-colors h-full flex flex-col">
+                                <div className="bg-[#0A0A0A] p-8 md:p-10 border border-white/5 hover:border-[#D83600] transition-colors h-full flex flex-col rounded-[2rem]">
                                     <div className="w-16 h-16 bg-white/5 text-[#D83600] font-bold font-mono flex items-center justify-center text-xl mb-8 group-hover:scale-110 transition-transform">
                                         {step.num}
                                     </div>
@@ -432,7 +432,7 @@ const BrandingPage: React.FC = () => {
 
             {/* BOTTOM CTA */}
             <div className="px-6 md:px-12 max-w-[90rem] mx-auto pb-16">
-                <div ref={ctaRef} className="relative p-8 md:p-14 bg-gradient-to-br from-[#D83600] to-[#E63900] overflow-hidden">
+                <div ref={ctaRef} className="relative p-8 md:p-14 bg-gradient-to-br from-[#D83600] to-[#E63900] overflow-hidden rounded-[2rem]">
                     <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-20 mix-blend-overlay" />
                     <div className="absolute top-0 right-0 p-8 opacity-10">
                         <svg className="w-32 h-32 text-white animate-spin-slow" viewBox="0 0 100 100">

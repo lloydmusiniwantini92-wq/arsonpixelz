@@ -79,7 +79,7 @@ const LiveClock: React.FC = () => {
 
     return (
         <span className="font-mono tabular-nums font-black text-[#D83600]">
-            {time.toLocaleTimeString('en-US', { hour12: false })} UTC
+            {time.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' })} UTC
         </span>
     );
 };
@@ -164,9 +164,9 @@ export const Footer: React.FC = () => {
 
     const navLinks = [
         { title: 'Studio', href: '/' },
-        { title: 'The Armory', href: '/shop' },
-        { title: 'Intelligence', href: '/dev-ai' },
-        { title: 'START DOMINANCE', href: '/shop#agency-capabilities' },
+        { title: 'Selected Works', href: '/#work-section' },
+        { title: 'Capabilities & Ranking', href: '/#agency-capabilities' },
+        { title: 'START DOMINANCE', href: '/#agency-capabilities' },
     ];
 
     const socialLinks = [
@@ -184,8 +184,7 @@ export const Footer: React.FC = () => {
                     
                     {/* TOP SECTOR: WHITE COMMAND (HEADING) as a SLANTED CARD */}
                     <div 
-                        className="bg-[#D83600] p-8 md:p-16 border-4 border-black relative overflow-hidden shadow-[20px_20px_0px_white] z-20"
-                        style={{ transform: 'rotate(-2deg)' }}
+                        className="bg-[#D83600] p-6 sm:p-10 md:p-16 border-4 border-black relative overflow-hidden shadow-[8px_8px_0px_white] sm:shadow-[20px_20px_0px_white] z-20 rounded-[1.5rem] sm:rounded-[2rem] rotate-0 sm:-rotate-1 md:-rotate-2"
                     >
                         {/* BRUTALIST WATERMARK */}
                         <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none select-none z-0">
@@ -199,10 +198,10 @@ export const Footer: React.FC = () => {
 
                         <div className="relative z-10">
                             <h2 
-                                className="text-white uppercase leading-[0.8] [&_span]:text-black"
+                                className="text-white uppercase leading-[0.85] sm:leading-[0.8] [&_span]:text-black"
                                 style={{ 
                                     fontFamily: 'Anton, sans-serif', 
-                                    fontSize: 'clamp(3.5rem, 10vw, 12rem)',
+                                    fontSize: 'clamp(2.2rem, 8vw, 12rem)',
                                     letterSpacing: '-0.04em'
                                 }}
                             >
@@ -235,9 +234,20 @@ export const Footer: React.FC = () => {
                         <div className="p-4 md:p-8 flex-grow flex flex-col justify-center border-b border-white/5 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 font-syne font-black text-[80px] md:text-[150px] text-white/[0.03] leading-none -translate-y-1/3 translate-x-1/4 select-none pointer-events-none group-hover:text-[#D83600]/[0.08] transition-colors duration-1000 italic">01</div>
                             
-                            <label className="uppercase tracking-tighter mb-4 block text-white" style={{ fontFamily: 'Anton, sans-serif', fontSize: '2rem' }}>
+                            <label className="uppercase tracking-tighter mb-2 block text-white" style={{ fontFamily: 'Anton, sans-serif', fontSize: '2rem' }}>
                                 JOIN THE <span className="text-[#D83600]">MANIFESTO</span>
                             </label>
+
+                            {/* Direct Line Contacts */}
+                            <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] text-white/50 tracking-wider mb-4">
+                                <a href="mailto:lloyd@arsonpixelz.com" className="hover:text-[#D83600] transition-colors">
+                                    lloyd@arsonpixelz.com
+                                </a>
+                                <span>/</span>
+                                <a href="https://wa.me/27632769047" target="_blank" rel="noopener noreferrer" className="hover:text-[#D83600] transition-colors">
+                                    +27 63 276 9047
+                                </a>
+                            </div>
 
                             <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 items-start md:items-center">
                                 <input
@@ -246,22 +256,23 @@ export const Footer: React.FC = () => {
                                     disabled={status !== 'IDLE'}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-white/5 p-6 font-anton text-lg outline-none transition-all uppercase focus:bg-[#D83600] text-white focus:text-black placeholder:text-white/20 tracking-tighter italic border border-white/10"
+                                    className="w-full bg-white/5 p-6 font-anton text-lg outline-none transition-all uppercase focus:bg-[#D83600] text-white focus:text-black placeholder:text-white/20 tracking-tighter italic border border-white/10 rounded-[2rem]"
                                 />
                                 <BrutalistButton
                                     type="submit"
                                     label={status === 'PROCESSING' ? 'WAIT...' : status === 'SUCCESS' ? 'SECURED' : 'JOIN'}
                                     variant={status === 'SUCCESS' ? 'white' : 'orange'}
                                     size="md"
+                                    className="w-full md:w-auto text-center"
                                     icon={status === 'PROCESSING' ? null : status === 'SUCCESS' ? <span>✓</span> : <ArrowRightIcon className="w-5 h-5" />}
                                 />
                             </form>
                         </div>
 
                     {/* Navigation Grid */}
-                    <div className="grid grid-cols-2 h-full">
-                        <div className="p-8 md:p-12 border-r border-white/5 flex flex-col justify-between">
-                            <ul className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 h-full">
+                        <div className="p-6 sm:p-8 md:p-12 border-b sm:border-b-0 border-r-0 sm:border-r border-white/5 flex flex-col justify-between">
+                            <ul className="space-y-4 sm:space-y-6">
                                 {navLinks.map((link) => (
                                     <li key={link.title}>
                                         <Link to={link.href} className="group flex items-center gap-3 text-sm font-anton uppercase tracking-[0.2em] italic transition-all duration-500 hover:text-[#D83600]">
@@ -273,7 +284,7 @@ export const Footer: React.FC = () => {
                             </ul>
 
                             {/* LEGAL LINKS BLOCK (Brutalist Protocol) */}
-                            <div className="mt-20 flex flex-wrap gap-x-6 gap-y-3 pt-10 border-t border-white/5">
+                            <div className="mt-12 sm:mt-20 flex flex-wrap gap-x-6 gap-y-3 pt-6 sm:pt-10 border-t border-white/5">
                                 {[
                                     { label: 'LEGAL', path: '/legal' },
                                     { label: 'TERMS', path: '/legal#terms' },
@@ -291,7 +302,7 @@ export const Footer: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="flex-1 grid grid-cols-3 divide-x divide-white/5 h-full">
+                        <div className="flex-1 grid grid-cols-3 divide-x divide-white/5 min-h-[90px] sm:h-full">
                             {socialLinks.map((link) => (
                                 <a
                                     key={link.title}

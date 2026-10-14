@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ShopNavbar } from '../components/shop/ShopNavbar';
 import { CartDrawer } from '../components/shop/CartDrawer';
 import { ShopHero } from '../components/shop/ShopHero';
 import { ServiceMatrix } from '../components/shop/ServiceMatrix/ServiceMatrix';
-import { ShopPromoPopup } from '../components/shop/ShopPromoPopup';
 import { Share2, Globe, Shield } from 'lucide-react';
 
 // Custom SVG Icons to match Lucide style (v1.7.0 compatibility)
@@ -140,7 +138,6 @@ const ShopPage = () => {
             </footer>
 
             <CartDrawer />
-            <ShopPromoPopup />
         </div>
     );
 };

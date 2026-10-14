@@ -11,47 +11,44 @@ import { Hero } from "./components/Hero";
 import { Services } from "./components/Services";
 import { Work } from "./components/Work";
 import { Footer } from "./components/Footer";
-import { ArsBot } from "./components/ArsBot";
+import { CustomCursor } from './components/CustomCursor';
+import { LoadingScreen } from "./components/LoadingScreen";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { CartDrawer } from "./components/shop/CartDrawer";
 import { CartProvider } from './context/CartContext';
 import { IntelligenceProvider } from './context/IntelligenceContext';
 import { CodeWatermark } from "./components/layout/CodeWatermark";
-import { HorizontalScrollSection } from "./components/fx/HorizontalScrollSection";
 import { MagneticCursor } from "./components/fx/MagneticCursor";
-import { ReverseVoidSystem } from "./components/fx/ReverseVoidSystem";
 
-// Lazy Loaded Pages
-const MarketingPage = React.lazy(() => import("./pages/MarketingPage"));
-const BrandingPage = React.lazy(() => import("./pages/BrandingPage"));
-const GamingPage = React.lazy(() => import("./pages/GamingPage"));
-const DevAIPage = React.lazy(() => import("./pages/DevAIPage"));
-
-const ShopPage = React.lazy(() => import("./pages/ShopPage"));
-const TestimonialsPage = React.lazy(() => import("./pages/TestimonialsPage").then(module => ({ default: module.TestimonialsPage })));
+// Active Pages
 const SuccessPage = React.lazy(() => import("./pages/SuccessPage"));
 const CancelPage = React.lazy(() => import("./pages/CancelPage"));
 const ContactPage = React.lazy(() => import("./pages/ContactPage"));
-// Removed WorkIndexPage for section targeting instead of page.
-const AboutPage = React.lazy(() => import("./pages/AboutPage").then(module => ({ default: module.AboutPage })));
 const LegalPage = React.lazy(() => import("./pages/LegalPage").then(module => ({ default: module.LegalPage })));
 const ArchivePage = React.lazy(() => import("./pages/ArchivePage"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage").then(module => ({ default: module.NotFoundPage })));
+
+// Decoupled sub-pages (preserved in codebase, not compiled into build)
+// const MarketingPage = React.lazy(() => import("./pages/MarketingPage"));
+// const BrandingPage = React.lazy(() => import("./pages/BrandingPage"));
+// const GamingPage = React.lazy(() => import("./pages/GamingPage"));
+// const DevAIPage = React.lazy(() => import("./pages/DevAIPage"));
+// const ServicesIndexPage = React.lazy(() => import("./pages/ServicesIndexPage"));
+// const ShopPage = React.lazy(() => import("./pages/ShopPage"));
+// const TestimonialsPage = React.lazy(() => import("./pages/TestimonialsPage").then(module => ({ default: module.TestimonialsPage })));
+// const AboutPage = React.lazy(() => import("./pages/AboutPage").then(module => ({ default: module.AboutPage })));
+
+import { ServiceMatrix } from "./components/shop/ServiceMatrix/ServiceMatrix";
 
 const HomePage = () => {
   return (
     <>
       <Hero />
-      {/* 
-        Phase 2 Fix: Unifying horizontal and work sections within a persistent 
-        dark background container to mask the transparent .pin-spacers 
-        and visually eliminate the "Spatial Void" during the scroll transition.
-      */}
       <div className="bg-[#000000] relative overflow-hidden">
-        {/* <HorizontalScrollSection /> */}
         <Work />
       </div>
-      <Services />
+      {/* Agency Capabilities and Product Ranking from Shop */}
+      <ServiceMatrix />
     </>
   );
 };
@@ -62,9 +59,39 @@ const FooterWrapper = () => {
     return <Footer />;
 };
 
+import { useAudioDesign } from './hooks/useAudioDesign';
+
+// Static, fixed architectural background across the entire app (50% opacity, motionless)
+const AtmosphericBackground = () => (
+    <>
+        <div 
+            className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+            style={{ position: 'fixed', transform: 'none' }}
+        >
+            <img 
+                src="/site-static/shop/matrix_monolith.webp" 
+                alt="" 
+                className="w-full h-full object-cover opacity-50 brightness-90 contrast-125"
+                style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', objectFit: 'cover' }}
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div 
+                className="absolute inset-0 opacity-[0.04] mix-blend-overlay"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+                }}
+            />
+        </div>
+    </>
+);
+
 const GlobalShell = ({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+    useAudioDesign();
+    
     return (
         <>
+            <AtmosphericBackground />
+            <CustomCursor />
             <Navigation isOpen={isOpen} setIsOpen={setIsOpen} />
             <CartDrawer />
         </>
@@ -77,21 +104,24 @@ const AnimatedRoutes = () => {
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
-                {/* Standalone work page removed in favor of Section on homepage */}
-                <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+                
+                {/* Utility / Essential routes kept active */}
                 <Route path="/legal" element={<PageTransition><LegalPage /></PageTransition>} />
-
-                <Route path="/marketing" element={<PageTransition><MarketingPage /></PageTransition>} />
-                <Route path="/branding" element={<PageTransition><BrandingPage /></PageTransition>} />
-                <Route path="/gaming" element={<PageTransition><GamingPage /></PageTransition>} />
-                <Route path="/dev-ai" element={<PageTransition><DevAIPage /></PageTransition>} />
-                <Route path="/shop" element={<PageTransition><ShopPage /></PageTransition>} />
-
-                <Route path="/transmissions" element={<PageTransition><TestimonialsPage /></PageTransition>} />
                 <Route path="/success" element={<PageTransition><SuccessPage /></PageTransition>} />
                 <Route path="/cancel" element={<PageTransition><CancelPage /></PageTransition>} />
                 <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
                 <Route path="/archive/:id" element={<PageTransition><ArchivePage /></PageTransition>} />
+
+                {/* Decoupled sub-pages (preserved for future scaling)
+                <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+                <Route path="/marketing" element={<PageTransition><MarketingPage /></PageTransition>} />
+                <Route path="/branding" element={<PageTransition><BrandingPage /></PageTransition>} />
+                <Route path="/gaming" element={<PageTransition><GamingPage /></PageTransition>} />
+                <Route path="/dev-ai" element={<PageTransition><DevAIPage /></PageTransition>} />
+                <Route path="/services" element={<PageTransition><ServicesIndexPage /></PageTransition>} />
+                <Route path="/shop" element={<PageTransition><ShopPage /></PageTransition>} />
+                <Route path="/transmissions" element={<PageTransition><TestimonialsPage /></PageTransition>} />
+                */}
 
                 <Route path="*" element={<PageTransition><NotFoundPage /></PageTransition>} />
             </Routes>
@@ -136,12 +166,6 @@ const App = () => {
     }, []);
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const [botLoaded, setBotLoaded] = React.useState(false);
-
-    React.useEffect(() => {
-        const timer = setTimeout(() => setBotLoaded(true), 2000);
-        return () => clearTimeout(timer);
-    }, []);
 
     return (
         <IntelligenceProvider>
@@ -161,7 +185,6 @@ const App = () => {
                     </div>
 
                     <FooterWrapper />
-                    <ArsBot loaded={botLoaded} isMenuOpen={isMenuOpen} />
                 </div>
             </Router>
         </CartProvider>

@@ -108,7 +108,7 @@ export const PremiumArchiveGallery: React.FC<PremiumArchiveGalleryProps> = ({
         <div className="relative w-full max-w-[1300px] aspect-[16/9] mx-auto group perspective-[2000px]">
 
             {/* Main Image Container (Redesigned as a Premium Floating Glass Card) */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.9)] border border-white/5 bg-[#050505] transformation-style-3d">
+            <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.9)] border border-white/5 bg-[#050505] transformation-style-3d">
                 
                 {/* Image Layer with Animation Preservation */}
                 <AnimatePresence 
@@ -132,8 +132,8 @@ export const PremiumArchiveGallery: React.FC<PremiumArchiveGalleryProps> = ({
                 {/* Glassmorphism Overlays & Textures */}
                 <div className="absolute inset-0 pointer-events-none z-20">
                     {/* Subtle Corner Accents */}
-                    <div className="absolute top-0 left-0 w-32 h-32 border-t border-l border-white/10 rounded-tl-2xl" />
-                    <div className="absolute bottom-0 right-0 w-32 h-32 border-b border-r border-white/10 rounded-br-2xl" />
+                    <div className="absolute top-0 left-0 w-32 h-32 border-t border-l border-white/10 rounded-tl-[2rem]" />
+                    <div className="absolute bottom-0 right-0 w-32 h-32 border-b border-r border-white/10 rounded-br-[2rem]" />
                     
                     {/* Vignette */}
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] opacity-60" />

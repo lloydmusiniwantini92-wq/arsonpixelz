@@ -25,7 +25,7 @@ export const CartDrawer = () => {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 h-full w-full max-w-md bg-[#0F0F0F] border-l border-[#333] z-50 shadow-2xl flex flex-col"
+                        className="fixed right-0 top-0 h-full w-full max-w-md bg-[#0F0F0F] border-l border-[#333] z-50 shadow-2xl flex flex-col rounded-l-[2rem] overflow-hidden"
                     >
                         {/* Header */}
                         <div className="p-6 border-b border-white/5 flex justify-between items-center bg-[#080808] relative">
@@ -37,6 +37,7 @@ export const CartDrawer = () => {
                             <button
                                 onClick={() => setIsCartOpen(false)}
                                 className="p-2 text-gray-400 hover:text-white transition-colors"
+                                aria-label="Close cart"
                             >
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
@@ -142,13 +143,13 @@ export const CartDrawer = () => {
                                                 alert("Checkout failed to setup. See console for details.");
                                             }
                                         }}
-                                    className="w-full font-sans text-[11px] font-black uppercase tracking-[0.3em] px-6 py-4 bg-[#D83600] text-black hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(255,62,0,0.3)] mb-4"
+                                    className="w-full font-sans text-[11px] font-black uppercase tracking-[0.3em] px-6 py-4 bg-[#D83600] text-black hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(255,62,0,0.3)] mb-4 rounded-full"
                                 >
                                     INITIALIZE CHECKOUT
                                 </button>
                                 <button
                                     onClick={clearCart}
-                                    className="w-full text-[9px] font-mono text-center text-white/20 hover:text-[#D83600] uppercase tracking-widest transition-colors duration-200"
+                                    className="w-full text-[9px] font-mono text-center text-white/20 hover:text-[#D83600] uppercase tracking-widest transition-colors duration-200 rounded-full py-2"
                                 >
                                     // FLUSH SYSTEM //
                                 </button>

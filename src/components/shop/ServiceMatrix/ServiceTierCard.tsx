@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { PricingTier } from '../../../data/services';
-import { useCart } from '../../../context/CartContext';
 import { useIntelligence } from '../../../context/IntelligenceContext';
 
 interface ServiceTierCardProps {
@@ -11,25 +11,17 @@ interface ServiceTierCardProps {
 }
 
 export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, categoryId }) => {
-    const { addToCart } = useCart();
+    const navigate = useNavigate();
     const { setHoverTarget } = useIntelligence();
     const [isHovered, setIsHovered] = useState(false);
 
-
-
-    const handleAcquire = () => {
-        const productAdapter = {
-            id: `${categoryId}-${tier.title.toLowerCase().replace(/\s+/g, '-')}`,
-            title: tier.title,
-            description: tier.description,
-            price: tier.price,
-            priceValue: parseInt(tier.price.replace(/[^0-9]/g, '')) || 0,
-            category: 'service' as any,
-            image: `https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80`,
-            tags: [tier.turnaround],
-            stripePriceId: tier.stripePriceId
-        };
-        addToCart(productAdapter);
+    const handleInitiateProtocol = () => {
+        const params = new URLSearchParams({
+            tier: `${rankConfigs[index]?.label || 'TIER'} // ${tier.title}`,
+            category: categoryId,
+            scope: tier.turnaround
+        });
+        navigate(`/contact?${params.toString()}`);
     };
 
     const isPremium = index === 1;
@@ -60,17 +52,26 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
 
     const config = rankConfigs[index] || rankConfigs[2];
 
+    const [isDesktopGrid, setIsDesktopGrid] = useState(false);
+
+    React.useEffect(() => {
+        const checkGrid = () => setIsDesktopGrid(typeof window !== 'undefined' && window.innerWidth >= 1280);
+        checkGrid();
+        window.addEventListener('resize', checkGrid);
+        return () => window.removeEventListener('resize', checkGrid);
+    }, []);
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ 
                 opacity: 1, 
-                y: isPremium ? 64 : 0,
+                y: (isPremium && isDesktopGrid) ? 48 : 0,
                 zIndex: isHovered ? 50 : (isPremium ? 20 : 1)
             }}
             whileHover={{ 
-                scale: isPremium ? 1.08 : 1.05,
-                y: isPremium ? 52 : -12,
+                scale: isPremium ? 1.05 : 1.03,
+                y: (isPremium && isDesktopGrid) ? 36 : -8,
                 transition: { type: "spring", stiffness: 400, damping: 25 }
             }}
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -81,14 +82,14 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                     type: 'service',
                     name: tier.title,
                     description: tier.description,
-                    level: 'high' // Assumed high intent if hovering a price card
+                    level: 'high'
                 });
             }}
             onMouseLeave={() => {
                 setIsHovered(false);
                 setHoverTarget(null);
             }}
-            className={`group relative flex flex-col pt-4 px-8 pb-8 transition-colors duration-500 overflow-hidden border-0 rounded-none cursor-pointer
+            className={`group relative flex flex-col pt-4 px-6 sm:px-8 pb-8 transition-colors duration-500 overflow-hidden border-0 rounded-[2rem] cursor-pointer
                 ${isPremium 
                     ? 'bg-[#1b1b1b] shadow-[0_40px_80px_rgba(255,62,0,0.25)] ring-2 ring-[#D83600]' 
                     : 'bg-[#131313] hover:bg-[#1b1b1b] ring-1 ring-white/5 hover:ring-[#D83600]/40 shadow-xl hover:shadow-[0_30px_60px_rgba(255,62,0,0.2)]'}
@@ -115,7 +116,7 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                     </span>
                 </div>
                 
-                {/* Ranking Badge & Title Group - Restored to Original Alignment & Scaling */}
+                {/* Ranking Badge & Title Group */}
                 <div className="flex items-center gap-6 mb-2">
                     <div className={`
                         relative w-24 md:w-32 flex-shrink-0 flex flex-col items-center justify-center
@@ -152,11 +153,11 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                 ))}
             </div>
 
-            {/* Price Footer */}
+            {/* Quote / Turnaround Footer */}
             <div className={`relative z-10 mt-auto pt-8 border-t ${isPremium ? 'border-[#D83600]/30' : 'border-white/5'} flex flex-col gap-6`}>
                 <div className="flex justify-between items-baseline">
-                    <div className="font-space font-black text-5xl md:text-6xl text-white tracking-tighter">
-                        {tier.price.split(' ')[0]}
+                    <div className="font-space font-black text-2xl md:text-3xl text-white tracking-tighter uppercase">
+                        CUSTOM QUOTE
                     </div>
                     <div className="text-right">
                         <span className="block font-inter font-mono text-[10px] text-[#D83600] font-black tracking-widest">
@@ -166,18 +167,16 @@ export const ServiceTierCard: React.FC<ServiceTierCardProps> = ({ tier, index, c
                 </div>
                 
                 <button
-                    onClick={handleAcquire}
-                    className={`w-full py-6 font-['Anton'] font-bold uppercase text-lg md:text-xl tracking-[0.2em] transition-all transform active:scale-95 duration-500 rounded-none shadow-2xl
+                    onClick={handleInitiateProtocol}
+                    className={`w-full py-6 font-['Anton'] font-bold uppercase text-lg md:text-xl tracking-[0.2em] transition-all transform active:scale-95 duration-500 rounded-full shadow-2xl
                         ${isPremium 
                             ? 'bg-[#D83600] text-white hover:bg-white hover:text-black shadow-[0_0_30px_rgba(255,62,0,0.4)]' 
                             : 'bg-transparent border border-[#D83600] text-[#D83600] hover:bg-white hover:text-black hover:border-white'}
                     `}
                 >
-                    SECURE DOMINANCE
+                    INITIATE PROTOCOL
                 </button>
             </div>
-
-            {/* Status Footer - REMOVED FOR MONOLITHIC PURITY */}
         </motion.div>
     );
 };

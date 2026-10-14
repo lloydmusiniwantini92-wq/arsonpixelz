@@ -64,6 +64,14 @@ const ShopIcon = memo(({ className, scrolled }: { className?: string; scrolled?:
 ));
 ShopIcon.displayName = 'ShopIcon';
 
+const ContactIcon = memo(({ className, scrolled }: { className?: string; scrolled?: boolean }) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={className} aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2" vectorEffect="non-scaling-stroke" />
+        <path d="M3 7l9 6l9-6" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+    </svg>
+));
+ContactIcon.displayName = 'ContactIcon';
+
 const TransmissionsIcon = memo(({ className }: { className?: string }) => (
     <SignalIcon className={className} strokeWidth={1.5} />
 ));
@@ -275,6 +283,7 @@ const TopNavLink = memo(({
 }) => {
     const [hovered, setHovered] = useState(false);
     const location = useLocation();
+    const { lenis } = useIgnition();
 
     const handleMouseEnter = useCallback(() => setHovered(true), []);
     const handleMouseLeave = useCallback(() => setHovered(false), []);
@@ -284,9 +293,41 @@ const TopNavLink = memo(({
     const isHeroState = location.pathname === '/' && !scrolled;
 
     const handleClick = (e: React.MouseEvent) => {
-        if (isShop && location.pathname === '/shop' && onCartClick) {
+        if (isShop && onCartClick && cartCount > 0) {
             e.preventDefault();
             onCartClick(e);
+            return;
+        }
+
+        if (href.includes('#')) {
+            const [targetPath, targetHash] = href.split('#');
+            const isTargetHome = targetPath === '' || targetPath === '/';
+            const isCurrentHome = location.pathname === '/';
+            const isSamePage = targetPath === location.pathname || (isTargetHome && isCurrentHome);
+
+            if (isSamePage) {
+                e.preventDefault();
+                const element = document.getElementById(targetHash);
+                if (element) {
+                    if (lenis) {
+                        lenis.scrollTo(element, { 
+                            offset: targetHash === 'bottom' ? 0 : -50, 
+                            duration: 1.2,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        });
+                    } else {
+                        element.scrollIntoView({ behavior: 'smooth', block: targetHash === 'bottom' ? 'end' : 'start' });
+                    }
+                    window.history.pushState(null, '', href);
+                } else if (targetHash === 'bottom') {
+                    if (lenis) {
+                        lenis.scrollTo(document.body.scrollHeight, { duration: 1.2 });
+                    } else {
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    }
+                    window.history.pushState(null, '', href);
+                }
+            }
         }
     };
 
@@ -294,7 +335,7 @@ const TopNavLink = memo(({
         <Link
             to={href}
             className={cn(
-                "group relative flex flex-col items-center justify-center px-8 md:px-12 h-full transition-all duration-500 pointer-events-auto overflow-visible",
+                "group relative flex flex-col items-center justify-center px-6 md:px-10 h-full transition-all duration-500 pointer-events-auto overflow-visible cursor-pointer",
                 isArsonInfected ? "text-[#D83600] drop-shadow-[0_0_15px_rgba(255,62,0,0.8)]" : "text-white",
                 isHeroState && "gap-1"
             )}
@@ -303,6 +344,7 @@ const TopNavLink = memo(({
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
             aria-label={label}
+            data-track={isShop ? "shop_link" : `nav_${label.toLowerCase().replace(/ /g, '_')}`}
         >
             {isHeroState && (
                 <motion.div 
@@ -315,7 +357,7 @@ const TopNavLink = memo(({
                     <Icon className={cn(
                         isArsonInfected ? "transition-all duration-[150ms] ease-in" : "transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
                         isArsonInfected ? 'text-[#D83600] opacity-100 drop-shadow-[0_0_24px_rgba(255,62,0,1)]' : 'text-white',
-                        (label === 'Shop' && isHeroState) ? "w-[16px] h-[16px]" : "w-[24px] h-[24px]"
+                        (label === 'Shop' && isHeroState) ? "w-[18px] h-[18px]" : "w-[20px] h-[20px]"
                     )} 
                     scrolled={scrolled}
                     />
@@ -350,7 +392,7 @@ const TopNavLink = memo(({
             </motion.div>
 
             {hasItems && (
-                <span className="absolute top-1/2 -translate-y-6 right-2 bg-[#D83600] text-[#000000] px-1 py-0.5 text-[7px] font-black rounded-sm shadow-[0_0_10px_#D83600]">
+                <span className="absolute top-1/2 -translate-y-6 right-2 bg-[#D83600] text-[#000000] px-1 py-0.5 text-[7px] font-black rounded-full shadow-[0_0_10px_#D83600]">
                     {cartCount}
                 </span>
             )}
@@ -467,7 +509,7 @@ const OriginalLogo = ({
       initial={false}
       animate={{ opacity: 1 }}
       className={cn(
-        'fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto max-w-[calc(100vw-80px)] overflow-visible',
+        'fixed top-[21.5px] left-6 md:left-[70px] z-[9999] pointer-events-auto max-w-[calc(100vw-80px)] overflow-visible',
         arsonStatus === 'complete' && 'transition-none'
       )}
     >
@@ -589,10 +631,11 @@ const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }
             onMouseEnter={() => onHoverChange(true)}
             onMouseLeave={() => onHoverChange(false)}
             className={cn(
-                "group relative flex flex-col items-center justify-center p-12 text-center border-b border-white/5 transition-all duration-500 overflow-hidden",
+                "group relative flex flex-col items-center justify-center p-6 sm:p-8 md:p-12 text-center border-b border-white/5 transition-all duration-500 overflow-hidden",
                 isHovered ? "bg-white/5" : "hover:bg-white/[0.02]"
             )}
             style={{ perspective: '1000px' }}
+            data-track={label.toLowerCase().includes('store') || label.toLowerCase().includes('shop') ? "shop_link" : `menu_${label.toLowerCase().replace(/ /g, '_')}`}
         >
             <motion.div 
                 animate={{ 
@@ -603,12 +646,12 @@ const MenuLink = memo(({ label, href, index, onClick, isHovered, onHoverChange }
                 }}
                 className="relative z-10 flex flex-col items-center"
             >
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-4 md:mb-6">
                     <div className="w-8 h-[1px] bg-[#D83600]/40" />
                 </div>
                 <div 
                     className={cn(
-                        "uppercase tracking-tighter text-4xl md:text-5xl lg:text-7xl transition-all duration-500 flex flex-col leading-[0.85]",
+                        "uppercase tracking-tighter text-3xl sm:text-4xl md:text-5xl lg:text-7xl transition-all duration-500 flex flex-col leading-[0.85]",
                         isHovered ? "text-[#D83600] drop-shadow-[0_0_20px_rgba(255,62,0,0.6)]" : "text-white"
                     )}
                     style={{ fontFamily: 'Anton, sans-serif' }}
@@ -649,11 +692,9 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
     const { lenis } = useIgnition();
 
     const navItems = useMemo(() => [
-        { label: "Branding", href: "/branding", icon: BrandingIcon },
-        { label: "Dev / AI", href: "/dev-ai", icon: DevAiIcon },
-        { label: "Marketing", href: "/marketing", icon: MarketingIcon },
-        { label: "Gaming", href: "/gaming", icon: GamingIcon },
-        { label: "Shop", href: "/shop", icon: ShopIcon },
+        { label: "Works", href: "/#work-section", icon: BrandingIcon },
+        { label: "Shop", href: "/#agency-capabilities", icon: ShopIcon },
+        { label: "Contact Us", href: "/contact#bottom", icon: ContactIcon },
     ], []);
 
     // NEW LOGIC: Lock in the permanent orange branding the moment the sequence hits the hamburger
@@ -664,14 +705,10 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
     }, [infectedIndex, navItems.length]);
 
     const menuLinks = useMemo(() => [
-        { label: "Brand Ignition",        href: "/branding",      image: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=1600&q=80&auto=format" },
-        { label: "Digital Architecture",  href: "/dev-ai",        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&auto=format" },
-        { label: "Market Acceleration",   href: "/marketing",     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80&auto=format" },
-        { label: "Gaming Experiences",    href: "/gaming",        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600&q=80&auto=format" },
-        { label: "Studio Core",        href: "/about",         image: "https://images.unsplash.com/photo-1549451371-64aa98a6f660?w=1600&q=80&auto=format" },
-        { label: "Proof Projects",        href: "/#work-section",  image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
-        { label: "Arson Store",            href: "/shop",          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600&q=80&auto=format" },
-        { label: "Initiate Protocol",     href: "/contact",       image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80&auto=format" },
+        { label: "Selected Works",       href: "/#work-section",         image: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=1600&q=80&auto=format" },
+        { label: "Agency Capabilities",  href: "/#agency-capabilities",  image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&auto=format" },
+        { label: "Product Ranking",      href: "/#agency-capabilities",  image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80&auto=format" },
+        { label: "Contact Us",           href: "/contact#bottom",        image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80&auto=format" },
     ], []);
 
     const socialLinks = useMemo(() => [
@@ -763,14 +800,27 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
         const isHash = href.includes('#');
         if (isHash) {
             const [path, hash] = href.split('#');
-            if (location.pathname === path || (path === '/' && location.pathname === '')) {
+            const isSamePage = location.pathname === path || (path === '/' && location.pathname === '');
+            if (isSamePage) {
                 e.preventDefault();
                 setIsOpen(false);
                 const element = document.getElementById(hash);
                 if (element) {
                     setTimeout(() => {
-                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
+                        if (lenis) {
+                            lenis.scrollTo(element, { offset: hash === 'bottom' ? 0 : -50, duration: 1.2 });
+                        } else {
+                            element.scrollIntoView({ behavior: 'smooth', block: hash === 'bottom' ? 'end' : 'start' });
+                        }
+                    }, 120);
+                } else if (hash === 'bottom') {
+                    setTimeout(() => {
+                        if (lenis) {
+                            lenis.scrollTo(document.body.scrollHeight, { duration: 1.2 });
+                        } else {
+                            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                        }
+                    }, 120);
                 }
             } else {
                 setIsOpen(false);
@@ -778,7 +828,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
         } else {
             setIsOpen(false);
         }
-    }, [location.pathname]);
+    }, [location.pathname, lenis, setIsOpen]);
     
     const isHeroState = location.pathname === '/' && !scrolled;
 
@@ -812,7 +862,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="fixed top-[21.5px] left-[45px] md:left-[70px] z-[9999] pointer-events-auto"
+                                className="fixed top-[21.5px] left-6 md:left-[70px] z-[9999] pointer-events-auto"
                             >
                                 <Link
                                     to="/"
@@ -854,7 +904,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                         <TopNavLink 
                                             key={item.label}
                                             {...item}
-                                            isActive={location.pathname === item.href}
+                                            isActive={location.pathname === item.href || (item.href.startsWith('/#') && location.pathname === '/' && location.hash === item.href.replace('/', '')) || (item.href.startsWith('/contact') && location.pathname === '/contact')}
                                             isHUDActive={isHUDActive}
                                             hudIntensity={hudIntensity}
                                             scrolled={scrolled}
@@ -866,7 +916,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                             isAshy={ arsonStatus === 'infecting_nodes' && infectedIndex < i }
                                             arsonStatus={arsonStatus}
                                             offsetX={0}
-                                            offsetY={(item.label === 'Branding' && isHeroState) ? 8 : (item.label === 'Gaming' ? 4 : (item.label === 'Marketing' ? 2 : 0))}
+                                            offsetY={0}
                                         />
                                     </motion.div>
                                 ))}
@@ -1000,7 +1050,7 @@ export const Navigation: React.FC<{ isOpen: boolean; setIsOpen: React.Dispatch<R
                                 </div>
                                 
                                 {/* Centralized Scroll Indicator */}
-                                <div className="absolute left-1/2 bottom-8 -translate-x-1/2 flex flex-col items-center pointer-events-none z-30">
+                                <div className="hidden md:flex absolute left-1/2 bottom-8 -translate-x-1/2 flex-col items-center pointer-events-none z-30">
                                     <div className="flex flex-col items-center gap-1">
                                         <span className="font-mono text-[#D83600] text-[10px] tracking-[0.5em] animate-pulse mb-[-2px]">
                                             SCROLL

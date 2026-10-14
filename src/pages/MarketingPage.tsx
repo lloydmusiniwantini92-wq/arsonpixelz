@@ -387,7 +387,7 @@ const MarketingPage: React.FC = () => {
                         <div key={cap.id} className={`cap-row grid lg:grid-cols-12 gap-12 items-center ${index % 2 !== 0 ? 'lg:grid-flow-col-dense' : ''}`}>
                             
                             {/* Visual Abstract side */}
-                             <div className={`cap-visual lg:col-span-12 xl:col-span-5 h-[500px] border border-white/10 bg-[#0A0A0A] relative overflow-hidden flex items-center justify-center group ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
+                             <div className={`cap-visual lg:col-span-12 xl:col-span-5 h-[500px] border border-white/10 bg-[#0A0A0A] relative overflow-hidden flex items-center justify-center group rounded-[2rem] ${index % 2 !== 0 ? 'lg:col-start-8' : ''}`}>
                                   <img 
                                      src={cap.image} 
                                      alt={cap.title}
@@ -490,7 +490,7 @@ const MarketingPage: React.FC = () => {
                                 <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
 
                                 {/* Heavy Industrial Number Block */}
-                                <div className="relative shrink-0 w-32 h-32 md:w-48 md:h-48 bg-[#D83600] flex items-center justify-center text-[#000000] text-6xl md:text-8xl font-black font-mono leading-none border-[2px] border-white transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] shadow-[8px_8px_0px_rgba(255,255,255,0.9)] z-20">
+                                <div className="relative shrink-0 w-32 h-32 md:w-48 md:h-48 bg-[#D83600] flex items-center justify-center text-[#000000] text-6xl md:text-8xl font-black font-mono leading-none border-[2px] border-white transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] shadow-[8px_8px_0px_rgba(255,255,255,0.9)] z-20 rounded-[2rem]">
                                     {/* Hazard Stripes */}
                                     <div className="absolute inset-0 opacity-[0.15] bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#000_10px,#000_20px)]" />
                                     <span className="relative z-10">{step.num}</span>

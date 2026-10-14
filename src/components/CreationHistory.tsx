@@ -37,11 +37,11 @@ export const CreationHistory: React.FC<CreationHistoryProps> = ({ history, onSel
             <button
               key={item.id}
               onClick={() => onSelect(item)}
-              className="group flex-shrink-0 relative flex flex-col text-left w-44 h-28 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-600 rounded-lg transition-all duration-200 overflow-hidden"
+              className="group flex-shrink-0 relative flex flex-col text-left w-44 h-28 bg-zinc-900/50 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-600 rounded-[2rem] transition-all duration-200 overflow-hidden"
             >
               <div className="p-4 flex flex-col h-full">
                 <div className="flex items-start justify-between mb-2">
-                  <div className="p-1.5 bg-zinc-800 rounded group-hover:bg-zinc-700 transition-colors border border-zinc-700/50">
+                  <div className="p-1.5 bg-zinc-800 rounded-full group-hover:bg-zinc-700 transition-colors border border-zinc-700/50">
                       {isPdf ? (
                           <DocumentIcon className="w-4 h-4 text-zinc-400" />
                       ) : item.originalImage ? (

@@ -7,7 +7,7 @@ interface BrutalistButtonProps {
     onClick?: () => void;
     to?: string;
     href?: string;
-    variant?: 'black' | 'white' | 'orange';
+    variant?: 'black' | 'white' | 'orange' | 'green';
     size?: 'sm' | 'md' | 'lg' | 'xl';
     icon?: React.ReactNode;
     className?: string;
@@ -69,6 +69,7 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
         black: 'bg-black text-white',
         white: 'bg-white text-black border border-black/10',
         orange: 'bg-[#D83600] text-white',
+        green: 'bg-[#25D366] text-black font-bold border border-black/20',
     };
 
     const sizes = {
@@ -79,7 +80,7 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
     };
 
     const baseColorName = variant;
-    const hoverColorName = variant === 'black' ? 'white' : variant === 'white' ? 'black' : 'white';
+    const hoverColorName = variant === 'black' ? 'white' : variant === 'white' ? 'black' : variant === 'green' ? 'black' : 'white';
 
     // 1. Ensure initial shadow is distinct from initial surface
     let actualShadowColor = finalShadowColor;
@@ -97,10 +98,12 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
 
     const hoverBg = variant === 'black' ? 'rgb(255,255,255)' : 
                    variant === 'white' ? 'rgb(0,0,0)' : 
+                   variant === 'green' ? 'rgb(18, 140, 126)' :
                    'rgb(255,255,255)';
     
     const hoverText = variant === 'black' ? 'rgb(0,0,0)' : 
                      variant === 'white' ? 'rgb(255,255,255)' : 
+                     variant === 'green' ? 'rgb(255,255,255)' :
                      '#D83600';
 
     // Core Button Rendering Logic
@@ -116,7 +119,7 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
         >
             {/* The 3D Shadow Layer */}
             <motion.div 
-                className="absolute inset-0 z-0"
+                className="absolute inset-0 z-0 rounded-full"
                 variants={{
                     initial: { x: 8, y: 8, backgroundColor: shadowHex },
                     hover: { x: 12, y: 12, backgroundColor: inverseShadowHex },
@@ -127,7 +130,7 @@ export const BrutalistButton: React.FC<BrutalistButtonProps> = ({
 
             {/* The Interactive Surface */}
             <motion.div
-                className={`relative z-10 font-anton uppercase font-black transition-all duration-300 ${bgColors[variant]} ${sizes[size]} flex items-center justify-center gap-3 ${className}`}
+                className={`relative z-10 font-anton uppercase font-black rounded-full ${bgColors[variant]} ${sizes[size]} flex items-center justify-center gap-3 ${className}`}
                 style={{ fontFamily: 'Anton, sans-serif' }}
                 variants={{
                     initial: { x: 0, y: 0 },

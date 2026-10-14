@@ -3,6 +3,7 @@ import { motion, useSpring, useMotionValue } from 'framer-motion';
 import { createPortal } from 'react-dom';
 
 export const MagneticCursor = () => {
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const cursorSize = isHovering ? 60 : 15;
 
@@ -13,6 +14,14 @@ export const MagneticCursor = () => {
     const smoothY = useSpring(mouseY, { damping: 40, stiffness: 300, mass: 0.8 });
 
     useEffect(() => {
+        const isTouch = 
+            'ontouchstart' in window || 
+            navigator.maxTouchPoints > 0 || 
+            window.matchMedia('(pointer: coarse)').matches;
+            
+        setIsTouchDevice(isTouch);
+        if (isTouch) return;
+
         const moveMouse = (e: MouseEvent) => {
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
@@ -36,6 +45,8 @@ export const MagneticCursor = () => {
         };
     }, []);
 
+    if (isTouchDevice) return null;
+
     // Create a portal to ensure cursor is top-most layer
     return createPortal(
         <motion.div
@@ -51,7 +62,7 @@ export const MagneticCursor = () => {
                 animate={{
                     width: cursorSize,
                     height: cursorSize,
-                    backgroundColor: isHovering ? '#FFF' : '#FFF',
+                    backgroundColor: isHovering ? '#D83600' : '#FFF',
                 }}
                 className="rounded-full"
             />

@@ -309,7 +309,7 @@ const DevAIPage: React.FC = () => {
             </div>
 
                     {/* METHODOLOGY SECTION */}
-                    <div className="py-24 md:py-32 bg-[#D83600] text-black relative z-10 border-t border-b border-black/10">
+                    <div className="py-24 md:py-32 bg-[#D83600] text-black relative z-10 border-t border-b border-black/10 rounded-[2rem]">
                         <div className="max-w-[90rem] mx-auto px-6 md:px-12">
                             <ScrollReveal staggerIndex={0}>
                                 <div className="mb-20">

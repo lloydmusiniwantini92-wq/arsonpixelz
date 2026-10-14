@@ -26,3 +26,15 @@ Thumbs.db
 .env
 node_modules
 dist
+
+# Testing & Playwright
+playwright-report/
+test-results/
+blob-report/
+coverage/
+
+# Local scripts & backend service with credentials
+python-service/
+check_site.js
+round.cjs
+test_ws.py

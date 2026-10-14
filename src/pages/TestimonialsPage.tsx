@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { testimonials, Testimonial } from '../data/testimonials';
-import { KineticBackground } from '../components/fx/KineticBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -269,7 +268,6 @@ export const TestimonialsPage: React.FC = () => {
         <div ref={containerRef} className="min-h-screen bg-[#020202] overflow-hidden relative">
             
             {/* Unified Stark-Tech Background */}
-            <KineticBackground progress={progress} className="opacity-20" />
             <div className="absolute inset-0 bg-[url('/site-static/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
             
             {/* ── BACKGROUND HEADER PANEL ── */}
@@ -312,7 +310,7 @@ export const TestimonialsPage: React.FC = () => {
                 {/* ── CALL TO ACTION CARD (UNTOUCHED CTA) ── */}
                 <div
                     onClick={() => navigate('/contact')}
-                    className="flex-none w-[85vw] md:w-[45vw] h-[75vh] mx-4 md:mx-8 relative overflow-hidden rounded-sm group border border-[#D16D6A]/30 bg-white/5 flex items-center justify-center cursor-pointer transition-colors duration-500 hover:bg-[#D16D6A] z-10"
+                    className="flex-none w-[85vw] md:w-[45vw] h-[75vh] mx-4 md:mx-8 relative overflow-hidden rounded-[2rem] group border border-[#D16D6A]/30 bg-white/5 flex items-center justify-center cursor-pointer transition-colors duration-500 hover:bg-[#D16D6A] z-10"
                 >
                     <div className="text-center group-hover:scale-105 transition-transform duration-700">
                         <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 group-hover:text-white mb-6 animate-pulse">

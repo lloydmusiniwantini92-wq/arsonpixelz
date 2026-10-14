@@ -165,8 +165,8 @@ export const Work: React.FC = () => {
             </div>
 
             {/* Content Overlay */}
-            <div className="relative z-10 flex-1 flex flex-col justify-end p-8 pb-16">
-              <div className="mb-8 flex flex-col items-start gap-3">
+            <div className="relative z-10 flex-1 flex flex-col justify-end p-6 sm:p-8 pb-12 sm:pb-16">
+              <div className="mb-6 sm:mb-8 flex flex-col items-start gap-2.5 sm:gap-3">
                 <div className="flex items-center gap-3">
                   <div className="w-1.5 h-1.5 bg-[#D83600] animate-pulse" />
                   <span className="text-white/40 font-mono text-[9px] tracking-[0.4em] ">
@@ -178,7 +178,7 @@ export const Work: React.FC = () => {
                 </span>
               </div>
 
-              <h3 className="text-white uppercase leading-[0.85] tracking-tighter mb-8" style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(3.5rem, 12vw, 6rem)' }}>
+              <h3 className="text-white uppercase leading-[0.85] tracking-tighter mb-6 sm:mb-8" style={{ fontFamily: 'Anton, sans-serif', fontSize: 'clamp(2.5rem, 11vw, 5.5rem)' }}>
                 {project.title1}<br />{project.title2}
               </h3>
 

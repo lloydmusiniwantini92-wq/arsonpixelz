@@ -318,7 +318,7 @@ const GamingPage: React.FC = () => {
                 {/* Services Grid */}
                 <div ref={cardsRef} className="grid md:grid-cols-2 gap-8 md:gap-12 mb-24">
                     {services.map((service, idx) => (
-                        <div key={idx} className="gaming-card group h-[450px] relative overflow-hidden flex flex-col justify-end bg-[#0A0A0A] border border-white/10 p-10 hover:border-[#D83600]/60 transition-all duration-700">
+                        <div key={idx} className="gaming-card group h-[450px] relative overflow-hidden flex flex-col justify-end bg-[#0A0A0A] border border-white/10 p-10 hover:border-[#D83600]/60 transition-all duration-700 rounded-[2rem]">
                             <img 
                                 src="/gaming_monolith.webp"
                                 alt={service.title}
@@ -337,7 +337,7 @@ const GamingPage: React.FC = () => {
 
                                 <button
                                     onClick={() => handleCheckout(service.stripePriceId)}
-                                    className="px-10 py-5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#D83600] hover:text-white transition-all transform active:scale-95"
+                                    className="px-10 py-5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-[#D83600] hover:text-white transition-all transform active:scale-95 rounded-full"
                                 >
                                     Force Protocol
                                 </button>
@@ -356,7 +356,7 @@ const GamingPage: React.FC = () => {
                         { label: 'PLAYER RATING', value: '5★' },
                         { label: 'AWARDS WON', value: '12+' }
                     ].map((stat, idx) => (
-                        <div key={idx} className="stat-node text-center p-6 bg-white/5 rounded-lg border border-white/5">
+                        <div key={idx} className="stat-node text-center p-6 bg-white/5 rounded-[2rem] border border-white/5">
                             <div className="text-4xl md:text-5xl font-black text-[#D83600] mb-2" style={{ fontFamily: 'Syne, sans-serif' }}>
                                 {stat.value}
                             </div>
@@ -369,7 +369,7 @@ const GamingPage: React.FC = () => {
 
                 {/* CTA */}
                 <div ref={ctaRef} className={`
-                    relative p-8 md:p-14 rounded-2xl bg-gradient-to-br from-[#D83600] to-[#E63900]
+                    relative p-8 md:p-14 rounded-[2rem] bg-gradient-to-br from-[#D83600] to-[#E63900]
                     overflow-hidden
                 `}>
 

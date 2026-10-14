@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BrutalistButton } from './common/BrutalistButton';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { KineticText } from './KineticText';
 import HeroBg from './assets/USE.webp';
 
 const ease = [0.23, 1, 0.32, 1]; // Premium Cinematic Easing
@@ -39,7 +40,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
     const yHeroImg = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
     return (
-        <div className="relative min-h-screen bg-[#E6E4DD] text-black overflow-hidden flex flex-col justify-end pb-24 md:pb-32 pt-40 pl-[45px] md:pl-[70px] pr-6 md:pr-12 w-full">
+        <div className="relative min-h-screen bg-[#E6E4DD] text-black overflow-hidden flex flex-col justify-end pb-36 sm:pb-32 md:pb-32 pt-36 md:pt-40 pl-6 sm:pl-10 md:pl-[70px] pr-6 md:pr-12 w-full">
             
             {/* Abstract Image Positioning (Using main site HeroBg) */}
             <motion.div 
@@ -65,34 +66,38 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                     style={{ fontFamily: 'Anton, sans-serif' }}
                 >
                     
-                    <div className="mb-[-4vw] md:mb-[-2vw]">
+                    <div className="mb-[-3vw] md:mb-[-2vw]">
                         <motion.div variants={itemVariants}>
-                            <h1 className="text-[clamp(38px,10vw,300px)] md:text-[clamp(60px,16vw,300px)] text-black leading-[0.95] md:leading-[0.8]">WE BUILD</h1>
+                            <KineticText intensity={1.2}>
+                                <h1 className="text-[clamp(34px,11vw,300px)] md:text-[clamp(60px,16vw,300px)] text-black leading-[0.95] md:leading-[0.8]">WE BUILD</h1>
+                            </KineticText>
                         </motion.div>
                     </div>
                     
-                    <div className="mix-blend-difference ml-0 md:ml-[15vw] mt-6 md:mt-0">
+                    <div className="mix-blend-difference ml-0 md:ml-[15vw] mt-4 sm:mt-6 md:mt-0">
                         <motion.div variants={itemVariants}>
-                            <h1 className="text-[clamp(34px,9vw,300px)] md:text-[clamp(60px,16vw,300px)] text-[#D83600] leading-[0.95] md:leading-[0.8]">EMPIRES_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT PAGES.</span></h1>
+                            <KineticText intensity={1.5}>
+                                <h1 className="text-[clamp(30px,10vw,300px)] md:text-[clamp(60px,16vw,300px)] text-[#D83600] leading-[0.95] md:leading-[0.8]">EMPIRES_<span className="text-white text-[clamp(20px,4vw,60px)] align-top ml-4 leading-none hidden md:inline-block">NOT PAGES.</span></h1>
+                            </KineticText>
                         </motion.div>
                     </div>
                     
                     <motion.div variants={itemVariants} className="mt-12 md:mt-20 ml-0 md:ml-[10vw]">
                         <div className="flex items-stretch gap-0">
-                            {/* Orange accent bar — grows from top on load */}
+                            {/* Soft Accent Pill — grows from top on load */}
                             <motion.div
                                 initial={{ scaleY: 0, originY: 0 }}
                                 animate={loaded ? { scaleY: 1 } : {}}
                                 transition={{ duration: 1.5, delay: 1.8, ease }}
-                                className="w-[1px] md:w-[2px] bg-[#D83600] mr-4 md:mr-5 shrink-0 origin-top"
+                                className="w-1.5 rounded-full bg-[#D83600] mr-6 md:mr-8 shrink-0 origin-top"
                             />
-                            <div className="flex flex-col gap-2 max-w-[220px] md:max-w-xs">
+                            <div className="flex flex-col gap-3 max-w-[260px] md:max-w-sm py-1">
                                 <motion.p
                                     initial={{ opacity: 0, filter: 'blur(6px)' }}
                                     animate={loaded ? { opacity: 1, filter: 'blur(0px)' } : {}}
                                     transition={{ duration: 2.0, delay: 2.2, ease }}
-                                    className="text-[10px] md:text-[13px] text-black/60 md:text-black/50 leading-relaxed md:leading-[1.85]"
-                                    style={{ fontFamily: 'IBM Plex Mono, monospace', maxWidth: '240px' }}
+                                    className="text-[12px] md:text-[14px] text-black/60 md:text-black/50 leading-relaxed normal-case tracking-normal"
+                                    style={{ fontFamily: 'IBM Plex Mono, monospace', maxWidth: '300px' }}
                                 >
                                     Full-spectrum creative agency. Engineered for enterprises that measure success not by presence — but by dominance.
                                 </motion.p>
@@ -101,7 +106,7 @@ export const HeroContent: React.FC<{ loaded: boolean }> = ({ loaded }) => {
                                     initial={{ opacity: 0 }}
                                     animate={loaded ? { opacity: 1 } : {}}
                                     transition={{ duration: 1.5, delay: 3.2, ease }}
-                                    className="flex items-center gap-2 mt-1 md:mt-2"
+                                    className="flex items-center gap-2 -mt-1"
                                 >
                                     <div className="w-3 md:w-4 h-[1px] bg-[#D83600]" />
                                     <span
